@@ -1,0 +1,39 @@
+Typefaces — provenance
+======================
+
+Three families, all under the SIL Open Font License 1.1 (full text in OFL.txt),
+downloaded from the Google Fonts CDN on 2026-09-17 and served from this origin.
+Nothing is modified: each file is the woff2 Google Fonts builds for that subset,
+so the unicode-range in style.css matches the file it guards. The page makes no
+third-party font request.
+
+Newsreader and Inter are variable fonts — one file covers every weight the page
+uses. DM Mono ships static weights, and the three here are the three the design
+system actually sets (300 / 400 / 500), so no weight is ever synthesised.
+
+family      role                      copyright
+----------  ------------------------  -------------------------------------------
+Newsreader  display: h1-h3, wordmark  Copyright 2019 The Newsreader Project
+                                      Authors (github.com/productiontype/Newsreader)
+Inter       text and interface        Copyright 2016 The Inter Project Authors
+                                      (github.com/rsms/inter)
+DM Mono     figures and identifiers   Copyright 2020 The DM Mono Project Authors
+                                      (github.com/googlefonts/dm-mono)
+
+file                                   subset
+-------------------------------------  ----------
+newsreader-200-800-normal-latin.woff2      latin
+newsreader-200-800-normal-latin-ext.woff2  latin-ext
+inter-400-700-normal-latin.woff2           latin
+inter-400-700-normal-latin-ext.woff2       latin-ext
+dmmono-300-normal-latin.woff2              latin
+dmmono-300-normal-latin-ext.woff2          latin-ext
+dmmono-400-normal-latin.woff2              latin
+dmmono-400-normal-latin-ext.woff2          latin-ext
+dmmono-500-normal-latin.woff2              latin
+dmmono-500-normal-latin-ext.woff2          latin-ext
+
+Replacing a family means replacing its @font-face block in style.css §00 and the
+--font-* token in §01 together: the fallback stacks are ordered so the page still
+reads in the same three voices if a file is missing, not so a swap can be half
+done.

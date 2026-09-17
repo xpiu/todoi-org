@@ -1,0 +1,68 @@
+# Todoi.org
+
+> A volunteer-run directory comparing twenty-five open-source and source-available browser-based task managers, each scored on six criteria with the reasoning published.
+
+Todoi.org compares task and project management systems. Two rules decide what is listed: the system must be usable in a browser, and its source must be open at least in part. Self-hosting is common among the entries but is not itself a requirement.
+
+Every project carries licensing model, community-size proxy, a repository star count, estimated integration surface, five capability checks (time tracking, agile boards, Gantt, calendar, open calendar sync) and six editorial criteria scored 1-5 (ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability), plus deployment, calendar sync, data-out routes, stack, hosted option and a repository link.
+
+Depth of research is not uniform, and the Research_Confidence field on every record states it. Eleven projects were researched first and read twice. Fourteen were added later the same day with checked facts and a considered first-pass score read once; most are marked Medium. Cite the confidence alongside the score.
+
+Every score carries a written justification, and each project record keeps a four-paragraph summary, its own caveat and its source list. The summary is on the page only: the CSV and the JSON-LD carry the comparison fields rather than the prose. Scores are editorial judgements, not benchmarks. Community size is a proxy drawn from repository signals and release cadence, not a deployment count. Star counts were read from the repository APIs on 17 September 2026 and are a visibility signal only; six of them carry a caveat on the page because the repository does not map onto the product. Integration figures are estimates of meaningful packaged connections; API and webhook extensibility is recorded separately.
+
+Licensing labels follow code terms: FOSS uses open-source licences; open core combines an open-source core with non-open-source additions; source-available uses restrictive source terms. Paid availability is recorded separately in capability marks and edition notes. OpenProject remains FOSS because its Enterprise add-ons are GPLv3 too. Cost is treated as operational burden and portability, not seat licences.
+
+Compiled 2026-09-17. Twake Workplace was researched and excluded: its named repository carries two commits and no task-management module.
+
+Crawlers and AI agents are welcome. Access rules live in `/robots.txt`. This file is a curated overview, not an access-control list.
+
+Corrections reach the directory at info@todoi.org. Send the source along with the correction; it is checked against the same criteria as everything else.
+
+## Site
+
+- [Home](https://todoi.org/): Directory and comparison matrix of browser-based open-source task managers. The whole directory is this one page.
+- [Dataset (CSV)](https://todoi.org/todoi-dataset-2026-09-17.csv): Every field for all twenty-five projects across 38 columns, including the six scores and their written justifications. Generated from the page during publication.
+- [Sitemap](https://todoi.org/sitemap.xml): URL list for search engines.
+- [llms.txt](https://todoi.org/llms.txt): This machine-readable index.
+
+## Sections of the page
+
+- [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-five projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.
+- [Where to start](https://todoi.org/#start): Eleven concrete situations mapped to the projects the research supports for each.
+- [How the scores work](https://todoi.org/#method): The six criteria, what each one measures, and the three licensing models kept apart.
+- [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, and how current the data is.
+- [Corrections and additions](https://todoi.org/#contribute): The two listing rules, research confidence, how to send a correction, and the revision log.
+
+## Projects assessed
+
+Ordered by community size, largest first, with alphabetical ties, matching the page. Scores are unweighted means of six editorial criteria, not an overall recommendation.
+
+- [Huly](https://huly.io/): All-in-one process, project, time and knowledge environment with a central team calendar. The hosted service closed in July 2026; self-hosting continues. FOSS, EPL-2.0. Score 4.1/5, confidence High. Source: https://github.com/hcengineering/platform
+- [OpenProject](https://www.openproject.org/): Classic, agile and hybrid project portfolio management with work packages, boards, Gantt, and native time and cost tracking. FOSS, GPL-3.0. Score 4.5/5, confidence High. Source: https://github.com/opf/openproject
+- [Plane](https://plane.so/): Product-development workspace built on work items, cycles, modules and initiatives, with the widest advertised integration surface here. Open core, AGPL for Community Edition. Score 4.6/5, confidence High. Source: https://github.com/makeplane/plane
+- [Redmine](https://www.redmine.org/): Two decades of configurable issue workflows, custom fields, multiple databases and a vast plugin ecosystem. Dated interface, exceptional survivability. FOSS, GPLv2. Score 4.3/5, confidence High. Source: https://github.com/redmine/redmine
+- [AFFiNE](https://affine.pro/): Documents, an infinite whiteboard and databases in one workspace, with tasks as database views rather than a tracker of their own. Source-available, MPL-2.0 client, EE backend. Score 3.5/5, confidence Medium. Source: https://github.com/toeverything/AFFiNE
+- [AppFlowy](https://appflowy.io/): A Notion-shaped workspace of nested documents and inline databases, where board, table and calendar are three views of the same records. Open core, AGPL-3.0. Score 3.8/5, confidence Medium. Source: https://github.com/AppFlowy-IO/AppFlowy
+- [Habitica](https://habitica.com/): Habits, dailies and to-dos wrapped in a role-playing game, where parties and guilds carry the accountability a manager otherwise would. FOSS, GPL-3.0. Score 3.1/5, confidence Medium. Source: https://github.com/HabitRPG/habitica
+- [Leantime](https://leantime.io/): Project management aimed at non-project-managers: tasks, Kanban, timelines, retrospectives, strategy boards and native timesheets. Open core, AGPLv3 core. Score 4.4/5, confidence High. Source: https://github.com/Leantime/leantime
+- [Logseq](https://logseq.com/): An outliner over plain Markdown and Org-mode files, where the task list is a query across notes you already wrote. FOSS, AGPL-3.0. Score 3.8/5, confidence Medium-high. Source: https://github.com/logseq/logseq
+- [Nextcloud Deck](https://nextcloud.com/): Kanban inside Nextcloud, worth testing before deploying a second platform if Nextcloud is already in place. FOSS, AGPL. Score 4.2/5, confidence High. Source: https://github.com/nextcloud/deck
+- [NocoDB](https://nocodb.com/): Puts grid, kanban, gallery, form and calendar views over a SQL database you already own, so the task board is a view rather than a new system of record. Open core, AGPL-3.0. Score 4.2/5, confidence Medium-high. Source: https://github.com/nocodb/nocodb
+- [PLANKA](https://planka.app/): Board-first Trello alternative. The Community edition is capable; timeline and calendar sit in the paid tiers. Source-available, Edition-dependent; not treated here as pure OSI FOSS. Score 4.2/5, confidence Medium-high. Source: https://github.com/plankanban/planka
+- [Taiga](https://taiga.io/): Agile-first: backlogs, sprint boards, burndowns, WIP limits and swimlanes, with no native Gantt, calendar or time tracking. FOSS, Open-source (project states 100% open source self-hosting). Score 4.2/5, confidence High. Source: https://github.com/taigaio
+- [Focalboard](https://www.focalboard.com/): Trello-shaped boards with table, gallery and calendar views over the same cards, from the Mattermost project and now maintained by whoever turns up. FOSS, MIT (personal server). Score 3.8/5, confidence High. Source: https://github.com/mattermost-community/focalboard
+- [Grist](https://www.getgrist.com/): A relational spreadsheet with Python formulas and cell-level access rules, where the tracker is something you assemble rather than something you are given. Open core, Apache-2.0 (grist-core). Score 4.2/5, confidence Medium-high. Source: https://github.com/gristlabs/grist-core
+- [Kanboard](https://kanboard.org/): Deliberately minimal Kanban with SQLite by default, a plugin architecture, and almost no operational surface area. FOSS, MIT. Score 4.3/5, confidence High. Source: https://github.com/kanboard/kanboard
+- [Kimai](https://www.kimai.org/): Timesheets first: activities, rates, budgets and invoices for teams whose tasks exist mainly to be billed. Open core, AGPL-3.0. Score 4.1/5, confidence Medium-high. Source: https://github.com/kimai/kimai
+- [Super Productivity](https://super-productivity.com/): A personal task list with pomodoro timing and timeboxing that pulls its work items out of the trackers your team already runs. FOSS, MIT. Score 3.8/5, confidence High. Source: https://github.com/johannesjo/super-productivity
+- [Taskwarrior](https://taskwarrior.org/): A command-line task manager with a tuneable urgency model; the browser arrives through third-party clients built on its sync protocol. FOSS, MIT. Score 3.4/5, confidence Medium-high. Source: https://github.com/GothenburgBitFactory/taskwarrior
+- [Trilium Notes](https://triliumnotes.org/): A scriptable hierarchical note tree. A first-party task list is in development; today a to-do is a note carrying a label. FOSS, AGPL-3.0. Score 3.6/5, confidence Medium. Source: https://github.com/TriliumNext/Trilium
+- [Vikunja](https://vikunja.io/): Lightweight, sovereignty-first task management with list, Kanban, Gantt and table views, CalDAV, and importers from the major SaaS tools. Open core, AGPL. Score 4.4/5, confidence High. Source: https://github.com/go-vikunja/vikunja
+- [Wekan](https://wekan.github.io/): A ten-year-old open-source Trello with swimlanes, checklists, subtasks, colour tags and rule-based automation. FOSS, MIT. Score 3.9/5, confidence Medium-high. Source: https://github.com/wekan/wekan
+- [Restyaboard](https://restya.com/board): A Trello-shaped board with offline caching, card-level messaging and email-to-card, effectively frozen since 2022. FOSS, OSL-3.0. Score 3.3/5, confidence Medium. Source: https://github.com/RestyaPlatform/board
+- [Titra](https://titra.io/): Time and task tracking for studios and agencies: assignments, budgets and burn rates against client projects. FOSS, AGPL-3.0. Score 3.7/5, confidence Medium. Source: https://github.com/kromitgmbh/titra
+- [Worklenz](https://worklenz.com/): Agency and services-firm workflow: client projects, billable time, task management and reporting. Open core, AGPL for core. Score 4.2/5, confidence Medium-high. Source: https://github.com/Worklenz/worklenz
+
+## Notes for citation
+
+Scores are editorial judgements published with their reasoning, not benchmark results. Cite the individual criterion and its justification rather than the mean, and cite the confidence beside the score. Every record names the date it was compiled and the sources it was compiled from.

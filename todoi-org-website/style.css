@@ -1,0 +1,3397 @@
+@charset "utf-8";
+/* ==========================================================================
+   todoi.org — design system
+ "Two-ink press": blue drafting stock, white sheets, an ink-black masthead
+   over the matrix, and two spot inks - electric blue for anything you can
+   act on, amber for anything conditional. Hairline rules, radius 0-2px, no
+   shadows except focus rings.
+
+   Type is three families doing three jobs: Newsreader Light for display,
+   where the low weight and tight tracking keep a headline editorial instead
+   of loud; Inter for every word of running text and interface; DM Mono for
+   figures, identifiers and anything meant to be compared column by column.
+   Labels are sentence case - the size, weight and colour already carry the
+   hierarchy, so tracked-out capitals would only be a fourth signal saying
+   the same thing.
+
+   Colour is never decoration here. It reads in three surface levels
+   (page / raised / sunken), three rule weights (hairline / boundary /
+   emphasis) and two inks, so a divider is never an operable edge and a
+   capability that is only half-there never looks like one that is.
+
+   No frameworks. No @import. No external URLs: the three families in fonts/
+   are open-licence and served from this origin, and the only images are the
+   self-hosted project marks in icons/.
+
+   Contents
+     00  Fonts — self-hosted, open licence
+     01  Tokens — light (complete palette + scales)
+     02  Tokens — dark (colour only, two guarded blocks)
+     03  Reset
+     04  Base elements & typography
+     05  Focus, selection, skip link
+     06  Layout: .shell and section rhythm
+     07  Site header
+     08  Hero
+     09  Section heads
+     10  Controls
+     11  Legend
+     12  Matrix (desktop table)
+     13  Marks, scores, tags, pills, licensing tooltip
+     14  Expanded detail (shared by rows and cards)
+     15  Cards (mobile)
+     16  Empty state, provenance & matrix footer
+     17  Method: criteria & licensing models
+     18  FAQ accordion
+     19  Contribute
+     20  Footer
+     21  Buttons
+     22  Utilities
+     23  Responsive — single breakpoint at 900px
+     24  Reduced motion
+     25  Print
+   ========================================================================== */
+
+/* ==========================================================================
+   00  FONTS — self-hosted, open licence, no third-party request
+   Newsreader (OFL) for display, Inter (OFL) for text and interface, DM Mono
+   (OFL) for figures. Inter and Newsreader are variable, so every weight the
+   page uses is one file; Newsreader also carries an optical-size axis, which
+   `font-optical-sizing: auto` drives from the font-size alone. latin-ext is
+   a second file per family and only downloads on a page that needs it.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-400-700-normal-latin-ext.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/inter-400-700-normal-latin.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  src: url('fonts/newsreader-200-800-normal-latin-ext.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  src: url('fonts/newsreader-200-800-normal-latin.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('fonts/dmmono-300-normal-latin-ext.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('fonts/dmmono-300-normal-latin.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('fonts/dmmono-400-normal-latin-ext.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('fonts/dmmono-400-normal-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('fonts/dmmono-500-normal-latin-ext.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('fonts/dmmono-500-normal-latin.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ==========================================================================
+   01  TOKENS — LIGHT
+   Every colour is defined here, in full. The dark blocks below only
+   *redefine* these names; nothing gets its first definition in a media or
+   attribute block.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* --- Surfaces: cool drafting paper -------------------------------------
+     Blue drafting stock for the page, white for anything you read data off,
+     and a deeper stock for the chassis the controls are set into. --------- */
+  --paper: #eef2f9;          /* page — tinted, so white surfaces read as sheets */
+  --paper-raised: #ffffff;   /* header, cards, inputs, chips, the matrix body */
+  --paper-sunken: #e1e7f2;   /* control bar, detail rows */
+  --zebra: #f3f6fe;          /* alternate matrix rows — a whisper of the accent */
+
+  /* --- Ink ---------------------------------------------------------------- */
+  --ink: #0a0c10;            /* body text          17.43:1 on --paper */
+  --ink-2: #444b57;          /* secondary text      7.83:1 on --paper */
+  --ink-faint: #57606e;      /* meta, empty marks   5.66:1 on --paper */
+
+  /* --- Rules: three weights, because one token cannot do three jobs -------
+     The original palette ran every divider at control-boundary strength,
+     which is why a comparison table read as a spreadsheet. Split by job. -- */
+  --line: #ccd4e0;           /* hairline dividers and the table grid */
+  --line-strong: #788494;    /* control boundaries — 3.06:1 on --paper-sunken,
+                                the worst ground it is drawn against */
+  --line-heavy: #0a0c10;     /* structural rules & hover: full ink, like print */
+  --track: #ccd5e2;          /* unfilled score gauge — 4.78:1 against --accent */
+
+  /* --- First ink: electric blue. Everything you can act on. --------------
+     Links, focus, pressed filters, the open row, the score gauge, FOSS. --- */
+  --accent: #0b46e0;         /* 6.30:1 on --paper, 7.08:1 on white */
+  --accent-strong: #0632a8;  /* hover / pressed        9.22:1 on --paper */
+  --accent-soft: #d4e0fd;    /* tonal fill behind pressed chips, open rows —
+                                deep enough to stay distinct from --zebra */
+  --on-accent: #ffffff;      /* text on an accent fill  7.08:1 */
+
+  /* --- Second ink: amber. Everything that is only conditionally true. -----
+     Reserved for the half-filled capability mark — "paid tier, plugin or
+     add-on". Graphic use only: 3.61:1 on its worst ground (--accent-soft)
+     clears the 3:1 non-text floor, not the 4.5:1 text one — never set copy
+     in it. -------------------------------------------------------------- */
+  --signal: #b45a00;
+
+  /* --- Ordered data: low -> high -----------------------------------------
+     A familiar red -> amber -> green ramp for quantities where more is the
+     only encoded direction. The words and figures still carry the meaning;
+     colour only makes the order faster to scan. Every ink clears AA at the
+     small mono sizes used by the Community and Stars columns. ------------- */
+  --grade-1: #9f2f36;
+  --grade-2: #8a4b0f;
+  --grade-3: #6f5b00;
+  --grade-4: #287049;
+  --grade-5: #006b3c;
+  --grade-wash: 10%;
+  --grade-edge: 42%;
+
+  /* --- The masthead: the matrix head is an inverted band. ----------------
+     Tokens the header cells resolve against, re-pointed at ink in §12. ---- */
+  --band: var(--ink);
+  --band-fg: #eef2f9;        /* 17.43:1 on --band */
+  --band-fg-2: #9aa7bd;      /*  8.05:1 on --band */
+  --band-accent: #7ea6ff;    /*  8.19:1 on --band — the accent, lifted */
+  --band-line: #59626f;      /*  2.98:1 — rules inside the band */
+
+  /* --- Semantic aliases used across components --------------------------- */
+  --bg: var(--paper);
+  --bg-raised: var(--paper-raised);
+  --bg-sunken: var(--paper-sunken);
+  --text: var(--ink);
+  --text-2: var(--ink-2);
+  --text-faint: var(--ink-faint);
+  --border-color: var(--line);
+  --ring: var(--accent);
+
+  /* --- Type: three self-hosted families, each with a system fallback ------
+     The fallbacks are ordered so a page that never gets the webfonts still
+     reads in the same three voices: a book serif, a grotesk, a mono. ------ */
+  --font-display: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype',
+    Palatino, Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+    Consolas, monospace;
+
+  --fs-3xs: 0.6875rem;   /* 11px — labels, tags, column heads */
+  --fs-2xs: 0.75rem;     /* 12px — meta, blurbs, provenance */
+  --fs-xs: 0.8125rem;    /* 13px — dense table data */
+  --fs-sm: 0.875rem;     /* 14px — controls */
+  --fs-md: 0.9375rem;    /* 15px — body in dense areas */
+  --fs-base: 1rem;       /* 16px — body */
+  --fs-lg: 1.0625rem;    /* 17px — lede */
+  --fs-xl: 1.25rem;      /* 20px — h3 */
+  --fs-2xl: 1.5rem;      /* 24px — section titles */
+  --fs-display: clamp(2rem, 1.45rem + 1.9vw, 2.75rem);   /* 32px — 44px */
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.25;
+  --lh-normal: 1.55;
+  --lh-loose: 1.6;
+  --lh-ui: 1.35;          /* controls, cells, anything one or two lines long */
+
+  /* Display type is set tight: at 300 the letterforms are open enough that
+     default fitting reads as gaps. Interface text gets a hair of negative
+     tracking because Inter is drawn wide for small sizes. Labels are no
+     longer tracked out at all — they are not capitals any more. */
+  --tracking-display: -0.025em;
+  --tracking-title: -0.02em;
+  --tracking-ui: -0.006em;
+  --tracking-badge: 0.04em;   /* the licensing tags, which stay capitals */
+
+  --measure: 66ch;        /* comfortable reading width */
+  --measure-tight: 54ch;
+
+  /* --- Spacing ------------------------------------------------------------ */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-7: 2rem;
+  --sp-8: 2.5rem;
+  --sp-9: 3.5rem;
+
+  --section-pad: clamp(2.25rem, 1.6rem + 2vw, 3.25rem);
+
+  /* Tight between columns, generous at the two outer edges — the table is
+     read across, and the air belongs where the data stops, not between every
+     pair of figures. */
+  --cell-pad-y: 0.625rem;
+  --cell-pad-x: 0.625rem;
+  --cell-pad-edge: 1.25rem;
+
+  /* --- Borders & radii ---------------------------------------------------- */
+  --hair: 1px;
+  --border: var(--hair) solid var(--border-color);
+  --border-strong: var(--hair) solid var(--line-strong);
+  --border-heavy: var(--hair) solid var(--line-heavy);
+  --radius-1: 1px;
+  --radius-2: 2px;
+
+  /* --- Focus -------------------------------------------------------------- */
+  --focus-width: 2px;
+  --focus-offset: 2px;
+
+  /* --- Motion (state changes only; no entrances) -------------------------- */
+  --dur: 120ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* --- Layout ------------------------------------------------------------- */
+  --shell: 84rem;         /* 1344px */
+  --gutter: 1rem;         /* stepped up at 40rem and 64rem — see §06 */
+  --control-h: 2.5rem;    /* 40px touch-target floor */
+  --matrix-min: 52rem;    /* below this the matrix scrolls inside its box */
+}
+
+/* ==========================================================================
+   02  TOKENS — DARK
+   Colour only. Same names, same roles.
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --paper: #0d1016;
+    --paper-raised: #151a22;
+    --paper-sunken: #090b10;
+    --zebra: #1a212b;
+
+    --ink: #e8ecf4;        /* 16.08:1 on --paper */
+    --ink-2: #a3acbd;      /*  8.34:1 on --paper */
+    --ink-faint: #919bad;  /*  6.80:1 on --paper */
+
+    --line: #333b48;       /* hairline dividers and the table grid */
+    --line-strong: #7b8799; /* control boundaries — 4.80:1 on --paper-raised */
+    --line-heavy: #a3acbd; /* structural rules & hover */
+    --track: #333c4c;
+
+    --accent: #6f9dff;     /* 7.20:1 on --paper */
+    --accent-strong: #9dbcff;
+    --accent-soft: #121c3a;
+    --on-accent: #0d1016;  /* 7.20:1 on --accent */
+
+    --signal: #e0a052;     /* the conditional mark — 8.45:1 on --paper */
+
+    --grade-1: #ffaaa9;
+    --grade-2: #f5b87c;
+    --grade-3: #dfca72;
+    --grade-4: #8bd4aa;
+    --grade-5: #63d997;
+    --grade-wash: 14%;
+    --grade-edge: 55%;
+
+    --band: #04060a;
+    --band-fg: #e8ecf4;    /* 17.13:1 on --band */
+    --band-fg-2: #8e99ad;  /*  7.06:1 on --band */
+    --band-accent: #6f9dff;
+    --band-line: #3c4453;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --paper: #0d1016;
+  --paper-raised: #151a22;
+  --paper-sunken: #090b10;
+  --zebra: #1a212b;
+
+  --ink: #e8ecf4;
+  --ink-2: #a3acbd;
+  --ink-faint: #919bad;
+
+  --line: #333b48;
+  --line-strong: #7b8799;
+  --line-heavy: #a3acbd;
+  --track: #333c4c;
+
+  --accent: #6f9dff;
+  --accent-strong: #9dbcff;
+  --accent-soft: #121c3a;
+  --on-accent: #0d1016;
+
+  --signal: #e0a052;
+
+  --grade-1: #ffaaa9;
+  --grade-2: #f5b87c;
+  --grade-3: #dfca72;
+  --grade-4: #8bd4aa;
+  --grade-5: #63d997;
+  --grade-wash: 14%;
+  --grade-edge: 55%;
+
+  --band: #04060a;
+  --band-fg: #e8ecf4;
+  --band-fg-2: #8e99ad;
+  --band-accent: #6f9dff;
+  --band-line: #3c4453;
+}
+
+/* ==========================================================================
+   03  RESET
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--sp-4);
+}
+
+body {
+  /* The document never scrolls sideways; .matrix-scroll owns the one
+     horizontal scroller. `clip` rather than `hidden` so this does not become a
+     scroll container — a future overflow then surfaces instead of being
+     silently swallowed. */
+  overflow-x: clip;
+  min-height: 100vh;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  padding-left: 1.15em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* app.js toggles [hidden] on #empty, .detail-row and .card-detail; component
+   `display` rules would otherwise out-specify the UA sheet. */
+[hidden] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   04  BASE ELEMENTS & TYPOGRAPHY
+   ========================================================================== */
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--tracking-ui);
+  accent-color: var(--accent);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Light, tight and not much bigger than the text under it. A directory page
+   earns attention with the table, not with the size of its masthead. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-display);
+  color: var(--text);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+}
+
+h2 {
+  font-size: var(--fs-2xl);
+  letter-spacing: var(--tracking-title);
+}
+
+/* Below ~20px the Light weight starts to break up on a dark ground, so the
+   third level steps up to Regular rather than down in size alone. */
+h3 {
+  font-size: var(--fs-xl);
+  font-weight: 400;
+  letter-spacing: var(--tracking-title);
+}
+
+p,
+li,
+dd {
+  text-wrap: pretty;
+}
+
+small {
+  font-size: var(--fs-2xs);
+}
+
+strong,
+b {
+  font-weight: 600;
+}
+
+code,
+kbd,
+samp {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+abbr[title] {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color var(--dur) var(--ease);
+}
+
+a:hover {
+  color: var(--accent-strong);
+  text-decoration-thickness: 2px;
+}
+
+/* ==========================================================================
+   05  FOCUS, SELECTION, SKIP LINK
+   ========================================================================== */
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--ring);
+  outline-offset: var(--focus-offset);
+  border-radius: var(--radius-1);
+}
+
+/* Pointer focus stays quiet; keyboard focus never does. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::selection {
+  background-color: var(--accent-soft);
+  color: var(--text);
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--sp-2);
+  left: var(--sp-2);
+  z-index: 100;
+  transform: translateY(-250%);
+  padding: var(--sp-2) var(--sp-4);
+  background-color: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--radius-2);
+  font-size: var(--fs-sm);
+  font-weight: 550;
+  text-decoration: none;
+  transition: transform var(--dur) var(--ease);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  color: var(--on-accent);
+  outline-color: var(--ink);
+}
+
+/* ==========================================================================
+   06  LAYOUT — .shell is the one container everything aligns to
+   ========================================================================== */
+
+/* One gutter token, three steps: 16px on a phone, 24px on a tablet, 32px on
+   a desktop. Every section reads the token, so the page never has two
+   different left edges at the same width. */
+@media (min-width: 40rem) {
+  :root {
+    --gutter: 1.5rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --gutter: 2rem;
+  }
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.hero,
+.board,
+.method,
+.faq,
+.contribute {
+  padding-block: var(--section-pad);
+}
+
+/* Section boundaries are full-ink rules, the way a printed datasheet divides
+   its plates. The hairline tier is for dividers inside a section. */
+.board,
+.method,
+.faq,
+.contribute {
+  border-top: var(--border-heavy);
+}
+
+/* The hero and the board are two halves of the same opening, so the rule
+   between them would read as a divider where none is meant. It stays in place
+   for the spacing it holds but is drawn in nothing, and the gap after it
+   closes up a little so the table sits nearer the masthead. */
+.board {
+  border-top-color: transparent;
+  padding-top: calc(var(--section-pad) - var(--sp-3));
+}
+
+/* ==========================================================================
+   07  SITE HEADER
+   ========================================================================== */
+
+.site-header {
+  background-color: var(--bg-raised);
+  /* Sticky, and it scrolls over the white matrix: its edge has to read as
+     structure or the two white surfaces merge into one. */
+  border-bottom: var(--border-strong);
+}
+
+.site-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-5);
+  min-height: 3.5rem;
+  padding-block: var(--sp-2);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  letter-spacing: var(--tracking-title);
+  color: var(--text);
+  text-decoration: none;
+  margin-right: auto;
+}
+
+/* The favicon's mark, lifted off its tile. It carries the accent rather than
+   inheriting the wordmark's ink, so the lockup reads as mark-plus-name and
+   not as one word - then both halves shift together on hover. The glyph is
+   cropped to its own bounds, so its box is the mark: no padding to align
+   around. */
+.wordmark-logo {
+  display: block;
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  /* "todoi.org" has no descenders, so centring on the line box drops the mark
+     below the text's visual mass. Lift it back onto the optical centre. */
+  transform: translateY(-0.075em);
+  color: var(--accent);
+}
+
+a.wordmark:hover {
+  color: var(--accent);
+}
+
+a.wordmark:hover .wordmark-logo {
+  color: var(--accent-strong);
+}
+
+.wordmark-tld {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--accent);
+}
+
+.wordmark-sm {
+  font-size: 1.0625rem;
+  margin-right: 0;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--sp-4);
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-h);
+  font-size: var(--fs-sm);
+  letter-spacing: var(--tracking-ui);
+  color: var(--text-2);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Theme switch: two named seats rather than one cycling button. The alternative
+   stays on screen next to the current mode, so nobody has to click the control
+   to find out what it does or how many states it hides.
+
+   The occupied seat is resolved from :root[data-theme] in CSS alone. The
+   blocking head script stamps that attribute before first paint, so the switch
+   is already truthful when the page appears; app.js only mirrors it into
+   aria-checked and owns the keyboard. */
+.theme-switch {
+  --seat: 2.25rem;      /* 36px; +1px pad +1px border = --control-h */
+  --seat-index: 0;      /* light */
+
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  padding: 1px;
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-sunken);
+}
+
+:root[data-theme='dark'] .theme-switch {
+  --seat-index: 1;
+}
+
+/* One travelling block of ink rather than separate fills crossfading: the motion
+   is what tells you the seats are alternatives to each other. */
+.theme-switch-thumb {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: var(--seat);
+  height: var(--seat);
+  border-radius: var(--radius-1);
+  background-color: var(--line-heavy);
+  transform: translateX(calc(var(--seat-index) * var(--seat)));
+  transition: transform 180ms var(--ease);
+}
+
+.theme-switch-opt {
+  position: relative;   /* over the thumb */
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--seat);
+  height: var(--seat);
+  flex: none;
+  border: 0;
+  border-radius: var(--radius-1);
+  background-color: transparent;
+  color: var(--text-2);
+  transition: color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+.theme-switch-opt:hover {
+  color: var(--accent);
+  background-color: var(--accent-soft);
+}
+
+/* The occupied seat. Specificity beats the hover rule above on purpose —
+   hovering the mode you are already in should not offer to change anything. */
+:root[data-theme='light'] .theme-switch-opt[data-theme-value='light'],
+:root[data-theme='dark'] .theme-switch-opt[data-theme-value='dark'] {
+  color: var(--paper);
+  background-color: transparent;
+  cursor: default;
+}
+
+/* Clear of the track, so the ring never lands on the ink thumb — which is
+   exactly where keyboard focus arrives, the occupied seat being the group's
+   single tab stop. */
+.theme-switch-opt:focus-visible {
+  outline-offset: 3px;
+  z-index: 2;
+}
+
+.theme-switch-icon {
+  display: block;
+}
+
+/* ==========================================================================
+   08  HERO — a masthead for a working directory, not a landing page
+   ========================================================================== */
+
+.hero {
+  padding-block: var(--sp-9) var(--sp-8);
+}
+
+.hero-inner {
+  display: grid;
+  gap: var(--sp-6);
+}
+
+.hero-title {
+  max-width: 24ch;
+}
+
+.hero-lede {
+  max-width: 62ch;
+  margin-top: var(--sp-5);
+  font-size: var(--fs-lg);
+  line-height: var(--lh-loose);
+  color: var(--text-2);
+}
+
+/* Currency line immediately below the directory: quiet, but visually tied to
+   the record it dates. The date stays mono so it reads as a figure in the
+   matrix rather than promotional copy. */
+.matrix-updated {
+  margin: var(--sp-6) 0 0;
+  font-size: var(--fs-xs);
+  line-height: var(--lh-ui);
+  color: var(--text-faint);
+}
+
+.matrix-updated time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  color: var(--text-2);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+
+/* The open-source mark, set as a second column beside the masthead copy.
+   It is the one emblem on the page, so it carries the first ink at full
+   strength rather than a tint - the token already holds a light and a dark
+   value, so the same rule reads in both themes without a second block. The
+   glyph is drawn as a stroke, which means its weight scales with the mark
+   instead of thinning out at small sizes. Below 900px the copy wants the
+   whole measure and the mark is dropped; `screen` on that query keeps it
+   off paper too. */
+.hero-mark {
+  display: none;
+}
+
+.hero-mark-svg {
+  display: block;
+  width: clamp(8.5rem, 13vw, 13rem);
+  height: auto;
+  color: var(--accent);
+}
+
+
+
+
+/* ==========================================================================
+   09  SECTION HEADS
+   ========================================================================== */
+
+/* Title, then the sentence that qualifies it, directly underneath and on the
+   same left edge. Set side by side they read as two columns of a masthead
+   and leave a hole between them at desktop width; stacked they read as one
+   statement, which is what they are. */
+.section-head {
+  display: grid;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-4);
+  margin-bottom: var(--sp-6);
+  border-bottom: var(--border-heavy);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: 300;
+  letter-spacing: var(--tracking-title);
+  line-height: var(--lh-snug);
+}
+
+.section-note {
+  max-width: var(--measure);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+.sub-title {
+  font-size: var(--fs-xl);
+}
+
+/* ==========================================================================
+   10  CONTROLS
+   ========================================================================== */
+
+.controls {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  background-color: var(--bg-sunken);
+  border: var(--border);
+  border-radius: var(--radius-2);
+}
+
+/* Search and sort keep conventional labels; the lower-frequency controls use
+   compact inline group labels. This makes the panel read as one filter rail
+   instead of three stacked mini-forms. */
+.control-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--sp-3) var(--sp-5);
+  min-width: 0;
+}
+
+.control-row-secondary {
+  align-items: flex-end;
+  padding-top: var(--sp-3);
+  border-top: var(--border);
+}
+
+/* Sentence case, 12px, medium. The old tracked-out capitals shouted a level
+   of structure the panel does not have: these name a field, they do not open
+   a section. */
+.control-label {
+  display: block;
+  padding: 0;
+  margin-bottom: var(--sp-2);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  line-height: var(--lh-ui);
+  letter-spacing: var(--tracking-ui);
+  color: var(--text-faint);
+}
+
+.control-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+/* Search takes three shares to sort's one, and both carry a real minimum, so
+   they share a line at a stable ratio and wrap together below ~30rem. */
+.control-field-grow {
+  flex: 3 1 16rem;
+}
+
+.control-field-sort {
+  flex: 1 1 13rem;
+}
+
+.control-field .control-label {
+  margin-bottom: var(--sp-1);
+}
+
+/* fieldset + legend, de-chromed. */
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* The abbreviated visible labels keep the five native capabilities scannable
+   while their full names remain on the inputs and hover titles. */
+.control-group-wide {
+  flex: 1 1 30rem;
+}
+
+.control-group-end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-left: auto;
+}
+
+.control-group > .control-label {
+  flex: none;
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+/* The two option sets share one label-over-controls rhythm. Keeping the label
+   out of the horizontal run is what leaves room for actions on the same rail. */
+.control-row-secondary > .control-group:not(.control-group-wide):not(.control-group-end) {
+  display: block;
+}
+
+/* Mobile-only disclosure: desktop keeps every option in view. */
+.filter-disclosure {
+  display: none;
+}
+
+.control-search,
+.control-select {
+  min-height: var(--control-h);
+  padding: 0 var(--sp-3);
+  letter-spacing: var(--tracking-ui);
+  background-color: var(--bg-raised);
+  color: var(--text);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  font-size: var(--fs-sm);
+  transition: border-color var(--dur) var(--ease);
+}
+
+.control-search {
+  width: 100%;
+  min-width: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.control-search::placeholder {
+  color: var(--text-faint);
+  opacity: 1;
+}
+
+.control-search::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Filled, not intrinsic: the longest option ("Ease of deployment, high to
+   low") would otherwise set the field's width and leave the select narrower
+   than the search box once they stack. */
+.control-select {
+  width: 100%;
+  min-width: 0;
+  cursor: pointer;
+  font-size: var(--fs-xs);
+}
+
+.control-search:hover,
+.control-select:hover {
+  border-color: var(--line-heavy);
+}
+
+/* Feature toggles -------------------------------------------------------- */
+
+.control-toggles,
+.control-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+
+.toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--control-h);
+  padding-inline: var(--sp-2);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+/* Focusable, operable, invisible — the mark carries the state. */
+.toggle-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The mark is the icon: a 22px tile that carries the glyph unchecked and
+   fills with the accent when the filter is on. The state cue is the tile
+   appearing, not a hue change, so it survives greyscale and forced colours —
+   and the glyph stays legible throughout, which a checkbox that swaps to a
+   tick would not. */
+.toggle-mark {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: var(--hair) solid transparent;
+  border-radius: var(--radius-1);
+  color: var(--text-faint);
+  transition: background-color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    color var(--dur) var(--ease);
+}
+
+/* Optical: the stopwatch crown and the calendar hangers sit above their
+   bodies, so every glyph is drawn to the same 16 box and centred as one. */
+.toggle-icon {
+  display: block;
+}
+
+.toggle-label {
+  white-space: nowrap;
+}
+
+.toggle:hover {
+  border-color: var(--line-heavy);
+  color: var(--text);
+}
+
+.toggle:hover .toggle-mark {
+  color: var(--text-2);
+}
+
+.toggle-input:checked ~ .toggle-mark,
+.toggle:hover .toggle-input:checked ~ .toggle-mark {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.toggle:has(.toggle-input:checked) {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.toggle-input:focus-visible ~ .toggle-mark {
+  outline: var(--focus-width) solid var(--ring);
+  outline-offset: var(--focus-offset);
+}
+
+/* Licensing chips -------------------------------------------------------- */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: var(--control-h);
+  padding-inline: var(--sp-2);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+.chip:hover {
+  border-color: var(--line-heavy);
+  color: var(--text);
+}
+
+.chip[aria-pressed='true'] {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.chip[aria-pressed='true']:hover {
+  color: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.result-count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   11  LEGEND — sits between the controls and the table
+   ========================================================================== */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+  margin-block: var(--sp-5) var(--sp-4);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-ui);
+  color: var(--text-2);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+/* ==========================================================================
+   12  MATRIX — the desktop reference table
+   ========================================================================== */
+
+/* The one horizontal scroller on the page. */
+.matrix-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+}
+
+.matrix {
+  /* Hidden by default; §23 turns it on at 900px. */
+  display: none;
+  width: 100%;
+  min-width: var(--matrix-min);
+  /* The data sits on the brightest surface on the page: the head is the
+     chassis, the body is the instrument face it is read off. */
+  background-color: var(--bg-raised);
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-ui);
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+/* A 17-column, 1100px-tall table: the header and the identity column must
+   survive scrolling, or you read six unlabelled decimals on an unnamed row. */
+.matrix thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background-color: var(--band);
+}
+
+.matrix thead .th-project {
+  left: 0;
+  z-index: 4;
+  border-right: var(--border);
+}
+
+.cell-project {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background-color: var(--bg-raised);
+  /* The sticky column overlaps the scrolled columns; give it an edge so the
+     overlap reads as a frozen column rather than a rendering fault. */
+  border-right: var(--border);
+}
+
+.matrix-row:hover > .cell-project {
+  background-color: var(--bg-sunken);
+}
+
+.matrix-row:has(.row-expand[aria-expanded='true']) > .cell-project {
+  background-color: var(--accent-soft);
+}
+
+@media print {
+  .matrix thead th,
+  .cell-project {
+    position: static;
+  }
+}
+
+/* The head is an inverted band. Rather than fight two dozen descendant rules
+   with !important, re-point the tokens those rules already read: custom
+   properties inherit, so `color: var(--text)` in here resolves against ink.
+   The --border* aliases hold resolved values from :root, so restate them. */
+.matrix thead {
+  background-color: var(--band);
+  color: var(--band-fg);
+
+  --text: var(--band-fg);
+  --text-2: var(--band-fg-2);
+  --text-faint: var(--band-fg-2);
+  --accent: var(--band-accent);
+  --accent-strong: var(--band-fg);
+  --ring: var(--band-accent);
+  --line: var(--band-line);
+  --line-strong: var(--band-line);
+  --line-heavy: var(--band-fg-2);
+  --border-color: var(--band-line);
+  --border: var(--hair) solid var(--band-line);
+  --border-strong: var(--hair) solid var(--band-line);
+}
+
+/* Sentence case at 12px medium. Capitals in a 17-column head made every
+   label the same grey block: the eye had to read each one to tell them
+   apart, which is the opposite of what a column head is for. */
+.matrix-th {
+  padding: var(--sp-3) var(--cell-pad-x);
+  vertical-align: bottom;
+  font-family: var(--font-sans);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  line-height: var(--lh-ui);
+  letter-spacing: var(--tracking-ui);
+  text-transform: none;
+  color: var(--text-2);
+  text-align: left;
+  border-bottom: var(--border-strong);
+  white-space: nowrap;
+}
+
+.matrix-th .methodology {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.25em;
+  cursor: help;
+}
+
+/* Otherwise the methodology help cursor out-specifies button's pointer. */
+.th-sort,
+.th-sort .methodology {
+  cursor: pointer;
+}
+
+/* The one spanning head ("Capabilities"). */
+.th-group {
+  text-align: center;
+  border-bottom: var(--border);
+  color: var(--text);
+}
+
+.matrix-grouprow .matrix-th:not(.th-group) {
+  vertical-align: bottom;
+}
+
+/* With the six criterion columns gone the blurb would otherwise claim whatever
+   the longest line wanted. 30rem is the narrowest width at which all eleven
+   blurbs still fit the two-line clamp without an ellipsis. */
+.th-project {
+  min-width: 15rem;
+  width: 30rem;
+}
+
+.th-feat,
+.th-lead {
+  text-align: center;
+}
+
+.th-feat {
+  width: 2.75rem;
+}
+
+/* The only score column now, so it gets room for a gauge and a criterion
+   name — the header label switches when the table is sorted by a criterion. */
+.th-lead {
+  width: 5.25rem;
+}
+
+.th-stars {
+  width: 5.75rem;
+}
+
+.th-more {
+  width: 2.75rem;
+}
+
+/* Sortable headers ------------------------------------------------------- */
+
+.th-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  min-height: 1.75rem;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  transition: color var(--dur) var(--ease);
+}
+
+.th-lead .th-sort,
+.th-feat .th-sort {
+  justify-content: center;
+  width: 100%;
+}
+
+.th-sort:hover {
+  color: var(--accent);
+}
+
+/* The GitHub mark beside "Stars" — a source label, not a second sort control,
+   so it sits a shade back from the header text and only warms with it. */
+.th-ico {
+  flex: none;
+  color: var(--text-faint);
+  transition: color var(--dur) var(--ease);
+}
+
+.th-sort:hover .th-ico,
+[aria-sort='ascending'] .th-ico,
+[aria-sort='descending'] .th-ico {
+  color: currentColor;
+}
+
+.th-sort::after {
+  content: '\2195';           /* ↕ unsorted */
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--text-faint);
+}
+
+[aria-sort='ascending'] .th-sort::after {
+  content: '\25B2';           /* ▲ */
+  color: var(--accent);
+}
+
+[aria-sort='descending'] .th-sort::after {
+  content: '\25BC';           /* ▼ */
+  color: var(--accent);
+}
+
+[aria-sort='ascending'] .th-sort,
+[aria-sort='descending'] .th-sort {
+  color: var(--text);
+}
+
+/* The table's own margins. Both edges get four times the padding that sits
+   between two columns, so the first and last values are held off the frame
+   instead of touching it. */
+.matrix > * > tr > :first-child {
+  padding-left: var(--cell-pad-edge);
+}
+
+.matrix > * > tr > :last-child {
+  padding-right: var(--cell-pad-edge);
+}
+
+/* Body cells ------------------------------------------------------------- */
+
+.matrix td {
+  padding: var(--cell-pad-y) var(--cell-pad-x);
+  vertical-align: middle;
+  border-top: var(--border);
+  color: var(--text);
+}
+
+.cell-project {
+  min-width: 15rem;
+  padding: var(--cell-pad-y) var(--cell-pad-x) var(--cell-pad-y)
+    var(--cell-pad-edge);
+  vertical-align: middle;
+  border-top: var(--border);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  text-align: left;
+}
+
+/* Identity block: mark, name, blurb ---------------------------------------
+   The project's own favicon is the fastest thing on the row to recognise —
+   it is matched before the name is read — so it leads the identity line.
+   The mark sits beside the name only: the blurb runs the full width of the
+   cell underneath, because indenting it behind the mark cost two projects
+   their second line to the clamp at 1280px. */
+.project-id {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--sp-3);
+  align-items: start;
+}
+
+.project-icon {
+  grid-row: 1;
+  /* Sized against the name's cap height, not its line box: the mark annotates
+     the row, it does not outrank the score the row is sorted on. */
+  width: var(--icon-size, 1rem);
+  height: var(--icon-size, 1rem);
+  /* Marks arrive as squares, circles and bare glyphs at whatever crop their
+     owner shipped; contain keeps every one whole and the same optical size. */
+  object-fit: contain;
+  border-radius: var(--radius-2);
+  /* Nudged down to sit on the name's cap height rather than its line box. */
+  margin-top: 2px;
+}
+
+.project-blurb {
+  grid-column: 1 / -1;
+}
+
+/* Three marks are drawn for a light ground and fail on the dark one, each in
+   its own way, so each gets the smallest correction that fixes it.
+
+   Huly is a pure-black mark on transparency: a hole. It inverts — but not to
+   #fff, which would make it the brightest ink on the page and louder than the
+   headings beside it. Damped to --ink's own value instead.
+
+   Kanboard and Worklenz draw in near-black and cannot be inverted (both carry
+   colour). They get a paper chip, also at --ink, so the chip can never out-
+   shout the brightest text either. Their published favicons ship that chip
+   baked in; drawing it here instead is what stops it appearing and vanishing
+   as zebra parity changes under a sort. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .project-icon[src$='huly.webp'],
+  :root:not([data-theme='light']) .project-icon[src$='super-productivity.webp'] {
+    filter: invert(1) brightness(0.91);
+  }
+
+  :root:not([data-theme='light']) .project-icon[src$='kanboard.webp'],
+  :root:not([data-theme='light']) .project-icon[src$='worklenz.webp'] {
+    padding: 1px;
+    background-color: var(--ink);
+  }
+}
+
+:root[data-theme='dark'] .project-icon[src$='huly.webp'],
+:root[data-theme='dark'] .project-icon[src$='super-productivity.webp'] {
+  filter: invert(1) brightness(0.91);
+}
+
+:root[data-theme='dark'] .project-icon[src$='kanboard.webp'],
+:root[data-theme='dark'] .project-icon[src$='worklenz.webp'] {
+  padding: 1px;
+  background-color: var(--ink);
+}
+
+.project-name {
+  display: block;
+  padding-block: 1px;
+  font-size: var(--fs-md);
+  font-weight: 550;
+  letter-spacing: var(--tracking-ui);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.project-name:hover,
+.project-name:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.project-name:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+/* Two lines, then stop. The full text lives in the expanded row. */
+.project-blurb {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin-top: 3px;
+  font-size: var(--fs-2xs);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: var(--tracking-ui);
+  text-transform: none;
+  color: var(--text-2);
+}
+
+/* The ellipsis is where the reader notices the text was cut, so the ellipsis
+   is where the answer has to be — but it is drawn by the browser and is not an
+   element that can hold a handler. The clamped blurb becomes the target
+   instead: app.js measures which ones the browser actually cut and marks only
+   those, so a blurb that fits never pretends to be a button. The row's own
+   chevron answers the same hover, which is what says where the click will
+   land. Keyboard and screen-reader users have that button; the cards are not
+   clamped and need none of this. */
+.project-blurb.is-clamped {
+  cursor: pointer;
+}
+
+.project-blurb.is-clamped:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--text-faint);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.matrix-row:has(.project-blurb.is-clamped:hover) .row-expand {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.cell-model {
+  white-space: normal;
+  min-width: 8rem;
+}
+
+.cell-sub {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  line-height: var(--lh-ui);
+  letter-spacing: 0;
+  color: var(--text-2);
+}
+
+.cell-comm,
+.cell-stars,
+.cell-int {
+  white-space: nowrap;
+}
+
+/* The dagger marks a count whose repository does not map onto the product —
+   a mirror, a split codebase, an app inside a platform. It is a footnote mark
+   and must read as one: raised, quiet, and never as wide as a digit. */
+.stars-note {
+  margin-left: 0.15em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  line-height: 1;
+  vertical-align: super;
+  color: var(--text-2);
+  cursor: help;
+  transition: color var(--dur) var(--ease);
+}
+
+.stars-note:hover,
+.stars-note:focus-visible {
+  color: var(--accent);
+}
+
+.cell-mark {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cell-avg {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cell-more {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Rows ------------------------------------------------------------------- */
+
+/* Alternate projects get a whisper of the accent rather than a grey band, so
+   the eye tracks across seventeen columns without a rule under every row.
+   Each project is two <tr>s (row + detail), hence 4n. This must stay above
+   the hover and open rules: same specificity, so source order decides. */
+.matrix-row:nth-of-type(4n + 3) > * {
+  background-color: var(--zebra);
+}
+
+.matrix-row:hover > * {
+  background-color: var(--bg-sunken);
+}
+
+.matrix-row:has(.row-expand[aria-expanded='true']) > * {
+  background-color: var(--accent-soft);
+  border-top-color: var(--accent);
+}
+
+.detail-row > td > .detail {
+  position: sticky;
+  left: 0;
+  inline-size: min(100%, calc(100vw - 2 * var(--gutter) - 2 * var(--sp-5)));
+}
+
+.detail-row > td {
+  background-color: var(--bg-sunken);
+  border-top: 0;
+  padding: var(--sp-5) var(--sp-5) var(--sp-6);
+}
+
+/* Expand affordance ------------------------------------------------------ */
+
+.row-expand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  transition: color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+.row-expand-mark {
+  display: block;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  margin-top: -3px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform var(--dur) var(--ease);
+}
+
+[aria-expanded='true'] .row-expand-mark {
+  margin-top: 3px;
+  transform: rotate(-135deg);
+}
+
+.row-expand:hover,
+.card-expand:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.row-expand[aria-expanded='true'],
+.card-expand[aria-expanded='true'] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background-color: var(--accent-soft);
+}
+
+/* ==========================================================================
+   13  MARKS, SCORES, TAGS, PILLS
+   The glyph carries the meaning; colour only reinforces it.
+   ========================================================================== */
+
+.mark {
+  display: inline-block;
+  min-width: 1.15em;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--text-faint);
+}
+
+/* The mark is drawn SVG, not a Unicode glyph, so it renders identically on
+   every platform and inherits colour through currentColor. */
+.mark-svg {
+  display: block;
+  overflow: visible;
+}
+
+.mark-full {
+  color: var(--accent);          /* ● full / native */
+}
+
+.mark-partial {
+  /* The one place the second ink is used. Amber reads as a caveat where a
+     grey half-circle read as a faded tick. */
+  color: var(--signal);          /* ◐ partial: paid tier, plugin, add-on */
+}
+
+.mark-none {
+  color: var(--text-faint);      /* ○ not available natively */
+}
+
+/* 1–5 score. --fill (0–1) is set inline per cell and draws the rule. */
+.score {
+  display: inline-block;
+  inline-size: 2.5rem;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.25;
+  color: var(--text);
+}
+
+.score-num {
+  display: block;
+  font-size: var(--fs-xs);
+  text-align: center;
+}
+
+.score-lead {
+  inline-size: 3.25rem;
+}
+
+.score-lead .score-num {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+/* A gauge, not an underline: the unfilled track stays visible, and --fill is
+   mapped across the real 1-5 range so clustered scores still separate. */
+.score::after {
+  content: '';
+  display: block;
+  block-size: 3px;
+  margin-top: 3px;
+  inline-size: 100%;
+  background-image: linear-gradient(
+    to right,
+    var(--accent) calc(var(--fill, 0) * 100%),
+    transparent calc(var(--fill, 0) * 100%)
+  );
+  background-color: var(--track);
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.num-strong {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+/* Community is an editorial five-step band; stars use five logarithmic-ish
+   buckets set from the raw data in app.js. Both resolve through the same ramp
+   so low, middle and high read consistently without pretending the two
+   measures are equivalent. */
+.comm-band,
+.num[data-grade] {
+  --grade-color: var(--grade-3);
+}
+
+.comm-band[data-comm='1'],
+.num[data-grade='1'] { --grade-color: var(--grade-1); }
+
+.comm-band[data-comm='2'],
+.num[data-grade='2'] { --grade-color: var(--grade-2); }
+
+.comm-band[data-comm='4'],
+.num[data-grade='4'] { --grade-color: var(--grade-4); }
+
+.comm-band[data-comm='5'],
+.num[data-grade='5'] { --grade-color: var(--grade-5); }
+
+.num[data-grade] {
+  color: var(--grade-color);
+  font-weight: 500;
+}
+
+/* Licensing tags. Four channels beyond hue: glyph, fill, border style, weight.
+   The weight channel runs 500 / 400 / 300 — three files DM Mono actually
+   ships, so the steps are drawn rather than synthesised. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.1em 0.45em 0.1em 0.4em;
+  border: var(--hair) solid var(--line-strong);
+  border-radius: var(--radius-2);
+  background: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+/* Padlock glyph. Two channels carry the model, both readable at 12px: the
+   shackle says whether the licence lets you out, and how much of the body is
+   filled says how much of the product the free licence covers. FOSS is open
+   and solid, open core is open and half solid, source-available is shut and
+   hollow. Drawn inline so it inherits the tag's colour through currentColor
+   and survives greyscale and print. */
+.tag-ico {
+  display: block;
+  flex: none;
+  overflow: visible;
+}
+
+.tag-foss {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.tag-open-core {
+  border-color: var(--line-heavy);
+  color: var(--text);
+  font-weight: 400;
+}
+
+.tag-source-available {
+  border-style: dashed;
+  color: var(--text-2);
+  font-weight: 300;
+}
+
+.pill,
+.comm-band {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1em 0.5em;
+  border-radius: var(--radius-2);
+}
+
+.pill {
+  background-color: var(--bg-sunken);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: 0.04em;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* Licensing tags and community-size bands carry an explanation. The cursor
+   advertises it; the tooltip itself is built by app.js (§ token tooltips) and
+   lives on <body>, because the matrix is a horizontal scroller and would clip
+   a positioned child. */
+.tag[data-lic],
+.comm-band {
+  cursor: help;
+}
+
+/* Give the same band the same compact label treatment in the matrix and its
+   responsive card. The printed word remains the non-colour cue. */
+.comm-band {
+  border: var(--hair) solid color-mix(
+    in srgb,
+    var(--grade-color) var(--grade-edge),
+    var(--bg-raised)
+  );
+  background-color: color-mix(
+    in srgb,
+    var(--grade-color) var(--grade-wash),
+    var(--bg-raised)
+  );
+  color: var(--grade-color);
+  font-weight: 500;
+}
+
+.tip {
+  /* Fixed, body-level, JS-positioned. Hidden by [hidden] until shown. */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200; /* above the sticky header (100) */
+  max-width: min(22rem, calc(100vw - 2 * var(--sp-4)));
+  padding: var(--sp-3);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-snug);
+  color: var(--text-2);
+  /* The system has no shadows; separation comes from the strong hairline plus
+     a paper-coloured halo that keeps table rules from touching the edge. */
+  outline: 3px solid var(--bg);
+  pointer-events: none; /* never steals the hover it was opened by */
+}
+
+.tip-label {
+  display: block;
+  margin-bottom: var(--sp-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* Arrow: a rotated square with two visible edges, nudged by JS to sit under
+   the trigger even when the box has been clamped to the viewport. */
+.tip::after {
+  content: '';
+  position: absolute;
+  left: var(--arrow-x, 50%);
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border: var(--border-strong);
+  background-color: var(--bg-raised);
+  transform: rotate(45deg);
+}
+
+.tip[data-side='top']::after {
+  bottom: -4px;
+  border-top: 0;
+  border-left: 0;
+}
+
+.tip[data-side='bottom']::after {
+  top: -4px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tip {
+    transition: opacity var(--dur) var(--ease);
+  }
+
+  .tip[data-enter='0'] {
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   14  EXPANDED DETAIL — shared by .detail-row and .card-detail
+   ========================================================================== */
+
+.detail {
+  display: grid;
+  gap: var(--sp-6) var(--sp-8);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+}
+
+.detail-h {
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  line-height: var(--lh-ui);
+  letter-spacing: var(--tracking-ui);
+  color: var(--text-faint);
+}
+
+.detail-side .detail-h + .detail-h,
+.detail-side .facts + .detail-h {
+  margin-top: var(--sp-5);
+}
+
+/* The write-up a two-line blurb cannot carry: one paragraph saying what the
+   project is, then three on what is actually in it. It leads the record
+   because it is the thing a reader who clicked a cut-off blurb came for, and
+   it sits in the wide column so the measure stays readable. */
+.summary {
+  display: grid;
+  gap: var(--sp-3);
+  max-width: var(--measure);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+
+.summary-lead {
+  font-size: var(--fs-sm);
+  color: var(--text);
+}
+
+.summary + .detail-h {
+  margin-top: var(--sp-5);
+}
+
+.crits {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+.crit-name {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  font-weight: 550;
+  color: var(--text);
+  border-bottom: var(--border);
+  padding-bottom: 2px;
+}
+
+/* The expanded record is the only place the six criteria appear, so each one
+   carries the same gauge the lead column uses. */
+.crit-val {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.crit-bar {
+  inline-size: 3.5rem;
+  block-size: 3px;
+  background-color: var(--track);
+  background-image: linear-gradient(
+    to right,
+    var(--accent) calc(var(--fill, 0) * 100%),
+    transparent calc(var(--fill, 0) * 100%)
+  );
+}
+
+.crit-score {
+  flex: none;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+  color: var(--accent);
+}
+
+.crit-text {
+  margin-top: var(--sp-2);
+  max-width: var(--measure);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+
+.facts dt {
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  color: var(--text-faint);
+}
+
+.facts dd {
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-xs);
+  color: var(--text);
+}
+
+.facts dd:last-child {
+  margin-bottom: 0;
+}
+
+.srcs {
+  display: grid;
+  gap: var(--sp-2);
+  padding-left: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  overflow-wrap: anywhere;
+}
+
+/* ==========================================================================
+   15  CARDS — the mobile view of the same rows
+   ========================================================================== */
+
+.cards {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+.card {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  background-color: var(--bg-raised);
+  border: var(--border);
+  border-radius: var(--radius-2);
+}
+
+.card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-3);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 400;
+  letter-spacing: var(--tracking-title);
+}
+
+/* A card carries one name, not eleven scanned at once, so the mark can be
+   larger here and sit on the name's centre rather than its cap height. */
+.card-title .project-icon {
+  --icon-size: 1.5rem;
+  flex: none;
+  margin-top: 0;
+}
+
+.card-title .project-name {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.card-blurb {
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+.card-meta {
+  display: grid;
+  gap: var(--sp-2);
+  padding-block: var(--sp-4);
+  border-block: var(--border);
+  font-size: var(--fs-xs);
+}
+
+.card-meta > div {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: var(--sp-3);
+}
+
+.card-meta dt {
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  color: var(--text-faint);
+  align-self: center;
+}
+
+.card-meta dd {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+.card-feats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+}
+
+.card-feat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.card-feat-l {
+  font-size: var(--fs-2xs);
+  color: var(--text-2);
+}
+
+.card-expand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  min-height: var(--control-h);
+  padding-inline: var(--sp-4);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg);
+  color: var(--text-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  transition: color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+.card-detail {
+  padding-top: var(--sp-4);
+  border-top: var(--border);
+}
+
+/* ==========================================================================
+   16  EMPTY STATE, PROVENANCE & MATRIX FOOTER
+   ========================================================================== */
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--sp-3);
+  padding: var(--sp-7) var(--sp-5);
+  margin-top: var(--sp-5);
+  border: var(--hair) dashed var(--border-color);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-sunken);
+}
+
+.empty-title {
+  font-size: var(--fs-xl);
+}
+
+.empty-text {
+  max-width: var(--measure-tight);
+  font-size: var(--fs-md);
+  color: var(--text-2);
+}
+
+/* Fine print, but still a paragraph somebody has to read to check a figure:
+   13px with normal leading rather than 12px set as a caption. */
+.provenance {
+  max-width: var(--measure);
+  margin-top: var(--sp-7);
+  padding-top: var(--sp-4);
+  border-top: var(--border);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+/* The matrix names and explains itself after the fact. The controls and the grid
+   hold the top of the section; the title, the how-to-read note and the record of
+   what was compiled collect underneath as a closing block. The visible title is
+   a paragraph, not a heading: the real h2#directory-title is .sr-only at the top
+   of the section, where it keeps heading order and the section's label intact. */
+.matrix-foot {
+  display: grid;
+  gap: var(--sp-3);
+  max-width: var(--measure);
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-4);
+  border-top: var(--border-strong);
+}
+
+/* Read as a footer, not a masthead: a step down from the section heads above. */
+.matrix-foot .section-title {
+  font-size: var(--fs-xl);
+}
+
+.matrix-foot .section-note {
+  max-width: none;
+}
+
+/* The rule and the spacing are the block's own; its paragraphs just stack. */
+.matrix-foot .provenance {
+  max-width: none;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+/* ==========================================================================
+   17  METHOD — criteria & licensing models
+   ========================================================================== */
+
+/* Six criteria are a set, not a sequence: they are applied together and carry
+   no order, so they are not numbered. Three columns give an even 2x3 instead of
+   auto-fit's ragged 4+2. */
+.criteria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--sp-6) var(--sp-8);
+}
+
+.criterion {
+  padding-top: var(--sp-3);
+  border-top: var(--border);
+}
+
+.criterion-name {
+  font-size: var(--fs-md);
+  font-weight: 550;
+  letter-spacing: var(--tracking-ui);
+  color: var(--text);
+}
+
+.criterion-text {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-md);
+  color: var(--text-2);
+}
+
+.models {
+  margin-top: var(--sp-9);
+  padding-top: var(--sp-6);
+  border-top: var(--border-strong);
+}
+
+.model-defs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: var(--sp-6) var(--sp-8);
+  margin-top: var(--sp-5);
+}
+
+.model-name {
+  margin-bottom: var(--sp-2);
+}
+
+.model-text {
+  font-size: var(--fs-md);
+  color: var(--text-2);
+}
+
+/* ==========================================================================
+   18  FAQ ACCORDION — native <details>, no JS
+   ========================================================================== */
+
+.acc {
+  border-bottom: var(--border);
+}
+
+.acc-q {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-5) 0;
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 400;
+  letter-spacing: var(--tracking-title);
+  color: var(--text);
+  transition: color var(--dur) var(--ease);
+}
+
+.acc-q::-webkit-details-marker {
+  display: none;
+}
+
+.acc-q::after {
+  content: '+';
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-lg);
+  line-height: 1;
+  color: var(--accent);
+}
+
+.acc[open] > .acc-q::after {
+  content: '\2212';           /* − */
+}
+
+.acc-q:hover {
+  color: var(--accent);
+}
+
+.acc-a {
+  padding-bottom: var(--sp-5);
+  font-size: var(--fs-md);
+  line-height: var(--lh-loose);
+  color: var(--text-2);
+}
+
+.acc-a p {
+  max-width: var(--measure);
+}
+
+.acc-a p + p {
+  margin-top: var(--sp-4);
+}
+
+/* ==========================================================================
+   19  CONTRIBUTE
+   ========================================================================== */
+
+.contribute-text {
+  max-width: var(--measure);
+  margin-top: var(--sp-4);
+  font-size: var(--fs-md);
+  color: var(--text-2);
+}
+
+.contribute-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+
+/* Two prose columns rather than one column and an empty half, so this section
+   uses the measure the method and FAQ sections above it already establish. */
+@media (min-width: 60rem) {
+  .contribute-inner {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-8);
+    align-items: start;
+  }
+
+  .contribute-inner > .section-title,
+  .contribute-inner > .contribute-actions {
+    grid-column: 1 / -1;
+  }
+
+  .contribute-inner > .contribute-text {
+    max-width: none;
+  }
+}
+
+/* ==========================================================================
+   20  FOOTER
+   ========================================================================== */
+
+.site-footer {
+  border-top: var(--border-strong);
+  padding-block: var(--sp-7);
+  font-size: var(--fs-2xs);
+  color: var(--text-2);
+}
+
+.site-footer-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--sp-5) var(--sp-8);
+  align-items: start;
+}
+
+.footer-brand {
+  grid-row: span 2;
+}
+
+.footer-note {
+  max-width: var(--measure-tight);
+  margin-top: var(--sp-2);
+  line-height: var(--lh-normal);
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+}
+
+.footer-meta {
+  align-self: end;
+}
+
+/* Maintainer line: a text link and a small mark, kept at meta weight so the
+   footer nav above it stays the loudest thing down here. */
+.footer-contact {
+  /* Column 2 explicitly: auto-placement would drop it back under the brand,
+     away from the meta line it belongs with. */
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+
+.footer-x {
+  display: inline-flex;
+  align-items: center;
+  /* The mark is the link; an underline under a glyph reads as a stray rule. */
+  text-decoration: none;
+  /* Padding pulled back by the same margin: a 12px glyph would otherwise be a
+     12px tap target. Nothing moves, the hit area doubles. */
+  padding: 0.375rem;
+  margin: -0.375rem;
+}
+
+.site-footer a {
+  color: var(--text-2);
+  /* The underline is the only thing marking these as links, so it carries
+     boundary weight, not hairline weight. */
+  text-decoration-color: var(--line-strong);
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+/* ==========================================================================
+   21  BUTTONS
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: var(--control-h);
+  padding: 0 var(--sp-5);
+  border: var(--hair) solid transparent;
+  border-radius: var(--radius-2);
+  font-size: var(--fs-sm);
+  font-weight: 550;
+  letter-spacing: var(--tracking-ui);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+.btn-sm {
+  padding: 0 var(--sp-3);
+  font-size: var(--fs-xs);
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-strong);
+  border-color: var(--accent-strong);
+  color: var(--on-accent);
+}
+
+.btn-ghost {
+  background-color: var(--bg-raised);
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   22  UTILITIES
+   ========================================================================== */
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ==========================================================================
+   23  RESPONSIVE — one breakpoint: 900px
+   Below it the cards are the view; at and above it the matrix is.
+   ========================================================================== */
+
+@media screen and (max-width: 899.98px) {
+  .legend,
+  .matrix-scroll {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .criteria {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .matrix {
+    display: table;
+  }
+
+  .cards {
+    display: none;
+  }
+
+  .detail {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  }
+
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--sp-7) clamp(var(--sp-7), 5vw, var(--sp-9));
+  }
+
+  .hero-mark {
+    display: block;
+    justify-self: end;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1100px) {
+  /* At intermediate widths, make the hierarchy explicit: native capabilities
+     take the first line; licensing and actions share the second. */
+  .control-group-wide {
+    flex-basis: 100%;
+  }
+
+  .control-row-secondary > .control-group:not(.control-group-wide):not(.control-group-end) {
+    display: flex;
+  }
+}
+
+@media (max-width: 640px) {
+  .controls {
+    padding: var(--sp-4);
+  }
+
+  .control-row {
+    gap: var(--sp-3);
+  }
+
+  /* Search and sort stay immediately available. Secondary filters collapse
+     behind one explicit, stateful row so the directory starts in view. */
+  .filter-disclosure {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: calc(var(--control-h) + var(--sp-3) + var(--hair));
+    padding: var(--sp-3) 0 0;
+    border: 0;
+    border-top: var(--border);
+    background: transparent;
+    color: var(--text);
+    font-size: var(--fs-sm);
+    font-weight: 550;
+    letter-spacing: var(--tracking-ui);
+    text-align: left;
+  }
+
+  .filter-disclosure-icon {
+    flex: none;
+    color: var(--accent);
+  }
+
+  .filter-disclosure-summary {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--fs-3xs);
+    font-weight: 400;
+    color: var(--text-faint);
+  }
+
+  .filter-disclosure-chevron {
+    flex: none;
+    margin-left: var(--sp-2);
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .filter-disclosure[aria-expanded='true'] .filter-disclosure-chevron {
+    transform: rotate(180deg);
+  }
+
+  .js .control-row-secondary:not(.is-open) {
+    display: none;
+  }
+
+  .control-row-secondary {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .control-group {
+    flex: 1 1 100%;
+    display: grid;
+    align-items: stretch;
+    gap: var(--sp-2);
+  }
+
+  .control-group > .control-label {
+    white-space: normal;
+  }
+
+  .control-toggles .toggle {
+    flex: 1 1 calc(33.333% - var(--sp-2));
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .control-chips {
+    flex-wrap: nowrap;
+  }
+
+  .control-chips .chip {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .control-group-end {
+    display: flex;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+
+  .control-group-end .result-count {
+    display: none;
+  }
+
+  /* The switch is wider than the button it replaced, so at this width it rides
+     the wordmark line and the nav takes a full row of its own — two header
+     lines instead of three. */
+  .site-nav {
+    order: 3;
+    flex: 1 1 100%;
+  }
+
+
+  .site-footer-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .footer-brand {
+    grid-row: auto;
+  }
+
+  .footer-contact {
+    grid-column: 1;
+  }
+}
+
+/* Native-feature buttons keep a stable three-column rhythm at the narrowest
+   supported widths; the shortened licence labels remain on one line. */
+@media (max-width: 420px) {
+  .hero-actions .btn,
+  .contribute-actions .btn {
+    flex: 1 1 100%;
+  }
+
+  .card-meta > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+
+/* ==========================================================================
+   24  REDUCED MOTION
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   25  PRINT — this is a reference table people print
+   ========================================================================== */
+
+@media print {
+  /* The responsive blocks above are screen-only, because in print the width
+     used for media queries is the PAGE BOX (~703px for A4 portrait). Left
+     unqualified, the max-width:899.98px rule hid .matrix-scroll and the page
+     printed with no data at all. The container is restored explicitly here. */
+  .matrix-scroll {
+    display: block;
+    overflow: visible;
+    border: 0;
+  }
+
+  .matrix {
+    display: table;
+  }
+
+  @page {
+    margin: 12mm;
+  }
+
+  /* A tooltip open when Print was pressed must not land on the page. */
+  .tip {
+    display: none !important;
+  }
+
+  /* Same reasoning for the dagger: the qualification it points at lives in a
+     tooltip, and a footnote mark with no footnote under it is just noise. The
+     FAQ prints, and it works the Redmine case in full. */
+  .stars-note {
+    display: none;
+  }
+
+  /* The project marks come off on paper. Print opens every record, so the
+     eleven marks land about one to a page and a half and never sit next to
+     each other — recognition by adjacency, the only reason they are on the
+     page, cannot happen. What is left is eleven colour plates on a sheet
+     that flattens every other token to black, white and one grey, and on a
+     greyscale printer three of them come out as unidentifiable smudges. */
+  .project-icon {
+    display: none;
+  }
+
+  :root {
+    --paper: #ffffff;
+    --paper-raised: #ffffff;
+    --paper-sunken: #ffffff;
+    --ink: #000000;
+    --ink-2: #333333;
+    --ink-faint: #555555;
+    --line: #999999;
+    --line-strong: #000000;
+    --line-heavy: #000000;
+    --track: #cccccc;
+    --zebra: #ffffff;
+    --accent: #000000;
+    --accent-strong: #000000;
+    --accent-soft: #ffffff;
+    /* Ink costs money and the mark already differs by shape. */
+    --signal: #000000;
+    --band: #ffffff;
+    --band-fg: #000000;
+    --band-fg-2: #333333;
+    --band-accent: #000000;
+    --band-line: #000000;
+    --section-pad: 0;
+    --matrix-min: 0;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 10pt;
+  }
+
+  .skip-link,
+  .site-nav,
+  .theme-switch,
+  .controls,
+  .hero-actions,
+  .cell-more,
+  .th-more,
+  .cards,
+  .empty,
+  .contribute,
+  .footer-nav,
+  .footer-contact {
+    display: none;
+  }
+
+  /* The matrix prints regardless of viewport width. */
+  .matrix {
+    display: table;
+    width: 100%;
+    font-size: 7.5pt;
+  }
+
+  .matrix-scroll {
+    overflow: visible;
+    border: 0;
+  }
+
+  /* Not table-header-group: once the records print open, a repeated column
+     header would sit above a full-width panel it does not describe. */
+  .matrix thead {
+    display: table-row-group;
+  }
+
+  .matrix tr {
+    break-inside: avoid;
+  }
+
+  .project-blurb {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  .hero,
+  .board,
+  .method,
+  .faq {
+    padding-block: 0 8mm;
+    border-top: 0;
+  }
+
+  .acc-a {
+    display: block;   /* print answers even when the accordion is closed */
+  }
+
+  /* The six criterion scores and the sources live in the expanded record, and
+     app.js collapses every record on load. On paper there is nothing to
+     expand, so the records print open — as the FAQ answers above do. */
+  .detail-row[hidden] {
+    display: table-row !important;
+  }
+
+  /* A record must not be orphaned from the row that names it, and must not
+     split across a page break that would hide which project it describes. */
+  .detail-row {
+    break-inside: avoid;
+    break-before: avoid;
+  }
+
+  .detail-row > td > .detail {
+    position: static;
+    inline-size: auto;
+  }
+
+  .acc-q::after {
+    content: '';
+  }
+
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  /* Provenance is half the point of printing this: carry URLs onto paper. */
+  .srcs a[href^='http']::after {
+    content: ' ' attr(href);
+    font-size: 6.5pt;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ==========================================================================
+   25  NO-JAVASCRIPT
+   The records are all in the markup. Without app.js the filters, sort controls
+   and expanders cannot work, so they are not shown pretending to; the detail
+   panels stay open instead, because they carry the evidence.
+   ========================================================================== */
+
+html:not(.js) .controls,
+html:not(.js) .theme-switch,
+html:not(.js) .row-expand,
+html:not(.js) .card-expand,
+html:not(.js) .cell-more,
+html:not(.js) .th-more {
+  display: none;
+}
+
+html:not(.js) .th-sort {
+  cursor: default;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+html:not(.js) .th-sort::after {
+  content: none;
+}
+
+/* ==========================================================================
+   26  REVIEW-PASS ADDITIONS
+   ========================================================================== */
+
+/* The row above already names the project on screen, so this heading is for
+   screen readers that land inside the panel. On paper, where a record can open
+   a page on its own, it becomes the visible heading. */
+.detail-project {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media print {
+  .detail-project {
+    position: static;
+    inline-size: auto;
+    block-size: auto;
+    margin: 0 0 var(--sp-3);
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    font-size: 11pt;
+    font-weight: 600;
+  }
+}
+
+/* Why a capability is only partial, shown inline on the card because below
+   900px the table (and its screen-reader text) is not rendered at all. */
+.card-feat-note {
+  display: block;
+  margin-top: 0.15em;
+  font-size: var(--fs-3xs);
+  line-height: 1.4;
+  color: var(--text-faint);
+}
+
+.card-feat {
+  align-items: start;
+  flex: 1 1 100%;
+}
+
+/* The scroller is focusable now, so it needs a focus ring and a visible edge
+   when there is more table to the right. */
+.matrix-scroll:focus-visible {
+  outline: var(--focus-width) solid var(--ring);
+  outline-offset: var(--focus-offset);
+}
+
+/* Where to start: scenario on the left, the pick and its reasoning on the right. */
+.routes {
+  padding-block: var(--section-pad);
+  border-top: var(--border);
+}
+
+.route-list {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+.route {
+  display: grid;
+  gap: var(--sp-2);
+  padding-top: var(--sp-4);
+  border-top: var(--border);
+}
+
+@media (min-width: 60rem) {
+  .route {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    gap: var(--sp-8);
+    align-items: start;
+  }
+}
+
+.route-case {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 400;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-title);
+  color: var(--text);
+}
+
+.route-pick {
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.route-pick strong {
+  color: var(--text);
+}
+
+/* Method caveats and the revision log. */
+.method-note {
+  max-width: var(--measure);
+  margin-top: var(--sp-5);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.revisions {
+  display: grid;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+  font-size: var(--fs-md);
+}
+
+.revisions > div {
+  display: grid;
+  gap: var(--sp-1);
+  padding-top: var(--sp-3);
+  border-top: var(--border);
+}
+
+@media (min-width: 45rem) {
+  .revisions > div {
+    grid-template-columns: 12rem minmax(0, 1fr);
+    gap: var(--sp-5);
+  }
+}
+
+.revisions dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  color: var(--text-faint);
+}
+
+.revisions dd {
+  color: var(--text-2);
+}
+
+.contribute-inner > .sub-title,
+.contribute-inner > .revisions {
+  grid-column: 1 / -1;
+}
+
+.contribute-inner > .sub-title {
+  margin-top: var(--sp-6);
+}
+
+/* ==========================================================================
+   THE WIDER FIELD — the unassessed register
+
+   These entries carry no score, and the layout says so before the copy does:
+   no gauge, no lead number, no sort. A card of labelled facts is a different
+   object from a matrix row, and it should not be mistaken for one at a
+   glance. Everything else is borrowed from the existing record — the same
+   uppercase label, the same 13px value, the same hairline rules — so the two
+   registers read as one document at two depths of evidence.
+   ========================================================================== */
+
+.field {
+  padding-block: var(--section-pad);
+  border-top: var(--border);
+}
+
+.field-group {
+  margin-top: var(--sp-8);
+}
+
+.field-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  border-bottom: var(--hair) solid var(--line-heavy);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 400;
+  letter-spacing: var(--tracking-title);
+  color: var(--text);
+}
+
+/* The count is a fact about the group, not an ornament: it tells you how far
+   the list runs before you start reading it. */
+.field-group-count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 400;
+  color: var(--text-faint);
+}
+
+.field-group-note {
+  max-width: var(--measure);
+  margin-top: var(--sp-3);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+.field-group-also {
+  color: var(--text-faint);
+}
+
+.field-entries {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  gap: var(--sp-5);
+  margin-top: var(--sp-5);
+}
+
+.entry {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-4);
+  border: var(--border);
+  background-color: var(--bg-raised);
+}
+
+.entry-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 400;
+  letter-spacing: var(--tracking-title);
+}
+
+.entry-name a {
+  color: var(--text);
+  text-decoration-color: var(--line-strong);
+}
+
+.entry-name a:hover {
+  color: var(--accent);
+}
+
+.entry-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+.entry-lic {
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  color: var(--text-faint);
+}
+
+/* Maintenance status is the one thing a reader of an unassessed entry most
+   needs, so it is the one thing here allowed a filled ground. Never colour
+   alone: each status carries its own word, and a title with the reason. */
+.entry-status {
+  padding: 0.1em 0.45em;
+  border-radius: var(--radius-2);
+  background-color: var(--bg-sunken);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.entry-status-community,
+.entry-status-dormant {
+  border: var(--hair) solid var(--signal);
+}
+
+.entry-what {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.entry-facts {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-3);
+  border-top: var(--border);
+}
+
+.entry-facts > div + div {
+  margin-top: var(--sp-3);
+}
+
+.entry-facts dt {
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  color: var(--text-faint);
+}
+
+.entry-facts dd {
+  margin-top: var(--sp-1);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* A caveat is the reason an entry is worth reading twice. It gets the amber
+   rule the half-filled capability mark uses, for the same reason: this is
+   true, but conditionally. */
+.entry-note {
+  margin-top: var(--sp-4);
+  padding-left: var(--sp-3);
+  border-left: 2px solid var(--signal);
+  font-size: var(--fs-xs);
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.entry-src {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-top: auto;
+  padding-top: var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+}
+
+.entry-src a {
+  overflow-wrap: anywhere;
+}
+
+.entry-stars {
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+/* In print an entry must not be split across a page break: half a record is
+   worse than a record on the next sheet. */
+@media print {
+  .entry {
+    break-inside: avoid;
+    border: var(--hair) solid #000;
+    background: none;
+  }
+
+  .field-entries {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
