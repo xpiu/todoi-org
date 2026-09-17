@@ -3,6 +3,7 @@
 .archive/
 .test/
 .impeccable/
+AGENTS.md
 
 # ── Secrets / env ──
 .env
