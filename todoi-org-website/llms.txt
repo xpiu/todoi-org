@@ -30,7 +30,7 @@ Corrections reach the directory at info@todoi.org. Send the source along with th
 - [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-five projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.
 - [Where to start](https://todoi.org/#start): Eleven concrete situations mapped to the projects the research supports for each.
 - [How the scores work](https://todoi.org/#method): The six criteria, what each one measures, and the three licensing models kept apart.
-- [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, and how current the data is.
+- [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, how deep the assessments go, listing rules, and how current the data is.
 - [Corrections and additions](https://todoi.org/#contribute): The two listing rules, research confidence, how to send a correction, and the revision log.
 
 ## Projects assessed

@@ -186,7 +186,8 @@
   });
 
   var KEYS = { name: 1, avg: 1, deploy: 1, use: 1, enterprise: 1, flex: 1,
-    sovereignty: 1, portability: 1, community: 1, stars: 1, integrations: 1 };
+    sovereignty: 1, portability: 1, community: 1, stars: 1, integrations: 1,
+    year: 1 };
   // Community size is the default order: it is the one column on a collapsed
   // row that speaks to whether a team can get help, and unlike the mean it is
   // not a ranking anyone can mistake for one. Stars sit beside it as a column
