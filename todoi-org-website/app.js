@@ -207,13 +207,13 @@
   // whichever criterion it is currently showing.
   var CRIT_TAIL = ' Assessed against the published criteria; the expanded record includes the reasoning and research confidence.';
   var CRIT = {
-    avg:         { head: 'Score',  title: 'Unweighted mean of the six criteria, each scored 1\u20135 by reading documentation, repositories and release histories. An editorial judgement, not a benchmark. Expand a row for the six scores and the reasoning behind each one.', sr: 'Mean of the six criteria' },
-    deploy:      { head: 'Deploy', title: 'Ease of deployment, 1\u20135: containers and packages, dependency count, operational complexity, upgrade burden and the state of the documentation.' + CRIT_TAIL, sr: 'Ease of deployment' },
-    use:         { head: 'Use',    title: 'Ease of use, 1\u20135: interface clarity, learning curve, conceptual overhead, and whether non-specialists can live in it.' + CRIT_TAIL, sr: 'Ease of use' },
-    enterprise:  { head: 'Ent',    title: 'Enterprise features, 1\u20135: permissions, identity, audit and governance, portfolio reporting, scalability and administration.' + CRIT_TAIL, sr: 'Enterprise features' },
-    flex:        { head: 'Flex',   title: 'Interface flexibility, 1\u20135: how many genuinely useful views exist, plus workflow and custom-field options, dashboards, filters and extension points.' + CRIT_TAIL, sr: 'Interface flexibility' },
-    sovereignty: { head: 'Sov',    title: 'Data sovereignty, 1\u20135: whether you can run it independently, read its source, and keep control of the application and the data under it.' + CRIT_TAIL, sr: 'Data sovereignty' },
-    portability: { head: 'Port',   title: 'Portability, 1\u20135: APIs and exports, conventional storage and database choices, licensing constraints, and how realistically you could leave.' + CRIT_TAIL, sr: 'Portability' }
+    avg:         { head: 'Score',  title: 'Unweighted mean of the six criteria, each scored 1-5 by reading documentation, repositories and release histories. An editorial judgement, not a benchmark. Expand a row for the six scores and the reasoning behind each one.', sr: 'Mean of the six criteria' },
+    deploy:      { head: 'Deploy', title: 'Ease of deployment, 1-5: containers and packages, dependency count, operational complexity, upgrade burden and the state of the documentation.' + CRIT_TAIL, sr: 'Ease of deployment' },
+    use:         { head: 'Use',    title: 'Ease of use, 1-5: interface clarity, learning curve, conceptual overhead, and whether non-specialists can live in it.' + CRIT_TAIL, sr: 'Ease of use' },
+    enterprise:  { head: 'Ent',    title: 'Enterprise features, 1-5: permissions, identity, audit and governance, portfolio reporting, scalability and administration.' + CRIT_TAIL, sr: 'Enterprise features' },
+    flex:        { head: 'Flex',   title: 'Interface flexibility, 1-5: how many genuinely useful views exist, plus workflow and custom-field options, dashboards, filters and extension points.' + CRIT_TAIL, sr: 'Interface flexibility' },
+    sovereignty: { head: 'Sov',    title: 'Data sovereignty, 1-5: whether you can run it independently, read its source, and keep control of the application and the data under it.' + CRIT_TAIL, sr: 'Data sovereignty' },
+    portability: { head: 'Port',   title: 'Portability, 1-5: APIs and exports, conventional storage and database choices, licensing constraints, and how realistically you could leave.' + CRIT_TAIL, sr: 'Portability' }
   };
   var leadLabel = $('.th-lead-l');
   var leadButton = $('.th-lead .th-sort');
@@ -239,8 +239,16 @@
     // The header button must sort what the header now shows, or clicking it
     // would jump the column back to the mean without warning.
     if (leadButton) leadButton.setAttribute('data-sort', key);
-    // Cards have room for the full criterion name; the column header does not.
-    cardLabels.forEach(function (el) { el.textContent = key === 'avg' ? 'Score' : spec.sr; });
+    // On a card the score rides the project's name, so the label is spent
+    // width. The mean needs none — the gauge is the label — and it only
+    // appears when the sort has moved the score onto a criterion, where the
+    // full name is worth the two lines it wraps to. The screen-reader text
+    // below names the criterion either way, so nothing is lost when it goes.
+    cardLabels.forEach(function (el) {
+      el.textContent = key === 'avg' ? 'Score' : spec.sr;
+      if (key === 'avg') el.removeAttribute('data-crit');
+      else el.setAttribute('data-crit', '');
+    });
 
     leadCells.forEach(function (el) {
       var host = closest(el, '.matrix-row, .card');
@@ -583,7 +591,7 @@
     };
     // Same tail on every band, written once: what the band is read from, and
     // the one thing no repository metric can stand in for.
-    var COMM_TAIL = ' Set by contributors, release cadence, forum activity, ecosystem and installed base together \u2014 never one metric, and never a count of deployments.';
+    var COMM_TAIL = ' Set by contributors, release cadence, forum activity, ecosystem and installed base together - never one metric, and never a count of deployments.';
     // Heading and dagger copy is authored in the HTML as title=, so a reader
     // without JavaScript still gets it from the browser. Lift it into
     // data-method here and take title= off, or both tips would open at once.

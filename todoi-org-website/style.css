@@ -306,13 +306,14 @@
 
   /* --- Layout ------------------------------------------------------------- */
   --shell: 84rem;         /* 1344px */
+  --shell-prose: 64rem;   /* 1024px — the document column below the matrix */
   --gutter: 1rem;         /* stepped up at 40rem and 64rem — see §06 */
   --control-h: 2.5rem;    /* 40px touch-target floor */
   --matrix-min: 44rem;    /* below this the matrix scrolls inside its box */
   /* Masthead press-mark: a colophon, not a billboard. Floored above the
      header favicon (1.375rem) and capped so it never outranks the display
      line. vw is the fallback; the 900px query retunes it from the shell. */
-  --hero-mark-size: clamp(5.75rem, 2.5rem + 7.5vw, 8rem);
+  --hero-mark-size: clamp(4.3125rem, 1.875rem + 5.625vw, 6rem);
 }
 
 /* ==========================================================================
@@ -657,6 +658,22 @@ a:hover {
   border-top-color: transparent;
   padding-top: var(--sp-4);
 }
+
+/* Below the matrix the page stops being a datasheet and becomes a document.
+   The table earns the full 84rem shell; prose does not — at that width a line
+   runs past 100 characters and a divider runs 400 points past the last word
+   it divides. So everything under the matrix shares one narrower column, and
+   every rule in it stops at the same right edge. The left edge never moves:
+   the column is set from the same gutter, not centred. */
+.routes-inner,
+.method-inner,
+.faq-inner,
+.contribute-inner {
+  max-width: var(--shell-prose);
+  /* .shell centres itself; a narrower .shell would centre too, and the page
+     would gain a second left edge. This reproduces the offset the full shell
+     resolves to at this width, so the column is narrower on the right only. */
+  margin-inline: max(0px, (100% - var(--shell)) / 2) auto;
 }
 
 /* ==========================================================================
@@ -863,7 +880,10 @@ a.wordmark:hover .wordmark-logo {
 
 /* Currency line immediately below the directory: quiet, but visually tied to
    the record it dates. The date stays mono so it reads as a figure in the
-   matrix rather than promotional copy. */
+   matrix rather than promotional copy. It sits after .cards in the DOM rather
+   than between the table and the cards, because only one of those two is ever
+   displayed: below 900px the table is hidden and the line would otherwise
+   caption the card list from above it. */
 .matrix-updated {
   margin: var(--sp-4) 0 0;
   max-width: var(--measure);
@@ -914,11 +934,15 @@ a.wordmark:hover .wordmark-logo {
    same left edge. Set side by side they read as two columns of a masthead
    and leave a hole between them at desktop width; stacked they read as one
    statement, which is what they are. */
+/* The heavy rule under a head and the hairlines inside the list below it are
+   two different tiers, but only if they are not read as a pair. The gap after
+   the head is wider than any gap inside the list, so the eye groups the
+   hairlines with their rows instead of with the boundary above them. */
 .section-head {
   display: grid;
   gap: var(--sp-2);
   padding-bottom: var(--sp-3);
-  margin-bottom: var(--sp-4);
+  margin-bottom: var(--sp-6);
   border-bottom: var(--border-heavy);
 }
 
@@ -2214,15 +2238,22 @@ a.wordmark:hover .wordmark-logo {
    15  CARDS — the mobile view of the same rows
    ========================================================================== */
 
+/* A card is a row in a list of twenty-five, read with a thumb while scrolling
+   past the twenty-four that are not the answer. Two lines carry it: the name
+   and the score on the first, the three tokens that qualify that score on the
+   second. The four stacked label-over-value pairs this replaced spent most of
+   a phone screen naming columns the reader had already learned, and put a
+   full-width button under every card to reach the record. */
 .cards {
   display: grid;
-  gap: var(--sp-3);
+  gap: var(--sp-2);
 }
 
 .card {
   display: grid;
-  gap: var(--sp-3);
-  padding: var(--sp-4);
+  min-width: 0;
+  gap: var(--sp-2);
+  padding: var(--sp-3) var(--sp-4);
   background-color: var(--bg-raised);
   border: var(--border);
   border-radius: var(--radius-2);
@@ -2230,20 +2261,22 @@ a.wordmark:hover .wordmark-logo {
 
 .card-head {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
+  align-items: center;
   gap: var(--sp-2) var(--sp-3);
 }
 
 .card-title {
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: var(--sp-2);
   font-family: var(--font-display);
   font-size: var(--fs-xl);
   font-weight: 400;
+  line-height: var(--lh-ui);
   letter-spacing: var(--tracking-title);
+  overflow-wrap: anywhere;
 }
 
 /* A card carries one name, not eleven scanned at once, so the mark can be
@@ -2259,35 +2292,110 @@ a.wordmark:hover .wordmark-logo {
   font-weight: inherit;
 }
 
-.card-blurb {
-  font-size: var(--fs-sm);
-  line-height: var(--lh-normal);
+/* The score rides the name it belongs to, in the position the matrix gives it:
+   last value before the disclosure. The label is live — sorting by a criterion
+   swaps it and the gauge to that criterion, so it has to stay on screen. */
+.card-score {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+/* Twenty-five repetitions of the word "Score" beside twenty-five gauges say
+   nothing the gauge has not already said, so with scripting the label appears
+   only when the sort has moved the score onto a criterion — where which
+   number this is becomes the whole question. Two lines of it fit the row the
+   name sets, so the list does not grow when it arrives. */
+.card-score-l {
+  max-width: 4.75rem;
+  font-family: var(--font-sans);
+  font-size: var(--fs-3xs);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: var(--tracking-ui);
+  text-align: right;
+  text-wrap: balance;
+  color: var(--text-faint);
+}
+
+.js .card-score-l {
+  display: none;
+}
+
+.js .card-score-l[data-crit] {
+  display: block;
+}
+
+/* A criterion name is two lines of width the mean never asked for. Rather
+   than break "OpenProject" across a line to make room, the name gives up one
+   step of the type scale for as long as that sort is running. */
+.card:has(.card-score-l[data-crit]) .card-title {
+  font-size: var(--fs-lg);
+}
+
+/* Thirty pixels of drawn edge, fifty-eight by forty-six of touch: the card is
+   a list row read with a thumb, and the control that replaced a full-width
+   button has to stay as easy to hit. The hit area grows into the card's own
+   padding and the gap beside the score, never past it — neither the row above
+   nor the one below may catch the tap meant for this one. */
+.card-expand {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg);
   color: var(--text-2);
+  transition: color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
 }
 
-/* Four values in two lines rather than four, each label sitting on its value:
-   a label column wide enough for "Community" spent more of a phone screen on
-   the words than on the numbers they name. */
+.card-expand::after {
+  content: '';
+  position: absolute;
+  inset: -8px -16px -8px -12px;
+}
+
+.card-expand .row-expand-mark {
+  flex: none;
+}
+
+/* One line of tokens under the name: licensing model and identifier, community
+   band, star count. The words that labelled them are gone from the screen and
+   kept for screen readers — a padlock, a graded pill and a star each name
+   their own value, and the record one tap away spells all three out. */
 .card-meta {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--sp-3) var(--sp-4);
-  padding-block: var(--sp-4);
-  border-block: var(--border);
-  font-size: var(--fs-xs);
-}
-
-.card-meta > div {
-  display: grid;
-  align-content: start;
-  gap: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-3);
+  font-size: var(--fs-2xs);
 }
 
 .card-meta dt {
-  font-size: var(--fs-3xs);
-  font-weight: 500;
-  letter-spacing: var(--tracking-ui);
-  color: var(--text-faint);
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.card-fact,
+.card-meta dd {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-width: 0;
 }
 
 .card-meta dd {
@@ -2296,38 +2404,43 @@ a.wordmark:hover .wordmark-logo {
   color: var(--text);
 }
 
-/* One full-width tap target under the four values, because on a phone the
-   card is a row in a long list and the whole point of the list is to get past
-   it quickly: everything the card used to carry — the blurb, the integration
-   range, the five capability checks — is one tap away inside the record. */
-.card-expand {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-3);
-  width: 100%;
-  min-height: var(--control-h);
-  padding-inline: var(--sp-4);
-  border: var(--border-strong);
-  border-radius: var(--radius-2);
-  background-color: var(--bg);
-  color: var(--text-2);
-  font-family: var(--font-sans);
-  font-size: var(--fs-2xs);
-  font-weight: 500;
-  letter-spacing: var(--tracking-ui);
-  transition: color var(--dur) var(--ease),
-    border-color var(--dur) var(--ease),
-    background-color var(--dur) var(--ease);
+/* The licence identifier is the one token here that can run long — a sentence,
+   in two of the twenty-five. It wraps the strip rather than truncating: the
+   exact string is the fact, and a card two lines taller beats a licence
+   cut off mid-word. */
+.card-fact-lic {
+  flex: 0 1 auto;
 }
 
-.card-expand .row-expand-mark {
+.card-lic {
+  font-size: var(--fs-3xs);
+  line-height: var(--lh-ui);
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+}
+
+/* The star restates which column the count came from. It is a mark, not a
+   rating, so it stays quieter than the number it introduces. */
+.card-fact-stars dd::before {
+  content: '\2605';
   flex: none;
+  font-size: 0.875em;
+  line-height: 1;
+  color: var(--text-faint);
 }
 
 .card-detail {
+  margin-top: var(--sp-1);
   padding-top: var(--sp-4);
   border-top: var(--border);
+}
+
+/* A record inside a card is laid out by a grid track sized from its own
+   content, and auto-fit resolves against that circular width: the five
+   capability checks claimed 880px of it and dragged the whole list sideways
+   on a phone. Two fr columns with a zero floor cannot. */
+.card-detail .caps {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 /* ==========================================================================
@@ -2408,7 +2521,7 @@ a.wordmark:hover .wordmark-logo {
 .criteria {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: var(--sp-4) var(--sp-7);
+  gap: var(--sp-6) var(--sp-7);
 }
 
 .criterion {
@@ -2429,21 +2542,35 @@ a.wordmark:hover .wordmark-logo {
   color: var(--text-2);
 }
 
+/* The note qualifies the whole set of six, but it sits directly under a
+   three-column grid whose first column it would otherwise join — a seventh
+   criterion that lost its rule. Its own rule and a wider gap put it back
+   outside the set. */
+.criteria + .method-note {
+  margin-top: var(--sp-6);
+  padding-top: var(--sp-4);
+  border-top: var(--border);
+}
+
 .models {
-  margin-top: var(--sp-7);
-  padding-top: var(--sp-5);
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-6);
   border-top: var(--border-strong);
+}
+
+.models > .sub-title + .method-note {
+  margin-top: var(--sp-3);
 }
 
 .model-defs {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
   gap: var(--sp-6) var(--sp-8);
-  margin-top: var(--sp-5);
+  margin-top: var(--sp-6);
 }
 
 .model-name {
-  margin-bottom: var(--sp-2);
+  margin-bottom: var(--sp-3);
 }
 
 .model-text {
@@ -2464,7 +2591,7 @@ a.wordmark:hover .wordmark-logo {
   align-items: baseline;
   justify-content: space-between;
   gap: var(--sp-4);
-  padding: var(--sp-3) 0;
+  padding: var(--sp-4) 0;
   list-style: none;
   cursor: pointer;
   font-family: var(--font-display);
@@ -2497,7 +2624,7 @@ a.wordmark:hover .wordmark-logo {
 }
 
 .acc-a {
-  padding-bottom: var(--sp-3);
+  padding-bottom: var(--sp-5);
   font-size: var(--fs-md);
   line-height: var(--lh-normal);
   color: var(--text-2);
@@ -2522,20 +2649,34 @@ a.wordmark:hover .wordmark-logo {
   color: var(--text-2);
 }
 
+/* A heading owns the block beneath it, so it needs more air above than below.
+   Stacked at 16/16 the two readings are equally available and the section
+   reads as one undifferentiated run of paragraphs. */
+.contribute-col > .sub-title {
+  margin-top: var(--sp-7);
+}
+
+.contribute-col > .sub-title + .contribute-text,
+.contribute-col > .sub-title + .revisions {
+  margin-top: var(--sp-3);
+}
+
 .contribute-actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-3);
-  margin-top: var(--sp-6);
+  margin-top: var(--sp-8);
 }
 
-/* Two prose columns rather than one column and an empty half, so this section
-   uses the measure the method and FAQ sections above it already establish. */
+/* Two prose columns rather than one column and an empty half. The rules that
+   spanned the grid used to push every block back into column one and leave
+   the second permanently empty; the columns are now explicit, so the prose
+   and the revision log sit side by side and neither runs past its measure. */
 @media (min-width: 60rem) {
   .contribute-inner {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: var(--sp-8);
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: var(--sp-9);
     align-items: start;
   }
 
@@ -2544,8 +2685,10 @@ a.wordmark:hover .wordmark-logo {
     grid-column: 1 / -1;
   }
 
-  .contribute-inner > .contribute-text {
-    max-width: none;
+  /* The first heading in each column starts its column; only the ones that
+     follow a block need the separating space. */
+  .contribute-col > .sub-title:first-child {
+    margin-top: 0;
   }
 }
 
@@ -2560,10 +2703,13 @@ a.wordmark:hover .wordmark-logo {
   color: var(--text-2);
 }
 
+/* Column one is sized to the note it holds, not to a share of the shell.
+   Split 2fr/1fr the brand column carried 400 points of trailing air and the
+   nav sat alone against the far edge, reading as two unrelated footers. */
 .site-footer-inner {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: var(--sp-5) var(--sp-8);
+  grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+  gap: var(--sp-5) var(--sp-9);
   align-items: start;
 }
 
@@ -2583,8 +2729,11 @@ a.wordmark:hover .wordmark-logo {
   gap: var(--sp-2) var(--sp-4);
 }
 
+/* The brand spans both rows, so end-alignment stretched the nav and the meta
+   line apart by the height of the note beside them rather than by any
+   intended interval. They belong together; they now sit together. */
 .footer-meta {
-  align-self: end;
+  align-self: start;
 }
 
 /* Maintainer line: a text link and a small mark, kept at meta weight so the
@@ -2723,8 +2872,8 @@ a.wordmark:hover .wordmark-logo {
 
   .hero-inner {
     container-type: inline-size;
-    /* ~11% of the masthead: stamp-sized at 900px, colophon-sized at the shell. */
-    --hero-mark-size: clamp(5.75rem, 11cqi, 8rem);
+    /* ~8% of the masthead: stamp-sized at 900px, colophon-sized at the shell. */
+    --hero-mark-size: clamp(4.3125rem, 8.25cqi, 6rem);
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     column-gap: clamp(var(--sp-6), 4vw, var(--sp-8));
@@ -3159,21 +3308,27 @@ html:not(.js) .th-sort::after {
 
 .route-list {
   display: grid;
-  gap: var(--sp-3);
+  gap: var(--sp-4);
 }
 
 .route {
   display: grid;
-  gap: var(--sp-1);
-  padding-top: var(--sp-3);
+  gap: var(--sp-2);
+  padding-top: var(--sp-4);
   border-top: var(--border);
 }
 
+/* Two fixed columns, not two fractions of the shell: the pick is prose and
+   has to land on a reading measure, so the table's width cannot set it. The
+   case column is sized to the longest scenario on two lines. Baseline, not
+   start — the case is display type at a tighter leading than the pick, and
+   aligning the boxes leaves their first lines visibly out of step. */
 @media (min-width: 60rem) {
   .route {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
-    gap: var(--sp-8);
-    align-items: start;
+    grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+    column-gap: var(--sp-8);
+    row-gap: var(--sp-2);
+    align-items: baseline;
   }
 }
 
@@ -3205,25 +3360,21 @@ html:not(.js) .th-sort::after {
   color: var(--text-2);
 }
 
+/* The date is a stamp on the entry, not a column of its own: in a half-width
+   column a 12rem label rail would leave the entry itself too narrow to read.
+   Stacked, the mono date reads as the entry's heading at every width. */
 .revisions {
   display: grid;
-  gap: var(--sp-3);
+  gap: var(--sp-4);
   margin-top: var(--sp-4);
   font-size: var(--fs-md);
 }
 
 .revisions > div {
   display: grid;
-  gap: var(--sp-1);
+  gap: var(--sp-2);
   padding-top: var(--sp-3);
   border-top: var(--border);
-}
-
-@media (min-width: 45rem) {
-  .revisions > div {
-    grid-template-columns: 12rem minmax(0, 1fr);
-    gap: var(--sp-5);
-  }
 }
 
 .revisions dt {
@@ -3233,16 +3384,9 @@ html:not(.js) .th-sort::after {
 }
 
 .revisions dd {
+  max-width: var(--measure);
+  line-height: var(--lh-normal);
   color: var(--text-2);
-}
-
-.contribute-inner > .sub-title,
-.contribute-inner > .revisions {
-  grid-column: 1 / -1;
-}
-
-.contribute-inner > .sub-title {
-  margin-top: var(--sp-6);
 }
 
 /* ==========================================================================
