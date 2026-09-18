@@ -309,6 +309,10 @@
   --gutter: 1rem;         /* stepped up at 40rem and 64rem — see §06 */
   --control-h: 2.5rem;    /* 40px touch-target floor */
   --matrix-min: 44rem;    /* below this the matrix scrolls inside its box */
+  /* Masthead press-mark: a colophon, not a billboard. Floored above the
+     header favicon (1.375rem) and capped so it never outranks the display
+     line. vw is the fallback; the 900px query retunes it from the shell. */
+  --hero-mark-size: clamp(5.75rem, 2.5rem + 7.5vw, 8rem);
 }
 
 /* ==========================================================================
@@ -897,13 +901,10 @@ a.wordmark:hover .wordmark-logo {
 
 .hero-mark-svg {
   display: block;
-  width: clamp(8.5rem, 13vw, 13rem);
-  height: auto;
+  height: var(--hero-mark-size);
+  width: auto;
   color: var(--accent);
 }
-
-
-
 
 /* ==========================================================================
    09  SECTION HEADS
@@ -2721,9 +2722,13 @@ a.wordmark:hover .wordmark-logo {
   }
 
   .hero-inner {
+    container-type: inline-size;
+    /* ~11% of the masthead: stamp-sized at 900px, colophon-sized at the shell. */
+    --hero-mark-size: clamp(5.75rem, 11cqi, 8rem);
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    gap: var(--sp-6) clamp(var(--sp-6), 4vw, var(--sp-8));
+    column-gap: clamp(var(--sp-6), 4vw, var(--sp-8));
+    row-gap: 0;
   }
 
   .hero-mark {
@@ -2733,11 +2738,6 @@ a.wordmark:hover .wordmark-logo {
 
   .hero-title {
     max-width: none;
-    white-space: nowrap;
-  }
-
-  .hero-lede {
-    max-width: 54ch;
   }
 }
 
