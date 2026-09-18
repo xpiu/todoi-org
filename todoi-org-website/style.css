@@ -2721,21 +2721,23 @@ a.wordmark:hover .wordmark-logo {
   }
 
   .hero-inner {
-    grid-template-columns: minmax(0, 1fr);
-    align-items: end;
-    gap: var(--sp-4);
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--sp-6) clamp(var(--sp-6), 4vw, var(--sp-8));
   }
 
   .hero-mark {
-    display: none;
+    display: block;
+    justify-self: end;
   }
 
   .hero-title {
     max-width: none;
+    white-space: nowrap;
   }
 
   .hero-lede {
-    max-width: none;
+    max-width: 54ch;
   }
 }
 
