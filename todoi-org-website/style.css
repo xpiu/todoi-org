@@ -1728,16 +1728,25 @@ a.wordmark:hover .wordmark-logo {
   border-top-color: var(--accent);
 }
 
+/* The record is a sheet of raised paper set into the sunken row, with the
+   accent rule from the open row's top edge carried down its left side. It is
+   sticky so that, when the matrix scrolls sideways, the sheet stays in view
+   instead of leaving the reader looking at an empty wash. */
 .detail-row > td > .detail {
   position: sticky;
   left: 0;
   inline-size: min(100%, calc(100vw - 2 * var(--gutter) - 2 * var(--sp-5)));
+  padding: var(--sp-5) var(--sp-6) var(--sp-6);
+  background-color: var(--bg-raised);
+  border: var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-2) var(--radius-2) 0;
 }
 
 .detail-row > td {
   background-color: var(--bg-sunken);
   border-top: 0;
-  padding: var(--sp-5) var(--sp-5) var(--sp-6);
+  padding: var(--sp-3) var(--sp-5) var(--sp-6);
 }
 
 /* Expand affordance ------------------------------------------------------ */
@@ -2062,27 +2071,51 @@ a.wordmark:hover .wordmark-logo {
 
 /* ==========================================================================
    14  EXPANDED DETAIL — shared by .detail-row and .card-detail
+   One record, five named regions. On the matrix it is a sheet of raised
+   paper set into the sunken row, with the open row's accent rule carried
+   down its left edge; inside a card the card is already the sheet.
    ========================================================================== */
 
 .detail {
   display: grid;
-  gap: var(--sp-6) var(--sp-8);
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'caps'
+    'summary'
+    'assess'
+    'record'
+    'sources';
+  gap: var(--sp-6);
   font-size: var(--fs-md);
   line-height: var(--lh-normal);
 }
 
+.detail-caps    { grid-area: caps; }
+.detail-summary { grid-area: summary; }
+.detail-assess  { grid-area: assess; }
+.detail-record  { grid-area: record; }
+.detail-sources { grid-area: sources; }
+
+/* Section labels: a short eyebrow with a hairline running out to the edge of
+   its column, so each region has a visible top and the eye can find the next
+   one without reading. */
 .detail-h {
-  margin-bottom: var(--sp-3);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
   font-size: var(--fs-2xs);
-  font-weight: 500;
+  font-weight: 600;
   line-height: var(--lh-ui);
   letter-spacing: var(--tracking-ui);
-  color: var(--text-faint);
+  color: var(--text-2);
 }
 
-.detail-side .detail-h + .detail-h,
-.detail-side .facts + .detail-h {
-  margin-top: var(--sp-5);
+.detail-h::after {
+  content: '';
+  flex: 1 1 auto;
+  min-inline-size: var(--sp-4);
+  border-top: var(--border);
 }
 
 /* The heads carried the methodology while the checks were columns; inside the
@@ -2093,97 +2126,147 @@ a.wordmark:hover .wordmark-logo {
   cursor: help;
 }
 
-/* The five capability checks. They used to be five columns on every collapsed
-   row, which made the row wide enough to scroll and asked the eye to count
-   across unlabelled marks. Held here instead, each one gets its name, and the
-   reason a partial is only partial sits under it rather than in a tooltip.
-   Full width, and first: it is what the row no longer says. */
+/* The five capability checks, each on its own tile: the mark, its name, and
+   the reason a partial is only partial sitting under the name rather than in
+   a tooltip. Natives sit on tinted stock; the ones that are not there at all
+   are drawn with a dashed edge and faint ink so the set reads at a glance. */
 .detail-caps {
-  grid-column: 1 / -1;
+  padding-bottom: var(--sp-5);
+  border-bottom: var(--border);
 }
 
 .caps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-  gap: var(--sp-3) var(--sp-5);
-  /* Five short labels read as a set at arm's length, not spread across a
-     1300px record with a hand's width between them. */
-  max-width: 60rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
 }
 
 .cap {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   gap: var(--sp-2);
+  min-inline-size: 7.5rem;
+  max-inline-size: 17rem;
+  padding: var(--sp-2) var(--sp-3) var(--sp-2) var(--sp-2);
+  background-color: var(--bg);
+  border: var(--border);
+  border-radius: var(--radius-2);
+}
+
+.cap:has(.mark-none) {
+  background-color: transparent;
+  border-style: dashed;
+}
+
+.cap:has(.mark-none) .cap-l {
+  color: var(--text-faint);
+}
+
+/* Every tile says its state in words as well as in the mark. A partial
+   already explains itself in its note; the other two states get the word. */
+.cap:has(.mark-full) .cap-l::after,
+.cap:has(.mark-none) .cap-l::after {
+  content: 'Native';
+  display: block;
+  margin-top: 2px;
+  font-size: var(--fs-3xs);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+
+.cap:has(.mark-none) .cap-l::after {
+  content: 'Not native';
+  color: var(--text-faint);
 }
 
 .cap .mark {
-  margin-top: 0.1em;
+  margin-top: 0.15em;
 }
 
 .cap-l {
   font-size: var(--fs-xs);
+  font-weight: 550;
+  line-height: var(--lh-ui);
   color: var(--text);
 }
 
 .cap-note {
   display: block;
-  margin-top: 0.15em;
+  margin-top: 2px;
   font-size: var(--fs-3xs);
+  font-weight: 400;
   line-height: 1.4;
-  color: var(--text-faint);
+  color: var(--text-2);
 }
 
 /* The write-up a two-line blurb cannot carry: one paragraph saying what the
-   project is, then three on what is actually in it. It leads the record
-   because it is the thing a reader who clicked a cut-off blurb came for, and
-   it sits in the wide column so the measure stays readable. */
+   project is, then three on what is actually in it. The lead is set in the
+   display serif at lede size, because it is the sentence the reader who
+   clicked a cut-off blurb came for; the rest runs at body size on a
+   readable measure. */
 .summary {
   display: grid;
   gap: var(--sp-3);
   max-width: var(--measure);
-  font-size: var(--fs-xs);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-loose);
   color: var(--text-2);
 }
 
 .summary-lead {
-  font-size: var(--fs-sm);
+  margin-bottom: var(--sp-1);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 400;
+  line-height: 1.38;
+  letter-spacing: var(--tracking-title);
   color: var(--text);
 }
 
-.summary + .detail-h {
-  margin-top: var(--sp-5);
-}
-
+/* The scorecard: six criteria, each a name with its gauge and figure on one
+   line and the reasoning under it, separated by hairlines. The gauge is the
+   same one the lead column uses. */
 .crits {
   display: grid;
-  gap: var(--sp-4);
+}
+
+.crit {
+  padding: var(--sp-3) 0;
+  border-bottom: var(--border);
+}
+
+.crit:first-child {
+  padding-top: 0;
+}
+
+.crit:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .crit-name {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: var(--sp-3);
   font-size: var(--fs-sm);
   font-weight: 550;
+  line-height: var(--lh-ui);
   color: var(--text);
-  border-bottom: var(--border);
-  padding-bottom: 2px;
 }
 
-/* The expanded record is the only place the six criteria appear, so each one
-   carries the same gauge the lead column uses. */
 .crit-val {
   flex: none;
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-2);
+  gap: var(--sp-3);
 }
 
 .crit-bar {
-  inline-size: 3.5rem;
-  block-size: 3px;
+  inline-size: 5rem;
+  block-size: 4px;
+  border-radius: 2px;
   background-color: var(--track);
   background-image: linear-gradient(
     to right,
@@ -2194,44 +2277,99 @@ a.wordmark:hover .wordmark-logo {
 
 .crit-score {
   flex: none;
+  min-inline-size: 2.25ch;
   font-family: var(--font-mono);
+  font-size: var(--fs-sm);
   font-variant-numeric: tabular-nums;
-  font-weight: 400;
+  font-weight: 500;
+  text-align: right;
   color: var(--accent);
 }
 
 .crit-text {
-  margin-top: var(--sp-2);
-  max-width: var(--measure);
+  margin-top: var(--sp-1);
   font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
   color: var(--text-2);
 }
 
+/* The record proper: fourteen labelled facts as a two-column ledger, label
+   left and value right, flowing down the first column and then the second.
+   Multicol rather than a grid so a long Deployment entry does not stretch
+   the Licence row beside it. */
+.facts {
+  column-gap: var(--sp-8);
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-bottom: var(--border);
+  break-inside: avoid;
+}
+
+.fact:last-child {
+  border-bottom: 0;
+}
+
 .facts dt {
+  padding-top: 1px;
   font-size: var(--fs-2xs);
   font-weight: 500;
+  line-height: var(--lh-normal);
   letter-spacing: var(--tracking-ui);
   color: var(--text-faint);
 }
 
 .facts dd {
-  margin-bottom: var(--sp-3);
+  margin: 0;
   font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
   color: var(--text);
 }
 
-.facts dd:last-child {
-  margin-bottom: 0;
-}
-
+/* Sources as a row of chips: short, mono, and clearly clickable. */
 .srcs {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--sp-2);
   padding-left: 0;
   list-style: none;
   font-family: var(--font-mono);
   font-size: var(--fs-3xs);
   overflow-wrap: anywhere;
+}
+
+.srcs a {
+  display: inline-block;
+  padding: 0.35em 0.7em;
+  background-color: var(--bg);
+  border: var(--border);
+  border-radius: var(--radius-2);
+  text-decoration: none;
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.srcs a:hover {
+  border-color: var(--accent);
+  text-decoration: underline;
+}
+
+/* On a phone the ledger stacks each label over its value; from 40em the
+   label sits to the left, and the list flows into two columns. */
+@media screen and (max-width: 39.99em) {
+  .fact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+}
+
+@media screen and (min-width: 40em) {
+  .facts {
+    columns: 2;
+  }
 }
 
 /* ==========================================================================
@@ -2435,12 +2573,10 @@ a.wordmark:hover .wordmark-logo {
   border-top: var(--border);
 }
 
-/* A record inside a card is laid out by a grid track sized from its own
-   content, and auto-fit resolves against that circular width: the five
-   capability checks claimed 880px of it and dragged the whole list sideways
-   on a phone. Two fr columns with a zero floor cannot. */
-.card-detail .caps {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+/* Inside a card the tiles wrap to the card's width; each one may grow so a
+   row of them fills the line instead of ragging. */
+.card-detail .cap {
+  flex: 1 1 8rem;
 }
 
 /* ==========================================================================
@@ -2866,8 +3002,22 @@ a.wordmark:hover .wordmark-logo {
     display: none;
   }
 
+  /* Summary beside the scorecard, divided by a hairline; the ledger and the
+     sources run the full width underneath. */
   .detail {
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    grid-template-areas:
+      'caps caps'
+      'summary assess'
+      'record record'
+      'sources sources';
+    column-gap: var(--sp-7);
+    row-gap: var(--sp-7);
+  }
+
+  .detail-assess {
+    padding-left: var(--sp-7);
+    border-left: var(--border);
   }
 
   .hero-inner {
@@ -3214,6 +3364,9 @@ a.wordmark:hover .wordmark-logo {
   .detail-row > td > .detail {
     position: static;
     inline-size: auto;
+    padding: 0;
+    border: 0;
+    background: none;
   }
 
   .acc-q::after {
