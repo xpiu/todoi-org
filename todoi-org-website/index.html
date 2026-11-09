@@ -17,8 +17,8 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Open-source task managers compared">
 <meta name="twitter:description" content="Licence, features and six scored criteria for open-source and source-available task managers, each with the reasoning attached.">
-<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e1312" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#eef2f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1016" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
 <link rel="icon" type="image/png" sizes="512x512" href="img/favicon-512.png">
@@ -115,33 +115,30 @@
             <input type="search" id="q" class="control-search" placeholder="Name, licence or description" autocomplete="off" spellcheck="false">
           </div>
           <div class="control-field control-field-sort">
-            <label class="control-label" for="sort">Sort by</label>
-            <select id="sort" class="control-select">
-              <option value="community-desc">Community size, large to small</option>
-              <option value="community-asc">Community size, small to large</option>
-              <option value="stars-desc">Repository stars, many to few</option>
-              <option value="stars-asc">Repository stars, few to many</option>
-              <option value="avg-desc">Score, high to low</option>
-              <option value="name-asc">Name, A to Z</option>
-              <option value="name-desc">Name, Z to A</option>
-              <option value="avg-asc">Score, low to high</option>
-              <option value="deploy-desc">Ease of deployment, high to low</option>
-              <option value="deploy-asc">Ease of deployment, low to high</option>
-              <option value="use-desc">Ease of use, high to low</option>
-              <option value="use-asc">Ease of use, low to high</option>
-              <option value="enterprise-desc">Enterprise features, high to low</option>
-              <option value="enterprise-asc">Enterprise features, low to high</option>
-              <option value="flex-desc">Interface flexibility, high to low</option>
-              <option value="flex-asc">Interface flexibility, low to high</option>
-              <option value="sovereignty-desc">Data sovereignty, high to low</option>
-              <option value="sovereignty-asc">Data sovereignty, low to high</option>
-              <option value="portability-desc">Portability, high to low</option>
-              <option value="portability-asc">Portability, low to high</option>
-              <option value="integrations-desc">Integrations, many to few</option>
-              <option value="integrations-asc">Integrations, few to many</option>
-              <option value="year-desc">First appeared, newest first</option>
-              <option value="year-asc">First appeared, oldest first</option>
-            </select>
+            <label class="control-label" for="sort-field">Sort by</label>
+            <div class="sort-pair">
+              <select id="sort-field" class="control-select">
+                <optgroup label="Overview">
+                  <option value="community" selected>Community size</option>
+                  <option value="stars">Repository stars</option>
+                  <option value="avg">Score</option>
+                  <option value="integrations">Integrations</option>
+                </optgroup>
+                <optgroup label="Criteria">
+                  <option value="deploy">Ease of deployment</option>
+                  <option value="use">Ease of use</option>
+                  <option value="enterprise">Enterprise features</option>
+                  <option value="flex">Interface flexibility</option>
+                  <option value="sovereignty">Data sovereignty</option>
+                  <option value="portability">Portability</option>
+                </optgroup>
+                <optgroup label="Identity">
+                  <option value="name">Name</option>
+                  <option value="year">First appeared</option>
+                </optgroup>
+              </select>
+              <button type="button" id="sort-dir" class="sort-dir" data-dir="desc" aria-label="Order: large to small. Reverse the order"><span class="sort-dir-icon" aria-hidden="true"></span><span class="sort-dir-label" id="sort-dir-label">Large to small</span></button>
+            </div>
           </div>
         </div>
 
@@ -172,6 +169,7 @@
             </div>
           </div>
           <div class="control-group control-group-end">
+            <button type="button" id="copy-link" class="btn btn-ghost btn-sm copy-link" hidden>Copy link to this view</button>
             <button type="button" id="clear-filters" class="btn btn-ghost btn-sm">Clear filters</button>
             <p class="result-count" id="result-count" aria-live="polite">25 projects</p>
           </div>
@@ -3068,9 +3066,10 @@
       <p class="matrix-updated">Twenty-five projects, compiled <time datetime="2026-09-17">17 September 2026</time>. Expand a row for capabilities, scores and sources. Scores are editorial judgements on a 1-5 scale.</p>
 
       <div class="empty" id="empty" hidden>
-        <h3 class="empty-title">No project matches those filters</h3>
-        <p class="empty-text">Asking for native time tracking, Gantt, a calendar and CalDAV under a single licensing model rules out nearly everything, and partial support never satisfies a must-have. Loosen one filter and try again.</p>
-        <button type="button" id="empty-clear" class="btn btn-primary btn-sm">Clear filters</button>
+        <h3 class="empty-title" id="empty-title">No project matches those filters</h3>
+        <p class="empty-text" id="empty-text">Asking for native time tracking, Gantt, a calendar and CalDAV under a single licensing model rules out nearly everything, and partial support never satisfies a must-have. Loosen one filter and try again.</p>
+        <ul class="empty-active" id="empty-active" aria-label="Active constraints: activate one to remove it"></ul>
+        <p class="empty-actions"><button type="button" id="empty-clear" class="btn btn-primary btn-sm">Clear filters</button></p>
       </div>
 
       <div class="matrix-foot">

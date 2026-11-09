@@ -117,7 +117,10 @@
   var hasBoard = rows.length > 0 || cards.length > 0;
 
   var q = $('#q');
-  var sortSelect = $('#sort');
+  var sortField = $('#sort-field');
+  var sortDirBtn = $('#sort-dir');
+  var sortDirLabel = $('#sort-dir-label');
+  var copyLink = $('#copy-link');
   var sortButtons = $$('button.th-sort[data-sort]');
   var chipBox = $('#model-chips');
   var chips = chipBox ? $$('button.chip[data-model]', chipBox) : [];
@@ -129,6 +132,10 @@
   var filterPanel = $('#filter-options');
   var filterDisclosureSummary = $('#filter-disclosure-summary');
   var emptyEl = $('#empty');
+  var emptyTitle = $('#empty-title');
+  var emptyText = $('#empty-text');
+  var emptyActive = $('#empty-active');
+  var emptyClear = $('#empty-clear');
 
   var tbody = rows.length ? rows[0].parentNode : null;
   var cardBox = cards.length ? cards[0].parentNode : null;
@@ -194,6 +201,28 @@
   // and a sort, never as the default: the band is the judgement, the count is
   // one of the signals behind it.
   var sortKey = 'community', sortDir = 'desc', terms = [];
+  var DEFAULT_SORT = 'community-desc';
+  // The direction button speaks in the field's own words: a reader sorting
+  // by name is choosing A to Z, not "descending".
+  var DIR_WORDS = {
+    name: ['A to Z', 'Z to A'],
+    year: ['Newest first', 'Oldest first'],
+    community: ['Large to small', 'Small to large'],
+    stars: ['Many to few', 'Few to many'],
+    integrations: ['Many to few', 'Few to many']
+  };
+  function dirWords(key, dir) {
+    var pair = DIR_WORDS[key] || ['High to low', 'Low to high'];
+    if (key === 'name') return dir === 'asc' ? pair[0] : pair[1];
+    return dir === 'desc' ? pair[0] : pair[1];
+  }
+  // A fresh field opens on the order a reader most likely wants: most, best
+  // or newest first - except names, which read forwards.
+  function defaultDir(key) { return key === 'name' ? 'asc' : 'desc'; }
+  // Which record is open, for the address bar. One slug: the most recent.
+  var openSlug = null;
+  var TOGGLE_NAMES = { tt: 'Time tracking', agile: 'Agile boards', gantt: 'Gantt',
+    calendar: 'Calendar', caldav: 'CalDAV' };
 
   /* --- the lead score column ---
    * The matrix shows one score. It is the mean by default, but sorting by a
@@ -284,6 +313,27 @@
     btn.setAttribute('aria-expanded', 'false');
     var panel = document.getElementById(btn.getAttribute('aria-controls') || '');
     if (panel) setShown(panel, false);
+  }
+  function expand(host) {
+    var btn = $('button.row-expand, button.card-expand', host);
+    if (!btn) return;
+    btn.setAttribute('aria-expanded', 'true');
+    var panel = document.getElementById(btn.getAttribute('aria-controls') || '');
+    if (panel) setShown(panel, true);
+  }
+  function hostOf(btn) { return closest(btn, 'tr.matrix-row, article.card'); }
+  function slugOf(host) { return host ? host.getAttribute('data-slug') || null : null; }
+  // The matrix and the cards are the same twenty-five records twice; which of
+  // the two is on screen depends on the viewport. Opening a record by slug
+  // opens both copies, so the state survives a rotation or a resize.
+  function recordsOf(slug) {
+    return rows.concat(cards).filter(function (h) { return slugOf(h) === slug; });
+  }
+  function visibleOf(hosts) {
+    for (var i = 0; i < hosts.length; i++) {
+      if (hosts[i].offsetParent !== null || hosts[i].getClientRects().length) return hosts[i];
+    }
+    return null;
   }
 
   function matches(el) {
@@ -388,6 +438,7 @@
     announce(shown, total);
     syncFilterDisclosure();
     if (emptyEl) emptyEl.hidden = shown !== 0;
+    if (shown === 0) renderEmpty();
     // Hide the table chrome too: a thead over an empty body leaves ten sort
     // controls in the tab order that have nothing to sort.
     var scroller = $('.matrix-scroll');
@@ -396,18 +447,189 @@
     // Filtering changes which rows the table lays its columns out against, so
     // which blurbs are cut is answered again after every pass.
     markClamped();
+    writeURL();
+  }
+
+  /* --- the view in the address bar ---
+   * Search, filters, sort and the open record are written into the query
+   * string as they change, with replaceState so the back button is never
+   * spent on a keystroke. Reading them back on load is what makes a filtered
+   * view a thing you can bookmark, share or refresh. */
+  var hasParams = typeof URLSearchParams !== 'undefined';
+  function activeToggles() {
+    return toggles.filter(function (t) { return t.el.checked; });
+  }
+  function pressedChips() {
+    return chips.filter(function (c) { return c.getAttribute('aria-pressed') === 'true'; });
+  }
+  function viewParams() {
+    var p = new URLSearchParams();
+    var query = q ? q.value.trim() : '';
+    if (query) p.set('q', query);
+    var f = activeToggles().map(function (t) { return t.key; });
+    if (f.length) p.set('f', f.join(','));
+    var l = pressedChips().map(function (c) { return c.getAttribute('data-model'); });
+    if (l.length) p.set('lic', l.join(','));
+    if (sortKey + '-' + sortDir !== DEFAULT_SORT) p.set('sort', sortKey + '-' + sortDir);
+    if (openSlug) p.set('open', openSlug);
+    return p;
+  }
+  function writeURL() {
+    if (!hasBoard || !hasParams || !window.history || !window.history.replaceState) return;
+    var search = viewParams().toString();
+    var next = window.location.pathname + (search ? '?' + search : '') + window.location.hash;
+    var now = window.location.pathname + window.location.search + window.location.hash;
+    if (next !== now) {
+      try { window.history.replaceState(null, '', next); } catch (e) { /* file:// */ }
+    }
+    syncCopyLink(!!search);
+  }
+  function readURL() {
+    if (!hasParams) return null;
+    var p;
+    try { p = new URLSearchParams(window.location.search); } catch (e) { return null; }
+    if (q && p.get('q')) q.value = p.get('q');
+    var f = (p.get('f') || '').split(',');
+    toggles.forEach(function (t) { if (f.indexOf(t.key) > -1) t.el.checked = true; });
+    var l = (p.get('lic') || '').split(',');
+    chips.forEach(function (c) {
+      if (l.indexOf(c.getAttribute('data-model')) > -1) c.setAttribute('aria-pressed', 'true');
+    });
+    var sort = String(p.get('sort') || '').split('-');
+    if (KEYS[sort[0]]) { sortKey = sort[0]; sortDir = sort[1] === 'asc' ? 'asc' : 'desc'; }
+    return p.get('open') || null;
+  }
+
+  /* --- copy link ---
+   * Shown only when the address bar holds something worth handing over. The
+   * confirmation is in the button itself, where the eye already is. */
+  var copyTimer = null;
+  function syncCopyLink(show) {
+    if (!copyLink) return;
+    copyLink.hidden = !show;
+    if (!show && copyTimer) { window.clearTimeout(copyTimer); copyTimer = null; }
+  }
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      if (ok) resolve(); else reject(new Error('copy failed'));
+    });
+  }
+  if (copyLink) {
+    var copyIdle = copyLink.textContent;
+    copyLink.addEventListener('click', function () {
+      copyText(window.location.href).then(function () {
+        copyLink.setAttribute('data-state', 'copied');
+        copyLink.textContent = 'Link copied';
+      }, function () {
+        copyLink.setAttribute('data-state', 'failed');
+        copyLink.textContent = 'Copy from the address bar';
+      }).then(function () {
+        if (copyTimer) window.clearTimeout(copyTimer);
+        copyTimer = window.setTimeout(function () {
+          copyLink.removeAttribute('data-state');
+          copyLink.textContent = copyIdle;
+          copyTimer = null;
+        }, 1800);
+      });
+    });
+  }
+
+  /* --- the empty state names its cause ---
+   * A search term, a set of filters, or both emptied the list; the copy says
+   * which, and every active constraint is laid out as a token that removes
+   * itself, so loosening is one tap rather than a hunt back up the rail. */
+  function token(kind, name, remove) {
+    var li = document.createElement('li');
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'empty-token';
+    var k = document.createElement('span');
+    k.className = 'empty-token-kind';
+    k.textContent = kind + ':';
+    var n = document.createElement('span');
+    n.textContent = name;
+    var x = document.createElement('span');
+    x.className = 'empty-token-x';
+    x.setAttribute('aria-hidden', 'true');
+    b.appendChild(k);
+    b.appendChild(n);
+    b.appendChild(x);
+    b.setAttribute('aria-label', 'Remove ' + kind.toLowerCase() + ' ' + name);
+    b.addEventListener('click', function () { remove(); apply(); });
+    li.appendChild(b);
+    return li;
+  }
+  function renderEmpty() {
+    if (!emptyEl) return;
+    var query = q ? q.value.trim() : '';
+    var on = activeToggles();
+    var lic = pressedChips();
+    var filters = on.length + lic.length;
+    var title, text, action;
+    if (query && !filters) {
+      title = 'Nothing matches \u201C' + query + '\u201D';
+      text = 'The search reads names, licences and the one-line descriptions. Try a shorter word, a licence such as MIT or AGPL, or clear it and browse.';
+      action = 'Clear search';
+    } else if (!query && filters) {
+      title = 'No project matches those filters';
+      text = 'Asking for native time tracking, Gantt, a calendar and CalDAV under a single licensing model rules out nearly everything, and partial support never satisfies a must-have. Loosen one filter and try again.';
+      action = 'Clear filters';
+    } else {
+      title = 'Nothing matches \u201C' + query + '\u201D with those filters';
+      text = 'The search and the filters are both narrowing the list. Take one constraint off below, or clear them all.';
+      action = 'Clear search and filters';
+    }
+    if (emptyTitle) emptyTitle.textContent = title;
+    if (emptyText) emptyText.textContent = text;
+    if (emptyClear) emptyClear.textContent = action;
+    if (!emptyActive) return;
+    while (emptyActive.firstChild) emptyActive.removeChild(emptyActive.firstChild);
+    if (query) {
+      emptyActive.appendChild(token('Search', query, function () {
+        if (q) q.value = '';
+        terms = [];
+      }));
+    }
+    on.forEach(function (t) {
+      emptyActive.appendChild(token('Native', TOGGLE_NAMES[t.key] || t.key, function () {
+        t.el.checked = false;
+      }));
+    });
+    lic.forEach(function (c) {
+      emptyActive.appendChild(token('Licence', c.textContent.trim(), function () {
+        c.setAttribute('aria-pressed', 'false');
+      }));
+    });
   }
 
   /* --- sort UI wiring --- */
   function syncSortUI() {
-    var want = sortKey + '-' + sortDir;
-    if (sortSelect && sortSelect.value !== want) {
-      var exists = Array.prototype.some.call(sortSelect.options, function (o) {
-        return o.value === want;
+    if (sortField && sortField.value !== sortKey) {
+      var exists = Array.prototype.some.call(sortField.options, function (o) {
+        return o.value === sortKey;
       });
       // Never leave the select displaying a sort that is not in effect.
-      if (exists) sortSelect.value = want;
-      else sortSelect.selectedIndex = -1;
+      if (exists) sortField.value = sortKey;
+      else sortField.selectedIndex = -1;
+    }
+    if (sortDirBtn) {
+      var words = dirWords(sortKey, sortDir);
+      sortDirBtn.setAttribute('data-dir', sortDir);
+      sortDirBtn.setAttribute('aria-label', 'Order: ' + words.toLowerCase() + '. Reverse the order');
+      if (sortDirLabel) sortDirLabel.textContent = words;
     }
     sortButtons.forEach(function (btn) {
       var th = closest(btn, 'th');
@@ -428,15 +650,14 @@
     apply();
   }
 
-  if (sortSelect) {
-    var initial = String(sortSelect.value || 'community-desc').split('-');
-    if (KEYS[initial[0]]) { sortKey = initial[0]; sortDir = initial[1] === 'asc' ? 'asc' : 'desc'; }
-    // A restored or non-default select value must not leave the column showing
-    // the mean while the table is ordered by something else.
-    setLead(sortKey);
-    sortSelect.addEventListener('change', function () {
-      var parts = String(sortSelect.value || '').split('-');
-      setSort(parts[0], parts[1]);
+  if (sortField) {
+    sortField.addEventListener('change', function () {
+      setSort(sortField.value, defaultDir(sortField.value));
+    });
+  }
+  if (sortDirBtn) {
+    sortDirBtn.addEventListener('click', function () {
+      setSort(sortKey, sortDir === 'desc' ? 'asc' : 'desc');
     });
   }
 
@@ -511,6 +732,38 @@
     var open = btn.getAttribute('aria-expanded') === 'true';
     btn.setAttribute('aria-expanded', String(!open));
     setShown(panel, !open);
+    var slug = slugOf(hostOf(btn));
+    if (!open) openSlug = slug;
+    else if (openSlug === slug) openSlug = null;
+    writeURL();
+  });
+
+  /* --- a way back from the foot of a record --- */
+  // Every record gets a close control at its end. It routes through the
+  // record's own expander so the chevron, aria-expanded and the address bar
+  // all stay owned by the one handler above, then brings the row back into
+  // view, because the row is now a long way up.
+  $$('.detail').forEach(function (detail) {
+    var host = closest(detail, 'tr.detail-row') || closest(detail, 'article.card');
+    if (!host) return;
+    var foot = document.createElement('p');
+    foot.className = 'detail-foot';
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'btn btn-ghost btn-sm detail-close';
+    b.textContent = 'Close record';
+    foot.appendChild(b);
+    detail.appendChild(foot);
+    b.addEventListener('click', function () {
+      var owner = host.classList.contains('card') ? host : host.previousElementSibling;
+      var btn = owner && $('button.row-expand, button.card-expand', owner);
+      if (!btn) return;
+      btn.click();
+      try {
+        owner.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'center' });
+        btn.focus({ preventScroll: true });
+      } catch (err) { owner.scrollIntoView(); }
+    });
   });
 
   /* --- a cut-off blurb opens its own row --- */
@@ -552,8 +805,31 @@
     // Detail panels are authored open so that, without JavaScript, the evidence
     // behind every score is still readable. Scripting collapses them on init.
     rows.concat(cards).forEach(collapse);
+    // The address bar may already describe a view; take it before first paint
+    // of the sorted table so there is no flash of the default order.
+    var linkedSlug = readURL();
+    readQuery();
+    setLead(sortKey);
     syncSortUI();
+    if (linkedSlug) {
+      var linked = recordsOf(linkedSlug);
+      if (linked.length) {
+        openSlug = linkedSlug;
+        linked.forEach(expand);
+      }
+    }
     apply();
+    if (openSlug) {
+      // Bring the linked record into view once the layout has settled; the
+      // open row is somewhere down a table that has just been sorted.
+      window.setTimeout(function () {
+        var target = visibleOf(recordsOf(openSlug));
+        if (target) {
+          try { target.scrollIntoView({ behavior: 'auto', block: 'start' }); }
+          catch (err) { target.scrollIntoView(); }
+        }
+      }, 0);
+    }
   }
 
   // The measurement is only true once the web font it was measured in has
@@ -763,7 +1039,8 @@
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
     try { target.focus({ preventScroll: true }); } catch (err) { /* no-op */ }
     if (window.history && window.history.pushState) {
-      window.history.pushState(null, '', '#' + id);
+      // Keep the view: the hash names a section, the query names the state.
+      window.history.pushState(null, '', window.location.search + '#' + id);
     }
   });
 

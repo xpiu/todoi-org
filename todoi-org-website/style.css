@@ -1,11 +1,11 @@
 @charset "utf-8";
 /* ==========================================================================
    todoi.org — design system
-   "White sheet, one ink": a white page, white panels edged in a teal-tinted
-   hairline, and a single accent - a muted teal - for anything you can act
-   on, with amber held back for anything conditional. Rounded panels (12px),
-   rounded controls (8px), rounded chips (6px). No shadows except on the
-   tooltip and the focus ring.
+   "Two-ink press, on sheets": blue drafting stock for the page, white
+   sheets edged in a hairline for anything you read data off, and two spot
+   inks - electric blue for anything you can act on, amber for anything
+   conditional. Rounded panels (12px), rounded controls (8px), rounded chips
+   (6px). No shadows except on the tooltip and the focus ring.
 
    Type is two families doing two jobs: DM Sans for every word - display,
    running text and interface - at medium weight for titles so a headline
@@ -142,61 +142,64 @@
 :root {
   color-scheme: light;
 
-  /* --- Surfaces: white sheets -------------------------------------------
-     A white page and white panels, told apart by a hairline rather than a
-     tint; a faintly teal-washed stock for the chassis the controls are set
-     into, the table head and anything hovered. ---------------------------- */
-  --paper: #ffffff;          /* page */
+  /* --- Surfaces: cool drafting paper -------------------------------------
+     Blue drafting stock for the page, white for anything you read data off,
+     and a deeper stock for the chassis the controls are set into, the table
+     head and anything hovered. --------------------------------------------- */
+  --paper: #eef2f9;          /* page — tinted, so white surfaces read as sheets */
   --paper-raised: #ffffff;   /* header, cards, inputs, chips, the matrix body */
-  --paper-sunken: #f4f7f6;   /* control bar, table head, hover, detail rows */
-  --zebra: #fafcfb;          /* alternate matrix rows — barely there */
+  --paper-sunken: #e1e7f2;   /* control bar, table head, hover, detail rows */
+  --zebra: #f3f6fe;          /* alternate matrix rows — a whisper of the accent */
 
-  /* --- Ink: near-black with the same teal cast as the rules ------------- */
-  --ink: #171c1a;            /* body text          17.0:1 on white */
-  --ink-2: #5a6561;          /* secondary text      6.1:1 on white */
-  --ink-faint: #67726e;      /* meta, empty marks   5.0:1 on white, 4.6:1 on
-                                --paper-sunken */
+  /* --- Ink ---------------------------------------------------------------- */
+  --ink: #0a0c10;            /* body text          17.43:1 on --paper */
+  --ink-2: #444b57;          /* secondary text      7.83:1 on --paper */
+  --ink-faint: #57606e;      /* meta, empty marks   5.66:1 on --paper */
 
   /* --- Rules: three weights, because one token cannot do three jobs -------
      Hairlines carry nearly everything. Boundaries are a step darker so a
      control reads as a control against the sunken chassis; the emphasis
-     tier is a mid grey, not full ink - the page is edged, not ruled. ------ */
-  --line: #e3e8e6;           /* hairline dividers, panel edges, the table grid */
-  --line-strong: #c3ccc8;    /* control boundaries */
-  --line-heavy: #a9b4b0;     /* structural rules & hover edges */
-  --track: #e3e8e6;          /* unfilled score gauge */
+     tier is a deep slate, not full ink - the page is edged, not ruled. ---- */
+  --line: #ccd4e0;           /* hairline dividers, panel edges, the table grid */
+  --line-strong: #788494;    /* control boundaries — 3.06:1 on --paper-sunken */
+  --line-heavy: #4c5565;     /* structural rules & hover edges */
+  --track: #ccd5e2;          /* unfilled score gauge — 4.78:1 against --accent */
 
-  /* --- First ink: muted teal. Everything you can act on. -----------------
+  /* --- First ink: electric blue. Everything you can act on. --------------
      Links, focus, pressed filters, the open row, the score gauge, FOSS. --- */
-  --accent: #2f7a6e;         /* 5.1:1 on white */
-  --accent-strong: #25645a;  /* hover / pressed        7.0:1 on white */
-  --accent-soft: #e6f2ef;    /* tonal fill behind pressed chips, open rows */
-  --on-accent: #ffffff;      /* text on an accent fill  5.1:1 */
+  --accent: #0b46e0;         /* 6.30:1 on --paper, 7.08:1 on white */
+  --accent-strong: #0632a8;  /* hover / pressed        9.22:1 on --paper */
+  --accent-soft: #d4e0fd;    /* tonal fill behind pressed chips, open rows —
+                                deep enough to stay distinct from --zebra */
+  --on-accent: #ffffff;      /* text on an accent fill  7.08:1 */
 
   /* --- Second ink: amber. Everything that is only conditionally true. -----
      Reserved for the half-filled capability mark - "paid tier, plugin or
-     add-on". Graphic use only: never set copy in it. ---------------------- */
-  --signal: #9c6318;
+     add-on". Graphic use only: 3.61:1 on its worst ground (--accent-soft)
+     clears the 3:1 non-text floor, not the 4.5:1 text one - never set copy
+     in it. -------------------------------------------------------------- */
+  --signal: #b45a00;
 
   /* --- Ordered data: low -> high -----------------------------------------
      A familiar red -> amber -> green ramp for quantities where more is the
-     only encoded direction, muted to sit beside the teal. Every ink clears
-     AA at the small mono sizes used by the Community and Stars columns. --- */
-  --grade-1: #a23a3f;
-  --grade-2: #91581a;
-  --grade-3: #736418;
-  --grade-4: #357355;        /* 5.0:1 on its own wash */
-  --grade-5: #237a4e;
+     only encoded direction. The words still carry the meaning; colour only
+     makes the order faster to scan. Every ink clears AA at the small mono
+     size of the Community band. ------------------------------------------ */
+  --grade-1: #9f2f36;
+  --grade-2: #8a4b0f;
+  --grade-3: #6f5b00;
+  --grade-4: #287049;
+  --grade-5: #006b3c;
   --grade-wash: 10%;
-  --grade-edge: 40%;
+  --grade-edge: 42%;
 
-  /* --- The table head: a light band, not an inverted one. ----------------
+  /* --- The table head: a band of the deeper stock, not an inverted one. ---
      Tokens the header cells resolve against, re-pointed in §12. ----------- */
-  --band: #f4f7f6;
-  --band-fg: #171c1a;
-  --band-fg-2: #5a6561;      /*  5.6:1 on --band */
-  --band-accent: #2f7a6e;
-  --band-line: #c3ccc8;
+  --band: #e1e7f2;
+  --band-fg: #0a0c10;
+  --band-fg-2: #444b57;      /*  7.0:1 on --band */
+  --band-accent: #0b46e0;
+  --band-line: #ccd4e0;
 
   /* --- Semantic aliases used across components --------------------------- */
   --bg: var(--paper);
@@ -275,8 +278,8 @@
   --radius-3: 12px;       /* panels, cards, the matrix frame */
 
   /* --- Elevation: one shadow, for the one floating surface ---------------- */
-  --shadow-pop: 0 8px 24px -8px rgba(23, 28, 26, 0.18),
-    0 2px 6px -2px rgba(23, 28, 26, 0.08);
+  --shadow-pop: 0 8px 24px -8px rgba(10, 12, 16, 0.2),
+    0 2px 6px -2px rgba(10, 12, 16, 0.08);
 
   /* --- Focus -------------------------------------------------------------- */
   --focus-width: 2px;
@@ -301,48 +304,48 @@
 /* ==========================================================================
    02  TOKENS — DARK
    Colour only. Same names, same roles. Surfaces step lighter as they come
-   forward (page < raised < sunken), so a hovered row or the control bar
-   lifts off the page the way it does in light.
+   forward (page < raised < sunken), so a hovered row, the table head and
+   the control bar lift off the page the way the deeper stock does in light.
    ========================================================================== */
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     color-scheme: dark;
 
-    --paper: #0e1312;
-    --paper-raised: #141a19;
-    --paper-sunken: #1a2220;
-    --zebra: #171e1c;
+    --paper: #0d1016;
+    --paper-raised: #151a22;
+    --paper-sunken: #1b212c;
+    --zebra: #1a212b;
 
-    --ink: #e9eeec;        /* 15.9:1 on --paper */
-    --ink-2: #a3b0ab;      /*  8.0:1 on --paper */
-    --ink-faint: #8d9994;  /*  6.2:1 on --paper */
+    --ink: #e8ecf4;        /* 16.08:1 on --paper */
+    --ink-2: #a3acbd;      /*  8.34:1 on --paper */
+    --ink-faint: #919bad;  /*  6.80:1 on --paper */
 
-    --line: #273130;       /* hairline dividers and the table grid */
-    --line-strong: #37423f; /* control boundaries */
-    --line-heavy: #5f6c68; /* structural rules & hover */
-    --track: #2b3533;
+    --line: #333b48;       /* hairline dividers and the table grid */
+    --line-strong: #7b8799; /* control boundaries — 4.80:1 on --paper-raised */
+    --line-heavy: #a3acbd; /* structural rules & hover */
+    --track: #333c4c;
 
-    --accent: #6cc3b3;     /* 9.0:1 on --paper */
-    --accent-strong: #93d8ca;
-    --accent-soft: #153630;
-    --on-accent: #0e1312;  /* 9.0:1 on --accent */
+    --accent: #6f9dff;     /* 7.20:1 on --paper */
+    --accent-strong: #9dbcff;
+    --accent-soft: #121c3a;
+    --on-accent: #0d1016;  /* 7.20:1 on --accent */
 
-    --signal: #dba85c;     /* the conditional mark */
+    --signal: #e0a052;     /* the conditional mark — 8.45:1 on --paper */
 
-    --grade-1: #f0a4a6;
-    --grade-2: #e9b57a;
-    --grade-3: #d9c56e;
-    --grade-4: #8fd1ad;
-    --grade-5: #6fd69c;
+    --grade-1: #ffaaa9;
+    --grade-2: #f5b87c;
+    --grade-3: #dfca72;
+    --grade-4: #8bd4aa;
+    --grade-5: #63d997;
     --grade-wash: 14%;
-    --grade-edge: 50%;
+    --grade-edge: 55%;
 
-    --band: #141a19;
-    --band-fg: #e9eeec;
-    --band-fg-2: #a3b0ab;
-    --band-accent: #6cc3b3;
-    --band-line: #37423f;
+    --band: #1b212c;
+    --band-fg: #e8ecf4;
+    --band-fg-2: #a3acbd;
+    --band-accent: #6f9dff;
+    --band-line: #333b48;
 
     --shadow-pop: 0 8px 24px -8px rgba(0, 0, 0, 0.6),
       0 2px 6px -2px rgba(0, 0, 0, 0.4);
@@ -352,40 +355,40 @@
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  --paper: #0e1312;
-  --paper-raised: #141a19;
-  --paper-sunken: #1a2220;
-  --zebra: #171e1c;
+  --paper: #0d1016;
+  --paper-raised: #151a22;
+  --paper-sunken: #1b212c;
+  --zebra: #1a212b;
 
-  --ink: #e9eeec;        /* 15.9:1 on --paper */
-  --ink-2: #a3b0ab;      /*  8.0:1 on --paper */
-  --ink-faint: #8d9994;  /*  6.2:1 on --paper */
+  --ink: #e8ecf4;        /* 16.08:1 on --paper */
+  --ink-2: #a3acbd;      /*  8.34:1 on --paper */
+  --ink-faint: #919bad;  /*  6.80:1 on --paper */
 
-  --line: #273130;       /* hairline dividers and the table grid */
-  --line-strong: #37423f; /* control boundaries */
-  --line-heavy: #5f6c68; /* structural rules & hover */
-  --track: #2b3533;
+  --line: #333b48;       /* hairline dividers and the table grid */
+  --line-strong: #7b8799; /* control boundaries — 4.80:1 on --paper-raised */
+  --line-heavy: #a3acbd; /* structural rules & hover */
+  --track: #333c4c;
 
-  --accent: #6cc3b3;     /* 9.0:1 on --paper */
-  --accent-strong: #93d8ca;
-  --accent-soft: #153630;
-  --on-accent: #0e1312;  /* 9.0:1 on --accent */
+  --accent: #6f9dff;     /* 7.20:1 on --paper */
+  --accent-strong: #9dbcff;
+  --accent-soft: #121c3a;
+  --on-accent: #0d1016;  /* 7.20:1 on --accent */
 
-  --signal: #dba85c;     /* the conditional mark */
+  --signal: #e0a052;     /* the conditional mark — 8.45:1 on --paper */
 
-  --grade-1: #f0a4a6;
-  --grade-2: #e9b57a;
-  --grade-3: #d9c56e;
-  --grade-4: #8fd1ad;
-  --grade-5: #6fd69c;
+  --grade-1: #ffaaa9;
+  --grade-2: #f5b87c;
+  --grade-3: #dfca72;
+  --grade-4: #8bd4aa;
+  --grade-5: #63d997;
   --grade-wash: 14%;
-  --grade-edge: 50%;
+  --grade-edge: 55%;
 
-  --band: #141a19;
-  --band-fg: #e9eeec;
-  --band-fg-2: #a3b0ab;
-  --band-accent: #6cc3b3;
-  --band-line: #37423f;
+  --band: #1b212c;
+  --band-fg: #e8ecf4;
+  --band-fg-2: #a3acbd;
+  --band-accent: #6f9dff;
+  --band-line: #333b48;
 
   --shadow-pop: 0 8px 24px -8px rgba(0, 0, 0, 0.6),
     0 2px 6px -2px rgba(0, 0, 0, 0.4);
@@ -1125,14 +1128,76 @@ a.wordmark:hover .wordmark-logo {
   appearance: none;
 }
 
-/* Filled, not intrinsic: the longest option ("Ease of deployment, high to
-   low") would otherwise set the field's width and leave the select narrower
-   than the search box once they stack. */
+/* Filled, not intrinsic: the longest option would otherwise set the field's
+   width and leave the select narrower than the search box once they stack. */
 .control-select {
   width: 100%;
   min-width: 0;
   cursor: pointer;
-  font-size: var(--fs-xs);
+  font-size: var(--fs-sm);
+}
+
+/* Sort is two decisions - what by, which way - so it is two controls joined
+   into one bar: the field select, and a direction button that names the
+   order in the field's own words ("Large to small", "A to Z") and flips it.
+   Twelve fields in three groups replace twenty-four flat combinations. */
+.sort-pair {
+  display: flex;
+  min-width: 0;
+}
+
+.sort-pair .control-select {
+  flex: 1 1 auto;
+  border-radius: var(--radius-2) 0 0 var(--radius-2);
+}
+
+.sort-dir {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--control-h);
+  min-inline-size: 9rem;
+  margin-left: calc(var(--hair) * -1);   /* share the boundary */
+  padding-inline: var(--sp-3);
+  border: var(--border-strong);
+  border-radius: 0 var(--radius-2) var(--radius-2) 0;
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+.sort-dir:hover {
+  z-index: 1;   /* its border wins the shared edge */
+  border-color: var(--line-heavy);
+  color: var(--text);
+}
+
+.sort-dir:focus-visible {
+  z-index: 1;
+  border-color: var(--accent);
+  outline-offset: 0;
+}
+
+.sort-dir-icon {
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  background-color: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14'/%3E%3Cpath d='m19 12-7 7-7-7'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14'/%3E%3Cpath d='m19 12-7 7-7-7'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform var(--dur) var(--ease);
+}
+
+.sort-dir[data-dir='asc'] .sort-dir-icon {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E");
 }
 
 .control-search:hover,
@@ -1281,6 +1346,33 @@ a.wordmark:hover .wordmark-logo {
   font-variant-numeric: tabular-nums;
   color: var(--text-2);
   white-space: nowrap;
+}
+
+/* The address bar already holds the view; this hands it over. Only shown
+   once there is a view worth handing over - a search, a filter, a sort or an
+   open record - and it confirms in place rather than with a toast. */
+.copy-link {
+  gap: var(--sp-2);
+}
+
+.copy-link::before {
+  content: '';
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.copy-link[data-state='copied'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.copy-link[data-state='copied']::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
 }
 
 /* ==========================================================================
@@ -1650,12 +1742,13 @@ a.wordmark:hover .wordmark-logo {
   text-decoration-color: currentColor;
 }
 
-/* One line, then stop. The full text lives in the expanded row. */
+/* Two lines, then stop. The full text lives in the expanded row; the column
+   is sized so nearly every blurb fits without a cut. */
 .project-blurb {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
   margin-top: 3px;
   font-size: var(--fs-2xs);
@@ -2135,6 +2228,31 @@ a.wordmark:hover .wordmark-logo {
 .detail-assess  { grid-area: assess; }
 .detail-record  { grid-area: record; }
 .detail-sources { grid-area: sources; }
+
+/* A record is five screens on a phone and one and a half on a desktop; the
+   chevron that opened it is at the top of all of them. app.js appends a way
+   back at the foot, which closes the record and brings its row into view. */
+.detail-foot {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--sp-2);
+  border-top: var(--border);
+}
+
+.detail-close {
+  gap: var(--sp-2);
+}
+
+.detail-close::after {
+  content: '';
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
 
 /* Section labels: a short eyebrow with a hairline running out to the edge of
    its column, so each region has a visible top and the eye can find the next
@@ -2662,6 +2780,66 @@ a.wordmark:hover .wordmark-logo {
   color: var(--text-2);
 }
 
+/* What emptied the list, as removable tokens: each names one constraint and
+   takes it off on its own, so loosening is one tap rather than a trip back
+   up to the rail to work out which filter did it. */
+.empty-active {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.empty-token {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 2rem;
+  padding: 0 var(--sp-2) 0 var(--sp-3);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  color: var(--text);
+  font-size: var(--fs-xs);
+  cursor: pointer;
+  transition: color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+.empty-token:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.empty-token-kind {
+  color: var(--text-faint);
+}
+
+.empty-token:hover .empty-token-kind {
+  color: inherit;
+}
+
+.empty-token-x {
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  background-color: var(--text-faint);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.empty-token:hover .empty-token-x {
+  background-color: currentColor;
+}
+
+.empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
 /* Fine print, but still a paragraph somebody has to read to check a figure:
    13px with normal leading rather than 12px set as a caption. */
 .provenance {
@@ -3145,6 +3323,10 @@ a.wordmark:hover .wordmark-logo {
     padding-inline: var(--sp-4);
   }
 
+  .sort-dir {
+    min-inline-size: 0;
+  }
+
   .control-row {
     gap: var(--sp-3);
   }
@@ -3390,6 +3572,7 @@ a.wordmark:hover .wordmark-logo {
   .th-more,
   .cards,
   .empty,
+  .detail-foot,
   .contribute,
   .footer-nav,
   .footer-contact {
