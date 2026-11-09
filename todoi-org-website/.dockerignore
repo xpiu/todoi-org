@@ -1,0 +1,16 @@
+# Only the site's public files go into the image.
+.git
+.gitignore
+.dockerignore
+.DS_Store
+**/.DS_Store
+.tmp
+.archive
+.impeccable
+.test
+tools
+AGENTS.md
+README.md
+Dockerfile
+img/favicon-variants/build.py
+img/favicon-variants/README.txt
