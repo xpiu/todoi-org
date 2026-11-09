@@ -185,7 +185,7 @@
   --grade-1: #a23a3f;
   --grade-2: #91581a;
   --grade-3: #736418;
-  --grade-4: #3d7d5c;
+  --grade-4: #357355;        /* 5.0:1 on its own wash */
   --grade-5: #237a4e;
   --grade-wash: 10%;
   --grade-edge: 40%;
@@ -1232,7 +1232,7 @@ a.wordmark:hover .wordmark-logo {
   color: var(--text);
 }
 
-.toggle-input:focus-visible ~ .toggle-mark {
+.toggle:has(.toggle-input:focus-visible) {
   outline: var(--focus-width) solid var(--ring);
   outline-offset: var(--focus-offset);
 }
@@ -1267,12 +1267,11 @@ a.wordmark:hover .wordmark-logo {
 .chip[aria-pressed='true'] {
   background-color: var(--accent-soft);
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--accent-strong);   /* 6:1 on the soft fill at 11px */
   font-weight: 500;
 }
 
 .chip[aria-pressed='true']:hover {
-  color: var(--accent-strong);
   border-color: var(--accent-strong);
 }
 
@@ -1702,7 +1701,7 @@ a.wordmark:hover .wordmark-logo {
   display: block;
   margin-top: 3px;
   font-family: var(--font-mono);
-  font-size: var(--fs-3xs);
+  font-size: var(--fs-2xs);
   line-height: var(--lh-ui);
   letter-spacing: 0;
   color: var(--text-2);
@@ -1896,8 +1895,9 @@ a.wordmark:hover .wordmark-logo {
 .score::after {
   content: '';
   display: block;
-  block-size: 3px;
-  margin-top: 3px;
+  block-size: 4px;
+  margin-top: 4px;
+  border-radius: 2px;
   inline-size: 100%;
   background-image: linear-gradient(
     to right,
@@ -1939,8 +1939,12 @@ a.wordmark:hover .wordmark-logo {
 .comm-band[data-comm='5'],
 .num[data-grade='5'] { --grade-color: var(--grade-5); }
 
+/* The star count is a visibility signal, not a ranking, and the page says so
+   in its own tooltip. Painting it with the ramp ranked it anyway - and in the
+   same green as every link. The figure is set in ink; the band beside it
+   already carries the colour, with a word to go with it. */
 .num[data-grade] {
-  color: var(--grade-color);
+  color: var(--text);
   font-weight: 500;
 }
 
@@ -1978,7 +1982,9 @@ a.wordmark:hover .wordmark-logo {
 .tag-foss {
   background-color: var(--accent-soft);
   border-color: var(--accent);
-  color: var(--accent);
+  /* The pressed ink: on the soft fill the plain accent sits at 4.4:1 at this
+     size, a hair under AA; the hover step clears it at 6:1. */
+  color: var(--accent-strong);
   font-weight: 500;
 }
 
@@ -2228,7 +2234,7 @@ a.wordmark:hover .wordmark-logo {
 .cap-note {
   display: block;
   margin-top: 2px;
-  font-size: var(--fs-3xs);
+  font-size: var(--fs-2xs);
   font-weight: 400;
   line-height: 1.4;
   color: var(--text-2);
@@ -2607,6 +2613,24 @@ a.wordmark:hover .wordmark-logo {
   border-top: var(--border);
 }
 
+/* The licence tag, the band and the dagger open a tooltip on tap, and draw
+   at 22-24px. Each gets an invisible 44px seat behind it: the ink stays
+   where it is, the thumb gets what it needs. The seats stop at the card
+   meta line, so they never catch the tap meant for the disclosure above. */
+.card-meta .tag[data-lic],
+.card-meta .comm-band,
+.card-meta .stars-note {
+  position: relative;
+}
+
+.card-meta .tag[data-lic]::before,
+.card-meta .comm-band::before,
+.card-meta .stars-note::before {
+  content: '';
+  position: absolute;
+  inset: -10px -6px;
+}
+
 /* Inside a card the tiles wrap to the card's width; each one may grow so a
    row of them fills the line instead of ragging. */
 .card-detail .cap {
@@ -2722,8 +2746,6 @@ a.wordmark:hover .wordmark-logo {
    outside the set. */
 .criteria + .method-note {
   margin-top: var(--sp-6);
-  padding-top: var(--sp-4);
-  border-top: var(--border);
 }
 
 .models {
