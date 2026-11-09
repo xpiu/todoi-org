@@ -636,13 +636,13 @@ a:hover {
   padding-block: var(--section-pad);
 }
 
-/* Section boundaries are full-ink rules, the way a printed datasheet divides
-   its plates. The hairline tier is for dividers inside a section. */
+/* Section boundaries are hairlines, like every other edge on the page: the
+   sections are told apart by their air and their titles, not by weight. */
 .board,
 .method,
 .faq,
 .contribute {
-  border-top: var(--border-heavy);
+  border-top: var(--border);
 }
 
 /* The hero and the board are two halves of the same opening, so the rule
@@ -677,17 +677,17 @@ a:hover {
 
 .site-header {
   background-color: var(--bg-raised);
-  /* Sticky, and it scrolls over the white matrix: its edge has to read as
-     structure or the two white surfaces merge into one. */
-  border-bottom: var(--border-strong);
+  /* A hairline, like every other panel edge on the page: the header is the
+     first white sheet, not a different material. */
+  border-bottom: var(--border);
 }
 
 .site-header-inner {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--sp-2) var(--sp-5);
-  min-height: 3rem;
+  gap: var(--sp-2) var(--sp-6);
+  min-height: 3.75rem;
   padding-block: var(--sp-1);
 }
 
@@ -752,16 +752,21 @@ a.wordmark:hover .wordmark-logo {
   display: inline-flex;
   align-items: center;
   min-height: var(--control-h);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-md);
   letter-spacing: var(--tracking-ui);
   color: var(--text-2);
   text-decoration: none;
   border-bottom: 2px solid transparent;
+  transition: color var(--dur) var(--ease);
 }
 
-.site-nav a:hover,
+/* Hover warms the word; only the current section earns the accent rule. */
+.site-nav a:hover {
+  color: var(--text);
+}
+
 .site-nav a[aria-current] {
-  color: var(--accent);
+  color: var(--text);
   border-bottom-color: var(--accent);
 }
 
@@ -782,7 +787,7 @@ a.wordmark:hover .wordmark-logo {
   flex: none;
   align-items: center;
   padding: 1px;
-  border: var(--border-strong);
+  border: var(--border);
   border-radius: var(--radius-2);
   background-color: var(--bg-sunken);
 }
@@ -791,16 +796,18 @@ a.wordmark:hover .wordmark-logo {
   --seat-index: 1;
 }
 
-/* One travelling block of ink rather than separate fills crossfading: the motion
-   is what tells you the seats are alternatives to each other. */
+/* One travelling raised tile rather than separate fills crossfading: the
+   motion is what tells you the seats are alternatives to each other. The
+   tile is a sheet of the same white as the panels, edged in a boundary. */
 .theme-switch-thumb {
   position: absolute;
   top: 1px;
   left: 1px;
   width: var(--seat);
   height: var(--seat);
-  border-radius: var(--radius-1);
-  background-color: var(--line-heavy);
+  border-radius: calc(var(--radius-2) - 2px);
+  background-color: var(--bg-raised);
+  box-shadow: inset 0 0 0 var(--hair) var(--line-strong);
   transform: translateX(calc(var(--seat-index) * var(--seat)));
   transition: transform 180ms var(--ease);
 }
@@ -815,23 +822,22 @@ a.wordmark:hover .wordmark-logo {
   height: var(--seat);
   flex: none;
   border: 0;
-  border-radius: var(--radius-1);
+  border-radius: calc(var(--radius-2) - 2px);
   background-color: transparent;
-  color: var(--text-2);
+  color: var(--text-faint);
   transition: color var(--dur) var(--ease),
     background-color var(--dur) var(--ease);
 }
 
 .theme-switch-opt:hover {
-  color: var(--accent);
-  background-color: var(--accent-soft);
+  color: var(--text);
 }
 
 /* The occupied seat. Specificity beats the hover rule above on purpose —
    hovering the mode you are already in should not offer to change anything. */
 :root[data-theme='light'] .theme-switch-opt[data-theme-value='light'],
 :root[data-theme='dark'] .theme-switch-opt[data-theme-value='dark'] {
-  color: var(--paper);
+  color: var(--text);
   background-color: transparent;
   cursor: default;
 }
@@ -853,7 +859,7 @@ a.wordmark:hover .wordmark-logo {
    ========================================================================== */
 
 .hero {
-  padding-block: var(--sp-6) var(--sp-5);
+  padding-block: var(--sp-8) var(--sp-6);
 }
 
 .hero-inner {
@@ -866,9 +872,9 @@ a.wordmark:hover .wordmark-logo {
 }
 
 .hero-lede {
-  max-width: 54ch;
-  margin-top: var(--sp-3);
-  font-size: var(--fs-md);
+  max-width: 60ch;
+  margin-top: var(--sp-4);
+  font-size: var(--fs-lg);
   line-height: var(--lh-normal);
   color: var(--text-2);
 }
@@ -936,9 +942,7 @@ a.wordmark:hover .wordmark-logo {
 .section-head {
   display: grid;
   gap: var(--sp-2);
-  padding-bottom: var(--sp-3);
   margin-bottom: var(--sp-6);
-  border-bottom: var(--border-heavy);
 }
 
 .section-title {
@@ -966,11 +970,11 @@ a.wordmark:hover .wordmark-logo {
 
 .controls {
   display: grid;
-  gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-3);
+  gap: var(--sp-3);
+  padding: var(--sp-4);
   background-color: var(--bg-sunken);
   border: var(--border);
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-3);
 }
 
 /* Search and sort keep conventional labels; the lower-frequency controls use
@@ -1014,7 +1018,24 @@ a.wordmark:hover .wordmark-logo {
 /* Search takes three shares to sort's one, and both carry a real minimum, so
    they share a line at a stable ratio and wrap together below ~30rem. */
 .control-field-grow {
+  position: relative;
   flex: 3 1 16rem;
+}
+
+/* A magnifier set inside the field, drawn as a mask so it takes the faint
+   ink in both themes. The input cannot carry a pseudo-element, so the field
+   does, pinned to the input's own height from the bottom. */
+.control-field-grow::after {
+  content: '';
+  position: absolute;
+  left: var(--sp-3);
+  bottom: calc(var(--control-h) / 2 - 0.5rem);
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--text-faint);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") center / contain no-repeat;
+  pointer-events: none;
 }
 
 .control-field-sort {
@@ -1083,8 +1104,15 @@ a.wordmark:hover .wordmark-logo {
 .control-search {
   width: 100%;
   min-width: 0;
+  padding-left: 2.375rem;
   -webkit-appearance: none;
   appearance: none;
+}
+
+.control-search:focus-visible,
+.control-select:focus-visible {
+  border-color: var(--accent);
+  outline-offset: 0;
 }
 
 .control-search::placeholder {
@@ -1289,8 +1317,8 @@ a.wordmark:hover .wordmark-logo {
   max-width: 100%;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  border: var(--border-strong);
-  border-radius: var(--radius-2);
+  border: var(--border);
+  border-radius: var(--radius-3);
 }
 
 .matrix {
@@ -1377,7 +1405,7 @@ a.wordmark:hover .wordmark-logo {
   padding: var(--sp-3) var(--cell-pad-x);
   vertical-align: bottom;
   font-family: var(--font-sans);
-  font-size: var(--fs-2xs);
+  font-size: var(--fs-xs);
   font-weight: 500;
   line-height: var(--lh-ui);
   letter-spacing: var(--tracking-ui);
@@ -1467,21 +1495,33 @@ a.wordmark:hover .wordmark-logo {
   color: currentColor;
 }
 
+/* Sort glyphs drawn as masks so they take the head's ink: paired chevrons
+   while a column is idle, a single arrow once it sorts. */
 .th-sort::after {
-  content: '\2195';           /* ↕ unsorted */
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  color: var(--text-faint);
+  content: '';
+  flex: none;
+  width: 0.8125rem;
+  height: 0.8125rem;
+  background-color: var(--text-faint);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 15 5 5 5-5'/%3E%3Cpath d='m7 9 5-5 5 5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 15 5 5 5-5'/%3E%3Cpath d='m7 9 5-5 5 5'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.th-sort:hover::after {
+  background-color: currentColor;
 }
 
 [aria-sort='ascending'] .th-sort::after {
-  content: '\25B2';           /* ▲ */
-  color: var(--accent);
+  background-color: var(--accent);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E");
 }
 
 [aria-sort='descending'] .th-sort::after {
-  content: '\25BC';           /* ▼ */
-  color: var(--accent);
+  background-color: var(--accent);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14'/%3E%3Cpath d='m19 12-7 7-7-7'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14'/%3E%3Cpath d='m19 12-7 7-7-7'/%3E%3C/svg%3E");
 }
 
 [aria-sort='ascending'] .th-sort,
@@ -1753,7 +1793,7 @@ a.wordmark:hover .wordmark-logo {
   width: 1.875rem;
   height: 1.875rem;
   border: var(--border-strong);
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-1);
   background-color: var(--bg-raised);
   color: var(--text-2);
   transition: color var(--dur) var(--ease),
@@ -1911,9 +1951,9 @@ a.wordmark:hover .wordmark-logo {
   display: inline-flex;
   align-items: center;
   gap: 0.35em;
-  padding: 0.1em 0.45em 0.1em 0.4em;
+  padding: 0.15em 0.5em 0.15em 0.45em;
   border: var(--hair) solid var(--line-strong);
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-1);
   background: none;
   font-family: var(--font-mono);
   font-size: var(--fs-3xs);
@@ -1958,8 +1998,8 @@ a.wordmark:hover .wordmark-logo {
 .comm-band {
   display: inline-flex;
   align-items: center;
-  padding: 0.1em 0.5em;
-  border-radius: var(--radius-2);
+  padding: 0.15em 0.55em;
+  border-radius: var(--radius-1);
 }
 
 .pill {
@@ -2005,15 +2045,14 @@ a.wordmark:hover .wordmark-logo {
   z-index: 200; /* above the sticky header (100) */
   max-width: min(22rem, calc(100vw - 2 * var(--sp-4)));
   padding: var(--sp-3);
-  border: var(--border-strong);
+  border: var(--border);
   border-radius: var(--radius-2);
   background-color: var(--bg-raised);
   font-size: var(--fs-2xs);
   line-height: var(--lh-snug);
   color: var(--text-2);
-  /* The system has no shadows; separation comes from the strong hairline plus
-     a paper-coloured halo that keeps table rules from touching the edge. */
-  outline: 3px solid var(--bg);
+  /* The one floating surface, so the one shadow. */
+  box-shadow: var(--shadow-pop);
   pointer-events: none; /* never steals the hover it was opened by */
 }
 
@@ -2037,7 +2076,7 @@ a.wordmark:hover .wordmark-logo {
   width: 7px;
   height: 7px;
   margin-left: -3.5px;
-  border: var(--border-strong);
+  border: var(--border);
   background-color: var(--bg-raised);
   transform: rotate(45deg);
 }
@@ -2143,7 +2182,7 @@ a.wordmark:hover .wordmark-logo {
   min-inline-size: 7.5rem;
   max-inline-size: 17rem;
   padding: var(--sp-2) var(--sp-3) var(--sp-2) var(--sp-2);
-  background-color: var(--bg);
+  background-color: var(--bg-sunken);
   border: var(--border);
   border-radius: var(--radius-2);
 }
@@ -2339,10 +2378,10 @@ a.wordmark:hover .wordmark-logo {
 
 .srcs a {
   display: inline-block;
-  padding: 0.35em 0.7em;
-  background-color: var(--bg);
+  padding: 0.4em 0.75em;
+  background-color: var(--bg-sunken);
   border: var(--border);
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-1);
   text-decoration: none;
   transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
 }
@@ -2386,10 +2425,10 @@ a.wordmark:hover .wordmark-logo {
   display: grid;
   min-width: 0;
   gap: var(--sp-2);
-  padding: var(--sp-3) var(--sp-4);
+  padding: var(--sp-4);
   background-color: var(--bg-raised);
   border: var(--border);
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-3);
 }
 
 .card-head {
@@ -2481,7 +2520,7 @@ a.wordmark:hover .wordmark-logo {
   width: 1.875rem;
   height: 1.875rem;
   border: var(--border-strong);
-  border-radius: var(--radius-2);
+  border-radius: var(--radius-1);
   background-color: var(--bg);
   color: var(--text-2);
   transition: color var(--dur) var(--ease),
@@ -2584,8 +2623,8 @@ a.wordmark:hover .wordmark-logo {
   gap: var(--sp-3);
   padding: var(--sp-7) var(--sp-5);
   margin-top: var(--sp-5);
-  border: var(--hair) dashed var(--border-color);
-  border-radius: var(--radius-2);
+  border: var(--hair) dashed var(--line-strong);
+  border-radius: var(--radius-3);
   background-color: var(--bg-sunken);
 }
 
@@ -2652,12 +2691,16 @@ a.wordmark:hover .wordmark-logo {
 .criteria {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-  gap: var(--sp-6) var(--sp-7);
+  gap: var(--sp-4);
 }
 
+/* Each criterion is its own tile: a white sheet with a hairline edge, the
+   same object the matrix rows are read off. */
 .criterion {
-  padding-top: var(--sp-3);
-  border-top: var(--border);
+  padding: var(--sp-4) var(--sp-5) var(--sp-5);
+  background-color: var(--bg-raised);
+  border: var(--border);
+  border-radius: var(--radius-3);
 }
 
 .criterion-name {
@@ -2686,7 +2729,7 @@ a.wordmark:hover .wordmark-logo {
 .models {
   margin-top: var(--sp-8);
   padding-top: var(--sp-6);
-  border-top: var(--border-strong);
+  border-top: var(--border);
 }
 
 .models > .sub-title + .method-note {
@@ -2698,6 +2741,11 @@ a.wordmark:hover .wordmark-logo {
   grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
   gap: var(--sp-6) var(--sp-8);
   margin-top: var(--sp-6);
+}
+
+.model-def {
+  padding-top: var(--sp-4);
+  border-top: var(--border);
 }
 
 .model-name {
@@ -2713,8 +2761,19 @@ a.wordmark:hover .wordmark-logo {
    18  FAQ ACCORDION — native <details>, no JS
    ========================================================================== */
 
+.acc-list {
+  padding-inline: var(--sp-5);
+  border: var(--border);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-raised);
+}
+
 .acc {
   border-bottom: var(--border);
+}
+
+.acc:last-child {
+  border-bottom: 0;
 }
 
 .acc-q {
@@ -2743,6 +2802,12 @@ a.wordmark:hover .wordmark-logo {
   font-family: var(--font-mono);
   font-size: var(--fs-lg);
   line-height: 1;
+  color: var(--text-faint);
+  transition: color var(--dur) var(--ease);
+}
+
+.acc-q:hover::after,
+.acc[open] > .acc-q::after {
   color: var(--accent);
 }
 
@@ -2828,8 +2893,9 @@ a.wordmark:hover .wordmark-logo {
    ========================================================================== */
 
 .site-footer {
-  border-top: var(--border-strong);
-  padding-block: var(--sp-7);
+  border-top: var(--border);
+  padding-block: var(--sp-8);
+  background-color: var(--bg-sunken);
   font-size: var(--fs-2xs);
   color: var(--text-2);
 }
@@ -3050,6 +3116,11 @@ a.wordmark:hover .wordmark-logo {
 @media (max-width: 640px) {
   .controls {
     padding: var(--sp-4);
+  }
+
+  .route-list,
+  .acc-list {
+    padding-inline: var(--sp-4);
   }
 
   .control-row {
@@ -3455,15 +3526,36 @@ html:not(.js) .th-sort::after {
 }
 
 .route-list {
+  counter-reset: route;
   display: grid;
-  gap: var(--sp-4);
+  margin: 0;
+  padding-inline: var(--sp-5);
+  border: var(--border);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-raised);
 }
 
+/* Each route is a numbered row of the panel: the count says how far the list
+   runs before you start reading it, and gives the eye a rail to come back to. */
 .route {
+  counter-increment: route;
   display: grid;
-  gap: var(--sp-2);
-  padding-top: var(--sp-4);
+  gap: var(--sp-1) var(--sp-4);
+  padding-block: var(--sp-4);
   border-top: var(--border);
+}
+
+.route:first-child {
+  border-top: 0;
+}
+
+.route::before {
+  content: counter(route, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-snug);
+  padding-top: 0.2em;
+  color: var(--text-faint);
 }
 
 /* Two fixed columns, not two fractions of the shell: the pick is prose and
@@ -3473,10 +3565,10 @@ html:not(.js) .th-sort::after {
    aligning the boxes leaves their first lines visibly out of step. */
 @media (min-width: 60rem) {
   .route {
-    grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
-    column-gap: var(--sp-8);
+    grid-template-columns: 1.75rem minmax(0, 18rem) minmax(0, 1fr);
+    column-gap: var(--sp-7);
     row-gap: var(--sp-2);
-    align-items: baseline;
+    align-items: start;
   }
 }
 
@@ -3484,14 +3576,14 @@ html:not(.js) .th-sort::after {
   font-family: var(--font-display);
   font-size: var(--fs-md);
   font-weight: 500;
-  line-height: var(--lh-snug);
+  line-height: 1.4;
   letter-spacing: var(--tracking-title);
   color: var(--text);
 }
 
 .route-pick {
   font-size: var(--fs-md);
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--text-2);
 }
 
@@ -3603,6 +3695,7 @@ html:not(.js) .th-sort::after {
   flex-direction: column;
   padding: var(--sp-4);
   border: var(--border);
+  border-radius: var(--radius-3);
   background-color: var(--bg-raised);
 }
 
