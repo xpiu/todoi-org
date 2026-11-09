@@ -1728,25 +1728,25 @@ a.wordmark:hover .wordmark-logo {
   border-top-color: var(--accent);
 }
 
-/* The record is a sheet of raised paper set into the sunken row, with the
-   accent rule from the open row's top edge carried down its left side. It is
-   sticky so that, when the matrix scrolls sideways, the sheet stays in view
-   instead of leaving the reader looking at an empty wash. */
+/* The record is a band of raised paper directly under the open row, flush
+   with the row's edges and padded the way the cells are, with the accent
+   rule from the row's top edge carried down its left side. It is sticky so
+   that, when the matrix scrolls sideways, the record stays in view instead of
+   leaving the reader looking at an empty wash. */
 .detail-row > td > .detail {
   position: sticky;
   left: 0;
-  inline-size: min(100%, calc(100vw - 2 * var(--gutter) - 2 * var(--sp-5)));
-  padding: var(--sp-5) var(--sp-6) var(--sp-6);
+  inline-size: min(100%, calc(100vw - 2 * var(--gutter)));
+  padding: var(--sp-4) var(--cell-pad-edge) var(--sp-5)
+    calc(var(--cell-pad-edge) - 3px);
   background-color: var(--bg-raised);
-  border: var(--border);
   border-left: 3px solid var(--accent);
-  border-radius: 0 var(--radius-2) var(--radius-2) 0;
 }
 
 .detail-row > td {
-  background-color: var(--bg-sunken);
+  padding: 0;
+  background-color: var(--bg-raised);
   border-top: 0;
-  padding: var(--sp-3) var(--sp-5) var(--sp-6);
 }
 
 /* Expand affordance ------------------------------------------------------ */
@@ -2131,7 +2131,7 @@ a.wordmark:hover .wordmark-logo {
    a tooltip. Natives sit on tinted stock; the ones that are not there at all
    are drawn with a dashed edge and faint ink so the set reads at a glance. */
 .detail-caps {
-  padding-bottom: var(--sp-5);
+  padding-bottom: var(--sp-4);
   border-bottom: var(--border);
 }
 
@@ -3012,7 +3012,7 @@ a.wordmark:hover .wordmark-logo {
       'record record'
       'sources sources';
     column-gap: var(--sp-7);
-    row-gap: var(--sp-7);
+    row-gap: var(--sp-6);
   }
 
   .detail-assess {
