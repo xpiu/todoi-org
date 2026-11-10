@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type APIRequestContext, type Page } from '@playwright/test';
 
 /**
  * "An edit in /admin appears instantly, survives a reload, and rolls back on a
@@ -14,7 +14,7 @@ test.describe.configure({ mode: 'serial' });
 const TOUCHED = ['deploy', 'use', 'flex'] as const;
 let originals: Record<string, { score: number; review: string }> = {};
 
-async function apiSession(request: import('@playwright/test').APIRequestContext, baseURL: string) {
+async function apiSession(request: APIRequestContext, baseURL: string) {
   const res = await request.post('/api/v1/auth/login', {
     headers: { origin: baseURL },
     data: { email: EMAIL, password: PASSWORD },
@@ -22,7 +22,7 @@ async function apiSession(request: import('@playwright/test').APIRequestContext,
   return ((await res.json()) as { csrfToken: string }).csrfToken;
 }
 
-async function hulyScores(request: import('@playwright/test').APIRequestContext) {
+async function hulyScores(request: APIRequestContext) {
   const dir = (await (await request.get('/api/v1/admin/directories/open-source')).json()) as {
     records: { slug: string; scores: Record<string, { score: number; review: string; version: number }> }[];
   };

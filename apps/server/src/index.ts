@@ -8,6 +8,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { serve } from '@hono/node-server';
 import { connect } from '@todoi/db';
 import { runMigrations } from '@todoi/db/migrate';
+import type { render as Render } from '@todoi/web/entry-server';
 import { createApp } from './app.ts';
 import { loadEnv } from './env.ts';
 import { serverApi } from './ssr-api.ts';
@@ -33,7 +34,7 @@ const assets = { scripts: [`/${entry.file}`], styles: (entry.css ?? []).map((f) 
 
 const ssrEntry = resolve(webDist, 'server/entry-server.js');
 if (!existsSync(ssrEntry)) throw new Error(`no server bundle at ${ssrEntry}; run pnpm build`);
-const { render } = (await import(pathToFileURL(ssrEntry).href)) as typeof import('@todoi/web/entry-server');
+const { render } = (await import(pathToFileURL(ssrEntry).href)) as { render: typeof Render };
 
 const database = connect(env.DATABASE_URL);
 if (process.env.MIGRATE_ON_START !== 'false') {

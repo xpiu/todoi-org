@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { Hono } from 'hono';
 import { serveStatic } from '@hono/node-server/serve-static';
+import { compress } from 'hono/compress';
 import { etag } from 'hono/etag';
 import type { Db } from '@todoi/db';
 import type { Env } from './env.ts';
@@ -78,6 +79,8 @@ export function createApp(deps: AppDeps) {
     await next();
   });
   app.use('*', securityHeaders);
+  // Text compressed on the way out, as nginx did: the commercial page is 1.3 MB raw.
+  app.use('*', compress({ threshold: 1024 }));
 
   // One URL per page: /index.html and /dir/index.html are the directory URLs.
   app.use('*', async (c, next) => {

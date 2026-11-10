@@ -33,7 +33,9 @@ for (const [name, path] of PAGES) {
         await ctx.addInitScript((m) => {
           try {
             localStorage.setItem('todoi-theme', m);
-          } catch {}
+          } catch {
+            /* storage disabled: the system preference decides */
+          }
         }, mode);
         const page = await ctx.newPage();
         await page.goto(`${base}${path}${query}`, { waitUntil: 'networkidle' });

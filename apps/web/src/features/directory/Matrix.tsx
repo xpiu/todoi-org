@@ -170,7 +170,6 @@ function useClamped(tbody: React.RefObject<HTMLTableSectionElement | null>, deps
     setClamped((prev) => (prev.size === next.size && [...next].every((s) => prev.has(s)) ? prev : next));
   }, [tbody]);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useIsoLayoutEffect(measure, deps);
   useEffect(() => {
     let t: number | undefined;

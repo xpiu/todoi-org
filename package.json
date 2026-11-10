@@ -21,7 +21,7 @@
     "db:seed": "pnpm --filter @todoi/db seed",
     "db:import": "pnpm --filter @todoi/db run import:site",
     "db:user": "pnpm --filter @todoi/db user",
-    "typecheck": "pnpm -r --parallel typecheck",
+    "typecheck": "pnpm -r typecheck",
     "lint": "eslint .",
     "test": "vitest run",
     "check": "pnpm typecheck && pnpm lint && pnpm test",
