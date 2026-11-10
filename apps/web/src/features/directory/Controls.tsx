@@ -193,7 +193,8 @@ export function Controls() {
         id="filter-disclosure"
         aria-expanded={filtersOpen}
         aria-controls="filter-options"
-        aria-label={`${filtersOpen ? 'Hide' : 'Show'} ${copy.controls.filterNoun}${active ? `, ${active} active` : ''}`}
+        // No aria-label: its visible text ("Filters", then what is active) is the
+        // name, and aria-expanded says whether the panel is open (WCAG 2.5.3).
         onClick={toggleFilters}
       >
         <FilterIcon />
