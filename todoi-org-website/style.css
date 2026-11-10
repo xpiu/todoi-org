@@ -947,9 +947,9 @@ a.wordmark:hover .wordmark-logo {
    Each block is the stroke's own width, invisible at rest. As the wave
    passes, its lit face lifts a hair, so the ink beneath shows as the block's
    side, then settles back flush and fades into the stroke again. The hairline
-   in the page colour is the joint between blocks. --d is the delay set by
-   distance from the notch; --a the lift, fading out before the wave reaches
-   the top of the ring. */
+   in the page colour is the joint between blocks. --d is the delay, set by
+   distance from the centre so the wave runs from the outer ring inward; --a
+   the lift, fading out before the top of the ring. */
 .hero-mark-ripple {
   pointer-events: none;
 }

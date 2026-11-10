@@ -1046,9 +1046,11 @@
 
   /* --- hero mark ripple --- */
   // Plays once: the stroke is cut into blocks of its own width, and a wave
-  // starting at the notch lifts them a hair and sets them back down. The lift
-  // fades out with distance and stops at 80% of the mark, so the wave dies
-  // out before it reaches the crown of the ring. Purely decorative: skipped
+  // contracting from the outer ring to the inner one lifts them a hair and
+  // sets them back down. When a block moves is set by its distance from the
+  // centre (outside first); how far it lifts is set by its distance from the
+  // notch, fading out at 80% of the mark so the crown of the ring stays
+  // still. Purely decorative: skipped
   // under reduced motion, when the mark is not displayed, or without the
   // SVG geometry API. Styles live under .hero-mark-ripple in style.css.
   (function heroRipple() {
@@ -1062,8 +1064,11 @@
     var WIDTH = 64;            // stroke-width 63, plus a hair against seams
     var STEP = 84;             // target block length along the stroke
     var ORIGIN = { x: 731, y: 1240 }; // the notch between the two legs
-    var REACH = 0.8;           // share of the mark the wave travels over
-    var TRAVEL = 1150;         // ms for the front to cross that distance
+    var CENTRE = { x: 731, y: 731 };  // shared centre of both rings
+    var R_OUT = 698;           // outer ring radius: where the wave starts
+    var R_IN = 253.5;          // inner ring radius: where it ends
+    var REACH = 0.8;           // share of the mark that lifts at all
+    var TRAVEL = 950;          // ms for the front to go from R_OUT to R_IN
     var BLOCK = 560;           // ms per block; matches the CSS animation
     var VIEW_H = 1417;         // viewBox height
 
@@ -1082,6 +1087,7 @@
           y: p.y,
           deg: Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI,
           dist: Math.sqrt(Math.pow(p.x - ORIGIN.x, 2) + Math.pow(p.y - ORIGIN.y, 2)),
+          r: Math.sqrt(Math.pow(p.x - CENTRE.x, 2) + Math.pow(p.y - CENTRE.y, 2)),
           len: step
         });
       }
@@ -1099,7 +1105,8 @@
       if (t >= 1) return;
       var lift = Math.cos(t * Math.PI / 2); // full at the notch, 0 at the reach
       if (lift < 0.12) return;
-      var delay = Math.round(t * TRAVEL);
+      var inward = Math.min(1, Math.max(0, (R_OUT - bk.r) / (R_OUT - R_IN)));
+      var delay = Math.round(inward * TRAVEL);
       last = Math.max(last, delay);
       var g = document.createElementNS(NS, 'g');
       g.setAttribute('style', '--d:' + delay + 'ms;--a:' + lift.toFixed(3));
