@@ -943,17 +943,14 @@ a.wordmark:hover .wordmark-logo {
   color: var(--accent);
 }
 
-/* Ripple: app.js lays a row of blocks along the stroke and plays them once.
-   A block is the stroke itself: its face is the same ink at the same width,
-   with no outline, so at rest it is invisible. As the wave passes the face
-   lifts by --lift, and the side wall left behind it, a touch darker, is the
-   only new colour on the mark, so the line ripples rather than sprouting
-   shapes. --lift is under 60% of the 63-unit stroke width (inside an SVG a
-   CSS px in a transform is one viewBox unit), so a face never clears the
-   stroke and floats free. --d is the delay, set by distance along the line
-   from the crown of the outer ring, so the wave runs from outside in. */
+/* Ripple: app.js lays a row of blocks along the stroke and plays them once,
+   timed by distance from the centre so the wave closes in from every side
+   at once. A block is the stroke itself: the same ink, invisible at rest.
+   It rises by swelling about its own centre (a uniform scale, so it has no
+   direction and nothing seems to travel along the line), and its joint, a
+   page-coloured hairline across one end, shows only while it is up. --d is
+   the block's delay. */
 .hero-mark-ripple {
-  --lift: 36px;
   pointer-events: none;
 }
 
@@ -961,41 +958,34 @@ a.wordmark:hover .wordmark-logo {
   fill: currentColor;
 }
 
-/* Joints between blocks, in the page colour so they read as real cuts.
-   They come and go with their block's lift (the same timing as the wall),
-   so the stroke is unbroken before and after the wave. */
+.hero-mark-block {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hero-mark-swell 600ms var(--d, 0ms) cubic-bezier(0.3, 0, 0.2, 1) both;
+}
+
 .hero-mark-seam {
   stroke: var(--bg);
   stroke-width: 0.9px;
   stroke-linecap: butt;
   vector-effect: non-scaling-stroke;
   opacity: 0;
-  animation: hero-mark-side 560ms var(--d, 0ms) linear both;
+  animation: hero-mark-seam 600ms var(--d, 0ms) linear both;
 }
 
-.hero-mark-side {
-  fill: color-mix(in oklab, currentColor, #000 18%);
-  opacity: 0;
-  animation: hero-mark-side 560ms var(--d, 0ms) linear both;
-}
-
-.hero-mark-lift {
-  animation: hero-mark-lift 560ms var(--d, 0ms) cubic-bezier(0.3, 0, 0.2, 1) both;
-}
-
-@keyframes hero-mark-lift {
+@keyframes hero-mark-swell {
   0%,
-  100% { transform: translateY(0); }
-  38% { transform: translateY(calc(var(--lift) * -1)); }
+  100% { transform: scale(1); }
+  40% { transform: scale(1.2); }
 }
 
-/* The wall is only drawn while its face is off the stroke, so no darker
-   edge can fringe the outline at rest. */
-@keyframes hero-mark-side {
+/* Joints come and go with their block's swell, so the stroke is unbroken
+   before and after the wave. */
+@keyframes hero-mark-seam {
   0%,
   100% { opacity: 0; }
-  10%,
-  85% { opacity: 1; }
+  12%,
+  80% { opacity: 1; }
 }
 
 /* ==========================================================================

@@ -1078,16 +1078,15 @@
 
   /* --- hero mark ripple --- */
   // Plays once: the stroke is cut into blocks of its own width, and a wave
-  // contracting from the outer ring to the inner one lifts each block a hair
-  // and sets it back down. A block is the stroke itself (same ink, no
-  // outline); only a slightly darker side wall shows while it is raised, so
-  // the line ripples rather than gaining shapes of its own. The outline is
-  // one closed loop, so the wave starts at the crown of the outer ring and
-  // runs both ways along it: down the sides, up the legs, and round the
-  // inner ring, where the two fronts meet. Purely
-  // decorative: skipped under reduced motion, when the mark is not
-  // displayed, or without the SVG geometry API. Styles live under
-  // .hero-mark-ripple in style.css.
+  // closes in on the centre of the mark from every side at once, like a
+  // ring of water contracting. A block's timing is its distance from the
+  // centre, so the whole outer ring rises together, the front then runs in
+  // along both legs, and the inner ring rises last. A block is the stroke
+  // itself (same ink); it "rises" by swelling a touch in place rather than
+  // moving in any direction, so nothing appears to crawl along the line.
+  // Page-coloured joints show while it is raised. Purely decorative: skipped
+  // under reduced motion, when the mark is not displayed, or without the SVG
+  // geometry API. Styles live under .hero-mark-ripple in style.css.
   (function heroRipple() {
     if (reduceMotion.matches) return;
     var svg = $('.hero-mark-svg');
@@ -1101,60 +1100,53 @@
                                // inside the outline instead of ticking past it
     var OVERLAP = 4;           // blocks overlap slightly so curves show no seams
     var STEP = 84;             // target block length along the stroke
-    var TRAVEL = 1250;         // ms for a front to cover half the loop
-    var BLOCK = 560;           // ms per block; matches the CSS animation
+    var CENTRE = { x: 731, y: 731 };  // shared centre of both rings
+    var R_OUT = 698;           // outer ring radius: where the wave starts
+    var R_IN = 253.5;          // inner ring radius: where it closes
+    var TRAVEL = 800;          // ms for the front to go from R_OUT to R_IN
+    var BLOCK = 600;           // ms per block; matches the CSS animation
 
-    function rect(cls, len, x, y, deg) {
-      var r = document.createElementNS(NS, 'rect');
-      r.setAttribute('class', cls);
-      r.setAttribute('x', String(-len / 2));
-      r.setAttribute('y', String(-WIDTH / 2));
-      r.setAttribute('width', String(len));
-      r.setAttribute('height', String(WIDTH));
-      r.setAttribute('transform',
+    function place(el, x, y, deg) {
+      el.setAttribute('transform',
         'translate(' + x.toFixed(2) + ' ' + y.toFixed(2) + ') rotate(' + deg.toFixed(2) + ')');
-      return r;
+      return el;
     }
 
-    // Every wall is drawn beneath every face, so a wall only shows where a
-    // raised face has actually left the stroke, never over a neighbour.
     var layer = document.createElementNS(NS, 'g');
     layer.setAttribute('class', 'hero-mark-ripple');
-    var walls = document.createElementNS(NS, 'g');
-    var faces = document.createElementNS(NS, 'g');
-    layer.appendChild(walls);
-    layer.appendChild(faces);
     var last = 0;
     try {
       var total = path.getTotalLength();
       var n = Math.max(1, Math.round(total / STEP));
       var step = total / n;
-      var pts = [];
-      var crown = 0;           // index of the topmost block
+      var len = step + OVERLAP;
       for (var i = 0; i < n; i++) {
         var s = (i + 0.5) * step;
         var p = path.getPointAtLength(s);
         var a = path.getPointAtLength(Math.max(0, s - 2));
         var b = path.getPointAtLength(Math.min(total, s + 2));
-        pts.push({ x: p.x, y: p.y, deg: Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI });
-        if (p.y < pts[crown].y) crown = i;
-      }
-      pts.forEach(function (pt, j) {
-        var along = Math.abs(j - crown);
-        along = Math.min(along, n - along);           // shorter way round
-        var delay = Math.round(along / (n / 2) * TRAVEL);
+        var deg = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+        var r = Math.sqrt(Math.pow(p.x - CENTRE.x, 2) + Math.pow(p.y - CENTRE.y, 2));
+        var inward = Math.min(1, Math.max(0, (R_OUT - r) / (R_OUT - R_IN)));
+        var delay = Math.round(inward * TRAVEL);
         last = Math.max(last, delay);
-        var len = step + OVERLAP;
-        var wall = rect('hero-mark-side', len, pt.x, pt.y, pt.deg);
-        wall.setAttribute('style', '--d:' + delay + 'ms');
-        walls.appendChild(wall);
-        var lift = document.createElementNS(NS, 'g');
-        lift.setAttribute('class', 'hero-mark-lift');
-        lift.setAttribute('style', '--d:' + delay + 'ms');
-        lift.appendChild(rect('hero-mark-face', len, pt.x, pt.y, pt.deg));
+
+        // <g swells> face + joint </g>, swelling about the block's centre.
+        var block = document.createElementNS(NS, 'g');
+        block.setAttribute('class', 'hero-mark-block');
+        block.setAttribute('style', '--d:' + delay + 'ms');
+
+        var face = document.createElementNS(NS, 'rect');
+        face.setAttribute('class', 'hero-mark-face');
+        face.setAttribute('x', String(-len / 2));
+        face.setAttribute('y', String(-WIDTH / 2));
+        face.setAttribute('width', String(len));
+        face.setAttribute('height', String(WIDTH));
+        block.appendChild(place(face, p.x, p.y, deg));
+
         // The joint: a hairline across the block's leading end only, the
         // stroke's width and no longer, so it marks the block without ever
-        // running along (and tracing) the outline. Faces are drawn in path
+        // running along (and tracing) the outline. Blocks are drawn in path
         // order, so it lands on the previous block's overlapping end.
         var seam = document.createElementNS(NS, 'line');
         var sx = String(-len / 2 + OVERLAP / 2);
@@ -1163,11 +1155,10 @@
         seam.setAttribute('x2', sx);
         seam.setAttribute('y1', String(-WIDTH / 2));
         seam.setAttribute('y2', String(WIDTH / 2));
-        seam.setAttribute('transform',
-          'translate(' + pt.x.toFixed(2) + ' ' + pt.y.toFixed(2) + ') rotate(' + pt.deg.toFixed(2) + ')');
-        lift.appendChild(seam);
-        faces.appendChild(lift);
-      });
+        block.appendChild(place(seam, p.x, p.y, deg));
+
+        layer.appendChild(block);
+      }
     } catch (e) { return; }
     if (!layer.firstChild) return;
 
