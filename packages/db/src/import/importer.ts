@@ -113,6 +113,8 @@ export interface ImportInput {
   csv: string;
   csvFile: string;
   modifiedOn: string;
+  /** The hand-written prose of llms.txt around this directory's record lines. */
+  llms: { before: string; after: string };
 }
 
 export function importDirectory(input: ImportInput): SeedDirectory {
@@ -251,7 +253,7 @@ export function importDirectory(input: ImportInput): SeedDirectory {
   const comm = { ...(kind === 'oss' ? APP_DEFAULTS.comm : {}), ...(cfg.comm ?? {}) };
   const cardFacts = one(doc, 'article.card').querySelectorAll('.card-meta dt').map(text);
 
-  const copy: DirectoryCopy = {
+  const copy: Omit<DirectoryCopy, 'ld' | 'llms'> & Partial<Pick<DirectoryCopy, 'ld' | 'llms'>> = {
     head: {
       title: text(one(doc, 'title')),
       description: meta('meta[name="description"]'),
@@ -335,6 +337,36 @@ export function importDirectory(input: ImportInput): SeedDirectory {
       text: prose(one(crosslink, '.crosslink-text')),
     },
     footer: { note: prose(one(doc, '.footer-note')), otherLabel: text(otherLink), otherHref: attr(otherLink, 'href') },
+  };
+
+  /* ---- the fixed strings of the JSON-LD graph ---- */
+  const ldEl = one(doc, 'script[type="application/ld+json"]');
+  const graph = (JSON.parse(ldEl.text) as { '@graph': Record<string, unknown>[] })['@graph'];
+  const node = (type: string) => must(graph.find((n) => n['@type'] === type), `JSON-LD ${type}`);
+  const org = node('Organization');
+  const dataset = node('Dataset');
+  const itemList = node('ItemList');
+  const str = (v: unknown) => (typeof v === 'string' ? v : null);
+  const strs = (v: unknown) => (Array.isArray(v) && v.every((x) => typeof x === 'string') ? (v as string[]) : null);
+  copy.llms = input.llms;
+  copy.ld = {
+    org: {
+      description: str(org.description),
+      foundingDate: str(org.foundingDate),
+      knowsAbout: strs(org.knowsAbout),
+    },
+    websiteDescription: str(node('WebSite').description),
+    dataset: {
+      name: must(str(dataset.name), 'Dataset name'),
+      description: must(str(dataset.description), 'Dataset description'),
+      measurementTechnique: str(dataset.measurementTechnique),
+      keywords: strs(dataset.keywords),
+      license: str(dataset.license),
+      variables: Array.isArray(dataset.variableMeasured)
+        ? (dataset.variableMeasured as unknown[]).filter((v): v is string => typeof v === 'string')
+        : null,
+    },
+    itemList: { name: must(str(itemList.name), 'ItemList name'), description: str(itemList.description) },
   };
 
   /* ---- editorial lists ---- */
@@ -478,7 +510,7 @@ export function importDirectory(input: ImportInput): SeedDirectory {
     modifiedOn: input.modifiedOn,
     csvFile: input.csvFile,
     toggles,
-    copy,
+    copy: copy as DirectoryCopy,
     criteria,
     capabilities,
     segments,

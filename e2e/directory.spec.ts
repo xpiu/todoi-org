@@ -230,3 +230,22 @@ test.describe('without JavaScript', () => {
     }
   });
 });
+
+test('each page carries its JSON-LD graph, with the published @ids', async ({ page, request }) => {
+  const { readFile } = await import('node:fs/promises');
+  for (const [path, fixture] of [
+    ['/', 'open-source'],
+    ['/commercial-task-managers/', 'commercial'],
+  ] as const) {
+    await ready(page, path);
+    const graph = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? '{}');
+    const published = JSON.parse(await readFile(`apps/server/test/fixtures/${fixture}.jsonld.json`, 'utf8'));
+    expect(graph['@graph'].map((n: { '@id': string }) => n['@id'])).toEqual(
+      published['@graph'].map((n: { '@id': string }) => n['@id']),
+    );
+  }
+  const sitemap = await request.get('/sitemap.xml');
+  expect(sitemap.headers()['content-type']).toContain('application/xml');
+  expect(await (await request.get('/llms.txt')).text()).toContain('## Commercial task managers');
+  expect((await request.get('/robots.txt')).status()).toBe(200);
+});

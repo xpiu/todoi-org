@@ -41,6 +41,27 @@ async function main() {
     },
   ];
 
+  // llms.txt: hand-written prose around one generated line per record. Split it
+  // at the record lines so each directory keeps the prose that introduces it.
+  const llms = await readFile(join(site, 'llms.txt'), 'utf8');
+  const lines = llms.split('\n');
+  const isRecord = (l: string) => /^- \[[^\]]+\]\([^)]+\): /.test(l);
+  const runs: [number, number][] = [];
+  lines.forEach((l, i) => {
+    const last = runs[runs.length - 1];
+    if (!isRecord(l)) return;
+    if (last && last[1] === i - 1) last[1] = i;
+    else runs.push([i, i]);
+  });
+  // The record runs are the two longest runs of record lines, in page order.
+  const [ossRun, comRun] = [...runs].sort((a, b) => b[1] - b[0] - (a[1] - a[0])).slice(0, 2).sort((a, b) => a[0] - b[0]);
+  if (!ossRun || !comRun) throw new Error('llms.txt: record lines not found');
+  const part = (from: number, to: number) => lines.slice(from, to).join('\n');
+  const llmsParts = {
+    'open-source': { before: part(0, ossRun[0]), after: '' },
+    commercial: { before: part(ossRun[1] + 1, comRun[0]), after: part(comRun[1] + 1, lines.length) },
+  } as const;
+
   await mkdir(out, { recursive: true });
   for (const job of jobs) {
     const seed = importDirectory({
@@ -51,6 +72,7 @@ async function main() {
       csv: await readFile(join(site, job.csvFile), 'utf8'),
       csvFile: job.csvFile,
       modifiedOn: lastmod(job.loc),
+      llms: llmsParts[job.slug as keyof typeof llmsParts],
     });
     const file = join(out, `${job.slug}.json`);
     await writeFile(file, JSON.stringify(seed, null, 2) + '\n');

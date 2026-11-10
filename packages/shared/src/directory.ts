@@ -168,6 +168,31 @@ export const DirectoryCopy = z.object({
   }),
   crosslink: z.object({ href: z.string(), title: z.string(), text: z.string() }),
   footer: z.object({ note: z.string(), otherLabel: z.string(), otherHref: z.string() }),
+  /**
+   * llms.txt is one file for the site: prose written by hand around one generated
+   * line per record. `before` precedes this directory's lines; `after` (set on the
+   * last directory only) closes the file.
+   */
+  llms: z.object({ before: z.string(), after: z.string() }),
+  /** The fixed strings of the page's JSON-LD graph; everything per record is derived. */
+  ld: z.object({
+    org: z.object({
+      description: z.string().nullable(),
+      foundingDate: z.string().nullable(),
+      knowsAbout: z.array(z.string()).nullable(),
+    }),
+    websiteDescription: z.string().nullable(),
+    dataset: z.object({
+      name: z.string(),
+      description: z.string(),
+      measurementTechnique: z.string().nullable(),
+      keywords: z.array(z.string()).nullable(),
+      license: z.string().nullable(),
+      /** Variables named after the criteria, in order. */
+      variables: z.array(z.string()).nullable(),
+    }),
+    itemList: z.object({ name: z.string(), description: z.string().nullable() }),
+  }),
 });
 export type DirectoryCopy = z.infer<typeof DirectoryCopy>;
 

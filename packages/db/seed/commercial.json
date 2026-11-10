@@ -250,6 +250,30 @@
       "note": "A volunteer-run directory of task managers, open and commercial. Not affiliated with, endorsed by or funded by any vendor or project listed here.",
       "otherLabel": "Open-source directory",
       "otherHref": "/"
+    },
+    "llms": {
+      "before": "\n## Commercial task managers\n\nA companion page, [Commercial task managers compared](https://todoi.org/commercial-task-managers/), applies the same method to 57 closed-source task managers sold as a service and usable in a browser. Two criteria differ: value for money replaces ease of deployment, and data control replaces data sovereignty. Prices are the cheapest paid plan per user per month, billed annually, in US dollars as published around 10 November 2026. The dataset is at https://todoi.org/todoi-commercial-dataset-2026-11-10.csv.\n\nOrdered by market presence, largest first, with alphabetical ties, matching the page.\n",
+      "after": "\n## Notes for citation\n\nScores are editorial judgements published with their reasoning, not benchmark results. Cite the individual criterion and its justification rather than the mean, and cite the confidence beside the score. Every record names the date it was compiled and the sources it was compiled from.\n"
+    },
+    "ld": {
+      "org": {
+        "description": null,
+        "foundingDate": null,
+        "knowsAbout": null
+      },
+      "websiteDescription": null,
+      "dataset": {
+        "name": "todoi.org commercial task manager dataset",
+        "description": "57 commercial, closed-source task managers sold as a service: pricing, audience, five capability checks, six scored criteria with written reasoning, and sources.",
+        "measurementTechnique": null,
+        "keywords": null,
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "variables": null
+      },
+      "itemList": {
+        "name": "Commercial task managers compared",
+        "description": null
+      }
     }
   },
   "criteria": [

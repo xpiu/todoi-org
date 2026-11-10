@@ -1,0 +1,3466 @@
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://todoi.org/#org",
+   "name": "todoi.org",
+   "url": "https://todoi.org/",
+   "description": "A volunteer-run directory of open-source and source-available browser-based task and project management software.",
+   "foundingDate": "2026-09-17",
+   "email": "info@todoi.org",
+   "contactPoint": {
+    "@type": "ContactPoint",
+    "email": "info@todoi.org",
+    "contactType": "Corrections and additions",
+    "availableLanguage": "en"
+   },
+   "knowsAbout": [
+    "Self-hosted software",
+    "Open-source licensing",
+    "Project management software",
+    "Task management",
+    "Data sovereignty",
+    "Software portability"
+   ]
+  },
+  {
+   "@type": "WebSite",
+   "@id": "https://todoi.org/#website",
+   "name": "todoi.org",
+   "url": "https://todoi.org/",
+   "publisher": {
+    "@id": "https://todoi.org/#org"
+   },
+   "inLanguage": "en",
+   "description": "Twenty-five open-source and source-available browser-based task managers, compared across 38 fields."
+  },
+  {
+   "@type": "WebPage",
+   "@id": "https://todoi.org/#webpage",
+   "url": "https://todoi.org/",
+   "name": "25 open-source task managers compared (2026) · todoi.org",
+   "description": "Licence, features and six scored criteria for open-source and source-available task managers, each with the reasoning attached.",
+   "isPartOf": {
+    "@id": "https://todoi.org/#website"
+   },
+   "about": {
+    "@id": "https://todoi.org/#dataset"
+   },
+   "mainEntity": {
+    "@id": "https://todoi.org/#projects"
+   },
+   "inLanguage": "en",
+   "datePublished": "2026-09-17",
+   "dateModified": "2026-11-10",
+   "lastReviewed": "2026-11-10",
+   "reviewedBy": {
+    "@id": "https://todoi.org/#org"
+   },
+   "significantLink": [
+    "https://huly.io/",
+    "https://www.openproject.org/",
+    "https://plane.so/",
+    "https://www.redmine.org/",
+    "https://affine.pro/",
+    "https://appflowy.io/",
+    "https://habitica.com/",
+    "https://leantime.io/",
+    "https://logseq.com/",
+    "https://nextcloud.com/",
+    "https://nocodb.com/",
+    "https://planka.app/",
+    "https://taiga.io/",
+    "https://www.focalboard.com/",
+    "https://www.getgrist.com/",
+    "https://kanboard.org/",
+    "https://www.kimai.org/",
+    "https://super-productivity.com/",
+    "https://taskwarrior.org/",
+    "https://triliumnotes.org/",
+    "https://vikunja.io/",
+    "https://wekan.github.io/",
+    "https://restya.com/board",
+    "https://titra.io/",
+    "https://worklenz.com/"
+   ],
+   "hasPart": [
+    {
+     "@id": "https://todoi.org/#faq"
+    }
+   ],
+   "breadcrumb": {
+    "@id": "https://todoi.org/#breadcrumb"
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "@id": "https://todoi.org/#breadcrumb",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Directory",
+     "item": "https://todoi.org/"
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://todoi.org/#faq",
+   "name": "Questions",
+   "isPartOf": {
+    "@id": "https://todoi.org/#webpage"
+   },
+   "inLanguage": "en",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is todoi.org?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A volunteer-run directory of twenty-five browser-based task managers whose source you can read. Every score includes its reasoning. Nothing to sign up for, and no project pays to be listed."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why is community size a category rather than a number?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Stars, forks, contributors, cadence and forum activity measure different things, and none of them is a deployment count. Redmine sits in the top band on 6.0k stars because GitHub holds a mirror; Plane sits there on 59.5k. Both figures are accurate. Neither is an install count."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why are the integration counts estimates?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "They count documented connectors, importers and plugins. API and webhook access is listed separately, because that describes what you could build rather than a ready-made connection."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Are all twenty-five assessed to the same depth?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. The Confidence value on every record says which. The original eleven were read twice. The fourteen added on 17 September 2026 are a first pass - most of them Medium. If you find an error, send a correction with a source."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does a project have to be self-hostable to be listed?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. The rules are a browser interface and open, or partly open, source. Most entries are servers you run yourself. Logseq, Super Productivity and Taskwarrior are here because local files are another way to keep control."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How current is this?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Compiled on 17 September 2026; each record notes what was changing. Nextcloud announced Gantt for Deck in June 2026. The hosted Huly service shut down around 20 July 2026; self-hosting continued."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "Dataset",
+   "@id": "https://todoi.org/#dataset",
+   "name": "Open-source and source-available browser-based task managers, 2026",
+   "url": "https://todoi.org/",
+   "description": "Twenty-five browser-based open-source and source-available task and project management projects, each assessed across 38 fields: licensing model, community proxy, repository stars, estimated integrations, five capability checks, deployment, calendar sync, data-out routes, stack and hosted option, plus six editorial 1-5 criteria, each carrying a written justification and a source list.",
+   "creator": {
+    "@id": "https://todoi.org/#org"
+   },
+   "publisher": {
+    "@id": "https://todoi.org/#org"
+   },
+   "dateCreated": "2026-09-17",
+   "datePublished": "2026-09-17",
+   "dateModified": "2026-11-10",
+   "isAccessibleForFree": true,
+   "inLanguage": "en",
+   "temporalCoverage": "2026-09-17",
+   "measurementTechnique": "Editorial assessment of project documentation, source repositories and release histories against six published criteria.",
+   "keywords": [
+    "self-hosted task manager",
+    "open-source project management",
+    "open core",
+    "source-available",
+    "data sovereignty",
+    "Kanban",
+    "Gantt",
+    "issue tracker",
+    "software comparison"
+   ],
+   "variableMeasured": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "description": "Containers and packages, dependency count, operational complexity, upgrade burden and the state of the documentation.",
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "description": "Interface clarity, learning curve, conceptual overhead and whether non-specialists can live in it.",
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "description": "Permissions, identity, audit and governance, portfolio reporting, scalability and administration.",
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "description": "How many genuinely useful views exist, plus workflow and custom-field options, dashboards, filters and extension points.",
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "description": "Whether you can run it independently, read its source, and keep control of the application and its data infrastructure.",
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "description": "APIs and exports, conventional storage and database choices, licensing constraints, and how realistically you could leave.",
+     "minValue": 1,
+     "maxValue": 5
+    },
+    "Licensing model",
+    "Community size proxy",
+    "Repository stars",
+    "Estimated integrations",
+    "Time tracking",
+    "Agile views",
+    "Gantt view",
+    "Calendar view",
+    "Open calendar sync",
+    "Deployment",
+    "Data out",
+    "Stack",
+    "Hosted option"
+   ],
+   "distribution": [
+    {
+     "@type": "DataDownload",
+     "encodingFormat": "text/csv",
+     "contentUrl": "https://todoi.org/todoi-dataset-2026-09-17.csv",
+     "name": "todoi.org dataset (CSV)"
+    }
+   ],
+   "hasPart": [
+    {
+     "@id": "https://todoi.org/#projects"
+    }
+   ]
+  },
+  {
+   "@type": "ItemList",
+   "@id": "https://todoi.org/#projects",
+   "name": "Compared projects",
+   "description": "All twenty-five projects, in the order the page opens in: by community size, largest first, ties alphabetical. Community size is an editorial proxy, not a deployment count.",
+   "numberOfItems": 25,
+   "itemListOrder": "https://schema.org/ItemListOrderDescending",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "item": {
+      "@id": "https://todoi.org/#huly"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "item": {
+      "@id": "https://todoi.org/#openproject"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "item": {
+      "@id": "https://todoi.org/#plane"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 4,
+     "item": {
+      "@id": "https://todoi.org/#redmine"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 5,
+     "item": {
+      "@id": "https://todoi.org/#affine"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 6,
+     "item": {
+      "@id": "https://todoi.org/#appflowy"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 7,
+     "item": {
+      "@id": "https://todoi.org/#habitica"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 8,
+     "item": {
+      "@id": "https://todoi.org/#leantime"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 9,
+     "item": {
+      "@id": "https://todoi.org/#logseq"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 10,
+     "item": {
+      "@id": "https://todoi.org/#nextcloud-deck"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 11,
+     "item": {
+      "@id": "https://todoi.org/#nocodb"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 12,
+     "item": {
+      "@id": "https://todoi.org/#planka"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 13,
+     "item": {
+      "@id": "https://todoi.org/#taiga"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 14,
+     "item": {
+      "@id": "https://todoi.org/#focalboard"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 15,
+     "item": {
+      "@id": "https://todoi.org/#grist"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 16,
+     "item": {
+      "@id": "https://todoi.org/#kanboard"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 17,
+     "item": {
+      "@id": "https://todoi.org/#kimai"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 18,
+     "item": {
+      "@id": "https://todoi.org/#super-productivity"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 19,
+     "item": {
+      "@id": "https://todoi.org/#taskwarrior"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 20,
+     "item": {
+      "@id": "https://todoi.org/#trilium"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 21,
+     "item": {
+      "@id": "https://todoi.org/#vikunja"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 22,
+     "item": {
+      "@id": "https://todoi.org/#wekan"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 23,
+     "item": {
+      "@id": "https://todoi.org/#restyaboard"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 24,
+     "item": {
+      "@id": "https://todoi.org/#titra"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 25,
+     "item": {
+      "@id": "https://todoi.org/#worklenz"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#huly",
+   "name": "Huly",
+   "url": "https://huly.io/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "All-in-one process, project, time and knowledge environment with a central team calendar. The hosted service closed in July 2026; self-hosting continues.",
+   "license": "EPL-2.0",
+   "sameAs": [
+    "https://github.com/hcengineering/platform"
+   ],
+   "featureList": [
+    "Agile boards",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 3.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.7,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.1,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "FOSS self-hosted platform; hosted-service continuity caveat"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Very large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "3-10"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "Docker Compose across several services, with MongoDB or CockroachDB, object storage and a search index. The heaviest stack here."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "A built-in team calendar, but no CalDAV or iCalendar interface to it."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "Workspace backup and restore tooling, plus a plugin and API surface; not recorded as a set of named export formats."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "TypeScript and Svelte over MongoDB or CockroachDB."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "None recorded. The first-party hosted service closed in July 2026; self-hosting continues."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Time tracking"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.2,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "The hosted service was announced for shutdown around 20 Jul 2026. Self-hosting was stated to be unaffected.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#openproject",
+   "name": "OpenProject",
+   "url": "https://www.openproject.org/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Classic, agile and hybrid project portfolio management with work packages, boards, Gantt, and native time and cost tracking.",
+   "license": "GPL-3.0",
+   "sameAs": [
+    "https://github.com/opf/openproject"
+   ],
+   "featureList": [
+    "Time tracking",
+    "Agile boards",
+    "Gantt or dependency timeline",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 4.9,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "FOSS; GPLv3 Community and Enterprise add-ons, with paid Enterprise availability"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Very large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "12-20"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "A packaged all-in-one container, distribution packages, or an official Helm chart over PostgreSQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "iCalendar subscription URLs per work-package view, one way out. No CalDAV."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "CSV, XLSX and PDF exports; REST APIv3 with OAuth2."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Ruby on Rails and Angular over PostgreSQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (OpenProject Enterprise cloud)."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Open calendar sync (CalDAV)"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.6,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Check each feature against the Community Edition. Much of what is advertised is Enterprise.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#plane",
+   "name": "Plane",
+   "url": "https://plane.so/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Product-development workspace built on work items, cycles, modules and initiatives, and a wide first-party integration surface.",
+   "license": "AGPL for Community Edition",
+   "sameAs": [
+    "https://github.com/makeplane/plane"
+   ],
+   "featureList": [
+    "Agile boards",
+    "Gantt or dependency timeline",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.7,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 4.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.7,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.3,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "AGPL Community Edition + commercial/open-core tiers"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Very large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "50+"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "Docker Compose over PostgreSQL, Redis and MinIO object storage, or a Kubernetes chart. Several services, not one container."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "CSV and JSON exports of work items; REST API, webhooks, OAuth apps and MCP."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Next.js and TypeScript over Python (Django) and PostgreSQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (Plane Cloud), alongside the self-hosted Community Edition."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Time tracking"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.6,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Open core. Do not assume a feature on the marketing site is in the Community Edition.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#redmine",
+   "name": "Redmine",
+   "url": "https://www.redmine.org/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Two decades of configurable issue workflows, custom fields, multiple databases and a vast plugin ecosystem. Dated interface, exceptional survivability.",
+   "license": "GPLv2",
+   "sameAs": [
+    "https://github.com/redmine/redmine"
+   ],
+   "featureList": [
+    "Time tracking",
+    "Gantt or dependency timeline",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 3.7,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 3.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.7,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.9,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "FOSS"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Very large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "100+"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "An official Docker image or distribution packages over PostgreSQL, MySQL or SQLite. Conventional and well documented."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "iCalendar and Atom feeds over issue queries, one way out. No CalDAV."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "CSV, PDF, XML and JSON exports; a full REST API in XML and JSON."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Ruby on Rails over PostgreSQL, MySQL or SQLite."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "Third-party only (Planio, Easy Redmine and others); no first-party service."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Agile boards, Open calendar sync (CalDAV)"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.4,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "The weakness is the interface, not the project’s health. Three supported versions shipped in Aug 2026.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#affine",
+   "name": "AFFiNE",
+   "url": "https://affine.pro/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Documents, an infinite whiteboard and databases in one workspace, with tasks as database views rather than a tracker of their own.",
+   "license": "MPL-2.0 client, EE backend",
+   "sameAs": [
+    "https://github.com/toeverything/AFFiNE"
+   ],
+   "featureList": [
+    "Agile boards"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 3.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 2.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 2.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 3.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "Open client, source-available backend under an Enterprise Edition licence"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "few"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "Documented Docker Compose with PostgreSQL and Redis, or the hosted service."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "Markdown, HTML, JSON and PDF or PNG exports; a GraphQL API with WebSocket sync."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Rust and TypeScript with React."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (AFFiNE Cloud), plus a paid self-hosted Team tier."
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.6,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "The client is open and the self-hosted backend is not: it ships under an AFFiNE Enterprise Edition licence, and administrative features sit behind the paid Team tier. Self-hosted and open source are two different claims here, and this is the clearest case in the table of why the distinction matters.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#appflowy",
+   "name": "AppFlowy",
+   "url": "https://appflowy.io/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "A Notion-shaped workspace of nested documents and inline databases, where board, table and calendar are three views of the same records.",
+   "license": "AGPL-3.0",
+   "sameAs": [
+    "https://github.com/AppFlowy-IO/AppFlowy"
+   ],
+   "featureList": [
+    "Agile boards",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 3.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "AGPLv3 core + commercial AI and enterprise tiers"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "4-10"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "Compose for the self-hosted AppFlowy Cloud sync server; the web client sits alongside desktop and mobile builds."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "JSON, Markdown and CSV exports; a cloud API with WebSocket sync."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Flutter and Rust over PostgreSQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (AppFlowy Cloud), with paid AI and vault add-ons."
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.8,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Open core, and the desktop and mobile clients lead the web one. Check that the capability you need is in the AGPL build rather than in an AI or vault tier before committing.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#habitica",
+   "name": "Habitica",
+   "url": "https://habitica.com/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Habits, dailies and to-dos wrapped in a role-playing game, where parties and guilds carry the accountability a manager otherwise would.",
+   "license": "GPL-3.0",
+   "sameAs": [
+    "https://github.com/HabitRPG/habitica"
+   ],
+   "featureList": [],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 3.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 1.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 2.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 3.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "GPLv3, with cosmetic subscriptions on the hosted service only"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "8-20"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "Compose with Node.js, MongoDB and Redis."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "JSON and CSV exports; a full REST API with user-configurable webhooks."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Node.js and Vue over MongoDB."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (habitica.com), where nearly all of its users are."
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.2,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "A motivation system rather than a project tool. There is no board, timeline or calendar, and the self-hosted path is far less travelled than habitica.com - expect to be an early reader of your own logs.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#leantime",
+   "name": "Leantime",
+   "url": "https://leantime.io/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Project management aimed at non-project-managers: tasks, Kanban, timelines, retrospectives, strategy boards and native timesheets.",
+   "license": "AGPLv3 core",
+   "sameAs": [
+    "https://github.com/Leantime/leantime"
+   ],
+   "featureList": [
+    "Time tracking",
+    "Agile boards",
+    "Gantt or dependency timeline",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.7,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "AGPL core + commercial/marketplace plugins"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "8-20"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "Docker Compose with PHP, a web server and MySQL. One database, no queue or object store."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "iCalendar feed URLs for tasks and milestones, one way out. No CalDAV."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "CSV and JSON exports, plus timesheet exports; REST API and webhooks."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "PHP over MySQL, with a server-rendered interface."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (Leantime hosted)."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Open calendar sync (CalDAV)"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.4,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "The core is open. Advanced functionality may arrive as a paid plugin.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#logseq",
+   "name": "Logseq",
+   "url": "https://logseq.com/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "An outliner over plain Markdown and Org-mode files, where the task list is a query across notes you already wrote.",
+   "license": "AGPL-3.0",
+   "sameAs": [
+    "https://github.com/logseq/logseq"
+   ],
+   "featureList": [],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 3.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 1.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "AGPLv3, with a paid sync service beside it rather than above it"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "100+"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "A self-hosted web app container, a desktop build, or the hosted browser demo reading a local folder."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "The files are the export: Markdown and Org-mode on disk, plus JSON; a plugin API."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "ClojureScript and React over plain text files."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "None. The files stay yours, synced by whatever you already use."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Time tracking, Agile boards, Calendar view"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.8,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "The browser build depends on the File System Access API, so a local graph opens in Chromium only - Firefox and Safari cannot. The database rewrite has been in beta for a long time and plugin compatibility with it is still unsettled.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#nextcloud-deck",
+   "name": "Nextcloud Deck",
+   "url": "https://nextcloud.com/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Kanban inside Nextcloud, worth testing before deploying a second platform if Nextcloud is already in place.",
+   "license": "AGPL",
+   "sameAs": [
+    "https://github.com/nextcloud/deck"
+   ],
+   "featureList": [
+    "Agile boards",
+    "Gantt or dependency timeline",
+    "Open calendar sync (CalDAV)"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 3.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.1,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 4.1,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "FOSS Nextcloud app"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "5-10"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "The Nextcloud all-in-one container or distribution packages over PostgreSQL or MariaDB, then Deck and Tasks as apps."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "Native CalDAV through Nextcloud Tasks, read and write. The strongest phone and desktop story in the table."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "iCalendar and CalDAV, JSON, and CSV through companion apps; OCS and REST APIs with webhooks."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "PHP and Vue over PostgreSQL or MariaDB."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "Third-party providers under the Nextcloud provider programme."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Time tracking, Calendar view"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.2,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Comparisons saying Deck has no Gantt predate the Jun 2026 announcement.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#nocodb",
+   "name": "NocoDB",
+   "url": "https://nocodb.com/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Puts grid, kanban, gallery, form and calendar views over a SQL database you already own, so the task board is a view rather than a new system of record.",
+   "license": "AGPL-3.0",
+   "sameAs": [
+    "https://github.com/nocodb/nocodb"
+   ],
+   "featureList": [
+    "Agile boards",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "AGPLv3 core + commercial cloud and enterprise tiers"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "30-60"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "One container over SQLite, or pointed at an existing PostgreSQL or MySQL database."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "CSV, JSON and Excel exports; an auto-generated Swagger REST API, and per-table webhooks."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Node.js and Vue over SQLite, PostgreSQL or MySQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (NocoDB Cloud)."
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.2,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "A database with task views, not a task manager. There is no sprint, dependency or timeline unless you model one, and nothing stops a team modelling it badly.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#planka",
+   "name": "PLANKA",
+   "url": "https://planka.app/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Board-first Trello alternative. The Community edition is capable; timeline and calendar sit in the paid tiers.",
+   "license": "Edition-dependent; not treated here as pure OSI FOSS",
+   "sameAs": [
+    "https://github.com/plankanban/planka"
+   ],
+   "featureList": [
+    "Time tracking",
+    "Agile boards"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.7,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "Source-available / fair-code Community + Pro/Enterprise"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "few"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "A two-container Compose file: the application and PostgreSQL. Nothing else to run."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "JSON and CSV board exports; REST API and webhooks."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Node.js and React over PostgreSQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "None recorded for the Community edition."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Gantt or dependency timeline, Calendar view"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.2,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Read the licence before committing. Community is capable; several organisational features are paid.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#taiga",
+   "name": "Taiga",
+   "url": "https://taiga.io/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Agile-first: backlogs, sprint boards, burndowns, WIP limits and swimlanes, with no native Gantt, calendar or time tracking.",
+   "license": "Open-source (project states 100% open source self-hosting)",
+   "sameAs": [
+    "https://github.com/taigaio"
+   ],
+   "featureList": [
+    "Agile boards"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 3.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "FOSS self-hosted product"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "8-15"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "A multi-container Compose stack with an official install script, over PostgreSQL, RabbitMQ and Redis."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "A full project dump as JSON, plus CSV; comprehensive REST API and webhooks."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Python (Django) and React over PostgreSQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (Taiga cloud)."
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.2,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "No native Gantt, calendar or time tracking. For some teams that ends the evaluation.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#focalboard",
+   "name": "Focalboard",
+   "url": "https://www.focalboard.com/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Trello-shaped boards with table, gallery and calendar views over the same cards, from the Mattermost project and now maintained by whoever turns up.",
+   "license": "MIT (personal server)",
+   "sameAs": [
+    "https://github.com/mattermost-community/focalboard"
+   ],
+   "featureList": [
+    "Agile boards",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.3,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 2.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 3.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "MIT personal edition, with an AGPL enterprise build"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium-large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "few"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "A single Docker image for the personal server, or the board plugin inside Mattermost."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "JSON board archives and CSV exports; a REST API."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Go and React."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "Through Mattermost Cloud, as part of that product rather than on its own."
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.6,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Community-maintained. Mattermost stopped bundling the plugin in September 2023 and adds neither features nor fixes; commits continue from contributors against an open call for maintainers. Treat the roadmap as absent rather than slow.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#grist",
+   "name": "Grist",
+   "url": "https://www.getgrist.com/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "A relational spreadsheet with Python formulas and cell-level access rules, where the tracker is something you assemble rather than something you are given.",
+   "license": "Apache-2.0 (grist-core)",
+   "sameAs": [
+    "https://github.com/gristlabs/grist-core"
+   ],
+   "featureList": [],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "Apache-2.0 core + commercial Enterprise features"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium-large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "20-40"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "One official container over SQLite, with Python for formulas. No external database required."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "SQLite, CSV and Excel exports; REST API with an interactive console, and outgoing webhooks."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Python and TypeScript over SQLite."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (Grist hosted), with paid tiers above the Apache-2.0 core."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Agile boards, Calendar view"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.0,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Not a task manager out of the box. You get a database, a formula language and the parts to build one, which is either exactly the point or immediately the problem.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#kanboard",
+   "name": "Kanboard",
+   "url": "https://kanboard.org/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Deliberately minimal Kanban with SQLite by default, a plugin architecture, and almost no operational surface area.",
+   "license": "MIT",
+   "sameAs": [
+    "https://github.com/kanboard/kanboard"
+   ],
+   "featureList": [
+    "Time tracking",
+    "Agile boards",
+    "Gantt or dependency timeline",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.9,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 2.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.9,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "FOSS"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium-large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "30-60"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "One PHP container over embedded SQLite, with PostgreSQL and MySQL optional. Almost no operational surface."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "iCalendar subscription feeds per project and per user, one way out. No CalDAV."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "CSV and JSON exports; JSON-RPC API and webhooks."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "PHP over SQLite by default; no build step and no JavaScript framework."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "None recorded. Self-hosting only."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Open calendar sync (CalDAV)"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.1,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Suits teams that want simplicity and control more than a polished interface.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#kimai",
+   "name": "Kimai",
+   "url": "https://www.kimai.org/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Timesheets first: activities, rates, budgets and invoices for teams whose tasks exist mainly to be billed.",
+   "license": "AGPL-3.0",
+   "sameAs": [
+    "https://github.com/kimai/kimai"
+   ],
+   "featureList": [
+    "Time tracking",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 3.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "AGPLv3 core + a commercial plugin store"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium-large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "20-40"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "One Compose file with PHP, a web server and MySQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "An iCalendar feed of the timesheet, one way out. No CalDAV."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "CSV, XLSX, PDF and JSON exports, plus invoice templates; a JSON REST API."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "PHP (Symfony) over MySQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (Kimai Cloud)."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Open calendar sync (CalDAV)"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.9,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Open core by plugin. The AGPL core bills and invoices on its own, but a good deal of the ecosystem, including several accounting connectors, sits in a paid store.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#super-productivity",
+   "name": "Super Productivity",
+   "url": "https://super-productivity.com/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "A personal task list with pomodoro timing and timeboxing that pulls its work items out of the trackers your team already runs.",
+   "license": "MIT",
+   "sameAs": [
+    "https://github.com/johannesjo/super-productivity"
+   ],
+   "featureList": [
+    "Time tracking"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 1.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 3.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "MIT, with no hosted tier to hold anything back"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium-large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "8-15"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "No server at all: a browser app, with optional WebDAV, Dropbox or local-file sync."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "Reads tasks from a CalDAV server as an issue source, and a Google Calendar feed. It is not a CalDAV server itself."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "JSON and CSV exports, plus whatever the sync target holds; integrations with other trackers rather than an API of its own."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "TypeScript and Angular, storing to IndexedDB."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "None needed, and none offered."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Gantt or dependency timeline, Calendar view, Open calendar sync (CalDAV)"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.7,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Single-user by design. There are no roles, no shared instance and no server to administer, which is either exactly right or immediately disqualifying.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#taskwarrior",
+   "name": "Taskwarrior",
+   "url": "https://taskwarrior.org/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "A command-line task manager with a tuneable urgency model; the browser arrives through third-party clients built on its sync protocol.",
+   "license": "MIT",
+   "sameAs": [
+    "https://github.com/GothenburgBitFactory/taskwarrior"
+   ],
+   "featureList": [
+    "Time tracking"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 2.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 1.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 3.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "MIT, with the browser client supplied by third parties"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium-large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "4-10"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "A local task database, plus an optional TaskChampion sync server."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "JSON and the native task format; a CLI, a hook system and a documented sync protocol."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Rust and C++."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "Third-party only (WingTask); no first-party service."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Calendar view"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.3,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "There is no first-party web interface. Browser access comes from third-party clients on the sync protocol, and the most polished of them is a commercial hosted service - so the browser route is real, but it is not the project's own and is not covered by the MIT licence above.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#trilium",
+   "name": "Trilium Notes",
+   "url": "https://triliumnotes.org/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "A scriptable hierarchical note tree. A first-party task list is in development; today a to-do is a note carrying a label.",
+   "license": "AGPL-3.0",
+   "sameAs": [
+    "https://github.com/TriliumNext/Trilium"
+   ],
+   "featureList": [],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 3.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 1.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "AGPLv3, community-run with no commercial tier"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium-large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "3-10"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "One container with embedded SQLite; desktop clients sync to it."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "HTML and Markdown exports, and a full database ZIP; ETAPI token-authenticated REST."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Node.js over SQLite."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "None. A self-hosted server, or a local desktop application."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Calendar view"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.5,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Barely a task manager yet. A first-party task list is in development; today a to-do list is a note with an #initTodo label and a community script behind it. The original zadam/trilium is archived - TriliumNext is the maintained continuation and the one recorded here.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#vikunja",
+   "name": "Vikunja",
+   "url": "https://vikunja.io/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Lightweight, sovereignty-first task management with list, Kanban, Gantt and table views, CalDAV, and importers from the major SaaS tools.",
+   "license": "AGPL",
+   "sameAs": [
+    "https://github.com/go-vikunja/vikunja"
+   ],
+   "featureList": [
+    "Agile boards",
+    "Gantt or dependency timeline",
+    "Calendar view",
+    "Open calendar sync (CalDAV)"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.1,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.1,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 5.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "AGPL core + separate Pro tier"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium-large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "4-10"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "A single Go binary, or a two-container Compose file over SQLite or PostgreSQL. The lightest server here."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "Native CalDAV, read and write, against the same tasks the interface shows."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "Full account export as JSON and a ZIP of attachments; CalDAV, REST API and webhooks."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Go and Vue over SQLite, PostgreSQL or MySQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (Vikunja Cloud)."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Time tracking"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 4.2,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Time tracking moved to Vikunja Pro in 2026, out of the free AGPL core.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#wekan",
+   "name": "Wekan",
+   "url": "https://wekan.github.io/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "A ten-year-old open-source Trello with swimlanes, checklists, subtasks, colour tags and rule-based automation.",
+   "license": "MIT",
+   "sameAs": [
+    "https://github.com/wekan/wekan"
+   ],
+   "featureList": [
+    "Agile boards",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 3.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "MIT, with no held-back edition"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium-large"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "8-15"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "Docker Compose or a snap package, over MongoDB."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "An iCalendar feed of card due dates, one way out. No CalDAV."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "JSON, CSV and TSV exports; a REST API with outgoing webhooks, and a Trello importer."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Meteor and Node.js over MongoDB."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "Third-party providers; no first-party service."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Open calendar sync (CalDAV)"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.8,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Long-lived and dependable, on a Meteor and MongoDB stack that makes version upgrades the main operational risk rather than the application itself.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#restyaboard",
+   "name": "Restyaboard",
+   "url": "https://restya.com/board",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "A Trello-shaped board with offline caching, card-level messaging and email-to-card, effectively frozen since 2022.",
+   "license": "OSL-3.0",
+   "sameAs": [
+    "https://github.com/RestyaPlatform/board"
+   ],
+   "featureList": [
+    "Time tracking",
+    "Agile boards",
+    "Gantt or dependency timeline",
+    "Calendar view"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 3.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 3.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 2.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 3.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 3.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 3.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "OSL-3.0, with paid add-ons around a dormant core"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "few"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "Docker with Nginx, PHP and PostgreSQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "An iCalendar feed of card due dates, one way out. No CalDAV."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "CSV and JSON exports; a REST API with webhooks."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "PHP and Backbone.js over PostgreSQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (Restyaboard Cloud)."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Open calendar sync (CalDAV)"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.1,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Dormant. The last tagged release, 1.7.1, is from March 2022, and nothing in the repository since amounts to a release. Recorded for completeness, not as a recommendation: do not start a deployment here without first checking whether the project has moved.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#titra",
+   "name": "Titra",
+   "url": "https://titra.io/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Time and task tracking for studios and agencies: assignments, budgets and burn rates against client projects.",
+   "license": "AGPL-3.0",
+   "sameAs": [
+    "https://github.com/kromitgmbh/titra"
+   ],
+   "featureList": [
+    "Time tracking"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 2.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.0,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "AGPLv3, with hosting rather than features sold on top"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "4-10"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "One container over MongoDB."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "CSV, XLSX and JSON exports; a REST API."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Meteor and React over MongoDB."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (Titra Cloud)."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Partial rather than native",
+     "value": "Calendar view"
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.5,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Small project, narrow remit, and a bus factor to match. It tracks time against tasks well and does not pretend to manage the project around them.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#worklenz",
+   "name": "Worklenz",
+   "url": "https://worklenz.com/",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "Agency and services-firm workflow: client projects, billable time, task management and reporting.",
+   "license": "AGPL for core",
+   "sameAs": [
+    "https://github.com/Worklenz/worklenz"
+   ],
+   "featureList": [
+    "Time tracking",
+    "Agile boards",
+    "Gantt or dependency timeline"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 3.8,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 4.1,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.7,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "AGPL open-core / commercial direction"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "3-8"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "Docker Compose with Node.js and PostgreSQL, plus object storage for attachments."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "CSV and Excel exports of tasks, timesheets and reports; REST API."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "Node.js and Angular over PostgreSQL."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "First-party (worklenz.com)."
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.9,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "The self-hosted business-licence model and its edition boundaries are still changing.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  }
+ ]
+}

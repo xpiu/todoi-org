@@ -5,6 +5,8 @@ import type { Db } from '@todoi/db';
 import type { Env } from './env.ts';
 import { HttpProblem } from './errors.ts';
 import { directoryCsv } from './generate/csv.ts';
+import { jsonLdScript } from './generate/jsonld.ts';
+import { llmsTxt, sitemapXml } from './generate/site-files.ts';
 import { securityHeaders } from './middleware/security.ts';
 import { publicApi } from './routes/public.ts';
 import type { DirectoryStore } from './store.ts';
@@ -112,13 +114,36 @@ export function createApp(deps: AppDeps) {
     return c.body(directoryCsv(dir));
   });
 
+  const allDirectories = async () =>
+    (await Promise.all((await deps.store.list()).map((d) => deps.store.get(d.slug)))).filter((d) => d !== null);
+
+  app.get('/sitemap.xml', etag({ weak: true }), async (c) => {
+    c.header('Content-Type', 'application/xml; charset=utf-8');
+    c.header('Cache-Control', 'no-cache');
+    return c.body(sitemapXml(await allDirectories(), deps.env.SITE_URL));
+  });
+
+  app.get('/llms.txt', etag({ weak: true }), async (c) => {
+    c.header('Content-Type', 'text/plain; charset=utf-8');
+    c.header('Cache-Control', 'no-cache');
+    return c.body(llmsTxt(await allDirectories()));
+  });
+
+  /** The JSON-LD graph goes in after the render, last in <body>, as the static pages had it. */
+  async function decorate(path: string, html: string): Promise<string> {
+    const dir = await deps.store.byPath(path);
+    if (!dir) return html;
+    const i = html.lastIndexOf('</body>');
+    return i < 0 ? html : `${html.slice(0, i)}${jsonLdScript(dir, deps.env.SITE_URL)}\n${html.slice(i)}`;
+  }
+
   async function renderPage(request: Request, forceStatus?: number): Promise<Response> {
     const url = new URL(request.url);
     const key = `${url.pathname}${url.search}`;
     let page = pages.get(key);
     if (!page) {
       const res = await deps.render(request);
-      const body = await res.text();
+      const body = res.status === 200 ? await decorate(url.pathname, await res.text()) : await res.text();
       page = {
         body,
         status: forceStatus ?? res.status,
