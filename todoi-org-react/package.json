@@ -1,0 +1,42 @@
+{
+  "name": "todoi-org",
+  "private": true,
+  "type": "module",
+  "description": "todoi.org: a server-rendered, database-backed directory of task managers.",
+  "license": "MIT",
+  "packageManager": "pnpm@10.28.1",
+  "engines": {
+    "node": ">=22.21"
+  },
+  "volta": {
+    "node": "22.21.1",
+    "pnpm": "10.28.1"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @todoi/server dev",
+    "build": "pnpm --filter @todoi/web build && pnpm --filter @todoi/server build",
+    "start": "node apps/server/dist/index.js",
+    "db:generate": "pnpm --filter @todoi/db generate",
+    "db:migrate": "pnpm --filter @todoi/db migrate",
+    "db:seed": "pnpm --filter @todoi/db seed",
+    "db:import": "pnpm --filter @todoi/db run import:site",
+    "db:user": "pnpm --filter @todoi/db user",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "check": "pnpm typecheck && pnpm lint && pnpm test",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.65.0",
+    "@types/node": "26.6.6",
+    "eslint": "10.14.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.14.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.2",
+    "vitest": "5.1.0"
+  }
+}

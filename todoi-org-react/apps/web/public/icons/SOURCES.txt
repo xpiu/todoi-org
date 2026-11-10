@@ -1,0 +1,63 @@
+Project marks — provenance
+==========================
+
+Each file is the project's own published favicon, downloaded from the project's
+own site on 2026-09-17, resized to 48x48 and saved as lossless WebP. Nothing is
+redrawn. Trademarks belong to their respective projects and are used here to
+identify them.
+
+file                  source
+--------------------  ----------------------------------------------------------
+huly.webp             https://huly.io/favicon/favicon-512x512.png
+kanboard.webp         https://kanboard.org/assets/img/touch-icon-ipad-retina.png
+leantime.webp         https://leantime.io/wp-content/uploads/2023/03/iconeNew-300x300.webp
+nextcloud-deck.webp   https://nextcloud.com/c/uploads/2022/03/favicon.png
+openproject.webp      https://www.openproject.org/assets/images/favicons/apple-touch-icon-120x120-e72a13fd.png
+plane.webp            https://plane.so/favicon/android-chrome-512x512.png
+planka.webp           https://planka.app/favicon.ico  (128x128 frame)
+redmine.webp          https://www.redmine.org/favicon.ico  (32x32 frame)
+taiga.webp            https://taiga.io/media/images/favicon.2e16d0ba.fill-192x192.png
+vikunja.webp          https://vikunja.io/favicon.svg
+worklenz.webp         https://worklenz.com/wl-icon.png
+
+Notes
+-----
+nextcloud-deck  The linked project is Nextcloud Deck, an app inside Nextcloud;
+                the mark is nextcloud.com's, matching the URL the row links to.
+                It is the only source published at 32x32, so it is the softest
+                of the eleven at 2x.
+openproject     Their apple-touch-icon is a small mark on a large white
+                field. The field is flood-filled to transparency and the mark
+                scaled to the same optical weight as the rest, so it does not
+                show as a white tile on zebra, hovered or expanded rows.
+
+kanboard        Both publish a dark glyph on an opaque white tile. The tile
+worklenz        is flood-filled to transparency here and redrawn by style.css
+                on the dark theme only, so it cannot appear and disappear as
+                zebra parity changes under a sort.
+
+Added 2026-09-17 with the fourteen projects brought into the matrix. Same rule:
+the project's own published mark, resized to 48x48, saved as lossless WebP.
+
+affine.webp           https://affine.pro/favicon-96.png
+appflowy.webp         https://appflowy.com/_next/static/media/appflowy.929cfa16.ico
+focalboard.webp       https://raw.githubusercontent.com/mattermost-community/focalboard/main/webapp/static/favicon.svg
+                        (focalboard.com returned HTTP 530; taken from the project repo instead)
+grist.webp            https://raw.githubusercontent.com/gristlabs/grist-core/main/static/icons/favicon.png
+                        (getgrist.com serves no /favicon.ico; taken from grist-core)
+habitica.webp         https://habitica.com/static/icons/favicon_192x192.png
+kimai.webp            https://www.kimai.org/images/apple-touch-icon.png
+logseq.webp           https://asset.logseq.com/static/img/logo.png
+nocodb.webp           https://cdn.nocodb.com/marketing-site/20260917063052/images/webclip.png
+restyaboard.webp      https://raw.githubusercontent.com/RestyaPlatform/board/master/client/img/logo-192x192.png
+                        (restya.com/favicon.ico returned 204 empty; taken from the project repo)
+super-productivity.webp  https://super-productivity.com/_astro/tray-ico-dark.B5spw3Yk.png
+taskwarrior.webp      https://taskwarrior.org/favicon.ico
+titra.webp            https://titra.io/storage/titra-logo-500-300x300.png
+trilium.webp          https://triliumnotes.org/assets/favicon-BI5VJBD3.ico
+wekan.webp            https://raw.githubusercontent.com/wekan/wekan/main/public/android/android-launchericon-512-512.png
+                        (public/logo-header.png is a wide lockup, not a square mark)
+
+Adjusted in CSS, not in the file:
+super-productivity.webp  a pure-black tick on transparency, inverted on the dark
+                         theme for the same reason huly.webp is.

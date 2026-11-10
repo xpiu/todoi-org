@@ -1,0 +1,495 @@
+/* The matrix: the desktop reference table, its headers, cells and the rows that open.
+   Moved from the original stylesheet unchanged; classes owned elsewhere are named
+   as :global(.hook) and every element carries its hook beside its module class. */
+
+/* The one horizontal scroller on the page. */
+.matrix-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: var(--border);
+  border-radius: var(--radius-3);
+}
+
+.matrix {
+  /* Hidden by default; §23 turns it on at 900px. */
+  display: none;
+  width: 100%;
+  min-width: var(--matrix-min);
+  /* The data sits on the brightest surface on the page: the head is the
+  chassis, the body is the instrument face it is read off. */
+  background-color: var(--bg-raised);
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-ui);
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+/* A tall table: the header and the identity column must survive scrolling, or
+   you read six unlabelled decimals on an unnamed row. */
+.matrix thead th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background-color: var(--band);
+}
+
+.matrix thead .th-project {
+  left: 0;
+  z-index: 4;
+  border-right: var(--border);
+}
+
+.cell-project {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background-color: var(--bg-raised);
+  /* The sticky column overlaps the scrolled columns; give it an edge so the
+  overlap reads as a frozen column rather than a rendering fault. */
+  border-right: var(--border);
+}
+
+.matrix-row:hover > .cell-project {
+  background-color: var(--bg-sunken);
+}
+
+.matrix-row:has(:global(.row-expand)[aria-expanded='true']) > .cell-project {
+  background-color: var(--accent-soft);
+}
+
+@media print {
+  .matrix thead th,
+  .cell-project {
+    position: static;
+  }
+
+}
+
+/* The head is an inverted band. Rather than fight two dozen descendant rules
+   with !important, re-point the tokens those rules already read: custom
+   properties inherit, so `color: var(--text)` in here resolves against ink.
+   The --border* aliases hold resolved values from :root, so restate them. */
+.matrix thead {
+  background-color: var(--band);
+  color: var(--band-fg);
+
+  --text: var(--band-fg);
+  --text-2: var(--band-fg-2);
+  --text-faint: var(--band-fg-2);
+  --accent: var(--band-accent);
+  --accent-strong: var(--band-fg);
+  --ring: var(--band-accent);
+  --line: var(--band-line);
+  --line-strong: var(--band-line);
+  --line-heavy: var(--band-fg-2);
+  --border-color: var(--band-line);
+  --border: var(--hair) solid var(--band-line);
+  --border-strong: var(--hair) solid var(--band-line);
+}
+
+/* Sentence case at 12px medium. Capitals in a head this wide made every
+   label the same grey block: the eye had to read each one to tell them
+   apart, which is the opposite of what a column head is for. */
+.matrix-th {
+  padding: var(--sp-3) var(--cell-pad-x);
+  vertical-align: bottom;
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  line-height: var(--lh-ui);
+  letter-spacing: var(--tracking-ui);
+  text-transform: none;
+  color: var(--text-2);
+  text-align: left;
+  border-bottom: var(--border-strong);
+  white-space: nowrap;
+}
+
+/* Otherwise the methodology help cursor out-specifies button's pointer. */
+.th-sort {
+  cursor: pointer;
+}
+
+/* With the six criterion columns gone the blurb would otherwise claim whatever
+   the longest line wanted. 30rem is the narrowest width at which all eleven
+   blurbs still fit the two-line clamp without an ellipsis. */
+.th-project {
+  min-width: 15rem;
+  width: 30rem;
+}
+
+.th-lead {
+  text-align: center;
+}
+
+/* A four-digit year: the label no longer sets the width. */
+.th-year {
+  width: 4.5rem;
+}
+
+/* The only score column now, so it gets room for a gauge and a criterion
+   name — the header label switches when the table is sorted by a criterion. */
+.th-lead {
+  width: 5.25rem;
+}
+
+.th-stars {
+  width: 5.75rem;
+}
+
+.th-more {
+  width: 2.75rem;
+}
+
+/* Sortable headers ------------------------------------------------------- */
+.th-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  min-height: 1.75rem;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  transition: color var(--dur) var(--ease);
+}
+
+.th-lead .th-sort {
+  justify-content: center;
+  width: 100%;
+}
+
+.th-sort:hover {
+  color: var(--accent);
+}
+
+/* The GitHub mark beside "Stars" — a source label, not a second sort control,
+   so it sits a shade back from the header text and only warms with it. */
+.th-ico {
+  flex: none;
+  color: var(--text-faint);
+  transition: color var(--dur) var(--ease);
+}
+
+.th-sort:hover .th-ico,
+[aria-sort='ascending'] .th-ico,
+[aria-sort='descending'] .th-ico {
+  color: currentColor;
+}
+
+/* Sort glyphs drawn as masks so they take the head's ink: paired chevrons
+   while a column is idle, a single arrow once it sorts. */
+.th-sort::after {
+  content: '';
+  flex: none;
+  width: 0.8125rem;
+  height: 0.8125rem;
+  background-color: var(--text-faint);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 15 5 5 5-5'/%3E%3Cpath d='m7 9 5-5 5 5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m7 15 5 5 5-5'/%3E%3Cpath d='m7 9 5-5 5 5'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.th-sort:hover::after {
+  background-color: currentColor;
+}
+
+[aria-sort='ascending'] .th-sort::after {
+  background-color: var(--accent);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E");
+}
+
+[aria-sort='descending'] .th-sort::after {
+  background-color: var(--accent);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14'/%3E%3Cpath d='m19 12-7 7-7-7'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14'/%3E%3Cpath d='m19 12-7 7-7-7'/%3E%3C/svg%3E");
+}
+
+[aria-sort='ascending'] .th-sort,
+[aria-sort='descending'] .th-sort {
+  color: var(--text);
+}
+
+/* The table's own margins. Both edges get four times the padding that sits
+   between two columns, so the first and last values are held off the frame
+   instead of touching it. */
+.matrix > * > tr > :first-child {
+  padding-left: var(--cell-pad-edge);
+}
+
+.matrix > * > tr > :last-child {
+  padding-right: var(--cell-pad-edge);
+}
+
+/* Body cells ------------------------------------------------------------- */
+.matrix td {
+  padding: var(--cell-pad-y) var(--cell-pad-x);
+  vertical-align: middle;
+  border-top: var(--border);
+  color: var(--text);
+}
+
+.cell-project {
+  min-width: 15rem;
+  padding: var(--cell-pad-y) var(--cell-pad-x) var(--cell-pad-y)
+  var(--cell-pad-edge);
+  vertical-align: middle;
+  border-top: var(--border);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  text-align: left;
+}
+
+/* Identity block: mark, name, blurb ---------------------------------------
+   The project's own favicon is the fastest thing on the row to recognise —
+   it is matched before the name is read — so it leads the identity line.
+   The mark sits beside the name only: the blurb runs the full width of the
+   cell underneath, because indenting it behind the mark cost two projects
+   their second line to the clamp at 1280px. */
+.project-id {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--sp-3);
+  align-items: start;
+}
+
+.project-blurb {
+  grid-column: 1 / -1;
+}
+
+/* Two lines, then stop. The full text lives in the expanded row; the column
+   is sized so nearly every blurb fits without a cut. */
+.project-blurb {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin-top: 3px;
+  font-size: var(--fs-2xs);
+  font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: var(--tracking-ui);
+  text-transform: none;
+  color: var(--text-2);
+}
+
+/* The ellipsis is where the reader notices the text was cut, so the ellipsis
+   is where the answer has to be — but it is drawn by the browser and is not an
+   element that can hold a handler. The clamped blurb becomes the target
+   instead: app.js measures which ones the browser actually cut and marks only
+   those, so a blurb that fits never pretends to be a button. The row's own
+   chevron answers the same hover, which is what says where the click will
+   land. Keyboard and screen-reader users have that button; the cards are not
+   clamped and need none of this. */
+.project-blurb.is-clamped {
+  cursor: pointer;
+}
+
+.project-blurb.is-clamped:hover {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--text-faint);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.cell-model {
+  white-space: normal;
+  min-width: 8rem;
+}
+
+.cell-sub {
+  display: block;
+  margin-top: 3px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-ui);
+  letter-spacing: 0;
+  color: var(--text-2);
+}
+
+.cell-comm,
+.cell-stars,
+.cell-int,
+.cell-year {
+  white-space: nowrap;
+}
+
+.cell-avg {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.cell-more {
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Rows ------------------------------------------------------------------- */
+/* Alternate projects get a whisper of the accent rather than a grey band, so
+   the eye tracks across seventeen columns without a rule under every row.
+   Each project is two <tr>s (row + detail), hence 4n. This must stay above
+   the hover and open rules: same specificity, so source order decides. */
+.matrix-row:nth-of-type(4n + 3) > * {
+  background-color: var(--zebra);
+}
+
+.matrix-row:hover > * {
+  background-color: var(--bg-sunken);
+}
+
+.detail-row > td {
+  padding: 0;
+  background-color: var(--bg-raised);
+  border-top: 0;
+}
+
+@media screen and (max-width: 899.98px) {
+  .matrix-scroll {
+    display: none;
+  }
+
+}
+
+@media screen and (min-width: 900px) {
+  .matrix {
+    display: table;
+  }
+
+}
+
+@media print {
+  /* The responsive blocks above are screen-only, because in print the width
+       used for media queries is the PAGE BOX (~703px for A4 portrait). Left
+       unqualified, the max-width:899.98px rule hid .matrix-scroll and the page
+       printed with no data at all. The container is restored explicitly here. */
+  .matrix-scroll {
+    display: block;
+    overflow: visible;
+    border: 0;
+  }
+
+  .matrix {
+    display: table;
+  }
+
+  .cell-more,
+  .th-more {
+    display: none;
+  }
+
+  /* The matrix prints regardless of viewport width. */
+  .matrix {
+    display: table;
+    width: 100%;
+    font-size: 7.5pt;
+  }
+
+  .matrix-scroll {
+    overflow: visible;
+    border: 0;
+  }
+
+  /* Not table-header-group: once the records print open, a repeated column
+       header would sit above a full-width panel it does not describe. */
+  .matrix thead {
+    display: table-row-group;
+  }
+
+  .matrix tr {
+    break-inside: avoid;
+  }
+
+  .project-blurb {
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  /* The six criterion scores and the sources live in the expanded record, and
+       app.js collapses every record on load. On paper there is nothing to
+       expand, so the records print open — as the FAQ answers above do. */
+  .detail-row[hidden] {
+    display: table-row !important;
+  }
+
+  /* A record must not be orphaned from the row that names it, and must not
+       split across a page break that would hide which project it describes. */
+  .detail-row {
+    break-inside: avoid;
+    break-before: avoid;
+  }
+
+}
+
+html:not(:global(.js)) .cell-more,
+html:not(:global(.js)) .th-more {
+  display: none;
+}
+
+html:not(:global(.js)) .th-sort {
+  cursor: default;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+html:not(:global(.js)) .th-sort::after {
+  content: none;
+}
+
+/* The scroller is focusable now, so it needs a focus ring and a visible edge
+   when there is more table to the right. */
+.matrix-scroll:focus-visible {
+  outline: var(--focus-width) solid var(--ring);
+  outline-offset: var(--focus-offset);
+}
+
+.th-price {
+  width: 6.25rem;
+}
+
+/* The price is the column a reader scans down, so the figure keeps the
+   numeric weight and the free-plan note drops beneath it as a sub-line,
+   the way a vendor's name sits under its audience tag. */
+.cell-price {
+  white-space: nowrap;
+}
+
+.cell-price .cell-sub {
+  white-space: nowrap;
+}
+
+/* The vendor's own figure, under the per-person one the column compares. */
+.cell-price .cell-sub-pub {
+  color: var(--text);
+}
+
+/* ==========================================================================
+   Additions for the React build, on the same tokens as global.css.
+   Three jobs: hold the server-rendered page in its scripted state until React
+   hydrates; restyle the controls Base UI renders (a checkbox is a span with
+   data-checked, an accordion answer a panel, the sort field a listbox); and
+   style the editor.
+   ========================================================================== */
+/* --- Before hydration ----------------------------------------------------
+   The server renders every record open so readers without JavaScript have the
+   evidence. With JavaScript on (the head script added .js), closed records
+   stay closed until React sets [hidden] itself, so nothing flashes open. */
+:global(.js) .detail-row:not([data-open]) {
+  display: none;
+}
+
+@media print {
+  /* Every record prints open, scripted or not. */
+  :global(.js) .detail-row:not([data-open]) {
+    display: table-row !important;
+  }
+
+}

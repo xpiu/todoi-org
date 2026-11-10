@@ -1,0 +1,78 @@
+/* The one shared tooltip, positioned by script.
+   Moved from the original stylesheet unchanged; classes owned elsewhere are named
+   as :global(.hook) and every element carries its hook beside its module class. */
+
+.tip {
+  /* Fixed, body-level, JS-positioned. Hidden by [hidden] until shown. */
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200; /* above the sticky header (100) */
+  max-width: min(22rem, calc(100vw - 2 * var(--sp-4)));
+  padding: var(--sp-3);
+  border: var(--border);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-snug);
+  color: var(--text-2);
+  /* The one floating surface, so the one shadow. */
+  box-shadow: var(--shadow-pop);
+  pointer-events: none; /* never steals the hover it was opened by */
+}
+
+.tip-label {
+  display: block;
+  margin-bottom: var(--sp-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* Arrow: a rotated square with two visible edges, nudged by JS to sit under
+   the trigger even when the box has been clamped to the viewport. */
+.tip::after {
+  content: '';
+  position: absolute;
+  left: var(--arrow-x, 50%);
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border: var(--border);
+  background-color: var(--bg-raised);
+  transform: rotate(45deg);
+}
+
+.tip[data-side='top']::after {
+  bottom: -4px;
+  border-top: 0;
+  border-left: 0;
+}
+
+.tip[data-side='bottom']::after {
+  top: -4px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tip {
+    transition: opacity var(--dur) var(--ease);
+  }
+
+  .tip[data-enter='0'] {
+    opacity: 0;
+  }
+
+}
+
+@media print {
+  /* A tooltip open when Print was pressed must not land on the page. */
+  .tip {
+    display: none !important;
+  }
+
+}

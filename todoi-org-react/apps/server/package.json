@@ -1,0 +1,31 @@
+{
+  "name": "@todoi/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./app": "./src/app.ts"
+  },
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false --ignore '../web/**' src/dev.ts",
+    "build": "vite build --config vite.config.ts",
+    "typecheck": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.6",
+    "@todoi/db": "workspace:*",
+    "@todoi/shared": "workspace:*",
+    "drizzle-orm": "0.45.4",
+    "hono": "4.13.17",
+    "pg": "8.23.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@todoi/web": "workspace:*",
+    "@types/node": "26.6.6",
+    "@types/pg": "8.23.1",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "vite": "8.3.7"
+  }
+}

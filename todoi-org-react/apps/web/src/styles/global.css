@@ -1,0 +1,570 @@
+
+
+@charset "utf-8";
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/dmsans-300-800-normal-latin-ext.woff2') format('woff2');
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('/fonts/dmsans-300-800-normal-latin.woff2') format('woff2');
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('/fonts/dmmono-300-normal-latin-ext.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('/fonts/dmmono-300-normal-latin.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('/fonts/dmmono-400-normal-latin-ext.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('/fonts/dmmono-400-normal-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('/fonts/dmmono-500-normal-latin-ext.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  src: url('/fonts/dmmono-500-normal-latin.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light;
+
+  /* --- Surfaces: cool drafting paper -------------------------------------
+  Blue drafting stock for the page, white for anything you read data off,
+  and a deeper stock for the chassis the controls are set into, the table
+  head and anything hovered. --------------------------------------------- */
+  --paper: #eef2f9;          /* page — tinted, so white surfaces read as sheets */
+  --paper-raised: #ffffff;   /* header, cards, inputs, chips, the matrix body */
+  --paper-sunken: #e1e7f2;   /* control bar, table head, hover, detail rows */
+  --zebra: #f3f6fe;          /* alternate matrix rows — a whisper of the accent */
+
+  /* --- Ink ---------------------------------------------------------------- */
+  --ink: #0a0c10;            /* body text          17.43:1 on --paper */
+  --ink-2: #444b57;          /* secondary text      7.83:1 on --paper */
+  --ink-faint: #57606e;      /* meta, empty marks   5.66:1 on --paper */
+
+  /* --- Rules: three weights, because one token cannot do three jobs -------
+  Hairlines carry nearly everything. Boundaries are a step darker so a
+  control reads as a control against the sunken chassis; the emphasis
+  tier is a deep slate, not full ink - the page is edged, not ruled. ---- */
+  --line: #ccd4e0;           /* hairline dividers, panel edges, the table grid */
+  --line-strong: #788494;    /* control boundaries — 3.06:1 on --paper-sunken */
+  --line-heavy: #4c5565;     /* structural rules & hover edges */
+  --track: #ccd5e2;          /* unfilled score gauge — 4.78:1 against --accent */
+
+  /* --- First ink: electric blue. Everything you can act on. --------------
+  Links, focus, pressed filters, the open row, the score gauge, FOSS. --- */
+  --accent: #0b46e0;         /* 6.30:1 on --paper, 7.08:1 on white */
+  --accent-strong: #0632a8;  /* hover / pressed        9.22:1 on --paper */
+  --accent-soft: #d4e0fd;    /* tonal fill behind pressed chips, open rows —
+  deep enough to stay distinct from --zebra */
+  --on-accent: #ffffff;      /* text on an accent fill  7.08:1 */
+
+  /* --- Second ink: amber. Everything that is only conditionally true. -----
+  Reserved for the half-filled capability mark - "paid tier, plugin or
+  add-on". Graphic use only: 3.61:1 on its worst ground (--accent-soft)
+  clears the 3:1 non-text floor, not the 4.5:1 text one - never set copy
+  in it. -------------------------------------------------------------- */
+  --signal: #b45a00;
+
+  /* --- Ordered data: low -> high -----------------------------------------
+  A familiar red -> amber -> green ramp for quantities where more is the
+  only encoded direction. The words still carry the meaning; colour only
+  makes the order faster to scan. Every ink clears AA at the small mono
+  size of the Community band. ------------------------------------------ */
+  --grade-1: #9f2f36;
+  --grade-2: #8a4b0f;
+  --grade-3: #6f5b00;
+  --grade-4: #287049;
+  --grade-5: #006b3c;
+  --grade-wash: 10%;
+  --grade-edge: 42%;
+
+  /* --- The table head: a band of the deeper stock, not an inverted one. ---
+  Tokens the header cells resolve against, re-pointed in §12. ----------- */
+  --band: #e1e7f2;
+  --band-fg: #0a0c10;
+  --band-fg-2: #444b57;      /*  7.0:1 on --band */
+  --band-accent: #0b46e0;
+  --band-line: #ccd4e0;
+
+  /* --- Semantic aliases used across components --------------------------- */
+  --bg: var(--paper);
+  --bg-raised: var(--paper-raised);
+  --bg-sunken: var(--paper-sunken);
+  --text: var(--ink);
+  --text-2: var(--ink-2);
+  --text-faint: var(--ink-faint);
+  --border-color: var(--line);
+  --ring: var(--accent);
+
+  /* --- Type: two self-hosted families, each with a system fallback --------
+  One grotesk for everything written, one mono for everything counted. - */
+  --font-display: 'DM Sans', ui-sans-serif, system-ui, -apple-system,
+  BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system,
+  BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+  Consolas, monospace;
+
+  --fs-3xs: 0.6875rem;   /* 11px — labels, tags, column heads */
+  --fs-2xs: 0.75rem;     /* 12px — meta, blurbs, provenance */
+  --fs-xs: 0.8125rem;    /* 13px — dense table data */
+  --fs-sm: 0.875rem;     /* 14px — controls */
+  --fs-md: 0.9375rem;    /* 15px — body in dense areas */
+  --fs-base: 1rem;       /* 16px — body */
+  --fs-lg: 1.0625rem;    /* 17px — lede */
+  --fs-xl: 1.25rem;      /* 20px — h3, panel titles */
+  --fs-2xl: 1.5rem;      /* 24px — section titles */
+  --fs-display: clamp(2.125rem, 1.5rem + 2vw, 2.875rem);   /* 34px — 46px */
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.25;
+  --lh-normal: 1.55;
+  --lh-loose: 1.6;
+  --lh-ui: 1.35;          /* controls, cells, anything one or two lines long */
+
+  /* Display type is set a little tight: at medium weight DM Sans is open
+  enough that default fitting reads as gaps. Interface text runs at its
+  natural fit. Labels are not tracked out - they are not capitals. */
+  --tracking-display: -0.02em;
+  --tracking-title: -0.015em;
+  --tracking-ui: 0;
+  --tracking-badge: 0.04em;   /* the licensing tags, which stay capitals */
+
+  --measure: 66ch;        /* comfortable reading width */
+  --measure-tight: 54ch;
+
+  /* --- Spacing ------------------------------------------------------------ */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-7: 2rem;
+  --sp-8: 2.5rem;
+  --sp-9: 3.5rem;
+
+  --section-pad: clamp(1.75rem, 1.25rem + 1.5vw, 2.75rem);
+
+  /* Tight between columns, generous at the two outer edges — the table is
+  read across, and the air belongs where the data stops, not between every
+  pair of figures. */
+  --cell-pad-y: 0.625rem;
+  --cell-pad-x: 0.625rem;
+  --cell-pad-edge: 1.25rem;
+
+  /* --- Borders & radii ---------------------------------------------------- */
+  --hair: 1px;
+  --border: var(--hair) solid var(--border-color);
+  --border-strong: var(--hair) solid var(--line-strong);
+  --border-heavy: var(--hair) solid var(--line-heavy);
+  --radius-1: 6px;        /* chips, tags, small marks */
+  --radius-2: 8px;        /* controls, buttons, inputs */
+  --radius-3: 12px;       /* panels, cards, the matrix frame */
+
+  /* --- Elevation: one shadow, for the one floating surface ---------------- */
+  --shadow-pop: 0 8px 24px -8px rgba(10, 12, 16, 0.2),
+  0 2px 6px -2px rgba(10, 12, 16, 0.08);
+
+  /* --- Focus -------------------------------------------------------------- */
+  --focus-width: 2px;
+  --focus-offset: 2px;
+
+  /* --- Motion (state changes only; no entrances) -------------------------- */
+  --dur: 120ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+
+  /* --- Layout ------------------------------------------------------------- */
+  --shell: 84rem;         /* 1344px */
+  --shell-prose: 64rem;   /* 1024px — the document column below the matrix */
+  --gutter: 1rem;         /* stepped up at 40rem and 64rem — see §06 */
+  --control-h: 2.5rem;    /* 40px touch-target floor */
+  --matrix-min: 44rem;    /* below this the matrix scrolls inside its box */
+  /* Masthead press-mark: a colophon, not a billboard. Floored above the
+  header favicon (1.375rem) and capped so it never outranks the display
+  line. vw is the fallback; the 900px query retunes it from the shell. */
+  --hero-mark-size: clamp(4.3125rem, 1.875rem + 5.625vw, 6rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --paper: #0d1016;
+    --paper-raised: #151a22;
+    --paper-sunken: #1b212c;
+    --zebra: #1a212b;
+
+    --ink: #e8ecf4;        /* 16.08:1 on --paper */
+    --ink-2: #a3acbd;      /*  8.34:1 on --paper */
+    --ink-faint: #919bad;  /*  6.80:1 on --paper */
+
+    --line: #333b48;       /* hairline dividers and the table grid */
+    --line-strong: #7b8799; /* control boundaries — 4.80:1 on --paper-raised */
+    --line-heavy: #a3acbd; /* structural rules & hover */
+    --track: #333c4c;
+
+    --accent: #6f9dff;     /* 7.20:1 on --paper */
+    --accent-strong: #9dbcff;
+    --accent-soft: #121c3a;
+    --on-accent: #0d1016;  /* 7.20:1 on --accent */
+
+    --signal: #e0a052;     /* the conditional mark — 8.45:1 on --paper */
+
+    --grade-1: #ffaaa9;
+    --grade-2: #f5b87c;
+    --grade-3: #dfca72;
+    --grade-4: #8bd4aa;
+    --grade-5: #63d997;
+    --grade-wash: 14%;
+    --grade-edge: 55%;
+
+    --band: #1b212c;
+    --band-fg: #e8ecf4;
+    --band-fg-2: #a3acbd;
+    --band-accent: #6f9dff;
+    --band-line: #333b48;
+
+    --shadow-pop: 0 8px 24px -8px rgba(0, 0, 0, 0.6),
+    0 2px 6px -2px rgba(0, 0, 0, 0.4);
+  }
+
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --paper: #0d1016;
+  --paper-raised: #151a22;
+  --paper-sunken: #1b212c;
+  --zebra: #1a212b;
+
+  --ink: #e8ecf4;        /* 16.08:1 on --paper */
+  --ink-2: #a3acbd;      /*  8.34:1 on --paper */
+  --ink-faint: #919bad;  /*  6.80:1 on --paper */
+
+  --line: #333b48;       /* hairline dividers and the table grid */
+  --line-strong: #7b8799; /* control boundaries — 4.80:1 on --paper-raised */
+  --line-heavy: #a3acbd; /* structural rules & hover */
+  --track: #333c4c;
+
+  --accent: #6f9dff;     /* 7.20:1 on --paper */
+  --accent-strong: #9dbcff;
+  --accent-soft: #121c3a;
+  --on-accent: #0d1016;  /* 7.20:1 on --accent */
+
+  --signal: #e0a052;     /* the conditional mark — 8.45:1 on --paper */
+
+  --grade-1: #ffaaa9;
+  --grade-2: #f5b87c;
+  --grade-3: #dfca72;
+  --grade-4: #8bd4aa;
+  --grade-5: #63d997;
+  --grade-wash: 14%;
+  --grade-edge: 55%;
+
+  --band: #1b212c;
+  --band-fg: #e8ecf4;
+  --band-fg-2: #a3acbd;
+  --band-accent: #6f9dff;
+  --band-line: #333b48;
+
+  --shadow-pop: 0 8px 24px -8px rgba(0, 0, 0, 0.6),
+  0 2px 6px -2px rgba(0, 0, 0, 0.4);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--sp-4);
+}
+
+body {
+  /* The document never scrolls sideways; .matrix-scroll owns the one
+  horizontal scroller. `clip` rather than `hidden` so this does not become a
+  scroll container — a future overflow then surfaces instead of being
+  silently swallowed. */
+  overflow-x: clip;
+  min-height: 100vh;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  padding-left: 1.15em;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* app.js toggles [hidden] on #empty, .detail-row and .card-detail; component
+   `display` rules would otherwise out-specify the UA sheet. */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-normal);
+  letter-spacing: var(--tracking-ui);
+  accent-color: var(--accent);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Medium, tight and not much bigger than the text under it. A directory page
+   earns attention with the table, not with the size of its masthead. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-display);
+  color: var(--text);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+}
+
+h2 {
+  font-size: var(--fs-2xl);
+  letter-spacing: var(--tracking-title);
+}
+
+/* The third level is a panel title: a step down in size and a step up in
+   weight, so it still leads its block without competing with a section. */
+h3 {
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: var(--tracking-title);
+}
+
+p,
+li,
+dd {
+  text-wrap: pretty;
+}
+
+small {
+  font-size: var(--fs-2xs);
+}
+
+strong,
+b {
+  font-weight: 600;
+}
+
+code,
+kbd,
+samp {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+abbr[title] {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color var(--dur) var(--ease);
+}
+
+a:hover {
+  color: var(--accent-strong);
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--ring);
+  outline-offset: var(--focus-offset);
+  border-radius: var(--radius-1);
+}
+
+/* Pointer focus stays quiet; keyboard focus never does. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+::selection {
+  background-color: var(--accent-soft);
+  color: var(--text);
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--sp-2);
+  left: var(--sp-2);
+  z-index: 100;
+  transform: translateY(-250%);
+  padding: var(--sp-2) var(--sp-4);
+  background-color: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--radius-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: transform var(--dur) var(--ease);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  color: var(--on-accent);
+  outline-color: var(--ink);
+}
+
+@media (min-width: 40rem) {
+  /* One gutter token, three steps: 16px on a phone, 24px on a tablet, 32px on
+     a desktop. Every section reads the token, so the page never has two
+     different left edges at the same width. */
+  :root {
+    --gutter: 1.5rem;
+  }
+
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --gutter: 2rem;
+  }
+
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Title, then the sentence that qualifies it, directly underneath and on the
+   same left edge. Set side by side they read as two columns of a masthead
+   and leave a hole between them at desktop width; stacked they read as one
+   statement, which is what they are. */
+/* The heavy rule under a head and the hairlines inside the list below it are
+   two different tiers, but only if they are not read as a pair. The gap after
+   the head is wider than any gap inside the list, so the eye groups the
+   hairlines with their rows instead of with the boundary above them. */
+.section-head {
+  display: grid;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-6);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  font-weight: 500;
+  letter-spacing: var(--tracking-title);
+  line-height: var(--lh-snug);
+}
+
+.section-note {
+  max-width: var(--measure);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+.sub-title {
+  font-size: var(--fs-xl);
+}

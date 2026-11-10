@@ -1,0 +1,321 @@
+/* The site header with its theme switch, and the footer.
+   Moved from the original stylesheet unchanged; classes owned elsewhere are named
+   as :global(.hook) and every element carries its hook beside its module class. */
+
+@media (min-width: 64rem) {
+  .site-header-inner,
+  .site-nav {
+    flex-wrap: nowrap;
+  }
+
+}
+
+.site-header {
+  background-color: var(--bg-raised);
+  /* A hairline, like every other panel edge on the page: the header is the
+  first white sheet, not a different material. */
+  border-bottom: var(--border);
+}
+
+.site-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-6);
+  min-height: 3.75rem;
+  padding-block: var(--sp-1);
+}
+
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+  margin-right: auto;
+}
+
+/* The favicon's mark, lifted off its tile. It carries the accent rather than
+   inheriting the wordmark's ink, so the lockup reads as mark-plus-name and
+   not as one word - then both halves shift together on hover. The glyph is
+   cropped to its own bounds, so its box is the mark: no padding to align
+   around. */
+.wordmark-logo {
+  display: block;
+  flex: none;
+  width: 1.375rem;
+  height: 1.375rem;
+  /* "todoi.org" has no descenders, so centring on the line box drops the mark
+  below the text's visual mass. Lift it back onto the optical centre. */
+  transform: translateY(-0.075em);
+  color: var(--accent);
+}
+
+a.wordmark:hover {
+  color: var(--accent);
+}
+
+a.wordmark:hover .wordmark-logo {
+  color: var(--accent-strong);
+}
+
+.wordmark-tld {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--accent);
+}
+
+.wordmark-sm {
+  font-size: 1.0625rem;
+  margin-right: 0;
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--sp-4);
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-h);
+  font-size: var(--fs-md);
+  letter-spacing: var(--tracking-ui);
+  color: var(--text-2);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color var(--dur) var(--ease);
+}
+
+/* Hover warms the word; only the current section earns the accent rule. */
+.site-nav a:hover {
+  color: var(--text);
+}
+
+.site-nav a[aria-current] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+/* Theme switch: two named seats rather than one cycling button. The alternative
+   stays on screen next to the current mode, so nobody has to click the control
+   to find out what it does or how many states it hides.
+
+   The occupied seat is resolved from :root[data-theme] in CSS alone. The
+   blocking head script stamps that attribute before first paint, so the switch
+   is already truthful when the page appears; app.js only mirrors it into
+   aria-checked and owns the keyboard. */
+.theme-switch {
+  --seat: 2.25rem;      /* 36px; +1px pad +1px border = --control-h */
+  --seat-index: 0;      /* light */
+
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  padding: 1px;
+  border: var(--border);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-sunken);
+}
+
+:root[data-theme='dark'] .theme-switch {
+  --seat-index: 1;
+}
+
+/* One travelling raised tile rather than separate fills crossfading: the
+   motion is what tells you the seats are alternatives to each other. The
+   tile is a sheet of the same white as the panels, edged in a boundary. */
+.theme-switch-thumb {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: var(--seat);
+  height: var(--seat);
+  border-radius: calc(var(--radius-2) - 2px);
+  background-color: var(--bg-raised);
+  box-shadow: inset 0 0 0 var(--hair) var(--line-strong);
+  transform: translateX(calc(var(--seat-index) * var(--seat)));
+  transition: transform 180ms var(--ease);
+}
+
+.theme-switch-opt {
+  position: relative;   /* over the thumb */
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--seat);
+  height: var(--seat);
+  flex: none;
+  border: 0;
+  border-radius: calc(var(--radius-2) - 2px);
+  background-color: transparent;
+  color: var(--text-faint);
+  transition: color var(--dur) var(--ease),
+  background-color var(--dur) var(--ease);
+}
+
+.theme-switch-opt:hover {
+  color: var(--text);
+}
+
+/* The occupied seat. Specificity beats the hover rule above on purpose —
+   hovering the mode you are already in should not offer to change anything. */
+:root[data-theme='light'] .theme-switch-opt[data-theme-value='light'],
+:root[data-theme='dark'] .theme-switch-opt[data-theme-value='dark'] {
+  color: var(--text);
+  background-color: transparent;
+  cursor: default;
+}
+
+/* Clear of the track, so the ring never lands on the ink thumb — which is
+   exactly where keyboard focus arrives, the occupied seat being the group's
+   single tab stop. */
+.theme-switch-opt:focus-visible {
+  outline-offset: 3px;
+  z-index: 2;
+}
+
+.theme-switch-icon {
+  display: block;
+}
+
+.site-footer {
+  border-top: var(--border);
+  padding-block: var(--sp-8);
+  background-color: var(--bg-sunken);
+  font-size: var(--fs-2xs);
+  color: var(--text-2);
+}
+
+/* Column one is sized to the note it holds, not to a share of the shell.
+   Split 2fr/1fr the brand column carried 400 points of trailing air and the
+   nav sat alone against the far edge, reading as two unrelated footers. */
+.site-footer-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+  gap: var(--sp-5) var(--sp-9);
+  align-items: start;
+}
+
+.footer-brand {
+  grid-row: span 2;
+}
+
+.footer-note {
+  max-width: var(--measure-tight);
+  margin-top: var(--sp-2);
+  line-height: var(--lh-normal);
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+}
+
+/* The brand spans both rows, so end-alignment stretched the nav and the meta
+   line apart by the height of the note beside them rather than by any
+   intended interval. They belong together; they now sit together. */
+.footer-meta {
+  align-self: start;
+}
+
+/* Maintainer line: a text link and a small mark, kept at meta weight so the
+   footer nav above it stays the loudest thing down here. */
+.footer-contact {
+  /* Column 2 explicitly: auto-placement would drop it back under the brand,
+  away from the meta line it belongs with. */
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
+}
+
+.footer-x {
+  display: inline-flex;
+  align-items: center;
+  /* The mark is the link; an underline under a glyph reads as a stray rule. */
+  text-decoration: none;
+  /* Padding pulled back by the same margin: a 12px glyph would otherwise be a
+  12px tap target. Nothing moves, the hit area doubles. */
+  padding: 0.375rem;
+  margin: -0.375rem;
+}
+
+.site-footer a {
+  color: var(--text-2);
+  /* The underline is the only thing marking these as links, so it carries
+  boundary weight, not hairline weight. */
+  text-decoration-color: var(--line-strong);
+}
+
+.site-footer a:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+@media (max-width: 640px) {
+  /* The switch is wider than the button it replaced, so at this width it rides
+       the wordmark line and the nav takes a full row of its own — two header
+       lines instead of three. */
+  .site-nav {
+    order: 3;
+    flex: 1 1 100%;
+    flex-wrap: nowrap;
+    gap: 0 var(--sp-3);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-right: var(--sp-4);
+    mask-image: linear-gradient(to right, #000 calc(100% - 1.25rem), transparent);
+  }
+
+  .site-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .site-nav a {
+    flex: none;
+    min-height: 2.25rem;
+    font-size: var(--fs-xs);
+  }
+
+  .site-footer-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .footer-brand {
+    grid-row: auto;
+  }
+
+  .footer-contact {
+    grid-column: 1;
+  }
+
+}
+
+@media print {
+  .site-nav,
+  .theme-switch,
+  .footer-nav,
+  .footer-contact {
+    display: none;
+  }
+
+}
+
+html:not(:global(.js)) .theme-switch {
+  display: none;
+}

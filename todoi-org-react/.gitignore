@@ -1,0 +1,25 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.vite/
+.tanstack/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+e2e/.auth/
+
+# Screenshots from local runs; the reference set lives in e2e/screens/ when committed on purpose
+.screens/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

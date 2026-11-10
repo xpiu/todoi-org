@@ -1,0 +1,331 @@
+/* ==========================================================================
+   The editor, on the site's own tokens: the same sheets, inks and controls.
+   ========================================================================== */
+
+.admin {
+  padding-block: var(--sp-6) var(--sp-9);
+}
+
+.admin-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-right: auto;
+}
+
+.admin-badge {
+  padding: 0.125rem var(--sp-2);
+  border: var(--border);
+  border-radius: var(--radius-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.admin-who {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-right: var(--sp-3);
+}
+
+.admin-email {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  color: var(--text-2);
+}
+
+.admin-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+}
+
+.admin-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+
+.admin-dirs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-right: auto;
+}
+
+.admin-note {
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+}
+
+.admin-error {
+  color: var(--signal);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.admin-grid {
+  display: grid;
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .admin-grid {
+    grid-template-columns: minmax(15rem, 20rem) minmax(0, 1fr);
+  }
+  .admin-list {
+    position: sticky;
+    top: calc(var(--header-h, 4rem) + var(--sp-4));
+  }
+}
+
+.admin-list,
+.admin-card {
+  padding: var(--sp-4);
+  border: var(--border);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-raised);
+}
+
+.admin-card + .admin-card,
+.admin-form + .admin-card {
+  margin-top: var(--sp-5);
+}
+
+.admin-faqs {
+  margin-top: var(--sp-6);
+}
+
+.admin-list-head {
+  display: grid;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-3);
+}
+
+.admin-records {
+  max-height: 70vh;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.admin-record {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border: 0;
+  border-radius: var(--radius-1);
+  background: transparent;
+  color: var(--text);
+  text-align: start;
+  font-size: var(--fs-sm);
+}
+
+.admin-record:hover {
+  background-color: var(--bg-sunken);
+}
+
+.admin-record[aria-current='true'] {
+  background-color: var(--accent-soft);
+  color: var(--accent-strong);
+  font-weight: 500;
+}
+
+.admin-record-score {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
+}
+
+.admin-editor-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-4);
+}
+
+.admin-score {
+  margin-right: auto;
+  font-size: var(--fs-sm);
+}
+
+.admin-score strong {
+  font-family: var(--font-mono);
+  font-size: var(--fs-lg);
+  color: var(--accent);
+}
+
+.admin-form {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.admin-signin {
+  max-width: 28rem;
+  display: grid;
+  gap: var(--sp-4);
+}
+
+.admin-fields {
+  display: grid;
+  gap: var(--sp-3);
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+}
+
+.admin-field {
+  display: grid;
+  gap: var(--sp-1);
+}
+
+.admin-input {
+  padding-left: var(--sp-3);
+}
+
+.admin-textarea {
+  min-height: 0;
+  padding-block: var(--sp-2);
+  line-height: var(--lh-normal);
+  resize: vertical;
+}
+
+.admin-num {
+  width: 6rem;
+  font-family: var(--font-mono);
+}
+
+.admin-row {
+  display: grid;
+  gap: var(--sp-3);
+  align-items: end;
+  padding-block: var(--sp-3);
+  border-top: var(--border);
+}
+
+@media (min-width: 640px) {
+  .admin-row {
+    grid-template-columns: 14rem minmax(0, 1fr) auto;
+  }
+}
+
+.admin-row-label {
+  display: grid;
+  gap: var(--sp-1);
+}
+
+.admin-faq + .admin-faq {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: var(--border);
+}
+
+.admin-danger {
+  color: var(--signal);
+}
+
+.admin-danger-solid {
+  background-color: var(--signal);
+  border-color: var(--signal);
+}
+
+/* --- Dialog (Base UI) --------------------------------------------------- */
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background-color: rgb(0 0 0 / 0.35);
+}
+
+.dialog {
+  position: fixed;
+  z-index: 301;
+  top: 50%;
+  left: 50%;
+  width: min(32rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  transform: translate(-50%, -50%);
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-5);
+  border: var(--border-strong);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-raised);
+  box-shadow: var(--shadow-pop);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+}
+
+/* --- Toasts (Base UI) --------------------------------------------------- */
+.toast-viewport {
+  position: fixed;
+  z-index: 400;
+  right: var(--sp-4);
+  bottom: var(--sp-4);
+  display: grid;
+  gap: var(--sp-2);
+  width: min(24rem, calc(100vw - 2rem));
+}
+
+.toast {
+  position: relative;
+  padding: var(--sp-3) var(--sp-6) var(--sp-3) var(--sp-4);
+  border: var(--border-strong);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  box-shadow: var(--shadow-pop);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.toast[data-type='error'] {
+  border-left-color: var(--signal);
+}
+
+.toast[data-starting-style],
+.toast[data-ending-style] {
+  opacity: 0;
+  transform: translateY(0.5rem);
+}
+
+.toast-title {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+
+.toast-text {
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+
+.toast-close {
+  position: absolute;
+  top: var(--sp-2);
+  right: var(--sp-2);
+  border: 0;
+  background: transparent;
+  color: var(--text-2);
+  font-size: var(--fs-lg);
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toast {
+    transition: none;
+  }
+}

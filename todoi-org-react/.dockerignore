@@ -1,0 +1,16 @@
+**/node_modules
+**/dist
+.git
+.github
+.env
+.env.*
+!.env.example
+.screens
+test-results
+playwright-report
+blob-report
+e2e
+**/*.test.ts
+**/.DS_Store
+**/.vite
+**/.tanstack

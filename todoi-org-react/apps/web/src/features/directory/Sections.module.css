@@ -1,0 +1,577 @@
+/* The editorial sections: where to start, the method, the questions, corrections, the crosslink.
+   Moved from the original stylesheet unchanged; classes owned elsewhere are named
+   as :global(.hook) and every element carries its hook beside its module class. */
+
+.method,
+.faq,
+.contribute {
+  padding-block: var(--section-pad);
+}
+
+.method,
+.faq,
+.contribute {
+  border-top: var(--border);
+}
+
+/* Below the matrix the page stops being a datasheet and becomes a document.
+   The table earns the full 84rem shell; prose does not — at that width a line
+   runs past 100 characters and a divider runs 400 points past the last word
+   it divides. So everything under the matrix shares one narrower column, and
+   every rule in it stops at the same right edge. The left edge never moves:
+   the column is set from the same gutter, not centred. */
+.routes-inner,
+.method-inner,
+.faq-inner,
+.contribute-inner {
+  max-width: var(--shell-prose);
+  /* .shell centres itself; a narrower .shell would centre too, and the page
+  would gain a second left edge. This reproduces the offset the full shell
+  resolves to at this width, so the column is narrower on the right only. */
+  margin-inline: max(0px, (100% - var(--shell)) / 2) auto;
+}
+
+/* Six criteria are a set, not a sequence: they are applied together and carry
+   no order, so they are not numbered. Three columns give an even 2x3 instead of
+   auto-fit's ragged 4+2. */
+.criteria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--sp-4);
+}
+
+/* Each criterion is its own tile: a white sheet with a hairline edge, the
+   same object the matrix rows are read off. */
+.criterion {
+  padding: var(--sp-4) var(--sp-5) var(--sp-5);
+  background-color: var(--bg-raised);
+  border: var(--border);
+  border-radius: var(--radius-3);
+}
+
+.criterion-name {
+  font-size: var(--fs-md);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  color: var(--text);
+}
+
+.criterion-text {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-md);
+  color: var(--text-2);
+}
+
+/* The note qualifies the whole set of six, but it sits directly under a
+   three-column grid whose first column it would otherwise join — a seventh
+   criterion that lost its rule. Its own rule and a wider gap put it back
+   outside the set. */
+/* The band is the seventh input, not a seventh criterion: it gets a row of
+   its own under the six instead of leaving one tile orphaned. */
+.criterion-band {
+  grid-column: 1 / -1;
+}
+
+.criteria + .method-note {
+  margin-top: var(--sp-6);
+}
+
+.models {
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-6);
+  border-top: var(--border);
+}
+
+.models > :global(.sub-title) + .method-note {
+  margin-top: var(--sp-3);
+}
+
+/* Three labels on one page, four on the other. auto-fit left one of them
+   alone on a second row whenever the column was a little too narrow for the
+   whole set (2+1 at tablet widths, 3+1 on the commercial page at desktop),
+   with an empty half or two-thirds beside it. The count picks the grid:
+   three sit in one row once they fit and stack before; four go two by two. */
+.model-defs {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-6) var(--sp-8);
+  margin-top: var(--sp-6);
+}
+
+.model-def .model-text {
+  max-width: var(--measure);
+}
+
+@media (min-width: 40rem) {
+  .model-defs:has(> .model-def:nth-child(4)) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+@media (min-width: 48rem) {
+  .model-defs:not(:has(> .model-def:nth-child(4))) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--sp-7);
+  }
+
+}
+
+.model-def {
+  padding-top: var(--sp-4);
+  border-top: var(--border);
+}
+
+.model-name {
+  margin-bottom: var(--sp-3);
+}
+
+.model-text {
+  font-size: var(--fs-md);
+  color: var(--text-2);
+}
+
+.acc-list {
+  padding-inline: var(--sp-5);
+  border: var(--border);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-raised);
+}
+
+.acc {
+  border-bottom: var(--border);
+}
+
+.acc:last-child {
+  border-bottom: 0;
+}
+
+.acc-q {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding: var(--sp-4) 0;
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  color: var(--text);
+  transition: color var(--dur) var(--ease);
+}
+
+.acc-q::-webkit-details-marker {
+  display: none;
+}
+
+.acc-q::after {
+  content: '+';
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-lg);
+  line-height: 1;
+  color: var(--text-faint);
+  transition: color var(--dur) var(--ease);
+}
+
+.acc-q:hover::after,
+.acc[open] > .acc-q::after {
+  color: var(--accent);
+}
+
+.acc[open] > .acc-q::after {
+  content: '\2212';           /* − */
+}
+
+.acc-q:hover {
+  color: var(--accent);
+}
+
+.acc-a {
+  padding-bottom: var(--sp-5);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+.acc-a p {
+  max-width: var(--measure);
+}
+
+.acc-a p + p {
+  margin-top: var(--sp-4);
+}
+
+.contribute-text {
+  max-width: var(--measure);
+  margin-top: var(--sp-4);
+  font-size: var(--fs-md);
+  color: var(--text-2);
+}
+
+/* A heading owns the block beneath it, so it needs more air above than below.
+   Stacked at 16/16 the two readings are equally available and the section
+   reads as one undifferentiated run of paragraphs. */
+.contribute-col > :global(.sub-title) {
+  margin-top: var(--sp-7);
+}
+
+.contribute-col > :global(.sub-title) + .contribute-text,
+.contribute-col > :global(.sub-title) + .revisions {
+  margin-top: var(--sp-3);
+}
+
+.contribute-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-8);
+}
+
+@media (min-width: 60rem) {
+  /* Two prose columns rather than one column and an empty half. The rules that
+     spanned the grid used to push every block back into column one and leave
+     the second permanently empty; the columns are now explicit, so the prose
+     and the revision log sit side by side and neither runs past its measure. */
+  .contribute-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: var(--sp-9);
+    align-items: start;
+  }
+
+  .contribute-inner > :global(.section-title),
+  .contribute-inner > .contribute-actions {
+    grid-column: 1 / -1;
+  }
+
+  /* The first heading in each column starts its column; only the ones that
+       follow a block need the separating space. */
+  .contribute-col > :global(.sub-title):first-child {
+    margin-top: 0;
+  }
+
+}
+
+@media screen and (min-width: 900px) {
+  .criteria {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+}
+
+@media (max-width: 640px) {
+  .route-list,
+  .acc-list {
+    padding-inline: var(--sp-4);
+  }
+
+}
+
+@media (max-width: 420px) {
+  /* Native-feature buttons keep a stable three-column rhythm at the narrowest
+     supported widths; the shortened licence labels remain on one line. */
+  .contribute-actions :global(.btn) {
+    flex: 1 1 100%;
+  }
+
+}
+
+@media print {
+  .contribute {
+    display: none;
+  }
+
+  .method,
+  .faq {
+    padding-block: 0 8mm;
+    border-top: 0;
+  }
+
+  .acc-a {
+    display: block;   /* print answers even when the accordion is closed */
+  }
+
+  .acc-q::after {
+    content: '';
+  }
+
+}
+
+/* Where to start: scenario on the left, the pick and its reasoning on the right. */
+.routes {
+  padding-block: var(--section-pad);
+  border-top: var(--border);
+}
+
+.route-list {
+  counter-reset: route;
+  display: grid;
+  margin: 0;
+  padding-inline: var(--sp-5);
+  border: var(--border);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-raised);
+}
+
+/* Each route is a numbered row of the panel: the count says how far the list
+   runs before you start reading it, and gives the eye a rail to come back to. */
+/* Narrow screens: the count keeps a gutter of its own and the case and pick
+   stack beside it, so the rail survives instead of costing a line per route. */
+.route {
+  counter-increment: route;
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: var(--sp-1) var(--sp-3);
+  padding-block: var(--sp-4);
+  border-top: var(--border);
+}
+
+.route:first-child {
+  border-top: 0;
+}
+
+.route::before {
+  content: counter(route, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-snug);
+  padding-top: 0.2em;
+  color: var(--text-faint);
+  grid-row: span 2;
+}
+
+.route-case,
+.route-pick {
+  grid-column: 2;
+}
+
+@media (min-width: 48rem) {
+  /* Tablets get the side-by-side reading already, on a narrower case column. */
+  .route {
+    grid-template-columns: 1.5rem minmax(0, 14rem) minmax(0, 1fr);
+    column-gap: var(--sp-5);
+    row-gap: var(--sp-2);
+    align-items: start;
+  }
+
+  .route::before {
+    grid-row: auto;
+  }
+
+  .route-case {
+    grid-column: 2;
+  }
+
+  .route-pick {
+    grid-column: 3;
+  }
+
+}
+
+@media (min-width: 60rem) {
+  /* Two fixed columns, not two fractions of the shell: the pick is prose and
+     has to land on a reading measure, so the table's width cannot set it. The
+     case column is sized to the longest scenario on two lines. Baseline, not
+     start — the case is display type at a tighter leading than the pick, and
+     aligning the boxes leaves their first lines visibly out of step. */
+  .route {
+    grid-template-columns: 1.75rem minmax(0, 18rem) minmax(0, 1fr);
+    column-gap: var(--sp-7);
+    row-gap: var(--sp-2);
+    align-items: start;
+  }
+
+}
+
+.route-case {
+  font-family: var(--font-display);
+  font-size: var(--fs-md);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-title);
+  color: var(--text);
+}
+
+.route-pick {
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.route-pick strong {
+  color: var(--text);
+}
+
+/* Method caveats and the revision log. */
+.method-note {
+  max-width: var(--measure);
+  margin-top: var(--sp-4);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+/* The date is a stamp on the entry, not a column of its own: in a half-width
+   column a 12rem label rail would leave the entry itself too narrow to read.
+   Stacked, the mono date reads as the entry's heading at every width. */
+.revisions {
+  display: grid;
+  gap: var(--sp-4);
+  margin-top: var(--sp-4);
+  font-size: var(--fs-md);
+}
+
+.revisions > div {
+  display: grid;
+  gap: var(--sp-2);
+  padding-top: var(--sp-3);
+  border-top: var(--border);
+}
+
+.revisions dt {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  color: var(--text-faint);
+}
+
+.revisions dd {
+  max-width: var(--measure);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+/* --- the cross-link between the two directories ---------------------------
+   One quiet route at the foot of each page. It is a signpost, not a banner:
+   a bordered row in the prose column, the same raised surface as a record,
+   and an arrow that is the only accent until it is hovered. */
+.crosslink {
+  padding-block: 0 var(--section-pad);
+}
+
+.crosslink-inner {
+  max-width: var(--shell-prose);
+  margin-inline: max(0px, (100% - var(--shell)) / 2) auto;
+}
+
+.crosslink-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  padding: var(--sp-5) var(--sp-6);
+  border: var(--border);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-raised);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.crosslink-link:hover {
+  border-color: var(--accent);
+}
+
+.crosslink-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.crosslink-title {
+  display: block;
+  margin-top: var(--sp-1);
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: var(--tracking-title);
+}
+
+.crosslink-text {
+  display: block;
+  max-width: var(--measure);
+  margin-top: var(--sp-1);
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+
+.crosslink-arrow {
+  flex: none;
+  color: var(--accent);
+  transition: transform var(--dur) var(--ease);
+}
+
+.crosslink-link:hover .crosslink-arrow {
+  transform: translateX(3px);
+}
+
+@media (max-width: 40rem) {
+  .crosslink-link {
+    padding: var(--sp-4);
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crosslink-link:hover .crosslink-arrow {
+    transform: none;
+  }
+
+}
+
+@media print {
+  .crosslink {
+    display: none;
+  }
+
+}
+
+/* --- FAQ: Base UI Accordion ----------------------------------------------- */
+/* The accordion's header is an <h3> for the outline; it must not bring the
+   heading typography (balanced wrapping, display tracking) to the question. */
+.acc-h {
+  margin: 0;
+  font: inherit;
+  letter-spacing: normal;
+  text-wrap: wrap;
+}
+
+.acc-q {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  text-align: start;
+}
+
+.acc[data-open] .acc-q::after {
+  content: '\2212'; /* − */
+  color: var(--accent);
+}
+
+/* hidden="until-found" keeps a closed answer reachable by find-in-page; the
+   blanket [hidden] rule in global.css would make it display:none instead. */
+.acc-a[hidden='until-found'] {
+  display: block !important;
+  /* content-visibility hides the answer but not its box: a closed one takes no room. */
+  padding-block: 0;
+}
+
+/* Without JavaScript nothing can open an answer, so every answer shows. */
+html:not(:global(.js)) .acc-a[hidden] {
+  display: block !important;
+  content-visibility: visible;
+}
+
+@media print {
+  .acc-a[hidden] {
+    display: block !important;
+    content-visibility: visible;
+  }
+
+}

@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [react, main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Typecheck, lint, test, build, e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: todoi
+          POSTGRES_PASSWORD: todoi
+          POSTGRES_DB: todoi
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U todoi -d todoi"
+          --health-interval 2s --health-timeout 3s --health-retries 30
+    env:
+      DATABASE_URL: postgres://todoi:todoi@localhost:5432/todoi
+      TEST_DATABASE_URL: postgres://todoi:todoi@localhost:5432/todoi_test
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Typecheck, lint, unit and integration tests (the latter against PostgreSQL).
+      - run: pnpm check
+
+      - run: pnpm build
+
+      - name: Install Chromium for Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
+      # Runs the production build against a freshly seeded test database.
+      - run: pnpm e2e
+
+      - name: Keep the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7
+
+  deploy:
+    name: Deploy to the VPS
+    needs: check
+    # Only a push to the deploy branch of this repository: never a pull request,
+    # never a fork (whose runs have no access to the secret anyway).
+    if: github.event_name == 'push' && github.ref == 'refs/heads/react' && github.repository == 'xpiu/todoi-org'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: production
+    steps:
+      - name: Ask Dokploy to pull and build
+        env:
+          DOKPLOY_DEPLOY_WEBHOOK: ${{ secrets.DOKPLOY_DEPLOY_WEBHOOK }}
+        run: |
+          test -n "$DOKPLOY_DEPLOY_WEBHOOK" || { echo "DOKPLOY_DEPLOY_WEBHOOK is not set"; exit 1; }
+          curl --fail --silent --show-error --max-time 30 -X POST "$DOKPLOY_DEPLOY_WEBHOOK"
