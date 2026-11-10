@@ -3876,10 +3876,13 @@ html:not(.js) .th-sort::after {
 
 /* Each route is a numbered row of the panel: the count says how far the list
    runs before you start reading it, and gives the eye a rail to come back to. */
+/* Narrow screens: the count keeps a gutter of its own and the case and pick
+   stack beside it, so the rail survives instead of costing a line per route. */
 .route {
   counter-increment: route;
   display: grid;
-  gap: var(--sp-1) var(--sp-4);
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: var(--sp-1) var(--sp-3);
   padding-block: var(--sp-4);
   border-top: var(--border);
 }
@@ -3895,6 +3898,34 @@ html:not(.js) .th-sort::after {
   line-height: var(--lh-snug);
   padding-top: 0.2em;
   color: var(--text-faint);
+  grid-row: span 2;
+}
+
+.route-case,
+.route-pick {
+  grid-column: 2;
+}
+
+/* Tablets get the side-by-side reading already, on a narrower case column. */
+@media (min-width: 48rem) {
+  .route {
+    grid-template-columns: 1.5rem minmax(0, 14rem) minmax(0, 1fr);
+    column-gap: var(--sp-5);
+    row-gap: var(--sp-2);
+    align-items: start;
+  }
+
+  .route::before {
+    grid-row: auto;
+  }
+
+  .route-case {
+    grid-column: 2;
+  }
+
+  .route-pick {
+    grid-column: 3;
+  }
 }
 
 /* Two fixed columns, not two fractions of the shell: the pick is prose and
