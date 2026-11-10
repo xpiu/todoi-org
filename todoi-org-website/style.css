@@ -923,11 +923,63 @@ a.wordmark:hover .wordmark-logo {
   display: none;
 }
 
+/* The box keeps the full --hero-mark-size footprint (the viewBox is 1462 x
+   1417) so the grid column, and therefore the mark's place on the page, is
+   unchanged; the glyph is drawn at 80% of it, centred in that box. */
+.hero-mark {
+  width: calc(var(--hero-mark-size) * 1462 / 1417);
+  height: var(--hero-mark-size);
+  place-items: center;
+}
+
 .hero-mark-svg {
   display: block;
-  height: var(--hero-mark-size);
+  height: calc(var(--hero-mark-size) * 0.8);
   width: auto;
+  overflow: visible;
   color: var(--accent);
+}
+
+/* Ripple: app.js lays a row of blocks along the stroke and plays them once.
+   Each block is the stroke's own width, invisible at rest. As the wave
+   passes, its lit face lifts a hair, so the ink beneath shows as the block's
+   side, then settles back flush and fades into the stroke again. The hairline
+   in the page colour is the joint between blocks. --d is the delay set by
+   distance from the notch; --a the lift, fading out before the wave reaches
+   the top of the ring. */
+.hero-mark-ripple {
+  pointer-events: none;
+}
+
+.hero-mark-ripple rect {
+  fill: color-mix(in oklab, var(--accent), #fff 20%);
+  stroke: var(--bg);
+  stroke-width: 0.75px;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+}
+
+.hero-mark-ripple g {
+  animation: hero-mark-lift 560ms var(--d, 0ms) cubic-bezier(0.3, 0, 0.2, 1) both;
+}
+
+.hero-mark-ripple g rect {
+  animation: hero-mark-face 560ms var(--d, 0ms) linear both;
+}
+
+@keyframes hero-mark-lift {
+  0%,
+  100% { transform: translateY(0); }
+  38% { transform: translateY(calc(var(--a, 1) * -26px)); }
+}
+
+@keyframes hero-mark-face {
+  0%,
+  100% { opacity: 0; }
+  /* The face dims with its lift, so the wave thins out instead of ending
+     on a hard edge. */
+  14%,
+  66% { opacity: min(1, calc(var(--a, 1) * 1.6)); }
 }
 
 /* ==========================================================================
@@ -3292,7 +3344,7 @@ a.wordmark:hover .wordmark-logo {
   }
 
   .hero-mark {
-    display: block;
+    display: grid;
     justify-self: end;
   }
 

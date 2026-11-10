@@ -1044,6 +1044,99 @@
     }
   });
 
+  /* --- hero mark ripple --- */
+  // Plays once: the stroke is cut into blocks of its own width, and a wave
+  // starting at the notch lifts them a hair and sets them back down. The lift
+  // fades out with distance and stops at 80% of the mark, so the wave dies
+  // out before it reaches the crown of the ring. Purely decorative: skipped
+  // under reduced motion, when the mark is not displayed, or without the
+  // SVG geometry API. Styles live under .hero-mark-ripple in style.css.
+  (function heroRipple() {
+    if (reduceMotion.matches) return;
+    var svg = $('.hero-mark-svg');
+    var path = svg && $('path', svg);
+    if (!path || typeof path.getTotalLength !== 'function') return;
+    if (window.getComputedStyle(svg.parentNode).display === 'none') return;
+
+    var NS = 'http://www.w3.org/2000/svg';
+    var WIDTH = 64;            // stroke-width 63, plus a hair against seams
+    var STEP = 84;             // target block length along the stroke
+    var ORIGIN = { x: 731, y: 1240 }; // the notch between the two legs
+    var REACH = 0.8;           // share of the mark the wave travels over
+    var TRAVEL = 1150;         // ms for the front to cross that distance
+    var BLOCK = 560;           // ms per block; matches the CSS animation
+
+    var blocks = [];
+    try {
+      var total = path.getTotalLength();
+      var n = Math.max(1, Math.round(total / STEP));
+      var step = total / n;
+      for (var i = 0; i < n; i++) {
+        var s = (i + 0.5) * step;
+        var p = path.getPointAtLength(s);
+        var a = path.getPointAtLength(Math.max(0, s - 2));
+        var b = path.getPointAtLength(Math.min(total, s + 2));
+        blocks.push({
+          x: p.x,
+          y: p.y,
+          deg: Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI,
+          dist: Math.sqrt(Math.pow(p.x - ORIGIN.x, 2) + Math.pow(p.y - ORIGIN.y, 2)),
+          len: step
+        });
+      }
+    } catch (e) { return; }
+
+    var far = 0;
+    blocks.forEach(function (bk) { far = Math.max(far, bk.dist); });
+    var reach = far * REACH;
+
+    var layer = document.createElementNS(NS, 'g');
+    layer.setAttribute('class', 'hero-mark-ripple');
+    var last = 0;
+    blocks.forEach(function (bk) {
+      var t = bk.dist / reach;
+      if (t >= 1) return;
+      var lift = Math.cos(t * Math.PI / 2); // full at the notch, 0 at the reach
+      if (lift < 0.12) return;
+      var delay = Math.round(t * TRAVEL);
+      last = Math.max(last, delay);
+      var g = document.createElementNS(NS, 'g');
+      g.setAttribute('style', '--d:' + delay + 'ms;--a:' + lift.toFixed(3));
+      var r = document.createElementNS(NS, 'rect');
+      r.setAttribute('x', String(-bk.len / 2));
+      r.setAttribute('y', String(-WIDTH / 2));
+      r.setAttribute('width', String(bk.len));
+      r.setAttribute('height', String(WIDTH));
+      r.setAttribute('transform',
+        'translate(' + bk.x.toFixed(2) + ' ' + bk.y.toFixed(2) + ') rotate(' + bk.deg.toFixed(2) + ')');
+      g.appendChild(r);
+      layer.appendChild(g);
+    });
+    if (!layer.firstChild) return;
+
+    function play() {
+      svg.appendChild(layer);
+      window.setTimeout(function () {
+        if (layer.parentNode) layer.parentNode.removeChild(layer);
+      }, last + BLOCK + 100);
+    }
+
+    // Wait for the page to settle, and for the mark to actually be on screen.
+    function arm() {
+      window.setTimeout(function () {
+        if (!('IntersectionObserver' in window)) { play(); return; }
+        var io = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          io.disconnect();
+          play();
+        }, { threshold: 0.6 });
+        io.observe(svg);
+      }, 450);
+    }
+    if (document.readyState === 'complete') arm();
+    else window.addEventListener('load', arm, { once: true });
+  })();
+
   (function navCurrent() {
     if (!('IntersectionObserver' in window)) return;
     var links = $$('.site-header nav a[href^="#"]');
