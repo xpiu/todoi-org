@@ -330,7 +330,7 @@ function RecordEditor({ session, dir, record }: { session: Session; dir: AdminDi
         <div className={cx('admin-fields')}>
           <TextField label="Name" value={form.name} onChange={set('name')} required />
           <TextField label="Website" value={form.url} onChange={set('url')} type="url" required />
-          <TextField label="First appeared" value={form.year} onChange={set('year')} type="number" required />
+          <TextField label={dir.directory.copy.facts.yearLabel} value={form.year} onChange={set('year')} type="number" required />
           <PickField
             label={dir.directory.copy.band.name}
             value={form.band}

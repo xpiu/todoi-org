@@ -38,6 +38,13 @@ routes, Zod-typed search params) · TanStack Query (one `queryOptions` factory p
 Zustand (colour mode, filter panel) · Base UI · Zod at every boundary · PostgreSQL 18 + Drizzle.
 Types flow from the Drizzle schema to Zod to the Hono RPC client.
 
+**Styling.** CSS Modules over global design tokens. `styles/global.css` holds the fonts, the light
+and dark tokens (dark redefines the same ~30 names), the reset and base type; each component's rules
+sit in its own `.module.css` beside it; `styles/late.css` holds buttons, utilities and print. Every
+element keeps its plain hook class (`matrix-row`) beside its scoped one, through `cx()`, so tests,
+scripts and other modules' `:global()` selectors can name it. `styles/modules.ts` fixes the cascade
+order. No utility framework.
+
 **Data.** `pnpm db:import` read the published pages and CSVs once (they carried hand edits the old
 build scripts did not) and wrote `packages/db/seed/*.json`. The Score is never stored: the mean of
 the six criteria and the band, rounded half up, defined once in `packages/shared`.
@@ -66,6 +73,7 @@ a same-origin request and the session's CSRF token; sign-in is rate limited in t
 | No WCAG 2.2 AA failures; keyboard reaches everything | `e2e/a11y.spec.ts` (axe), both modes and widths |
 | Dark defines every token; text pairs reach AA | `apps/web/src/styles/tokens.test.ts` |
 | An edit shows at once, survives a reload, rolls back on failure | `e2e/admin.spec.ts` |
+| Lighthouse no worse than the static site | Median of three runs, mobile and desktop: equal or higher in every category on both pages |
 
 ## Deployment
 
