@@ -1061,7 +1061,10 @@
     if (window.getComputedStyle(svg.parentNode).display === 'none') return;
 
     var NS = 'http://www.w3.org/2000/svg';
-    var WIDTH = 64;            // stroke-width 63, plus a hair against seams
+    var WIDTH = 63;            // the stroke-width, so the long edges sit on
+                               // the shape's own outline and never widen it
+    var GAP = 12;              // joint between blocks (~0.6px on screen): the
+                               // stroke beneath shows through it
     var STEP = 84;             // target block length along the stroke
     var ORIGIN = { x: 731, y: 1240 }; // the notch between the two legs
     var CENTRE = { x: 731, y: 731 };  // shared centre of both rings
@@ -1111,9 +1114,9 @@
       var g = document.createElementNS(NS, 'g');
       g.setAttribute('style', '--d:' + delay + 'ms;--a:' + lift.toFixed(3));
       var r = document.createElementNS(NS, 'rect');
-      r.setAttribute('x', String(-bk.len / 2));
+      r.setAttribute('x', String(-(bk.len - GAP) / 2));
       r.setAttribute('y', String(-WIDTH / 2));
-      r.setAttribute('width', String(bk.len));
+      r.setAttribute('width', String(bk.len - GAP));
       r.setAttribute('height', String(WIDTH));
       r.setAttribute('transform',
         'translate(' + bk.x.toFixed(2) + ' ' + bk.y.toFixed(2) + ') rotate(' + bk.deg.toFixed(2) + ')');
