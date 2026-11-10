@@ -2479,21 +2479,16 @@ a.wordmark:hover .wordmark-logo {
   color: var(--text);
 }
 
-/* When the summary was written: a quiet sign-off under the last paragraph,
-   with the date as a small stamp. ISO date in the mono face so every record
-   carries the same, comparable figure. */
+/* When the summary was written: a small date set flush right under the last
+   paragraph, at the edge of its measure, like a dateline on a filed note.
+   No rule and no fill, so it reads as part of the summary rather than a
+   control beside it. The words "Summary written" are for screen readers. */
 .summary-date {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--sp-2);
-  /* The summary's measure, restated at this smaller size so the rule ends
-     where the paragraphs do. */
-  max-width: calc(var(--measure) * 0.875 / 0.75);
-  margin-top: var(--sp-4);
-  padding-top: var(--sp-3);
-  border-top: var(--border);
-  font-size: var(--fs-2xs);
+  justify-content: flex-end;
+  max-width: calc(var(--measure) * 0.875 / 0.6875);
+  margin-top: var(--sp-2);
+  font-size: var(--fs-3xs);
   line-height: var(--lh-ui);
   color: var(--text-faint);
 }
@@ -2501,24 +2496,18 @@ a.wordmark:hover .wordmark-logo {
 .date-stamp {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 2px 7px 2px 6px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-1);
-  background: var(--bg-raised);
-  color: var(--text-2);
+  gap: 4px;
 }
 
 .date-stamp time {
   font-family: var(--font-mono);
-  font-size: var(--fs-2xs);
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 .date-stamp-icon {
   flex: none;
-  color: var(--text-faint);
+  opacity: 0.8;
 }
 
 /* The scorecard: six criteria, each a name with its gauge and figure on one
