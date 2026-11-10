@@ -129,6 +129,41 @@
   var cards = $$('article.card');
   var hasBoard = rows.length > 0 || cards.length > 0;
 
+  /* --- one copy of each record's detail ---
+   * Every record's detail ships once, inside its matrix row; the card's panel
+   * arrives empty, because carrying both copies nearly doubled the page. The
+   * details live in whichever list is on screen: the cards below 900px (the
+   * breakpoint in style.css), the matrix above it, and the matrix in print,
+   * which always prints the table. */
+  var cardsQuery = window.matchMedia ? window.matchMedia('screen and (max-width: 899.98px)') : null;
+  function placeDetails(intoCards) {
+    cards.forEach(function (card) {
+      var slug = card.getAttribute('data-slug');
+      var panel = $('.card-detail', card);
+      var row = null;
+      for (var i = 0; i < rows.length; i++) {
+        if (rows[i].getAttribute('data-slug') === slug) { row = rows[i]; break; }
+      }
+      var detailRow = row && row.nextElementSibling;
+      var cell = detailRow && detailRow.classList.contains('detail-row') ? detailRow.firstElementChild : null;
+      if (!panel || !cell) return;
+      var from = intoCards ? cell : panel;
+      var to = intoCards ? panel : cell;
+      var detail = $('.detail', from);
+      if (detail && !$('.detail', to)) to.appendChild(detail);
+    });
+  }
+  function placeForScreen() { placeDetails(!!(cardsQuery && cardsQuery.matches)); }
+  if (hasBoard) {
+    placeForScreen();
+    if (cardsQuery) {
+      if (cardsQuery.addEventListener) cardsQuery.addEventListener('change', placeForScreen);
+      else if (cardsQuery.addListener) cardsQuery.addListener(placeForScreen);
+    }
+    window.addEventListener('beforeprint', function () { placeDetails(false); });
+    window.addEventListener('afterprint', placeForScreen);
+  }
+
   var q = $('#q');
   var sortField = $('#sort-field');
   var sortDirBtn = $('#sort-dir');
@@ -791,8 +826,7 @@
   // all stay owned by the one handler above, then brings the row back into
   // view, because the row is now a long way up.
   $$('.detail').forEach(function (detail) {
-    var host = closest(detail, 'tr.detail-row') || closest(detail, 'article.card');
-    if (!host) return;
+    if (!closest(detail, 'tr.detail-row') && !closest(detail, 'article.card')) return;
     var foot = document.createElement('p');
     foot.className = 'detail-foot';
     var b = document.createElement('button');
@@ -802,7 +836,9 @@
     foot.appendChild(b);
     detail.appendChild(foot);
     b.addEventListener('click', function () {
-      var owner = host.classList.contains('card') ? host : host.previousElementSibling;
+      // Looked up on each click: the detail moves between row and card.
+      var host = closest(detail, 'tr.detail-row') || closest(detail, 'article.card');
+      var owner = !host ? null : host.classList.contains('card') ? host : host.previousElementSibling;
       var btn = owner && $('button.row-expand, button.card-expand', owner);
       if (!btn) return;
       btn.click();
