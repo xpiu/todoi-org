@@ -3,6 +3,7 @@ import { Radio } from '@base-ui/react/radio';
 import { RadioGroup } from '@base-ui/react/radio-group';
 import { useTheme, type Mode } from '../lib/stores.ts';
 import { MoonIcon, SunIcon } from './icons.tsx';
+import { cx } from '../styles/modules.ts';
 
 /**
  * Light and dark, as a two-seat radio group: arrows move the selection, the
@@ -35,34 +36,34 @@ export function ThemeSwitch() {
 
   return (
     <RadioGroup
-      className="theme-switch"
+      className={cx('theme-switch')}
       id="theme-switch"
       aria-label="Colour theme"
       value={mode}
       onValueChange={(value) => choose(value as Mode)}
     >
-      <span className="theme-switch-thumb" aria-hidden="true" />
+      <span className={cx('theme-switch-thumb')} aria-hidden="true" />
       <Radio.Root
         value="light"
-        className="theme-switch-opt"
+        className={cx('theme-switch-opt')}
         data-theme-value="light"
         title="Light"
         nativeButton
         render={<button type="button" />}
       >
         <SunIcon />
-        <span className="sr-only">Light</span>
+        <span className={cx('sr-only')}>Light</span>
       </Radio.Root>
       <Radio.Root
         value="dark"
-        className="theme-switch-opt"
+        className={cx('theme-switch-opt')}
         data-theme-value="dark"
         title="Dark"
         nativeButton
         render={<button type="button" />}
       >
         <MoonIcon />
-        <span className="sr-only">Dark</span>
+        <span className={cx('sr-only')}>Dark</span>
       </Radio.Root>
     </RadioGroup>
   );

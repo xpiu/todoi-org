@@ -1,5 +1,6 @@
 import type { ReactNode, SVGProps } from 'react';
 import type { Level } from '@todoi/shared';
+import { cx } from '../styles/modules.ts';
 
 /**
  * Every glyph the pages draw, verbatim from the static site. Decorative:
@@ -105,12 +106,12 @@ export function Glyph({ name, className, size }: { name: string; className: stri
   );
 }
 
-export const TagIcon = ({ name }: { name: string }) => <Glyph name={name} className="tag-ico" size={13} />;
+export const TagIcon = ({ name }: { name: string }) => <Glyph name={name} className={cx('tag-ico')} size={13} />;
 
 /** Native, partial, none: a full disc, a half disc, a ring. */
 export function MarkSvg({ level }: { level: Level }) {
   return (
-    <svg className="mark-svg" viewBox="0 0 16 16" width="13" height="13" {...hidden}>
+    <svg className={cx('mark-svg')} viewBox="0 0 16 16" width="13" height="13" {...hidden}>
       {level === 2 ? (
         <circle cx="8" cy="8" r="6.25" fill="currentColor" />
       ) : (
@@ -125,7 +126,7 @@ export function MarkSvg({ level }: { level: Level }) {
 
 export function DateStampIcon() {
   return (
-    <svg className="date-stamp-icon" viewBox="0 0 16 16" width="10" height="10" {...hidden}>
+    <svg className={cx('date-stamp-icon')} viewBox="0 0 16 16" width="10" height="10" {...hidden}>
       <rect x="2.25" y="3.25" width="11.5" height="10.5" rx="2" fill="none" stroke="currentColor" strokeWidth="1.5" />
       <path
         d="M2.25 6.75h11.5M5.5 1.75v3M10.5 1.75v3"
@@ -141,7 +142,7 @@ export function DateStampIcon() {
 export function WordmarkLogo() {
   return (
     <svg
-      className="wordmark-logo"
+      className={cx('wordmark-logo')}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -158,7 +159,7 @@ export function WordmarkLogo() {
 
 export function SunIcon() {
   return (
-    <svg className="theme-switch-icon" viewBox="0 0 16 16" width="15" height="15" {...hidden}>
+    <svg className={cx('theme-switch-icon')} viewBox="0 0 16 16" width="15" height="15" {...hidden}>
       <circle cx="8" cy="8" r="3.1" fill="currentColor" />
       <path
         d="M8 1.5v1.4M8 13.1v1.4M1.5 8h1.4M13.1 8h1.4M3.4 3.4l1 1M11.6 11.6l1 1M12.6 3.4l-1 1M4.4 11.6l-1 1"
@@ -173,7 +174,7 @@ export function SunIcon() {
 
 export function MoonIcon() {
   return (
-    <svg className="theme-switch-icon" viewBox="0 0 16 16" width="15" height="15" {...hidden}>
+    <svg className={cx('theme-switch-icon')} viewBox="0 0 16 16" width="15" height="15" {...hidden}>
       <path fill="currentColor" d="M6.04 1.91A6.4 6.4 0 1 0 14.09 9.96 6 6 0 0 1 6.04 1.91Z" />
     </svg>
   );
@@ -182,7 +183,7 @@ export function MoonIcon() {
 export function FilterIcon() {
   return (
     <svg
-      className="filter-disclosure-icon"
+      className={cx('filter-disclosure-icon')}
       viewBox="0 0 16 16"
       width="16"
       height="16"
@@ -210,7 +211,7 @@ export function ChevronIcon({ className }: { className: string }) {
 
 export function ArrowIcon() {
   return (
-    <svg className="crosslink-arrow" viewBox="0 0 16 16" width="20" height="20" {...LINE} {...hidden}>
+    <svg className={cx('crosslink-arrow')} viewBox="0 0 16 16" width="20" height="20" {...LINE} {...hidden}>
       <path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" />
     </svg>
   );
@@ -229,7 +230,7 @@ export function XLogo() {
 
 export function GitHubIcon() {
   return (
-    <svg className="th-ico" viewBox="0 0 16 16" width="11" height="11" {...hidden}>
+    <svg className={cx('th-ico')} viewBox="0 0 16 16" width="11" height="11" {...hidden}>
       <path
         fill="currentColor"
         d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
@@ -241,7 +242,7 @@ export function GitHubIcon() {
 /** The hero mark: one stroke, two rings. The ripple layer is added by HeroMark. */
 export function HeroMarkSvg(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg className="hero-mark-svg" viewBox="0 0 1462 1417" fill="none" focusable="false" {...props}>
+    <svg className={cx('hero-mark-svg')} viewBox="0 0 1462 1417" fill="none" focusable="false" {...props}>
       <path
         d="M484.05 1383.85a698 698 0 1 1 493.9 0L820.69 968.1a253.5 253.5 0 1 0-179.38 0Z"
         stroke="currentColor"

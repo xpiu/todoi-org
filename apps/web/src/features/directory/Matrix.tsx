@@ -5,6 +5,7 @@ import { useHydrated } from '../../lib/hydrated.ts';
 import { CommBand, LeadScore, leadSpec, Metric, ModelTag, type LeadSpec } from './cells.tsx';
 import { RowDetail } from './DetailSlot.tsx';
 import { useDirectory } from './state.tsx';
+import { cx } from '../../styles/modules.ts';
 
 // useLayoutEffect warns during the server render; nothing is measured there anyway.
 const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
@@ -23,7 +24,7 @@ function SortHead({
   const cls = ['matrix-th', className].filter(Boolean).join(' ');
   if (sortKey === null) {
     return (
-      <th scope="col" className={cls}>
+      <th scope="col" className={cx(cls)}>
         {children}
       </th>
     );
@@ -31,12 +32,12 @@ function SortHead({
   return (
     <th
       scope="col"
-      className={cls}
+      className={cx(cls)}
       aria-sort={!active ? 'none' : view.sortDir === 'asc' ? 'ascending' : 'descending'}
     >
       <button
         type="button"
-        className="th-sort"
+        className={cx('th-sort')}
         data-sort={sortKey}
         // A first click opens on the field's natural order; a second reverses it.
         onClick={() =>
@@ -72,15 +73,15 @@ function Row({
   return (
     <Fragment>
       <tr
-        className="matrix-row"
+        className={cx('matrix-row')}
         data-slug={record.slug}
         hidden={!shown}
         style={shown ? undefined : { display: 'none' }}
       >
-        <th scope="row" className="cell-project">
-          <div className="project-id">
+        <th scope="row" className={cx('cell-project')}>
+          <div className={cx('project-id')}>
             <img
-              className="project-icon"
+              className={cx('project-icon')}
               src={record.icon}
               alt=""
               width={48}
@@ -88,11 +89,11 @@ function Row({
               decoding="async"
               loading={eager ? undefined : 'lazy'}
             />
-            <a className="project-name" href={record.url} rel="noopener external">
+            <a className={cx('project-name')} href={record.url} rel="noopener external">
               {record.name}
             </a>
             <span
-              className={clamped ? 'project-blurb is-clamped' : 'project-blurb'}
+              className={cx(clamped ? 'project-blurb is-clamped' : 'project-blurb')}
               onClick={() => {
                 // A cut-off blurb opens its own row. Dragging across it to copy is not a request.
                 if (!clamped || String(window.getSelection?.() ?? '').length) return;
@@ -103,42 +104,42 @@ function Row({
             </span>
           </div>
         </th>
-        <td className="cell-model">
+        <td className={cx('cell-model')}>
           <ModelTag config={config} record={record} />
-          <span className="cell-sub">{record.modelSub}</span>
+          <span className={cx('cell-sub')}>{record.modelSub}</span>
         </td>
-        <td className="cell-avg">
+        <td className={cx('cell-avg')}>
           <LeadScore record={record} lead={lead} />
         </td>
-        <td className="cell-comm">
+        <td className={cx('cell-comm')}>
           <CommBand band={record.band} pill />
         </td>
-        <td className={record.kind === 'oss' ? 'cell-stars' : 'cell-price'}>
+        <td className={cx(record.kind === 'oss' ? 'cell-stars' : 'cell-price')}>
           <Metric record={record} sub="cell-sub" />
         </td>
-        <td className="cell-int">
-          <span className="num">{record.integrationsLabel}</span>
+        <td className={cx('cell-int')}>
+          <span className={cx('num')}>{record.integrationsLabel}</span>
         </td>
-        <td className="cell-year">
-          <span className="num">{record.year}</span>
+        <td className={cx('cell-year')}>
+          <span className={cx('num')}>{record.year}</span>
         </td>
-        <td className="cell-more">
+        <td className={cx('cell-more')}>
           <button
             type="button"
-            className="row-expand"
+            className={cx('row-expand')}
             aria-expanded={open}
             aria-controls={detailId}
             onClick={() => toggle(record.slug)}
           >
-            <span className="sr-only">Summary, assessment and sources for {record.name}</span>
-            <span className="row-expand-mark" aria-hidden="true" />
+            <span className={cx('sr-only')}>Summary, assessment and sources for {record.name}</span>
+            <span className={cx('row-expand-mark')} aria-hidden="true" />
           </button>
         </td>
       </tr>
       {/* Server-rendered open for readers without JavaScript; the `js` class keeps
           closed records closed until React takes over and sets hidden itself. */}
       <tr
-        className="detail-row"
+        className={cx('detail-row')}
         id={detailId}
         data-open={open ? '' : undefined}
         hidden={hydrated && (!open || !shown)}
@@ -199,55 +200,55 @@ export function Matrix() {
   return (
     // A thead over an empty body would leave sort controls with nothing to sort.
     <div
-      className="matrix-scroll"
+      className={cx('matrix-scroll')}
       tabIndex={0}
       role="region"
       aria-label="Comparison matrix"
       hidden={visible.size === 0}
       style={visible.size === 0 ? { display: 'none' } : undefined}
     >
-      <table className="matrix" id="matrix">
-        <caption className="sr-only">{m.caption}</caption>
+      <table className={cx('matrix')} id="matrix">
+        <caption className={cx('sr-only')}>{m.caption}</caption>
         <thead>
           <tr>
-            <SortHead sortKey="name" className="th-project">
-              <span className="methodology" title={m.project.tip}>
+            <SortHead sortKey="name" className={cx('th-project')}>
+              <span className={cx('methodology')} title={m.project.tip}>
                 {m.project.label}
               </span>
             </SortHead>
             <SortHead sortKey={null}>
-              <span className="methodology" title={m.model.tip}>
+              <span className={cx('methodology')} title={m.model.tip}>
                 {m.model.label}
               </span>
             </SortHead>
-            <SortHead sortKey={lead.key} className="th-lead">
-              <abbr className="th-lead-l methodology" title={lead.title}>
+            <SortHead sortKey={lead.key} className={cx('th-lead')}>
+              <abbr className={cx('th-lead-l methodology')} title={lead.title}>
                 {lead.head}
               </abbr>
             </SortHead>
             <SortHead sortKey="community">
-              <span className="methodology" title={m.community.tip}>
+              <span className={cx('methodology')} title={m.community.tip}>
                 {m.community.label}
               </span>
             </SortHead>
-            <SortHead sortKey={metricKey} className={config.kind === 'oss' ? 'th-stars' : 'th-price'}>
+            <SortHead sortKey={metricKey} className={cx(config.kind === 'oss' ? 'th-stars' : 'th-price')}>
               {config.kind === 'oss' ? <GitHubIcon /> : null}
-              <span className="methodology" title={m.metric.tip}>
+              <span className={cx('methodology')} title={m.metric.tip}>
                 {m.metric.label}
               </span>
             </SortHead>
             <SortHead sortKey="integrations">
-              <abbr className="methodology" title={m.integrations.tip}>
+              <abbr className={cx('methodology')} title={m.integrations.tip}>
                 {m.integrations.label}
               </abbr>
             </SortHead>
-            <SortHead sortKey="year" className="th-year">
-              <span className="methodology" title={m.year.tip}>
+            <SortHead sortKey="year" className={cx('th-year')}>
+              <span className={cx('methodology')} title={m.year.tip}>
                 {m.year.label}
               </span>
             </SortHead>
-            <th scope="col" className="matrix-th th-more">
-              <span className="sr-only">Details</span>
+            <th scope="col" className={cx('matrix-th th-more')}>
+              <span className={cx('sr-only')}>Details</span>
             </th>
           </tr>
         </thead>

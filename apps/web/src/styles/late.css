@@ -1,0 +1,128 @@
+/* Global rules that came after the components in the original sheet: buttons,
+   utilities, print and the late responsive rules for global elements. Loaded last. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  min-height: var(--control-h);
+  padding: 0 var(--sp-5);
+  border: var(--hair) solid transparent;
+  border-radius: var(--radius-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease),
+  background-color var(--dur) var(--ease);
+}
+
+.btn-sm {
+  padding: 0 var(--sp-3);
+  font-size: var(--fs-xs);
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-strong);
+  border-color: var(--accent-strong);
+  color: var(--on-accent);
+}
+
+.btn-ghost {
+  background-color: var(--bg-raised);
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  :root {
+    --paper: #ffffff;
+    --paper-raised: #ffffff;
+    --paper-sunken: #ffffff;
+    --ink: #000000;
+    --ink-2: #333333;
+    --ink-faint: #555555;
+    --line: #999999;
+    --line-strong: #000000;
+    --line-heavy: #000000;
+    --track: #cccccc;
+    --zebra: #ffffff;
+    --accent: #000000;
+    --accent-strong: #000000;
+    --accent-soft: #ffffff;
+    /* Ink costs money and the mark already differs by shape. */
+    --signal: #000000;
+    --band: #ffffff;
+    --band-fg: #000000;
+    --band-fg-2: #333333;
+    --band-accent: #000000;
+    --band-line: #000000;
+    --section-pad: 0;
+    --matrix-min: 0;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 10pt;
+  }
+
+  .skip-link {
+    display: none;
+  }
+
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+}

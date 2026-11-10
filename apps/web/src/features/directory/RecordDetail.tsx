@@ -11,13 +11,14 @@ import {
   type RecordSummary,
 } from '@todoi/shared';
 import { DateStampIcon, MarkSvg } from '../../components/icons.tsx';
+import { cx } from '../../styles/modules.ts';
 
 const LEVEL_WORDS: Record<Level, string> = { 0: 'Not native', 1: 'Partial', 2: 'Native' };
 const MARK_CLASS: Record<Level, string> = { 0: 'mark-none', 1: 'mark-partial', 2: 'mark-full' };
 
 function Fact({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="fact">
+    <div className={cx('fact')}>
       <dt>{label}</dt>
       <dd>{children}</dd>
     </div>
@@ -72,7 +73,7 @@ export function RecordDetailBody({
         <Fact label="Integrations">{detail.integrationNotes}</Fact>
         <Fact label="Community signal">{detail.bandEvidence}</Fact>
         {detail.capabilityNotes ? (
-          <div className="fact">
+          <div className={cx('fact')}>
             <dt>Capability notes</dt>
             <Html as="dd" html={detail.capabilityNotes} />
           </div>
@@ -107,86 +108,86 @@ export function RecordDetailBody({
 
   return (
     <>
-      <p className="detail-project">{record.name} - summary, assessment and sources</p>
-      <div className="detail-caps">
-        <p className="detail-h">
-          <span className="methodology" data-tip-label="Capabilities" title={copy.matrix.capsTip}>
+      <p className={cx('detail-project')}>{record.name} - summary, assessment and sources</p>
+      <div className={cx('detail-caps')}>
+        <p className={cx('detail-h')}>
+          <span className={cx('methodology')} data-tip-label="Capabilities" title={copy.matrix.capsTip}>
             Capabilities
           </span>
         </p>
-        <div className="caps">
+        <div className={cx('caps')}>
           {caps.map((c) => (
-            <div className="cap" key={c.key}>
-              <span className={`mark ${MARK_CLASS[c.level]}`}>
+            <div className={cx('cap')} key={c.key}>
+              <span className={cx(`mark ${MARK_CLASS[c.level]}`)}>
                 <MarkSvg level={c.level} />
               </span>
-              <span className="cap-l">
-                <span className="methodology" data-tip-label={c.label} title={c.tip}>
+              <span className={cx('cap-l')}>
+                <span className={cx('methodology')} data-tip-label={c.label} title={c.tip}>
                   {c.label}
                 </span>
-                {c.note ? <span className="cap-note">{c.note}</span> : null}
+                {c.note ? <span className={cx('cap-note')}>{c.note}</span> : null}
               </span>
-              <span className="sr-only">
+              <span className={cx('sr-only')}>
                 {`${c.sr}: ${LEVEL_WORDS[c.level]}.${c.note ? ` ${c.note}` : ''}`}
               </span>
             </div>
           ))}
         </div>
       </div>
-      <div className="detail-summary">
-        <p className="detail-h">Summary</p>
-        <div className="summary">
+      <div className={cx('detail-summary')}>
+        <p className={cx('detail-h')}>Summary</p>
+        <div className={cx('summary')}>
           {detail.summary.map((p, i) => (
-            <p key={i} className={i === 0 ? 'summary-lead' : undefined}>
+            <p key={i} className={cx(i === 0 ? 'summary-lead' : undefined)}>
               {p}
             </p>
           ))}
         </div>
-        <p className="summary-date">
-          <span className="sr-only">Summary written </span>
-          <span className="date-stamp" title="When this summary was written">
+        <p className={cx('summary-date')}>
+          <span className={cx('sr-only')}>Summary written </span>
+          <span className={cx('date-stamp')} title="When this summary was written">
             <DateStampIcon />
             <time dateTime={detail.summaryDate}>{detail.summaryDate}</time>
           </span>
         </p>
       </div>
-      <div className="detail-assess">
-        <p className="detail-h">Assessment</p>
-        <dl className="crits">
+      <div className={cx('detail-assess')}>
+        <p className={cx('detail-h')}>Assessment</p>
+        <dl className={cx('crits')}>
           {config.criteria.map((c) => {
             const score = record.scores[c.key] ?? 0;
             return (
-              <div className="crit" key={c.key}>
-                <dt className="crit-name">
+              <div className={cx('crit')} key={c.key}>
+                <dt className={cx('crit-name')}>
                   {c.name}
-                  <span className="crit-val">
-                    <span className="crit-bar" style={{ '--fill': fill(score) } as never} aria-hidden="true" />
-                    <span className="crit-score">{formatScore(score)}</span>
+                  <span className={cx('crit-val')}>
+                    <span className={cx('crit-bar')} style={{ '--fill': fill(score) } as never} aria-hidden="true" />
+                    <span className={cx('crit-score')}>{formatScore(score)}</span>
                   </span>
                 </dt>
-                <dd className="crit-text">{detail.reviews[c.key]}</dd>
+                <dd className={cx('crit-text')}>{detail.reviews[c.key]}</dd>
               </div>
             );
           })}
-          <div className="crit">
-            <dt className="crit-name">
+          <div className={cx('crit')}>
+            <dt className={cx('crit-name')}>
               {copy.band.name}
-              <span className="crit-val">
-                <span className="crit-bar" style={{ '--fill': fill(record.band) } as never} aria-hidden="true" />
-                <span className="crit-score">{formatScore(record.band)}</span>
+              <span className={cx('crit-val')}>
+                <span className={cx('crit-bar')} style={{ '--fill': fill(record.band) } as never} aria-hidden="true" />
+                <span className={cx('crit-score')}>{formatScore(record.band)}</span>
               </span>
             </dt>
-            <dd className="crit-text">{`${band}. ${detail.bandEvidence}`}</dd>
+            <dd className={cx('crit-text')}>{`${band}. ${detail.bandEvidence}`}</dd>
           </div>
         </dl>
       </div>
-      <div className="detail-record">
-        <p className="detail-h">Record</p>
-        <dl className="facts">{facts}</dl>
+      <div className={cx('detail-record')}>
+        <p className={cx('detail-h')}>Record</p>
+        <dl className={cx('facts')}>{facts}</dl>
       </div>
-      <div className="detail-sources">
-        <p className="detail-h">Sources</p>
-        <ul className="srcs">
+      <div className={cx('detail-sources')}>
+        <p className={cx('detail-h')}>Sources</p>
+        <ul className={cx('srcs')}>
           {detail.sources.map((s, i) => (
             <li key={i}>
               <ExternalLink href={s.url}>{s.label}</ExternalLink>
@@ -195,8 +196,8 @@ export function RecordDetailBody({
         </ul>
       </div>
       {/* A way back from the foot of a long record; scripted, so hidden without JavaScript. */}
-      <p className="detail-foot">
-        <button type="button" className="btn btn-ghost btn-sm detail-close">
+      <p className={cx('detail-foot')}>
+        <button type="button" className={cx('btn btn-ghost btn-sm detail-close')}>
           Close record
         </button>
       </p>

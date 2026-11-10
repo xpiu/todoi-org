@@ -22,6 +22,7 @@ import { adminApi, adminDirectoryQuery, adminKeys, directoriesQuery, sessionQuer
 import { ToastHost, useToasts } from './toasts.tsx';
 import { useOptimisticMutation } from './useOptimisticMutation.ts';
 import '../../styles/admin.css';
+import { cx } from '../../styles/modules.ts';
 
 const LEVELS: { value: Level; label: string }[] = [
   { value: 2, label: 'Native' },
@@ -48,24 +49,24 @@ function AdminShell() {
   const session = useQuery(sessionQuery);
   return (
     <>
-      <header className="site-header">
-        <div className="shell site-header-inner">
-          <span className="admin-brand">
-            <a className="wordmark" href="/" aria-label="todoi.org, home">
+      <header className={cx('site-header')}>
+        <div className={cx('shell site-header-inner')}>
+          <span className={cx('admin-brand')}>
+            <a className={cx('wordmark')} href="/" aria-label="todoi.org, home">
               <WordmarkLogo />
-              <span className="wordmark-name">
-                todoi<span className="wordmark-tld">.org</span>
+              <span className={cx('wordmark-name')}>
+                todoi<span className={cx('wordmark-tld')}>.org</span>
               </span>
             </a>
-            <span className="admin-badge">Editor</span>
+            <span className={cx('admin-badge')}>Editor</span>
           </span>
           {session.data ? <SignOut session={session.data} /> : null}
           <ThemeSwitch />
         </div>
       </header>
-      <main id="main" className="admin shell">
+      <main id="main" className={cx('admin shell')}>
         {session.isPending ? (
-          <p className="admin-note" aria-busy="true">
+          <p className={cx('admin-note')} aria-busy="true">
             Checking your session…
           </p>
         ) : session.data ? (
@@ -95,33 +96,33 @@ function SignIn() {
     login.mutate({ email: String(data.get('email')), password: String(data.get('password')) });
   };
   return (
-    <section className="admin-signin" aria-labelledby="signin-title">
-      <h1 className="admin-title" id="signin-title">
+    <section className={cx('admin-signin')} aria-labelledby="signin-title">
+      <h1 className={cx('admin-title')} id="signin-title">
         Sign in to edit
       </h1>
-      <p className="admin-note">The directory is public; changing it is not. Editors sign in with the address they were given.</p>
-      <Form className="admin-form" onSubmit={submit}>
-        <Field.Root name="email" className="admin-field">
-          <Field.Label className="control-label">E-mail</Field.Label>
-          <Input type="email" name="email" required autoComplete="username" className="control-search admin-input" />
+      <p className={cx('admin-note')}>The directory is public; changing it is not. Editors sign in with the address they were given.</p>
+      <Form className={cx('admin-form')} onSubmit={submit}>
+        <Field.Root name="email" className={cx('admin-field')}>
+          <Field.Label className={cx('control-label')}>E-mail</Field.Label>
+          <Input type="email" name="email" required autoComplete="username" className={cx('control-search admin-input')} />
         </Field.Root>
-        <Field.Root name="password" className="admin-field">
-          <Field.Label className="control-label">Password</Field.Label>
+        <Field.Root name="password" className={cx('admin-field')}>
+          <Field.Label className={cx('control-label')}>Password</Field.Label>
           <Input
             type="password"
             name="password"
             required
             autoComplete="current-password"
-            className="control-search admin-input"
+            className={cx('control-search admin-input')}
           />
         </Field.Root>
         {error ? (
-          <p className="admin-error" role="alert">
+          <p className={cx('admin-error')} role="alert">
             {error}
           </p>
         ) : null}
         <p>
-          <button type="submit" className="btn btn-primary" disabled={login.isPending}>
+          <button type="submit" className={cx('btn btn-primary')} disabled={login.isPending}>
             {login.isPending ? 'Signing in…' : 'Sign in'}
           </button>
         </p>
@@ -137,9 +138,9 @@ function SignOut({ session }: { session: Session }) {
     onSettled: () => queryClient.setQueryData(adminKeys.session, null),
   });
   return (
-    <span className="admin-who">
-      <span className="admin-email">{session.email}</span>
-      <button type="button" className="btn btn-ghost btn-sm" onClick={() => logout.mutate()}>
+    <span className={cx('admin-who')}>
+      <span className={cx('admin-email')}>{session.email}</span>
+      <button type="button" className={cx('btn btn-ghost btn-sm')} onClick={() => logout.mutate()}>
         Sign out
       </button>
     </span>
@@ -169,14 +170,14 @@ function Editor({ session }: { session: Session }) {
 
   if (dirs.isError || dir.isError) {
     return (
-      <p className="admin-error" role="alert">
+      <p className={cx('admin-error')} role="alert">
         The editor could not load its data. Reload the page; if it persists, sign out and in again.
       </p>
     );
   }
   if (!dir.data || !slug) {
     return (
-      <p className="admin-note" aria-busy="true">
+      <p className={cx('admin-note')} aria-busy="true">
         Loading…
       </p>
     );
@@ -184,14 +185,14 @@ function Editor({ session }: { session: Session }) {
 
   return (
     <>
-      <div className="admin-head">
-        <h1 className="admin-title">Editor</h1>
-        <nav className="admin-dirs" aria-label="Directories">
+      <div className={cx('admin-head')}>
+        <h1 className={cx('admin-title')}>Editor</h1>
+        <nav className={cx('admin-dirs')} aria-label="Directories">
           {dirs.data?.map((d) => (
             <button
               key={d.slug}
               type="button"
-              className="chip"
+              className={cx('chip')}
               aria-pressed={d.slug === slug}
               onClick={() => void navigate({ search: { dir: d.slug } })}
             >
@@ -199,17 +200,17 @@ function Editor({ session }: { session: Session }) {
             </button>
           ))}
         </nav>
-        <a className="btn btn-ghost btn-sm" href={dir.data.directory.path} target="_blank" rel="noopener">
+        <a className={cx('btn btn-ghost btn-sm')} href={dir.data.directory.path} target="_blank" rel="noopener">
           View the page
         </a>
       </div>
 
-      <div className="admin-grid">
-        <aside className="admin-list" aria-label="Records">
-          <div className="admin-list-head">
+      <div className={cx('admin-grid')}>
+        <aside className={cx('admin-list')} aria-label="Records">
+          <div className={cx('admin-list-head')}>
             <input
               type="search"
-              className="control-search admin-input"
+              className={cx('control-search admin-input')}
               placeholder="Find a record"
               aria-label="Find a record"
               value={filter}
@@ -217,18 +218,18 @@ function Editor({ session }: { session: Session }) {
             />
             <NewRecord session={session} dir={dir.data} />
           </div>
-          <ol className="admin-records" aria-label="Records by Score, highest first">
+          <ol className={cx('admin-records')} aria-label="Records by Score, highest first">
             {records.map(({ r, score }) => (
               <li key={r.slug}>
                 <button
                   type="button"
-                  className="admin-record"
+                  className={cx('admin-record')}
                   aria-current={r.slug === selected?.slug ? 'true' : undefined}
                   data-slug={r.slug}
                   onClick={() => void navigate({ search: { dir: slug, record: r.slug } })}
                 >
-                  <span className="admin-record-name">{r.name}</span>
-                  <span className="admin-record-score" data-score-value={formatScore(score)}>
+                  <span className={cx('admin-record-name')}>{r.name}</span>
+                  <span className={cx('admin-record-score')} data-score-value={formatScore(score)}>
                     {formatScore(score)}
                   </span>
                 </button>
@@ -237,7 +238,7 @@ function Editor({ session }: { session: Session }) {
           </ol>
         </aside>
 
-        <section className="admin-panel" aria-label="Edit record">
+        <section className={cx('admin-panel')} aria-label="Edit record">
           {selected ? (
             <RecordEditor
               // Remount on the values shown: a rolled-back save resets the fields too.
@@ -247,7 +248,7 @@ function Editor({ session }: { session: Session }) {
               record={selected}
             />
           ) : (
-            <p className="admin-note">Choose a record to edit its scores, capabilities and facts.</p>
+            <p className={cx('admin-note')}>Choose a record to edit its scores, capabilities and facts.</p>
           )}
         </section>
       </div>
@@ -314,19 +315,19 @@ function RecordEditor({ session, dir, record }: { session: Session; dir: AdminDi
   };
 
   return (
-    <div className="admin-editor">
-      <div className="admin-editor-head">
-        <h2 className="section-title">{record.name}</h2>
-        <p className="admin-score" aria-live="polite">
+    <div className={cx('admin-editor')}>
+      <div className={cx('admin-editor-head')}>
+        <h2 className={cx('section-title')}>{record.name}</h2>
+        <p className={cx('admin-score')} aria-live="polite">
           Score <strong>{formatScore(score)}</strong>
-          <span className="admin-note"> · mean of the six criteria and the band</span>
+          <span className={cx('admin-note')}> · mean of the six criteria and the band</span>
         </p>
         <DeleteRecord session={session} dir={dir} record={record} />
       </div>
 
-      <Form className="admin-form admin-card" onSubmit={save} aria-label="Record">
-        <h3 className="sub-title">Record</h3>
-        <div className="admin-fields">
+      <Form className={cx('admin-form admin-card')} onSubmit={save} aria-label="Record">
+        <h3 className={cx('sub-title')}>Record</h3>
+        <div className={cx('admin-fields')}>
           <TextField label="Name" value={form.name} onChange={set('name')} required />
           <TextField label="Website" value={form.url} onChange={set('url')} type="url" required />
           <TextField label="First appeared" value={form.year} onChange={set('year')} type="number" required />
@@ -356,15 +357,15 @@ function RecordEditor({ session, dir, record }: { session: Session; dir: AdminDi
           required
         />
         <p>
-          <button type="submit" className="btn btn-primary btn-sm">
+          <button type="submit" className={cx('btn btn-primary btn-sm')}>
             Save record
           </button>
         </p>
       </Form>
 
-      <div className="admin-card">
-        <h3 className="sub-title">Scores</h3>
-        <p className="admin-note">
+      <div className={cx('admin-card')}>
+        <h3 className={cx('sub-title')}>Scores</h3>
+        <p className={cx('admin-note')}>
           {dir.directory.copy.band.name}: {bandLabel(record.band)} ({record.band}.0), set above.
         </p>
         {dir.directory.criteria.map((c) => (
@@ -379,8 +380,8 @@ function RecordEditor({ session, dir, record }: { session: Session; dir: AdminDi
         ))}
       </div>
 
-      <div className="admin-card">
-        <h3 className="sub-title">Capabilities</h3>
+      <div className={cx('admin-card')}>
+        <h3 className={cx('sub-title')}>Capabilities</h3>
         {dir.directory.capabilities.map((c) => (
           <CapabilityEditor
             key={`${c.key}:${record.caps[c.key]?.version}:${record.caps[c.key]?.level}:${record.caps[c.key]?.note}`}
@@ -421,7 +422,7 @@ function ScoreEditor(props: { session: Session; dir: AdminDirectory; record: Adm
   });
   return (
     <form
-      className="admin-row"
+      className={cx('admin-row')}
       aria-label={name}
       data-criterion={criterion}
       onSubmit={(e) => {
@@ -429,10 +430,10 @@ function ScoreEditor(props: { session: Session; dir: AdminDirectory; record: Adm
         put.mutate({ version: row.version, score: Math.round(Number(value) * 10) / 10, review: review.trim() });
       }}
     >
-      <label className="admin-row-label">
-        <span className="control-label">{name}</span>
+      <label className={cx('admin-row-label')}>
+        <span className={cx('control-label')}>{name}</span>
         <input
-          className="control-search admin-input admin-num"
+          className={cx('control-search admin-input admin-num')}
           type="number"
           min={1}
           max={5}
@@ -443,10 +444,10 @@ function ScoreEditor(props: { session: Session; dir: AdminDirectory; record: Adm
           name="score"
         />
       </label>
-      <label className="admin-row-text">
-        <span className="sr-only">Reasoning for {name}</span>
+      <label className={cx('admin-row-text')}>
+        <span className={cx('sr-only')}>Reasoning for {name}</span>
         <textarea
-          className="control-search admin-input admin-textarea"
+          className={cx('control-search admin-input admin-textarea')}
           rows={2}
           required
           value={review}
@@ -454,7 +455,7 @@ function ScoreEditor(props: { session: Session; dir: AdminDirectory; record: Adm
           name="review"
         />
       </label>
-      <button type="submit" className="btn btn-ghost btn-sm">
+      <button type="submit" className={cx('btn btn-ghost btn-sm')}>
         Save
       </button>
     </form>
@@ -481,7 +482,7 @@ function CapabilityEditor(props: { session: Session; dir: AdminDirectory; record
   });
   return (
     <form
-      className="admin-row"
+      className={cx('admin-row')}
       aria-label={name}
       data-capability={capability}
       onSubmit={(e) => {
@@ -489,20 +490,20 @@ function CapabilityEditor(props: { session: Session; dir: AdminDirectory; record
         put.mutate({ version: row.version, level: Number(level) as Level, note: note.trim() || null });
       }}
     >
-      <div className="admin-row-label">
+      <div className={cx('admin-row-label')}>
         <PickField label={name} value={level} onChange={setLevel} items={LEVELS.map((l) => ({ value: String(l.value), label: l.label }))} />
       </div>
-      <label className="admin-row-text">
-        <span className="sr-only">Note on {name}</span>
+      <label className={cx('admin-row-text')}>
+        <span className={cx('sr-only')}>Note on {name}</span>
         <input
-          className="control-search admin-input"
+          className={cx('control-search admin-input')}
           placeholder="Note, when partial or missing"
           value={note}
           onChange={(e) => setNote(e.target.value)}
           name="note"
         />
       </label>
-      <button type="submit" className="btn btn-ghost btn-sm">
+      <button type="submit" className={cx('btn btn-ghost btn-sm')}>
         Save
       </button>
     </form>
@@ -532,16 +533,16 @@ function NewRecord({ session, dir }: { session: Session; dir: AdminDirectory }) 
   });
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger className="btn btn-primary btn-sm">New record</Dialog.Trigger>
+      <Dialog.Trigger className={cx('btn btn-primary btn-sm')}>New record</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="dialog-backdrop" />
-        <Dialog.Popup className="dialog">
-          <Dialog.Title className="section-title">New record</Dialog.Title>
-          <Dialog.Description className="admin-note">
+        <Dialog.Backdrop className={cx('dialog-backdrop')} />
+        <Dialog.Popup className={cx('dialog')}>
+          <Dialog.Title className={cx('section-title')}>New record</Dialog.Title>
+          <Dialog.Description className={cx('admin-note')}>
             It starts as a first pass: every criterion at 3.0 awaiting its reasoning, Medium confidence.
           </Dialog.Description>
           <Form
-            className="admin-form"
+            className={cx('admin-form')}
             onSubmit={(e) => {
               e.preventDefault();
               const d = new FormData(e.currentTarget);
@@ -568,13 +569,13 @@ function NewRecord({ session, dir }: { session: Session; dir: AdminDirectory }) 
             />
             <TextField label="One-line description" name="blurb" multiline required />
             {error ? (
-              <p className="admin-error" role="alert">
+              <p className={cx('admin-error')} role="alert">
                 {error}
               </p>
             ) : null}
-            <p className="dialog-actions">
-              <Dialog.Close className="btn btn-ghost btn-sm">Cancel</Dialog.Close>
-              <button type="submit" className="btn btn-primary btn-sm" disabled={create.isPending}>
+            <p className={cx('dialog-actions')}>
+              <Dialog.Close className={cx('btn btn-ghost btn-sm')}>Cancel</Dialog.Close>
+              <button type="submit" className={cx('btn btn-primary btn-sm')} disabled={create.isPending}>
                 {create.isPending ? 'Creating…' : 'Create'}
               </button>
             </p>
@@ -604,17 +605,17 @@ function DeleteRecord({ session, dir, record }: { session: Session; dir: AdminDi
   });
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger className="btn btn-ghost btn-sm admin-danger">Delete…</Dialog.Trigger>
+      <Dialog.Trigger className={cx('btn btn-ghost btn-sm admin-danger')}>Delete…</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="dialog-backdrop" />
-        <Dialog.Popup className="dialog">
-          <Dialog.Title className="section-title">Delete {record.name}?</Dialog.Title>
-          <Dialog.Description className="admin-note">
+        <Dialog.Backdrop className={cx('dialog-backdrop')} />
+        <Dialog.Popup className={cx('dialog')}>
+          <Dialog.Title className={cx('section-title')}>Delete {record.name}?</Dialog.Title>
+          <Dialog.Description className={cx('admin-note')}>
             The record, its scores, capabilities and sources leave the page and the dataset. This cannot be undone.
           </Dialog.Description>
-          <p className="dialog-actions">
-            <Dialog.Close className="btn btn-ghost btn-sm">Keep it</Dialog.Close>
-            <button type="button" className="btn btn-primary btn-sm admin-danger-solid" onClick={() => del.mutate()} disabled={del.isPending}>
+          <p className={cx('dialog-actions')}>
+            <Dialog.Close className={cx('btn btn-ghost btn-sm')}>Keep it</Dialog.Close>
+            <button type="button" className={cx('btn btn-primary btn-sm admin-danger-solid')} onClick={() => del.mutate()} disabled={del.isPending}>
               {del.isPending ? 'Deleting…' : 'Delete'}
             </button>
           </p>
@@ -628,11 +629,11 @@ function DeleteRecord({ session, dir, record }: { session: Session; dir: AdminDi
 
 function Faqs({ session, dir }: { session: Session; dir: AdminDirectory }) {
   return (
-    <section className="admin-card admin-faqs" aria-labelledby="faqs-title">
-      <h2 className="section-title" id="faqs-title">
+    <section className={cx('admin-card admin-faqs')} aria-labelledby="faqs-title">
+      <h2 className={cx('section-title')} id="faqs-title">
         Questions
       </h2>
-      <p className="admin-note">Answers take inline HTML: paragraphs, bold, italics and links. Anything else is removed.</p>
+      <p className={cx('admin-note')}>Answers take inline HTML: paragraphs, bold, italics and links. Anything else is removed.</p>
       {dir.directory.faqs.map((f) => (
         <FaqEditor key={`${f.id}:${f.version}:${f.question}:${f.answer}`} session={session} dir={dir} faq={f} />
       ))}
@@ -663,7 +664,7 @@ function FaqEditor({ session, dir, faq }: { session: Session; dir: AdminDirector
   });
   return (
     <form
-      className="admin-faq"
+      className={cx('admin-faq')}
       aria-label={faq.question}
       onSubmit={(e) => {
         e.preventDefault();
@@ -673,7 +674,7 @@ function FaqEditor({ session, dir, faq }: { session: Session; dir: AdminDirector
       <TextField label="Question" value={question} onChange={setQuestion} required />
       <TextField label="Answer" value={answer} onChange={setAnswer} multiline rows={4} required />
       <p>
-        <button type="submit" className="btn btn-ghost btn-sm">
+        <button type="submit" className={cx('btn btn-ghost btn-sm')}>
           Save question
         </button>
       </p>
@@ -696,19 +697,19 @@ function TextField(props: {
 }) {
   const controlled = props.value !== undefined ? { value: props.value, onChange: (e: { target: { value: string } }) => props.onChange?.(e.target.value) } : {};
   return (
-    <Field.Root className="admin-field" name={props.name}>
-      <Field.Label className="control-label">{props.label}</Field.Label>
+    <Field.Root className={cx('admin-field')} name={props.name}>
+      <Field.Label className={cx('control-label')}>{props.label}</Field.Label>
       {props.multiline ? (
         <Field.Control
           render={<textarea rows={props.rows ?? 3} />}
-          className="control-search admin-input admin-textarea"
+          className={cx('control-search admin-input admin-textarea')}
           required={props.required}
           name={props.name}
           {...controlled}
         />
       ) : (
         <Field.Control
-          className="control-search admin-input"
+          className={cx('control-search admin-input')}
           type={props.type ?? 'text'}
           required={props.required}
           name={props.name}
@@ -716,28 +717,28 @@ function TextField(props: {
           {...controlled}
         />
       )}
-      <Field.Error className="admin-error" />
+      <Field.Error className={cx('admin-error')} />
     </Field.Root>
   );
 }
 
 function PickField(props: { label: string; value: string; onChange: (v: string) => void; items: { value: string; label: string }[] }) {
   return (
-    <Field.Root className="admin-field">
-      <Field.Label className="control-label" nativeLabel={false} render={<div />}>
+    <Field.Root className={cx('admin-field')}>
+      <Field.Label className={cx('control-label')} nativeLabel={false} render={<div />}>
         {props.label}
       </Field.Label>
       <Select.Root items={props.items} value={props.value} onValueChange={(v) => typeof v === 'string' && props.onChange(v)}>
-        <span className="select-wrap">
-          <Select.Trigger className="control-select" aria-label={props.label}>
-            <Select.Value className="select-value" />
+        <span className={cx('select-wrap')}>
+          <Select.Trigger className={cx('control-select')} aria-label={props.label}>
+            <Select.Value className={cx('select-value')} />
           </Select.Trigger>
         </span>
         <Select.Portal>
-          <Select.Positioner className="select-positioner" sideOffset={4} alignItemWithTrigger={false}>
-            <Select.Popup className="select-popup">
+          <Select.Positioner className={cx('select-positioner')} sideOffset={4} alignItemWithTrigger={false}>
+            <Select.Popup className={cx('select-popup')}>
               {props.items.map((i) => (
-                <Select.Item key={i.value} value={i.value} className="select-item">
+                <Select.Item key={i.value} value={i.value} className={cx('select-item')}>
                   <Select.ItemText>{i.label}</Select.ItemText>
                 </Select.Item>
               ))}

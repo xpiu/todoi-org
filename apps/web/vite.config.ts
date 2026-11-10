@@ -21,7 +21,7 @@ export default defineConfig(({ isSsrBuild }) => ({
   ],
   css: {
     modules: {
-      localsConvention: 'camelCaseOnly',
+      // No localsConvention: module keys keep their dashes, styles['matrix-row'], the same words as the hooks.
       generateScopedName: isSsrBuild || process.env.NODE_ENV === 'production' ? '[hash:base64:6]' : '[name]_[local]',
     },
   },

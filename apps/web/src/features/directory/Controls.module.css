@@ -1,0 +1,673 @@
+/* Search, sort, the must-have toggles, the licensing or audience chips, and the phone-width disclosure.
+   Moved from the original stylesheet unchanged; classes owned elsewhere are named
+   as :global(.hook) and every element carries its hook beside its module class. */
+
+.controls {
+  display: grid;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  background-color: var(--bg-sunken);
+  border: var(--border);
+  border-radius: var(--radius-3);
+}
+
+/* Search and sort keep conventional labels; the lower-frequency controls use
+   compact inline group labels. This makes the panel read as one filter rail
+   instead of three stacked mini-forms. */
+.control-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--sp-3) var(--sp-5);
+  min-width: 0;
+}
+
+.control-row-secondary {
+  align-items: flex-end;
+  padding-top: var(--sp-2);
+  border-top: var(--border);
+}
+
+/* Sentence case, 12px, medium. The old tracked-out capitals shouted a level
+   of structure the panel does not have: these name a field, they do not open
+   a section. */
+.control-label {
+  display: block;
+  padding: 0;
+  margin-bottom: var(--sp-2);
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  line-height: var(--lh-ui);
+  letter-spacing: var(--tracking-ui);
+  color: var(--text-faint);
+}
+
+.control-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+/* Search takes three shares to sort's one, and both carry a real minimum, so
+   they share a line at a stable ratio and wrap together below ~30rem. */
+.control-field-grow {
+  position: relative;
+  flex: 3 1 16rem;
+}
+
+/* A magnifier set inside the field, drawn as a mask so it takes the faint
+   ink in both themes. The input cannot carry a pseudo-element, so the field
+   does, pinned to the input's own height from the bottom. */
+.control-field-grow::after {
+  content: '';
+  position: absolute;
+  left: var(--sp-3);
+  bottom: calc(var(--control-h) / 2 - 0.5rem);
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--text-faint);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.control-field-sort {
+  flex: 1 1 13rem;
+}
+
+.control-field .control-label {
+  margin-bottom: var(--sp-1);
+}
+
+/* fieldset + legend, de-chromed. */
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* The abbreviated visible labels keep the five native capabilities scannable
+   while their full names remain on the inputs and hover titles. */
+.control-group-wide {
+  flex: 1 1 30rem;
+}
+
+.control-group-end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-left: auto;
+}
+
+.control-group > .control-label {
+  flex: none;
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+/* The two option sets share one label-over-controls rhythm. Keeping the label
+   out of the horizontal run is what leaves room for actions on the same rail. */
+.control-row-secondary > .control-group:not(.control-group-wide):not(.control-group-end) {
+  display: block;
+}
+
+/* Mobile-only disclosure: desktop keeps every option in view. */
+.filter-disclosure {
+  display: none;
+}
+
+.control-search,
+.control-select {
+  min-height: var(--control-h);
+  padding: 0 var(--sp-3);
+  letter-spacing: var(--tracking-ui);
+  background-color: var(--bg-raised);
+  color: var(--text);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  font-size: var(--fs-sm);
+  transition: border-color var(--dur) var(--ease);
+}
+
+.control-search {
+  width: 100%;
+  min-width: 0;
+  padding-left: 2.375rem;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.control-search:focus-visible,
+.control-select:focus-visible {
+  border-color: var(--accent);
+  outline-offset: 0;
+}
+
+.control-search::placeholder {
+  color: var(--text-faint);
+  opacity: 1;
+}
+
+.control-search::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Filled, not intrinsic: the longest option would otherwise set the field's
+   width and leave the select narrower than the search box once they stack. */
+.control-select {
+  width: 100%;
+  min-width: 0;
+  cursor: pointer;
+  font-size: var(--fs-sm);
+}
+
+/* Sort is two decisions - what by, which way - so it is two controls joined
+   into one bar: the field select, and a direction button that names the
+   order in the field's own words ("Large to small", "A to Z") and flips it.
+   Twelve fields in three groups replace twenty-four flat combinations. */
+.sort-pair {
+  display: flex;
+  min-width: 0;
+}
+
+.sort-pair .select-wrap {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sort-pair .control-select {
+  border-radius: var(--radius-2) 0 0 var(--radius-2);
+}
+
+/* The native arrow is drawn flush against the right border in Chromium and
+   collides with the label once the field narrows, so it is replaced by our
+   own chevron, inset by the field's own padding, with room reserved for it
+   so a long label truncates before reaching it. */
+.select-wrap {
+  position: relative;
+  display: block;
+}
+
+.select-wrap .control-select {
+  padding-right: calc(var(--sp-3) + 0.875rem + var(--sp-2));
+  text-overflow: ellipsis;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.select-wrap::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: var(--sp-3);
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-top: -0.4375rem;
+  background-color: var(--text-2);
+  pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.select-wrap:hover::after {
+  background-color: var(--text);
+}
+
+.sort-dir {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--control-h);
+  min-inline-size: 9rem;
+  margin-left: calc(var(--hair) * -1);   /* share the boundary */
+  padding-inline: var(--sp-3);
+  border: var(--border-strong);
+  border-radius: 0 var(--radius-2) var(--radius-2) 0;
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease),
+  background-color var(--dur) var(--ease);
+}
+
+.sort-dir:hover {
+  z-index: 1;   /* its border wins the shared edge */
+  border-color: var(--line-heavy);
+  color: var(--text);
+}
+
+.sort-dir:focus-visible {
+  z-index: 1;
+  border-color: var(--accent);
+  outline-offset: 0;
+}
+
+.sort-dir-icon {
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  background-color: var(--accent);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14'/%3E%3Cpath d='m19 12-7 7-7-7'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 5v14'/%3E%3Cpath d='m19 12-7 7-7-7'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform var(--dur) var(--ease);
+}
+
+.sort-dir[data-dir='asc'] .sort-dir-icon {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E");
+}
+
+.control-search:hover,
+.control-select:hover {
+  border-color: var(--line-heavy);
+}
+
+/* Feature toggles -------------------------------------------------------- */
+.control-toggles,
+.control-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+
+.toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--control-h);
+  padding-inline: var(--sp-2);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease),
+  background-color var(--dur) var(--ease);
+}
+
+/* Focusable, operable, invisible — the mark carries the state. */
+.toggle-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The mark is the icon: a 22px tile that carries the glyph unchecked and
+   fills with the accent when the filter is on. The state cue is the tile
+   appearing, not a hue change, so it survives greyscale and forced colours —
+   and the glyph stays legible throughout, which a checkbox that swaps to a
+   tick would not. */
+.toggle-mark {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: var(--hair) solid transparent;
+  border-radius: var(--radius-1);
+  color: var(--text-faint);
+  transition: background-color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease),
+  color var(--dur) var(--ease);
+}
+
+/* Optical: the stopwatch crown and the calendar hangers sit above their
+   bodies, so every glyph is drawn to the same 16 box and centred as one. */
+.toggle-icon {
+  display: block;
+}
+
+.toggle-label {
+  white-space: nowrap;
+}
+
+.toggle:hover {
+  border-color: var(--line-heavy);
+  color: var(--text);
+}
+
+.toggle:hover .toggle-mark {
+  color: var(--text-2);
+}
+
+.toggle-input:checked ~ .toggle-mark,
+.toggle:hover .toggle-input:checked ~ .toggle-mark {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.toggle:has(.toggle-input:checked) {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.toggle:has(.toggle-input:focus-visible) {
+  outline: var(--focus-width) solid var(--ring);
+  outline-offset: var(--focus-offset);
+}
+
+/* Licensing chips -------------------------------------------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: var(--control-h);
+  padding-inline: var(--sp-2);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease),
+  background-color var(--dur) var(--ease);
+}
+
+.chip:hover {
+  border-color: var(--line-heavy);
+  color: var(--text);
+}
+
+.chip[aria-pressed='true'] {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-strong);   /* 6:1 on the soft fill at 11px */
+  font-weight: 500;
+}
+
+.chip[aria-pressed='true']:hover {
+  border-color: var(--accent-strong);
+}
+
+.result-count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+/* The address bar already holds the view; this hands it over. Only shown
+   once there is a view worth handing over - a search, a filter, a sort or an
+   open record - and it confirms in place rather than with a toast. */
+.copy-link {
+  gap: var(--sp-2);
+}
+
+.copy-link::before {
+  content: '';
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.copy-link[data-state='copied'] {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.copy-link[data-state='copied']::before {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+}
+
+@media (min-width: 641px) and (max-width: 1100px) {
+  /* At intermediate widths, make the hierarchy explicit: native capabilities
+       take the first line; licensing and actions share the second. */
+  .control-group-wide {
+    flex-basis: 100%;
+  }
+
+  .control-row-secondary > .control-group:not(.control-group-wide):not(.control-group-end) {
+    display: flex;
+  }
+
+}
+
+@media (max-width: 640px) {
+  .controls {
+    padding: var(--sp-4);
+  }
+
+  .sort-dir {
+    min-inline-size: 0;
+  }
+
+  .control-row {
+    gap: var(--sp-3);
+  }
+
+  /* Search and sort stay immediately available. Secondary filters collapse
+       behind one explicit, stateful row so the directory starts in view. */
+  .filter-disclosure {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: calc(var(--control-h) + var(--sp-3) + var(--hair));
+    padding: var(--sp-3) 0 0;
+    border: 0;
+    border-top: var(--border);
+    background: transparent;
+    color: var(--text);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    letter-spacing: var(--tracking-ui);
+    text-align: left;
+  }
+
+  .filter-disclosure-icon {
+    flex: none;
+    color: var(--accent);
+  }
+
+  .filter-disclosure-summary {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: var(--fs-3xs);
+    font-weight: 400;
+    color: var(--text-faint);
+  }
+
+  .filter-disclosure-chevron {
+    flex: none;
+    margin-left: var(--sp-2);
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .filter-disclosure[aria-expanded='true'] .filter-disclosure-chevron {
+    transform: rotate(180deg);
+  }
+
+  :global(.js) .control-row-secondary:not(.is-open) {
+    display: none;
+  }
+
+  .control-row-secondary {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .control-group {
+    flex: 1 1 100%;
+    display: grid;
+    align-items: stretch;
+    gap: var(--sp-2);
+  }
+
+  .control-group > .control-label {
+    white-space: normal;
+  }
+
+  .control-toggles .toggle {
+    flex: 1 1 calc(33.333% - var(--sp-2));
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .control-chips {
+    flex-wrap: nowrap;
+  }
+
+  .control-chips .chip {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .control-group-end {
+    display: flex;
+    margin-left: 0;
+    justify-content: flex-start;
+  }
+
+  .control-group-end .result-count {
+    display: none;
+  }
+
+}
+
+@media print {
+  .controls {
+    display: none;
+  }
+
+}
+
+html:not(:global(.js)) .controls {
+  display: none;
+}
+
+html:not(:global(.js)) .copy-link {
+  display: none;
+}
+
+/* --- Must-have toggles: Base UI Checkbox ---------------------------------- */
+.toggle-input[data-checked] ~ .toggle-mark,
+.toggle:hover .toggle-input[data-checked] ~ .toggle-mark {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+
+.toggle:has(.toggle-input[data-checked]) {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+/* --- Sort field: Base UI Select -------------------------------------------- */
+.control-select {
+  display: flex;
+  align-items: center;
+  text-align: start;
+}
+
+.select-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.select-positioner {
+  z-index: 150; /* over the sticky header (100), under the tooltip (200) */
+  outline: 0;
+}
+
+.select-popup {
+  min-width: var(--anchor-width);
+  max-height: min(28rem, var(--available-height));
+  overflow-y: auto;
+  padding: var(--sp-1);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  box-shadow: var(--shadow-pop);
+  font-size: var(--fs-sm);
+  outline: 0;
+  transform-origin: var(--transform-origin);
+  transition:
+  opacity var(--dur) var(--ease),
+  transform var(--dur) var(--ease);
+}
+
+.select-popup[data-starting-style],
+.select-popup[data-ending-style] {
+  opacity: 0;
+  transform: scale(0.98);
+}
+
+.select-group + .select-group {
+  margin-top: var(--sp-1);
+  padding-top: var(--sp-1);
+  border-top: var(--border);
+}
+
+.select-group-label {
+  padding: var(--sp-2) var(--sp-3) var(--sp-1);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.select-item {
+  display: flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0 var(--sp-3);
+  border-radius: var(--radius-1);
+  color: var(--text);
+  letter-spacing: var(--tracking-ui);
+  cursor: pointer;
+  outline: 0;
+  user-select: none;
+}
+
+.select-item[data-highlighted] {
+  background-color: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.select-item[data-selected] {
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .select-popup {
+    transition: none;
+  }
+
+}

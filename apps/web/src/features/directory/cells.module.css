@@ -1,0 +1,509 @@
+/* What a row and a card share: tags, bands, scores, marks, figures, daggers and the expander.
+   Moved from the original stylesheet unchanged; classes owned elsewhere are named
+   as :global(.hook) and every element carries its hook beside its module class. */
+
+:global(.matrix-th) .methodology {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.25em;
+  cursor: help;
+}
+
+:global(.th-sort) .methodology {
+  cursor: pointer;
+}
+
+.project-icon {
+  grid-row: 1;
+  /* Sized against the name's cap height, not its line box: the mark annotates
+  the row, it does not outrank the score the row is sorted on. */
+  width: var(--icon-size, 1rem);
+  height: var(--icon-size, 1rem);
+  /* Marks arrive as squares, circles and bare glyphs at whatever crop their
+  owner shipped; contain keeps every one whole and the same optical size. */
+  object-fit: contain;
+  border-radius: var(--radius-2);
+  /* Nudged down to sit on the name's cap height rather than its line box. */
+  margin-top: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  /* Three marks are drawn for a light ground and fail on the dark one, each in
+     its own way, so each gets the smallest correction that fixes it.
+  
+     Huly is a pure-black mark on transparency: a hole. It inverts — but not to
+     #fff, which would make it the brightest ink on the page and louder than the
+     headings beside it. Damped to --ink's own value instead.
+  
+     Kanboard and Worklenz draw in near-black and cannot be inverted (both carry
+     colour). They get a paper chip, also at --ink, so the chip can never out-
+     shout the brightest text either. Their published favicons ship that chip
+     baked in; drawing it here instead is what stops it appearing and vanishing
+     as zebra parity changes under a sort. */
+  :root:not([data-theme='light']) .project-icon[src$='huly.webp'],
+  :root:not([data-theme='light']) .project-icon[src$='super-productivity.webp'] {
+    filter: invert(1) brightness(0.91);
+  }
+
+  :root:not([data-theme='light']) .project-icon[src$='kanboard.webp'],
+  :root:not([data-theme='light']) .project-icon[src$='worklenz.webp'] {
+    padding: 1px;
+    background-color: var(--ink);
+  }
+
+}
+
+:root[data-theme='dark'] .project-icon[src$='huly.webp'],
+:root[data-theme='dark'] .project-icon[src$='super-productivity.webp'] {
+  filter: invert(1) brightness(0.91);
+}
+
+:root[data-theme='dark'] .project-icon[src$='kanboard.webp'],
+:root[data-theme='dark'] .project-icon[src$='worklenz.webp'] {
+  padding: 1px;
+  background-color: var(--ink);
+}
+
+.project-name {
+  display: block;
+  padding-block: 1px;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.project-name:hover,
+.project-name:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.project-name:hover {
+  color: var(--accent);
+  text-decoration-color: currentColor;
+}
+
+:global(.matrix-row):has(:global(.project-blurb):global(.is-clamped):hover) .row-expand {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* The dagger marks a count whose repository does not map onto the product —
+   a mirror, a split codebase, an app inside a platform. It is a footnote mark
+   and must read as one: raised, quiet, and never as wide as a digit. */
+.stars-note {
+  margin-left: 0.15em;
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  line-height: 1;
+  vertical-align: super;
+  color: var(--text-2);
+  cursor: help;
+  transition: color var(--dur) var(--ease);
+}
+
+.stars-note:hover,
+.stars-note:focus-visible {
+  color: var(--accent);
+}
+
+:global(.matrix-row):has(.row-expand[aria-expanded='true']) > * {
+  background-color: var(--accent-soft);
+  border-top-color: var(--accent);
+}
+
+/* Expand affordance ------------------------------------------------------ */
+.row-expand {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border: var(--border-strong);
+  border-radius: var(--radius-1);
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease),
+  background-color var(--dur) var(--ease);
+}
+
+.row-expand-mark {
+  display: block;
+  width: 0.4375rem;
+  height: 0.4375rem;
+  margin-top: -3px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform var(--dur) var(--ease);
+}
+
+[aria-expanded='true'] .row-expand-mark {
+  margin-top: 3px;
+  transform: rotate(-135deg);
+}
+
+.row-expand:hover,
+.card-expand:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.row-expand[aria-expanded='true'],
+.card-expand[aria-expanded='true'] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background-color: var(--accent-soft);
+}
+
+.mark {
+  display: inline-block;
+  min-width: 1.15em;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1;
+  text-align: center;
+  color: var(--text-faint);
+}
+
+/* The mark is drawn SVG, not a Unicode glyph, so it renders identically on
+   every platform and inherits colour through currentColor. */
+.mark-svg {
+  display: block;
+  overflow: visible;
+}
+
+.mark-full {
+  color: var(--accent);          /* ● full / native */
+}
+
+.mark-partial {
+  /* The one place the second ink is used. Amber reads as a caveat where a
+  grey half-circle read as a faded tick. */
+  color: var(--signal);          /* ◐ partial: paid tier, plugin, add-on */
+}
+
+.mark-none {
+  color: var(--text-faint);      /* ○ not available natively */
+}
+
+/* 1–5 score. --fill (0–1) is set inline per cell and draws the rule. */
+.score {
+  display: inline-block;
+  inline-size: 2.5rem;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.25;
+  color: var(--text);
+}
+
+.score-num {
+  display: block;
+  font-size: var(--fs-xs);
+  text-align: center;
+}
+
+.score-lead {
+  inline-size: 3.25rem;
+}
+
+.score-lead .score-num {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+/* A gauge, not an underline: the unfilled track stays visible, and --fill is
+   mapped across the real 1-5 range so clustered scores still separate. */
+.score::after {
+  content: '';
+  display: block;
+  block-size: 4px;
+  margin-top: 4px;
+  border-radius: 2px;
+  inline-size: 100%;
+  background-image: linear-gradient(
+  to right,
+  var(--accent) calc(var(--fill, 0) * 100%),
+  transparent calc(var(--fill, 0) * 100%)
+  );
+  background-color: var(--track);
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* Community is an editorial five-step band; stars use five logarithmic-ish
+   buckets set from the raw data in app.js. Both resolve through the same ramp
+   so low, middle and high read consistently without pretending the two
+   measures are equivalent. */
+.comm-band,
+.num[data-grade] {
+  --grade-color: var(--grade-3);
+}
+
+.comm-band[data-comm='1'],
+.num[data-grade='1'] {
+  --grade-color: var(--grade-1);
+}
+
+.comm-band[data-comm='2'],
+.num[data-grade='2'] {
+  --grade-color: var(--grade-2);
+}
+
+.comm-band[data-comm='4'],
+.num[data-grade='4'] {
+  --grade-color: var(--grade-4);
+}
+
+.comm-band[data-comm='5'],
+.num[data-grade='5'] {
+  --grade-color: var(--grade-5);
+}
+
+/* The star count is a visibility signal, not a ranking, and the page says so
+   in its own tooltip. Painting it with the ramp ranked it anyway - and in the
+   same green as every link. The figure is set in ink; the band beside it
+   already carries the colour, with a word to go with it. */
+.num[data-grade] {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Licensing tags. Four channels beyond hue: glyph, fill, border style, weight.
+   The weight channel runs 500 / 400 / 300 — three files DM Mono actually
+   ships, so the steps are drawn rather than synthesised. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.15em 0.5em 0.15em 0.45em;
+  border: var(--hair) solid var(--line-strong);
+  border-radius: var(--radius-1);
+  background: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+/* Padlock glyph. Two channels carry the model, both readable at 12px: the
+   shackle says whether the licence lets you out, and how much of the body is
+   filled says how much of the product the free licence covers. FOSS is open
+   and solid, open core is open and half solid, source-available is shut and
+   hollow. Drawn inline so it inherits the tag's colour through currentColor
+   and survives greyscale and print. */
+.tag-ico {
+  display: block;
+  flex: none;
+  overflow: visible;
+}
+
+.tag-foss {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  /* The pressed ink: on the soft fill the plain accent sits at 4.4:1 at this
+  size, a hair under AA; the hover step clears it at 6:1. */
+  color: var(--accent-strong);
+  font-weight: 500;
+}
+
+.tag-open-core {
+  border-color: var(--line-heavy);
+  color: var(--text);
+  font-weight: 400;
+}
+
+.tag-source-available {
+  border-style: dashed;
+  color: var(--text-2);
+  font-weight: 300;
+}
+
+.pill,
+.comm-band {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15em 0.55em;
+  border-radius: var(--radius-1);
+}
+
+.pill {
+  background-color: var(--bg-sunken);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: 0.04em;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* Licensing tags and community-size bands carry an explanation. The cursor
+   advertises it; the tooltip itself is built by app.js (§ token tooltips) and
+   lives on <body>, because the matrix is a horizontal scroller and would clip
+   a positioned child. */
+.tag[data-lic],
+.comm-band {
+  cursor: help;
+}
+
+/* Give the same band the same compact label treatment in the matrix and its
+   responsive card. The printed word remains the non-colour cue. */
+.comm-band {
+  border: var(--hair) solid color-mix(
+  in srgb,
+  var(--grade-color) var(--grade-edge),
+  var(--bg-raised)
+  );
+  background-color: color-mix(
+  in srgb,
+  var(--grade-color) var(--grade-wash),
+  var(--bg-raised)
+  );
+  color: var(--grade-color);
+  font-weight: 500;
+}
+
+/* The heads carried the methodology while the checks were columns; inside the
+   record the labels carry it, so they need the same dotted-underline tell. */
+:global(.detail) .methodology {
+  text-decoration: underline dotted;
+  text-underline-offset: 0.25em;
+  cursor: help;
+}
+
+:global(.cap):has(.mark-none) {
+  background-color: transparent;
+  border-style: dashed;
+}
+
+:global(.cap) .mark {
+  margin-top: 0.15em;
+}
+
+/* A card carries one name, not eleven scanned at once, so the mark can be
+   larger here and sit on the name's centre rather than its cap height. */
+:global(.card-title) .project-icon {
+  --icon-size: 1.5rem;
+  flex: none;
+  margin-top: 0;
+}
+
+:global(.card-title) .project-name {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Thirty pixels of drawn edge, fifty-eight by forty-six of touch: the card is
+   a list row read with a thumb, and the control that replaced a full-width
+   button has to stay as easy to hit. The hit area grows into the card's own
+   padding and the gap beside the score, never past it — neither the row above
+   nor the one below may catch the tap meant for this one. */
+.card-expand {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border: var(--border-strong);
+  border-radius: var(--radius-1);
+  background-color: var(--bg);
+  color: var(--text-2);
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease),
+  background-color var(--dur) var(--ease);
+}
+
+.card-expand::after {
+  content: '';
+  position: absolute;
+  inset: -8px -16px -8px -12px;
+}
+
+.card-expand .row-expand-mark {
+  flex: none;
+}
+
+/* The licence tag, the band and the dagger open a tooltip on tap, and draw
+   at 22-24px. Each gets an invisible 44px seat behind it: the ink stays
+   where it is, the thumb gets what it needs. The seats stop at the card
+   meta line, so they never catch the tap meant for the disclosure above. */
+:global(.card-meta) .tag[data-lic],
+:global(.card-meta) .comm-band,
+:global(.card-meta) .stars-note {
+  position: relative;
+}
+
+:global(.card-meta) .tag[data-lic]::before,
+:global(.card-meta) .comm-band::before,
+:global(.card-meta) .stars-note::before {
+  content: '';
+  position: absolute;
+  inset: -10px -6px;
+}
+
+@media print {
+  /* Same reasoning for the dagger: the qualification it points at lives in a
+       tooltip, and a footnote mark with no footnote under it is just noise. The
+       FAQ prints, and it works the Redmine case in full. */
+  .stars-note {
+    display: none;
+  }
+
+  /* The project marks come off on paper. Print opens every record, so the
+       eleven marks land about one to a page and a half and never sit next to
+       each other — recognition by adjacency, the only reason they are on the
+       page, cannot happen. What is left is eleven colour plates on a sheet
+       that flattens every other token to black, white and one grey, and on a
+       greyscale printer three of them come out as unidentifiable smudges. */
+  .project-icon {
+    display: none;
+  }
+
+}
+
+html:not(:global(.js)) .row-expand,
+html:not(:global(.js)) .card-expand {
+  display: none;
+}
+
+/* Audience tags. Unlike the licensing padlock these are not ordered - a team
+   tool is not "more" than a personal one - so all four share one neutral
+   weight and the glyph alone tells them apart. No fill, no dashed edge: those
+   channels mean openness on the front page and must not be borrowed for a
+   different scale. */
+.tag-seg {
+  border-color: var(--line-heavy);
+  color: var(--text);
+  font-weight: 400;
+}
+
+.tag-seg[data-lic] {
+  cursor: help;
+}
+
+:global(.cell-price) .num {
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* "Quote" is an absence of a figure, not a figure: quieter than a price. */
+:global(.cell-price) .num-quote,
+:global(.card-meta) .num-quote {
+  font-weight: 400;
+  color: var(--text-2);
+}
+
+/* The dagger draws at 7x11px; its seat is a thumb's width. */
+:global(.card-meta) .stars-note::before {
+  inset: -16px -14px;
+}

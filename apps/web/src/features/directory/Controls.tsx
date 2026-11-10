@@ -11,6 +11,7 @@ import { ChevronIcon, FilterIcon, Glyph, TagIcon } from '../../components/icons.
 import { useHydrated } from '../../lib/hydrated.ts';
 import { useBoardUi } from '../../lib/stores.ts';
 import { useDirectory } from './state.tsx';
+import { cx } from '../../styles/modules.ts';
 
 export function resultText(visible: number, total: number, nouns: [string, string]): string {
   const noun = total === 1 ? nouns[0] : nouns[1];
@@ -48,13 +49,13 @@ function SearchField() {
   }, []);
 
   return (
-    <Field.Root className="control-field control-field-grow">
-      <Field.Label className="control-label">Search</Field.Label>
+    <Field.Root className={cx('control-field control-field-grow')}>
+      <Field.Label className={cx('control-label')}>Search</Field.Label>
       <Input
         ref={input}
         id="q"
         type="search"
-        className="control-search"
+        className={cx('control-search')}
         placeholder={config.copy.controls.searchPlaceholder}
         autoComplete="off"
         spellCheck={false}
@@ -78,11 +79,11 @@ function SortField() {
   const items = copy.controls.sortGroups.flatMap((g) => g.options);
   const words = dirWords(view.sortKey, view.sortDir, copy.dirWords, copy.ascKeys);
   return (
-    <div className="control-field control-field-sort">
-      <label className="control-label" htmlFor="sort-field">
+    <div className={cx('control-field control-field-sort')}>
+      <label className={cx('control-label')} htmlFor="sort-field">
         Sort by
       </label>
-      <div className="sort-pair">
+      <div className={cx('sort-pair')}>
         <Select.Root
           items={items}
           value={view.sortKey}
@@ -90,19 +91,19 @@ function SortField() {
             if (typeof key === 'string') update({ sortKey: key, sortDir: defaultDir(key, copy.ascKeys) });
           }}
         >
-          <span className="select-wrap">
-            <Select.Trigger id="sort-field" className="control-select">
-              <Select.Value className="select-value" />
+          <span className={cx('select-wrap')}>
+            <Select.Trigger id="sort-field" className={cx('control-select')}>
+              <Select.Value className={cx('select-value')} />
             </Select.Trigger>
           </span>
           <Select.Portal>
-            <Select.Positioner className="select-positioner" sideOffset={4} alignItemWithTrigger={false}>
-              <Select.Popup className="select-popup">
+            <Select.Positioner className={cx('select-positioner')} sideOffset={4} alignItemWithTrigger={false}>
+              <Select.Popup className={cx('select-popup')}>
                 {copy.controls.sortGroups.map((g) => (
-                  <Select.Group key={g.label} className="select-group">
-                    <Select.GroupLabel className="select-group-label">{g.label}</Select.GroupLabel>
+                  <Select.Group key={g.label} className={cx('select-group')}>
+                    <Select.GroupLabel className={cx('select-group-label')}>{g.label}</Select.GroupLabel>
                     {g.options.map((o) => (
-                      <Select.Item key={o.value} value={o.value} className="select-item">
+                      <Select.Item key={o.value} value={o.value} className={cx('select-item')}>
                         <Select.ItemText>{o.label}</Select.ItemText>
                       </Select.Item>
                     ))}
@@ -115,13 +116,13 @@ function SortField() {
         <button
           type="button"
           id="sort-dir"
-          className="sort-dir"
+          className={cx('sort-dir')}
           data-dir={view.sortDir}
           aria-label={`Order: ${words.toLowerCase()}. Reverse the order`}
           onClick={() => update({ sortDir: view.sortDir === 'desc' ? 'asc' : 'desc' })}
         >
-          <span className="sort-dir-icon" aria-hidden="true" />
-          <span className="sort-dir-label" id="sort-dir-label">
+          <span className={cx('sort-dir-icon')} aria-hidden="true" />
+          <span className={cx('sort-dir-label')} id="sort-dir-label">
             {words}
           </span>
         </button>
@@ -156,7 +157,7 @@ function CopyLink({ show }: { show: boolean }) {
     <button
       type="button"
       id="copy-link"
-      className="btn btn-ghost btn-sm copy-link"
+      className={cx('btn btn-ghost btn-sm copy-link')}
       hidden={!show}
       data-state={state === 'idle' ? undefined : state}
       onClick={copy}
@@ -181,15 +182,15 @@ export function Controls() {
     `${view.sortKey}-${view.sortDir}` !== 'community-desc';
 
   return (
-    <div className="controls">
-      <div className="control-row control-row-primary">
+    <div className={cx('controls')}>
+      <div className={cx('control-row control-row-primary')}>
         <SearchField />
         <SortField />
       </div>
 
       <button
         type="button"
-        className="filter-disclosure"
+        className={cx('filter-disclosure')}
         id="filter-disclosure"
         aria-expanded={filtersOpen}
         aria-controls="filter-options"
@@ -199,66 +200,66 @@ export function Controls() {
       >
         <FilterIcon />
         <span>Filters</span>
-        <span className="filter-disclosure-summary" id="filter-disclosure-summary">
+        <span className={cx('filter-disclosure-summary')} id="filter-disclosure-summary">
           {!hydrated
             ? copy.controls.filterSummary
             : active
               ? `${active} active · ${visible.size} results`
               : count}
         </span>
-        <ChevronIcon className="filter-disclosure-chevron" />
+        <ChevronIcon className={cx('filter-disclosure-chevron')} />
       </button>
 
-      <div className={`control-row control-row-secondary${filtersOpen ? ' is-open' : ''}`} id="filter-options">
-        <fieldset className="control-group control-group-wide">
-          <legend className="control-label">{copy.controls.togglesLegend}</legend>
+      <div className={cx(`control-row control-row-secondary${filtersOpen ? ' is-open' : ''}`)} id="filter-options">
+        <fieldset className={cx('control-group control-group-wide')}>
+          <legend className={cx('control-label')}>{copy.controls.togglesLegend}</legend>
           <CheckboxGroup
-            className="control-toggles"
+            className={cx('control-toggles')}
             value={view.toggles}
             onValueChange={(v) => update({ toggles: toggles.map((t) => t.key).filter((k) => v.includes(k)) })}
           >
             {toggles.map((t) => (
-              <label key={t.key} className="toggle" title={t.title ?? undefined}>
+              <label key={t.key} className={cx('toggle')} title={t.title ?? undefined}>
                 <Checkbox.Root
                   value={t.key}
                   id={`f-${t.key}`}
-                  className="toggle-input"
+                  className={cx('toggle-input')}
                   aria-label={t.title ?? t.label}
                 />
-                <span className="toggle-mark" aria-hidden="true">
-                  <Glyph name={t.icon} className="toggle-icon" size={15} />
+                <span className={cx('toggle-mark')} aria-hidden="true">
+                  <Glyph name={t.icon} className={cx('toggle-icon')} size={15} />
                 </span>
-                <span className="toggle-label">{t.label}</span>
+                <span className={cx('toggle-label')}>{t.label}</span>
               </label>
             ))}
           </CheckboxGroup>
         </fieldset>
-        <div className="control-group">
-          <span className="control-label" id="model-chips-label">
+        <div className={cx('control-group')}>
+          <span className={cx('control-label')} id="model-chips-label">
             {copy.controls.chipsLabel}
           </span>
           <ToggleGroup
             multiple
-            className="control-chips"
+            className={cx('control-chips')}
             id="model-chips"
             aria-labelledby="model-chips-label"
             value={view.segments}
             onValueChange={(v) => update({ segments: chips.map((c) => c.key).filter((k) => v.includes(k)) })}
           >
             {chips.map((s) => (
-              <Toggle key={s.key} value={s.key} className="chip" data-model={s.key} aria-label={s.chipAria ?? undefined}>
+              <Toggle key={s.key} value={s.key} className={cx('chip')} data-model={s.key} aria-label={s.chipAria ?? undefined}>
                 <TagIcon name={s.icon} />
                 {s.chip}
               </Toggle>
             ))}
           </ToggleGroup>
         </div>
-        <div className="control-group control-group-end">
+        <div className={cx('control-group control-group-end')}>
           <CopyLink show={hydrated && hasView} />
-          <button type="button" id="clear-filters" className="btn btn-ghost btn-sm" onClick={clearFilters}>
+          <button type="button" id="clear-filters" className={cx('btn btn-ghost btn-sm')} onClick={clearFilters}>
             Clear filters
           </button>
-          <p className="result-count" id="result-count" aria-live="polite">
+          <p className={cx('result-count')} id="result-count" aria-live="polite">
             {count}
           </p>
         </div>

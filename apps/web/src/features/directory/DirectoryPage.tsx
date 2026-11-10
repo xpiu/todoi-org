@@ -12,6 +12,7 @@ import { Contribute, Crosslink, Faq, Hero, Method, Routes } from './Sections.tsx
 import { DirectoryProvider, useDirectory } from './state.tsx';
 import { usePageBehaviour } from './usePageBehaviour.ts';
 import { useTokenTips } from './useTokenTips.ts';
+import { cx } from '../../styles/modules.ts';
 
 /**
  * Both pages are this one feature with a different typed config, as both
@@ -35,24 +36,24 @@ function Page() {
 
   return (
     <>
-      <a className="skip-link" href="#directory">
+      <a className={cx('skip-link')} href="#directory">
         Skip to the matrix
       </a>
       <SiteHeader />
       <main id="main">
         <Hero />
-        <section className="board" id="directory" aria-labelledby="directory-title">
-          <div className="shell">
-            <h2 className="sr-only" id="directory-title">
+        <section className={cx('board')} id="directory" aria-labelledby="directory-title">
+          <div className={cx('shell')}>
+            <h2 className={cx('sr-only')} id="directory-title">
               The matrix
             </h2>
             <Controls />
             <Matrix />
             <Cards />
-            <Html as="p" className="matrix-updated" html={copy.matrix.updated} />
+            <Html as="p" className={cx('matrix-updated')} html={copy.matrix.updated} />
             <Empty />
-            <div className="matrix-foot">
-              <Html as="p" className="provenance" html={copy.matrix.provenance} />
+            <div className={cx('matrix-foot')}>
+              <Html as="p" className={cx('provenance')} html={copy.matrix.provenance} />
             </div>
           </div>
         </section>

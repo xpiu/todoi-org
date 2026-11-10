@@ -1,0 +1,140 @@
+/* The masthead, and the ripple that plays once across its mark.
+   Moved from the original stylesheet unchanged; classes owned elsewhere are named
+   as :global(.hook) and every element carries its hook beside its module class. */
+
+/* Variable weights the page sets between the named stops. */
+.hero-title {
+  font-weight: 500;
+}
+
+.hero {
+  padding-block: var(--section-pad);
+}
+
+.hero {
+  padding-block: var(--sp-8) var(--sp-6);
+}
+
+.hero-inner {
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.hero-title {
+  max-width: 22ch;
+}
+
+.hero-lede {
+  max-width: 60ch;
+  margin-top: var(--sp-4);
+  font-size: var(--fs-lg);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+/* The open-source mark, set as a second column beside the masthead copy.
+   It is the one emblem on the page, so it carries the first ink at full
+   strength rather than a tint - the token already holds a light and a dark
+   value, so the same rule reads in both themes without a second block. The
+   glyph is drawn as a stroke, which means its weight scales with the mark
+   instead of thinning out at small sizes. Below 900px the copy wants the
+   whole measure and the mark is dropped; `screen` on that query keeps it
+   off paper too. */
+.hero-mark {
+  display: none;
+}
+
+/* The mark is set at 80% of --hero-mark-size (the viewBox is 1462 x 1417).
+   The other 20% is given back as a 10% margin on every side, so the grid
+   column keeps its old width and the mark's centre stays exactly where it
+   was: smaller, not moved. */
+.hero-mark {
+  --mark-h: calc(var(--hero-mark-size) * 0.8);
+  width: calc(var(--mark-h) * 1462 / 1417);
+  height: var(--mark-h);
+  margin-block: calc(var(--hero-mark-size) * 0.1);
+  margin-inline: calc(var(--hero-mark-size) * 1462 / 1417 * 0.1);
+}
+
+.hero-mark-svg {
+  display: block;
+  height: 100%;
+  width: auto;
+  overflow: visible;
+  color: var(--accent);
+}
+
+/* Ripple: app.js lays a row of blocks along the stroke and plays them once,
+   timed by distance from the centre so the wave closes in from every side
+   at once. A block is the stroke itself: the same ink, invisible at rest.
+   It rises by swelling about its own centre (a uniform scale, so it has no
+   direction and nothing seems to travel along the line), and its joint, a
+   page-coloured hairline across one end, shows only while it is up. --d is
+   the block's delay. */
+.hero-mark-ripple {
+  pointer-events: none;
+}
+
+.hero-mark-face {
+  fill: currentColor;
+}
+
+.hero-mark-block {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hero-mark-swell 600ms var(--d, 0ms) cubic-bezier(0.3, 0, 0.2, 1) both;
+}
+
+.hero-mark-seam {
+  stroke: var(--bg);
+  stroke-width: 0.9px;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  animation: hero-mark-seam 600ms var(--d, 0ms) linear both;
+}
+
+@keyframes hero-mark-swell {
+  0%,
+  100% { transform: scale(1); }
+  40% { transform: scale(1.2); }
+}
+
+/* Joints come and go with their block's swell, so the stroke is unbroken
+   before and after the wave. */
+@keyframes hero-mark-seam {
+  0%,
+  100% { opacity: 0; }
+  12%,
+  80% { opacity: 1; }
+}
+
+@media screen and (min-width: 900px) {
+  .hero-inner {
+    container-type: inline-size;
+    /* ~8% of the masthead: stamp-sized at 900px, colophon-sized at the shell. */
+    --hero-mark-size: clamp(4.3125rem, 8.25cqi, 6rem);
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: clamp(var(--sp-6), 4vw, var(--sp-8));
+    row-gap: 0;
+  }
+
+  .hero-mark {
+    display: grid;
+    justify-self: end;
+  }
+
+  .hero-title {
+    max-width: none;
+  }
+
+}
+
+@media print {
+  .hero {
+    padding-block: 0 8mm;
+    border-top: 0;
+  }
+
+}

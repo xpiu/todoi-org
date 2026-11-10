@@ -2,8 +2,8 @@ import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from '@tanst
 import type { RouterContext } from '../router.tsx';
 import { themeScript } from '../lib/theme-script.ts';
 import { NotFound } from '../components/NotFound.tsx';
-import '../styles/global.css';
-import '../styles/app.css';
+// Every stylesheet, in cascade order (see styles/modules.ts).
+import '../styles/modules.ts';
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({

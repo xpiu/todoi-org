@@ -9,6 +9,7 @@ import {
   type RecordSummary,
 } from '@todoi/shared';
 import { TagIcon } from '../../components/icons.tsx';
+import { cx } from '../../styles/modules.ts';
 
 export interface LeadSpec {
   key: string;
@@ -32,7 +33,7 @@ export function leadSpec(config: DirectoryConfig, sortKey: string): LeadSpec {
 export function ModelTag({ config, record }: { config: DirectoryConfig; record: RecordSummary }) {
   const seg = config.segments.find((s) => s.key === record.segment);
   return (
-    <span className={`tag tag-${seg?.tagClass ?? 'seg'}`} data-lic={record.segment} tabIndex={0}>
+    <span className={cx(`tag tag-${seg?.tagClass ?? 'seg'}`)} data-lic={record.segment} tabIndex={0}>
       <TagIcon name={seg?.icon ?? 'team'} />
       {seg?.label ?? record.segment}
     </span>
@@ -41,7 +42,7 @@ export function ModelTag({ config, record }: { config: DirectoryConfig; record: 
 
 export function CommBand({ band, pill }: { band: number; pill?: boolean }) {
   return (
-    <span className={pill ? 'pill comm-band' : 'comm-band'} data-comm={band} tabIndex={0}>
+    <span className={cx(pill ? 'pill comm-band' : 'comm-band')} data-comm={band} tabIndex={0}>
       {bandLabel(band)}
     </span>
   );
@@ -52,10 +53,10 @@ export function LeadScore({ record, lead }: { record: RecordSummary; lead: LeadS
   const txt = formatScore(v);
   return (
     <>
-      <span className="score score-lead" data-score="" style={{ '--fill': fill(v) } as never}>
-        <span className="score-num">{txt}</span>
+      <span className={cx('score score-lead')} data-score="" style={{ '--fill': fill(v) } as never}>
+        <span className={cx('score-num')}>{txt}</span>
       </span>
-      <span className="sr-only" data-score-sr="">
+      <span className={cx('sr-only')} data-score-sr="">
         {`${lead.sr}: ${txt} out of 5`}
       </span>
     </>
@@ -64,7 +65,7 @@ export function LeadScore({ record, lead }: { record: RecordSummary; lead: LeadS
 
 function Dagger({ label, aria, note }: { label: string; aria: string; note: string }) {
   return (
-    <span className="stars-note methodology" data-tip-label={label} tabIndex={0} aria-label={aria} title={note}>
+    <span className={cx('stars-note methodology')} data-tip-label={label} tabIndex={0} aria-label={aria} title={note}>
       †
     </span>
   );
@@ -75,7 +76,7 @@ export function Metric({ record, sub }: { record: RecordSummary; sub: 'cell-sub'
   if (record.kind === 'oss') {
     return (
       <>
-        <span className="num" data-grade={starGrade(record.stars)}>
+        <span className={cx('num')} data-grade={starGrade(record.stars)}>
           {formatStars(record.stars)}
         </span>
         {record.starsNote ? (
@@ -86,11 +87,11 @@ export function Metric({ record, sub }: { record: RecordSummary; sub: 'cell-sub'
   }
   return (
     <>
-      <span className={record.price === null ? 'num num-quote' : 'num'}>{record.priceLabel}</span>
+      <span className={cx(record.price === null ? 'num num-quote' : 'num')}>{record.priceLabel}</span>
       {record.priceNote ? <Dagger label="Price" aria="Qualification on this price" note={record.priceNote} /> : null}
-      {record.pricePublished ? <span className={`${sub} ${sub}-pub`}>{record.pricePublished}</span> : null}
+      {record.pricePublished ? <span className={cx(`${sub} ${sub}-pub`)}>{record.pricePublished}</span> : null}
       {/* A product that is free outright has no paid tier to compare a free plan to. */}
-      <span className={sub}>{record.price === 0 ? 'No paid tier' : record.free ? 'Free plan' : 'No free plan'}</span>
+      <span className={cx(sub)}>{record.price === 0 ? 'No paid tier' : record.free ? 'Free plan' : 'No free plan'}</span>
     </>
   );
 }

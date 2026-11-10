@@ -1,5 +1,6 @@
 import { ThemeSwitch } from './ThemeSwitch.tsx';
 import { WordmarkLogo, XLogo } from './icons.tsx';
+import { cx } from '../styles/modules.ts';
 
 const SECTIONS = [
   ['#directory', 'Task managers'],
@@ -11,15 +12,15 @@ const SECTIONS = [
 
 export function SiteHeader() {
   return (
-    <header className="site-header">
-      <div className="shell site-header-inner">
-        <a className="wordmark" href="/" aria-label="todoi.org, home">
+    <header className={cx('site-header')}>
+      <div className={cx('shell site-header-inner')}>
+        <a className={cx('wordmark')} href="/" aria-label="todoi.org, home">
           <WordmarkLogo />
-          <span className="wordmark-name">
-            todoi<span className="wordmark-tld">.org</span>
+          <span className={cx('wordmark-name')}>
+            todoi<span className={cx('wordmark-tld')}>.org</span>
           </span>
         </a>
-        <nav className="site-nav" aria-label="Sections">
+        <nav className={cx('site-nav')} aria-label="Sections">
           {SECTIONS.map(([href, label]) => (
             <a key={href} href={href}>
               {label}
@@ -41,17 +42,17 @@ export function SiteFooter(props: {
   compiledLabel: string;
 }) {
   return (
-    <footer className="site-footer">
-      <div className="shell site-footer-inner">
-        <div className="footer-brand">
-          <span className="wordmark wordmark-sm">
-            <span className="wordmark-name">
-              todoi<span className="wordmark-tld">.org</span>
+    <footer className={cx('site-footer')}>
+      <div className={cx('shell site-footer-inner')}>
+        <div className={cx('footer-brand')}>
+          <span className={cx('wordmark wordmark-sm')}>
+            <span className={cx('wordmark-name')}>
+              todoi<span className={cx('wordmark-tld')}>.org</span>
             </span>
           </span>
-          <p className="footer-note">{props.note}</p>
+          <p className={cx('footer-note')}>{props.note}</p>
         </div>
-        <nav className="footer-nav" aria-label="Footer">
+        <nav className={cx('footer-nav')} aria-label="Footer">
           {SECTIONS.map(([href, label]) => (
             <a key={href} href={href}>
               {label}
@@ -60,13 +61,13 @@ export function SiteFooter(props: {
           <a href={`/${props.csvFile}`}>Dataset (CSV)</a>
           <a href={props.otherHref}>{props.otherLabel}</a>
         </nav>
-        <p className="footer-meta">
+        <p className={cx('footer-meta')}>
           Dataset compiled <time dateTime={props.compiledOn}>{props.compiledLabel}</time>. Assessments are editorial and
           subject to revision.
         </p>
-        <p className="footer-contact">
+        <p className={cx('footer-contact')}>
           <a href="https://flo.tokyo">Contact</a>
-          <a className="footer-x" href="https://x.com/flozuallaert" rel="me noopener" aria-label="X">
+          <a className={cx('footer-x')} href="https://x.com/flozuallaert" rel="me noopener" aria-label="X">
             <XLogo />
           </a>
         </p>

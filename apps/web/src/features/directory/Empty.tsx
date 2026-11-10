@@ -1,5 +1,6 @@
 import type { View } from '@todoi/shared';
 import { useDirectory } from './state.tsx';
+import { cx } from '../../styles/modules.ts';
 
 function listed(items: string[]): string {
   return items.length > 1 ? `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}` : items.join('');
@@ -65,34 +66,34 @@ export function Empty() {
   ];
 
   return (
-    <div className="empty" id="empty" hidden={visible.size !== 0}>
-      <h3 className="empty-title" id="empty-title">
+    <div className={cx('empty')} id="empty" hidden={visible.size !== 0}>
+      <h3 className={cx('empty-title')} id="empty-title">
         {title}
       </h3>
-      <p className="empty-text" id="empty-text">
+      <p className={cx('empty-text')} id="empty-text">
         {text}
       </p>
-      <ul className="empty-active" id="empty-active" aria-label="Active constraints: activate one to remove it">
+      <ul className={cx('empty-active')} id="empty-active" aria-label="Active constraints: activate one to remove it">
         {tokens.map((t) => (
           <li key={`${t.kind}:${t.name}`}>
             <button
               type="button"
-              className="empty-token"
+              className={cx('empty-token')}
               aria-label={`Remove ${t.kind.toLowerCase()} ${t.name}`}
               onClick={() => update(t.patch)}
             >
-              <span className="empty-token-kind">{t.kind}:</span>
+              <span className={cx('empty-token-kind')}>{t.kind}:</span>
               <span>{t.name}</span>
-              <span className="empty-token-x" aria-hidden="true" />
+              <span className={cx('empty-token-x')} aria-hidden="true" />
             </button>
           </li>
         ))}
       </ul>
-      <p className="empty-actions">
+      <p className={cx('empty-actions')}>
         <button
           type="button"
           id="empty-clear"
-          className="btn btn-primary btn-sm"
+          className={cx('btn btn-primary btn-sm')}
           onClick={() => {
             clearFilters();
             document.getElementById('q')?.focus();

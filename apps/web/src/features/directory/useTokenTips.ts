@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import type { DirectoryConfig } from '@todoi/shared';
+import { cx } from '../../styles/modules.ts';
 
 const DELAY = 90; // sweeping a cursor along a row shouldn't flash tooltips
 const GAP = 8; // trigger to tooltip
@@ -44,12 +45,12 @@ export function useTokenTips(config: DirectoryConfig): void {
     };
 
     const tip = document.createElement('div');
-    tip.className = 'tip';
+    tip.className = cx('tip');
     tip.id = 'token-tip';
     tip.setAttribute('role', 'tooltip');
     tip.hidden = true;
     const label = document.createElement('strong');
-    label.className = 'tip-label';
+    label.className = cx('tip-label');
     const body = document.createElement('span');
     tip.append(label, body);
     document.body.appendChild(tip);

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { HeroMarkSvg } from '../../components/icons.tsx';
+import { cx } from '../../styles/modules.ts';
 
 const NS = 'http://www.w3.org/2000/svg';
 const WIDTH = 58; // just under the 63-unit stroke, so a block's corners stay inside on the inner ring
@@ -28,7 +29,7 @@ function ripple(svg: SVGSVGElement): () => void {
   if (getComputedStyle(svg.parentElement!).display === 'none') return () => {};
 
   const layer = document.createElementNS(NS, 'g');
-  layer.setAttribute('class', 'hero-mark-ripple');
+  layer.setAttribute('class', cx('hero-mark-ripple'));
   let last = 0;
   try {
     const total = path.getTotalLength();
@@ -47,10 +48,10 @@ function ripple(svg: SVGSVGElement): () => void {
       last = Math.max(last, delay);
 
       const block = document.createElementNS(NS, 'g');
-      block.setAttribute('class', 'hero-mark-block');
+      block.setAttribute('class', cx('hero-mark-block'));
       block.setAttribute('style', `--d:${delay}ms`);
       const face = document.createElementNS(NS, 'rect');
-      face.setAttribute('class', 'hero-mark-face');
+      face.setAttribute('class', cx('hero-mark-face'));
       face.setAttribute('x', String(-len / 2));
       face.setAttribute('y', String(-WIDTH / 2));
       face.setAttribute('width', String(len));
@@ -59,7 +60,7 @@ function ripple(svg: SVGSVGElement): () => void {
       // The joint: a hairline across the block's leading end only.
       const seam = document.createElementNS(NS, 'line');
       const sx = String(-len / 2 + OVERLAP / 2);
-      seam.setAttribute('class', 'hero-mark-seam');
+      seam.setAttribute('class', cx('hero-mark-seam'));
       seam.setAttribute('x1', sx);
       seam.setAttribute('x2', sx);
       seam.setAttribute('y1', String(-WIDTH / 2));
@@ -116,7 +117,7 @@ export function HeroMark() {
     return ripple(svg.current);
   }, []);
   return (
-    <div className="hero-mark" aria-hidden="true">
+    <div className={cx('hero-mark')} aria-hidden="true">
       <HeroMarkSvg ref={svg} />
     </div>
   );

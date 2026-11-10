@@ -21,6 +21,7 @@ const webDist = resolve(process.env.WEB_DIST ?? resolve(here, '../../web/dist'))
 interface ManifestChunk {
   file: string;
   css?: string[];
+  imports?: string[];
   isEntry?: boolean;
 }
 const manifest = JSON.parse(readFileSync(resolve(webDist, 'client/.vite/manifest.json'), 'utf8')) as Record<
@@ -29,8 +30,20 @@ const manifest = JSON.parse(readFileSync(resolve(webDist, 'client/.vite/manifest
 >;
 const entry = manifest['src/entry-client.tsx'];
 if (!entry) throw new Error('client manifest has no src/entry-client.tsx');
-// The entry's own stylesheets: the global sheet and everything the public pages import.
-const assets = { scripts: [`/${entry.file}`], styles: (entry.css ?? []).map((f) => `/${f}`) };
+// Every stylesheet the entry loads statically, in order: the global sheet, then
+// the CSS Modules the bundler moved into shared chunks. All of it goes in <head>,
+// so the first paint is styled. (Route chunks loaded later bring their own.)
+function staticCss(key: string, seen = new Set<string>()): string[] {
+  if (seen.has(key)) return [];
+  seen.add(key);
+  const chunk = manifest[key];
+  if (!chunk) return [];
+  return [...(chunk.imports ?? []).flatMap((k) => staticCss(k, seen)), ...(chunk.css ?? [])];
+}
+const assets = {
+  scripts: [`/${entry.file}`],
+  styles: [...new Set(staticCss('src/entry-client.tsx'))].map((f) => `/${f}`),
+};
 
 const ssrEntry = resolve(webDist, 'server/entry-server.js');
 if (!existsSync(ssrEntry)) throw new Error(`no server bundle at ${ssrEntry}; run pnpm build`);

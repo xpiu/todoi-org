@@ -1,0 +1,187 @@
+/* Around the matrix: the compiled line, the empty state and the provenance note.
+   Moved from the original stylesheet unchanged; classes owned elsewhere are named
+   as :global(.hook) and every element carries its hook beside its module class. */
+
+.board {
+  padding-block: var(--section-pad);
+}
+
+/* Section boundaries are hairlines, like every other edge on the page: the
+   sections are told apart by their air and their titles, not by weight. */
+.board {
+  border-top: var(--border);
+}
+
+/* The hero and the board are two halves of the same opening, so the rule
+   between them would read as a divider where none is meant. It stays in place
+   for the spacing it holds but is drawn in nothing, and the gap after it
+   closes up a little so the table sits nearer the masthead. */
+.board {
+  border-top-color: transparent;
+  padding-top: var(--sp-4);
+}
+
+/* Currency line immediately below the directory: quiet, but visually tied to
+   the record it dates. The date stays mono so it reads as a figure in the
+   matrix rather than promotional copy. It sits after .cards in the DOM rather
+   than between the table and the cards, because only one of those two is ever
+   displayed: below 900px the table is hidden and the line would otherwise
+   caption the card list from above it. */
+.matrix-updated {
+  margin: var(--sp-4) 0 0;
+  /* A caption for the table above, so it runs to the table's width rather
+  than to a measure set in its own 13px ch: that stopped it at ~580px,
+  short of both the 1280px table and the provenance note under it. */
+  text-wrap: pretty;
+  font-size: var(--fs-xs);
+  line-height: var(--lh-ui);
+  color: var(--text-faint);
+}
+
+.matrix-updated time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  color: var(--text-2);
+}
+
+.empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--sp-3);
+  padding: var(--sp-7) var(--sp-5);
+  margin-top: var(--sp-5);
+  border: var(--hair) dashed var(--line-strong);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-sunken);
+}
+
+.empty-title {
+  font-size: var(--fs-xl);
+}
+
+.empty-text {
+  max-width: var(--measure-tight);
+  font-size: var(--fs-md);
+  color: var(--text-2);
+}
+
+/* What emptied the list, as removable tokens: each names one constraint and
+   takes it off on its own, so loosening is one tap rather than a trip back
+   up to the rail to work out which filter did it. */
+.empty-active {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.empty-token {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 2rem;
+  padding: 0 var(--sp-2) 0 var(--sp-3);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  color: var(--text);
+  font-size: var(--fs-xs);
+  cursor: pointer;
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease);
+}
+
+.empty-token:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.empty-token-kind {
+  color: var(--text-faint);
+}
+
+.empty-token:hover .empty-token-kind {
+  color: inherit;
+}
+
+.empty-token-x {
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  background-color: var(--text-faint);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18'/%3E%3Cpath d='m6 6 12 12'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.empty-token:hover .empty-token-x {
+  background-color: currentColor;
+}
+
+.empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+/* Fine print, but still a paragraph somebody has to read to check a figure:
+   13px with normal leading rather than 12px set as a caption. */
+.provenance {
+  max-width: var(--measure);
+  margin-top: var(--sp-7);
+  padding-top: var(--sp-4);
+  border-top: var(--border);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+/* The matrix names and explains itself after the fact. The controls and the grid
+   hold the top of the section; the title, the how-to-read note and the record of
+   what was compiled collect underneath as a closing block. The visible title is
+   a paragraph, not a heading: the real h2#directory-title is .sr-only at the top
+   of the section, where it keeps heading order and the section's label intact. */
+.matrix-foot {
+  display: grid;
+  gap: var(--sp-2);
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-3);
+  border-top: var(--border);
+}
+
+/* Read as a footer, not a masthead: a step down from the section heads above. */
+.matrix-foot :global(.section-title) {
+  font-size: var(--fs-xl);
+}
+
+.matrix-foot :global(.section-note) {
+  max-width: none;
+}
+
+/* The rule and the spacing are the block's own; its paragraphs just stack.
+   The block spans the table it annotates, and the note keeps a readable line
+   by setting in two columns once each can hold ~60 characters, rather than
+   by stopping at a measure and leaving half the table's width empty. */
+.matrix-foot .provenance {
+  max-width: none;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+  column-width: 24rem;
+  column-count: 2;
+  column-gap: var(--sp-8);
+}
+
+@media print {
+  .empty {
+    display: none;
+  }
+
+  .board {
+    padding-block: 0 8mm;
+    border-top: 0;
+  }
+
+}

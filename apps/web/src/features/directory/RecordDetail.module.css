@@ -1,0 +1,468 @@
+/* An expanded record: capabilities, summary, the seven scores, the facts and the sources.
+   Moved from the original stylesheet unchanged; classes owned elsewhere are named
+   as :global(.hook) and every element carries its hook beside its module class. */
+
+/* The record is a band of raised paper directly under the open row, flush
+   with the row's edges and padded the way the cells are, with the accent
+   rule from the row's top edge carried down its left side. It is sticky so
+   that, when the matrix scrolls sideways, the record stays in view instead of
+   leaving the reader looking at an empty wash. */
+:global(.detail-row) > td > .detail {
+  position: sticky;
+  left: 0;
+  inline-size: min(100%, calc(100vw - 2 * var(--gutter)));
+  padding: var(--sp-4) var(--cell-pad-edge) var(--sp-5)
+  calc(var(--cell-pad-edge) - 3px);
+  background-color: var(--bg-raised);
+  border-left: 3px solid var(--accent);
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+  'caps'
+  'summary'
+  'assess'
+  'record'
+  'sources';
+  gap: var(--sp-6);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+}
+
+.detail-caps {
+  grid-area: caps;
+}
+
+.detail-summary {
+  grid-area: summary;
+}
+
+.detail-assess {
+  grid-area: assess;
+}
+
+.detail-record {
+  grid-area: record;
+}
+
+.detail-sources {
+  grid-area: sources;
+}
+
+/* A record is five screens on a phone and one and a half on a desktop; the
+   chevron that opened it is at the top of all of them. app.js appends a way
+   back at the foot, which closes the record and brings its row into view. */
+.detail-foot {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--sp-2);
+  border-top: var(--border);
+}
+
+.detail-close {
+  gap: var(--sp-2);
+}
+
+.detail-close::after {
+  content: '';
+  flex: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12 7-7 7 7'/%3E%3Cpath d='M12 19V5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Section labels: a short eyebrow with a hairline running out to the edge of
+   its column, so each region has a visible top and the eye can find the next
+   one without reading. */
+.detail-h {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+  line-height: var(--lh-ui);
+  letter-spacing: var(--tracking-ui);
+  color: var(--text-2);
+}
+
+.detail-h::after {
+  content: '';
+  flex: 1 1 auto;
+  min-inline-size: var(--sp-4);
+  border-top: var(--border);
+}
+
+/* The five capability checks, each on its own tile: the mark, its name, and
+   the reason a partial is only partial sitting under the name rather than in
+   a tooltip. Natives sit on tinted stock; the ones that are not there at all
+   are drawn with a dashed edge and faint ink so the set reads at a glance. */
+.detail-caps {
+  padding-bottom: var(--sp-4);
+  border-bottom: var(--border);
+}
+
+.caps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.cap {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  min-inline-size: 7.5rem;
+  max-inline-size: 17rem;
+  padding: var(--sp-2) var(--sp-3) var(--sp-2) var(--sp-2);
+  background-color: var(--bg-sunken);
+  border: var(--border);
+  border-radius: var(--radius-2);
+}
+
+.cap:has(:global(.mark-none)) .cap-l {
+  color: var(--text-faint);
+}
+
+/* Every tile says its state in words as well as in the mark. A partial
+   already explains itself in its note; the other two states get the word. */
+.cap:has(:global(.mark-full)) .cap-l::after,
+.cap:has(:global(.mark-none)) .cap-l::after {
+  content: 'Native';
+  display: block;
+  margin-top: 2px;
+  font-size: var(--fs-3xs);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+
+.cap:has(:global(.mark-none)) .cap-l::after {
+  content: 'Not native';
+  color: var(--text-faint);
+}
+
+.cap-l {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  line-height: var(--lh-ui);
+  color: var(--text);
+}
+
+.cap-note {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--fs-2xs);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-2);
+}
+
+/* The write-up a two-line blurb cannot carry: one paragraph saying what the
+   project is, then three on what is actually in it. The lead is set in the
+   display serif at lede size, because it is the sentence the reader who
+   clicked a cut-off blurb came for; the rest runs at body size on a
+   readable measure. */
+.summary {
+  display: grid;
+  gap: var(--sp-3);
+  max-width: var(--measure);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-loose);
+  color: var(--text-2);
+}
+
+.summary-lead {
+  margin-bottom: var(--sp-1);
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: var(--tracking-title);
+  color: var(--text);
+}
+
+/* When the summary was written: a small date set flush right under the last
+   paragraph, at the edge of its measure, like a dateline on a filed note.
+   No rule and no fill, so it reads as part of the summary rather than a
+   control beside it. The words "Summary written" are for screen readers. */
+.summary-date {
+  display: flex;
+  justify-content: flex-end;
+  max-width: calc(var(--measure) * 0.875 / 0.6875);
+  margin-top: var(--sp-2);
+  font-size: var(--fs-3xs);
+  line-height: var(--lh-ui);
+  color: var(--text-faint);
+}
+
+.date-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.date-stamp time {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+.date-stamp-icon {
+  flex: none;
+  opacity: 0.8;
+}
+
+/* The scorecard: six criteria, each a name with its gauge and figure on one
+   line and the reasoning under it, separated by hairlines. The gauge is the
+   same one the lead column uses. */
+.crits {
+  display: grid;
+}
+
+.crit {
+  padding: var(--sp-3) 0;
+  border-bottom: var(--border);
+}
+
+.crit:first-child {
+  padding-top: 0;
+}
+
+.crit:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.crit-name {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  line-height: var(--lh-ui);
+  color: var(--text);
+}
+
+.crit-val {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.crit-bar {
+  inline-size: 5rem;
+  block-size: 4px;
+  border-radius: 2px;
+  background-color: var(--track);
+  background-image: linear-gradient(
+  to right,
+  var(--accent) calc(var(--fill, 0) * 100%),
+  transparent calc(var(--fill, 0) * 100%)
+  );
+}
+
+.crit-score {
+  flex: none;
+  min-inline-size: 2.25ch;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  text-align: right;
+  color: var(--accent);
+}
+
+.crit-text {
+  margin-top: var(--sp-1);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+/* The record proper: fourteen labelled facts as a two-column ledger, label
+   left and value right, flowing down the first column and then the second.
+   Multicol rather than a grid so a long Deployment entry does not stretch
+   the Licence row beside it. */
+.facts {
+  column-gap: var(--sp-8);
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-bottom: var(--border);
+  break-inside: avoid;
+}
+
+.fact:last-child {
+  border-bottom: 0;
+}
+
+.facts dt {
+  padding-top: 1px;
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  line-height: var(--lh-normal);
+  letter-spacing: var(--tracking-ui);
+  color: var(--text-faint);
+}
+
+.facts dd {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text);
+}
+
+/* Sources as a row of chips: short, mono, and clearly clickable. */
+.srcs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  padding-left: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  overflow-wrap: anywhere;
+}
+
+.srcs a {
+  display: inline-block;
+  padding: 0.4em 0.75em;
+  background-color: var(--bg-sunken);
+  border: var(--border);
+  border-radius: var(--radius-1);
+  text-decoration: none;
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.srcs a:hover {
+  border-color: var(--accent);
+  text-decoration: underline;
+}
+
+/* The ledger is set by the width of the record it sits in, not the viewport:
+   the same record is the full shell in a table row and a padded card at
+   tablet widths, and a viewport breakpoint split a 600px card into two
+   columns with 160px of value each. Narrow, each label stacks over its
+   value; from 26rem the label sits to the left; only once each of two
+   columns can still hold a readable value does the list flow into two. */
+.detail-record {
+  container-type: inline-size;
+}
+
+@container (max-width: 25.99rem) {
+  .fact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+
+}
+
+@container (min-width: 46rem) {
+  .facts {
+    columns: 2;
+  }
+
+}
+
+/* Inside a card the tiles share the card's width as equal tracks. Wrapped as
+   growing flex items, a row of four left the fifth alone on the next line,
+   stretched to twice the width of the tiles above it; a grid keeps every
+   tile the same size and fits all five on one line once the card allows. */
+:global(.card-detail) .caps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+}
+
+:global(.card-detail) .cap {
+  min-inline-size: 0;
+  max-inline-size: none;
+}
+
+@media screen and (min-width: 900px) {
+  /* Summary beside the scorecard, divided by a hairline; the ledger and the
+       sources run the full width underneath. */
+  .detail {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    grid-template-areas:
+    'caps caps'
+    'summary assess'
+    'record record'
+    'sources sources';
+    column-gap: var(--sp-7);
+    row-gap: var(--sp-6);
+  }
+
+  .detail-assess {
+    padding-left: var(--sp-7);
+    border-left: var(--border);
+  }
+
+}
+
+@media print {
+  .detail-foot {
+    display: none;
+  }
+
+  :global(.detail-row) > td > .detail {
+    position: static;
+    inline-size: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+
+  /* Provenance is half the point of printing this: carry URLs onto paper. */
+  .srcs a[href^='http']::after {
+    content: ' ' attr(href);
+    font-size: 6.5pt;
+    overflow-wrap: anywhere;
+  }
+
+}
+
+/* The row above already names the project on screen, so this heading is for
+   screen readers that land inside the panel. On paper, where a record can open
+   a page on its own, it becomes the visible heading. */
+.detail-project {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media print {
+  .detail-project {
+    position: static;
+    inline-size: auto;
+    block-size: auto;
+    margin: 0 0 var(--sp-3);
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    font-size: 11pt;
+    font-weight: 600;
+  }
+
+}
+
+/* Scripted controls are noise in a page nothing will script. */
+html:not(:global(.js)) .detail-foot {
+  display: none;
+}

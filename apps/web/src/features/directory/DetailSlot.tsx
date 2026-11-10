@@ -4,6 +4,7 @@ import { useRouteContext } from '@tanstack/react-router';
 import type { DirectoryConfig, RecordSummary } from '@todoi/shared';
 import { recordQuery } from './queries.ts';
 import { RecordDetailBody } from './RecordDetail.tsx';
+import { cx } from '../../styles/modules.ts';
 
 /**
  * Server only: each record's detail, already rendered to HTML. Every record's
@@ -33,7 +34,7 @@ export function RowDetail({ config, record, open }: { config: DirectoryConfig; r
   return (
     <div
       ref={ref}
-      className="detail"
+      className={cx('detail')}
       dangerouslySetInnerHTML={{ __html: ssr?.get(record.slug) ?? '' }}
       suppressHydrationWarning
     />
@@ -54,21 +55,21 @@ export function FetchedDetail({
   const q = useQuery({ ...recordQuery(api, config.slug, record.slug), enabled });
   if (q.data) {
     return (
-      <div className="detail">
+      <div className={cx('detail')}>
         <RecordDetailBody config={config} record={record} detail={q.data} />
       </div>
     );
   }
   if (q.isError) {
     return (
-      <div className="detail">
-        <p className="detail-project">This record could not be loaded. Check the connection and open it again.</p>
+      <div className={cx('detail')}>
+        <p className={cx('detail-project')}>This record could not be loaded. Check the connection and open it again.</p>
       </div>
     );
   }
   return enabled ? (
-    <div className="detail" aria-busy="true">
-      <p className="detail-project">Loading {record.name}…</p>
+    <div className={cx('detail')} aria-busy="true">
+      <p className={cx('detail-project')}>Loading {record.name}…</p>
     </div>
   ) : null;
 }
