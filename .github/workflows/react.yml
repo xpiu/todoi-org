@@ -15,14 +15,14 @@ concurrency:
   group: react-${{ github.ref }}
   cancel-in-progress: true
 
-defaults:
-  run:
-    working-directory: todoi-org-react
-
 jobs:
   check:
     name: Typecheck, lint, test, build, e2e
     runs-on: ubuntu-latest
+    # The app's commands run in its folder; the deploy job has no checkout and needs none.
+    defaults:
+      run:
+        working-directory: todoi-org-react
     timeout-minutes: 30
     services:
       postgres:
