@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Level } from './directory.ts';
+import { DirectoryConfig, Faq as FaqSchema, Level } from './directory.ts';
 
 /** One error shape for every non-2xx response. */
 export const ApiError = z.object({
@@ -102,3 +102,37 @@ export type RecordCreate = z.infer<typeof RecordCreate>;
 export function isApiError(value: unknown): value is ApiError {
   return ApiError.safeParse(value).success;
 }
+
+
+/** One record as the editor sees it: every editable field, each row with its version. */
+export const AdminRecord = z.object({
+  slug: z.string(),
+  name: z.string(),
+  url: z.string(),
+  blurb: z.string(),
+  segment: z.string(),
+  year: z.number().int(),
+  band: z.number().int(),
+  integrationsLabel: z.string(),
+  integrations: z.number().int(),
+  confidence: z.enum(['High', 'Medium-high', 'Medium']),
+  caveat: z.string(),
+  summary: z.array(z.string()),
+  version: z.number().int(),
+  scores: z.record(z.string(), z.object({ score: z.number(), review: z.string(), version: z.number().int() })),
+  caps: z.record(z.string(), z.object({ level: Level, note: z.string().nullable(), version: z.number().int() })),
+});
+export type AdminRecord = z.infer<typeof AdminRecord>;
+
+export const AdminDirectory = z.object({
+  directory: DirectoryConfig,
+  records: z.array(AdminRecord),
+});
+export type AdminDirectory = z.infer<typeof AdminDirectory>;
+
+export const AdminDirectoryList = z.array(z.object({ slug: z.string(), path: z.string(), title: z.string() }));
+export type AdminDirectoryList = z.infer<typeof AdminDirectoryList>;
+
+export const ScoreRow = z.object({ score: z.number(), review: z.string(), version: z.number().int() });
+export const CapabilityRow = z.object({ level: Level, note: z.string().nullable(), version: z.number().int() });
+export { FaqSchema as FaqRow };

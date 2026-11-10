@@ -9,6 +9,9 @@ import { jsonLdScript } from './generate/jsonld.ts';
 import { llmsTxt, sitemapXml } from './generate/site-files.ts';
 import { securityHeaders } from './middleware/security.ts';
 import { publicApi } from './routes/public.ts';
+import { adminApi } from './routes/admin.ts';
+import { authApi } from './routes/auth.ts';
+import { loadSession, sameOrigin } from './auth.ts';
 import type { DirectoryStore } from './store.ts';
 import type { AppEnv } from './types.ts';
 import { sql } from 'drizzle-orm';
@@ -26,7 +29,11 @@ export interface AppDeps {
 }
 
 /** The typed API surface the browser client is generated from (Hono RPC). */
-const api = new Hono<AppEnv>().basePath('/api/v1').route('/', publicApi);
+const api = new Hono<AppEnv>()
+  .basePath('/api/v1')
+  .route('/', publicApi)
+  .route('/auth', authApi)
+  .route('/admin', adminApi);
 export type AppType = typeof api;
 
 /** Rendered pages, keyed by URL, kept until the data changes. */
@@ -103,6 +110,9 @@ export function createApp(deps: AppDeps) {
   });
 
   app.use('/api/v1/directories/*', etag({ weak: true }));
+  // Sessions and writes: the editor's API only. Public pages never read a cookie.
+  app.use('/api/v1/auth/*', sameOrigin, loadSession);
+  app.use('/api/v1/admin/*', sameOrigin, loadSession);
   app.route('/', api);
 
   // The datasets, at the URLs they have always had.

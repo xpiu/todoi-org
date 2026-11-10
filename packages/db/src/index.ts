@@ -22,4 +22,6 @@ export function connect(url: string, opts: { max?: number } = {}): Database {
 }
 
 export { seedDatabase } from './seed.ts';
+export { hashPassword, verifyPassword, DUMMY_HASH } from './password.ts';
 export * from './queries.ts';
+export * from './mutations.ts';
