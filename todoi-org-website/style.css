@@ -3019,6 +3019,12 @@ a.wordmark:hover .wordmark-logo {
    three-column grid whose first column it would otherwise join — a seventh
    criterion that lost its rule. Its own rule and a wider gap put it back
    outside the set. */
+/* The band is the seventh input, not a seventh criterion: it gets a row of
+   its own under the six instead of leaving one tile orphaned. */
+.criterion-band {
+  grid-column: 1 / -1;
+}
+
 .criteria + .method-note {
   margin-top: var(--sp-6);
 }

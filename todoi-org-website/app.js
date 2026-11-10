@@ -248,14 +248,15 @@
    * criterion would otherwise reorder the table against a number that is not
    * on screen, so the column follows the sort: label, value, gauge and
    * screen-reader text all switch to the active criterion and back. Community
-   * and integrations are not criteria and carry columns of their own, so they
-   * leave this one on the mean. */
+   * feeds the mean as a seventh input but is a band, not a criterion, and
+   * integrations is neither; both carry columns of their own, so they leave
+   * this one on the mean. */
   // `title` is the method: what the score was read from, and that it is a
   // judgement. The header tooltip carries it, so the column explains itself
   // whichever criterion it is currently showing.
   var CRIT_TAIL = ' Assessed against the published criteria; the expanded record includes the reasoning and research confidence.';
   var CRIT = {
-    avg:         { head: 'Score',  title: 'Unweighted mean of the six criteria, each scored 1-5 by reading documentation, repositories and release histories. An editorial judgement, not a benchmark. Expand a row for the six scores and the reasoning behind each one.', sr: 'Mean of the six criteria' },
+    avg:         { head: 'Score',  title: 'Unweighted mean of seven scores: the six criteria, each scored 1-5 by reading documentation, repositories and release histories, and community size, its band read as 1 (small) to 5 (very large). An editorial judgement, not a benchmark. Expand a row for all seven and the reasoning behind each one.', sr: 'Mean of the six criteria and community size' },
     deploy:      { head: 'Deploy', title: 'Ease of deployment, 1-5: containers and packages, dependency count, operational complexity, upgrade burden and the state of the documentation.' + CRIT_TAIL, sr: 'Ease of deployment' },
     use:         { head: 'Use',    title: 'Ease of use, 1-5: interface clarity, learning curve, conceptual overhead, and whether non-specialists can live in it.' + CRIT_TAIL, sr: 'Ease of use' },
     enterprise:  { head: 'Ent',    title: 'Enterprise features, 1-5: permissions, identity, audit and governance, portfolio reporting, scalability and administration.' + CRIT_TAIL, sr: 'Enterprise features' },
