@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { Hono } from 'hono';
+import { serveStatic } from '@hono/node-server/serve-static';
 import { etag } from 'hono/etag';
 import type { Db } from '@todoi/db';
 import type { Env } from './env.ts';
@@ -26,6 +27,8 @@ export interface AppDeps {
   render: RenderPage;
   /** Off in development, where the code under the page changes between requests. */
   cachePages?: boolean;
+  /** Production: the built client (fingerprinted assets, fonts, icons, images). */
+  staticRoot?: string;
 }
 
 /** The typed API surface the browser client is generated from (Hono RPC). */
@@ -175,6 +178,21 @@ export function createApp(deps: AppDeps) {
 
   // The commercial directory's address keeps its trailing slash.
   app.get('/commercial-task-managers', (c) => c.redirect(`/commercial-task-managers/${new URL(c.req.url).search}`, 301));
+
+  if (deps.staticRoot) {
+    const root = deps.staticRoot;
+    // Fingerprinted by Vite: the name changes when the content does.
+    app.use(
+      '/assets/*',
+      serveStatic({ root, onFound: (_p, c) => c.header('Cache-Control', 'public, max-age=31536000, immutable') }),
+    );
+    // Fonts, icons and images rarely change.
+    app.use(
+      '/:dir{fonts|icons|img}/*',
+      serveStatic({ root, onFound: (_p, c) => c.header('Cache-Control', 'public, max-age=2592000') }),
+    );
+    app.get('/robots.txt', serveStatic({ root, onFound: (_p, c) => c.header('Cache-Control', 'no-cache') }));
+  }
 
   app.get('*', (c) => renderPage(c.req.raw));
 

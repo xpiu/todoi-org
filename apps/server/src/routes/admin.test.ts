@@ -187,6 +187,6 @@ describe('editor writes', () => {
   it('sign out ends the session', async () => {
     const { cookie, csrf } = await signIn();
     expect((await req('/api/v1/auth/logout', { method: 'POST', cookie, csrf })).status).toBe(200);
-    expect((await req('/api/v1/auth/session', { cookie })).status).toBe(401);
+    expect(await (await req('/api/v1/auth/session', { cookie })).json()).toBeNull();
   });
 });

@@ -33,7 +33,8 @@ export default defineConfig(({ isSsrBuild }) => ({
         manifest: true,
         rollupOptions: { input: 'src/entry-client.tsx' },
       },
+  // The server bundle carries its dependencies: the production image has no node_modules.
   ssr: {
-    noExternal: ['@todoi/shared', '@base-ui/react'],
+    noExternal: true,
   },
 }));

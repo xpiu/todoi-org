@@ -3,7 +3,7 @@ import { eq } from 'drizzle-orm';
 import { DUMMY_HASH, schema, verifyPassword } from '@todoi/db';
 import { LoginBody } from '@todoi/shared';
 import { checkLoginRate, clearLoginRate, endSession, requireEditor, startSession } from '../auth.ts';
-import { HttpProblem, unauthorized } from '../errors.ts';
+import { HttpProblem } from '../errors.ts';
 import { zv } from '../middleware/validate.ts';
 import type { AppEnv } from '../types.ts';
 
@@ -11,9 +11,9 @@ import type { AppEnv } from '../types.ts';
 export const authApi = new Hono<AppEnv>()
   .get('/session', (c) => {
     c.header('Cache-Control', 'no-store');
+    // Signed out is an answer, not an error: null, with a 200.
     const user = c.var.user;
-    if (!user) throw unauthorized();
-    return c.json({ email: user.email, csrfToken: user.csrfToken });
+    return c.json(user ? { email: user.email, csrfToken: user.csrfToken } : null);
   })
   .post('/login', zv('json', LoginBody), async (c) => {
     c.header('Cache-Control', 'no-store');

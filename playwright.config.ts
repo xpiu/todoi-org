@@ -27,7 +27,20 @@ export default defineConfig({
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } }],
+  projects: [
+    {
+      name: 'public',
+      testIgnore: '**/admin.spec.ts',
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } },
+    },
+    // The editor changes data; it runs after everything that reads it.
+    {
+      name: 'editor',
+      testMatch: '**/admin.spec.ts',
+      dependencies: ['public'],
+      use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } },
+    },
+  ],
   webServer: external
     ? undefined
     : {
