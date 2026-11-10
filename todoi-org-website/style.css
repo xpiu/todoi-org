@@ -923,18 +923,21 @@ a.wordmark:hover .wordmark-logo {
   display: none;
 }
 
-/* The box keeps the full --hero-mark-size footprint (the viewBox is 1462 x
-   1417) so the grid column, and therefore the mark's place on the page, is
-   unchanged; the glyph is drawn at 80% of it, centred in that box. */
+/* The mark is set at 80% of --hero-mark-size (the viewBox is 1462 x 1417).
+   The other 20% is given back as a 10% margin on every side, so the grid
+   column keeps its old width and the mark's centre stays exactly where it
+   was: smaller, not moved. */
 .hero-mark {
-  width: calc(var(--hero-mark-size) * 1462 / 1417);
-  height: var(--hero-mark-size);
-  place-items: center;
+  --mark-h: calc(var(--hero-mark-size) * 0.8);
+  width: calc(var(--mark-h) * 1462 / 1417);
+  height: var(--mark-h);
+  margin-block: calc(var(--hero-mark-size) * 0.1);
+  margin-inline: calc(var(--hero-mark-size) * 1462 / 1417 * 0.1);
 }
 
 .hero-mark-svg {
   display: block;
-  height: calc(var(--hero-mark-size) * 0.8);
+  height: 100%;
   width: auto;
   overflow: visible;
   color: var(--accent);
@@ -970,7 +973,9 @@ a.wordmark:hover .wordmark-logo {
 @keyframes hero-mark-lift {
   0%,
   100% { transform: translateY(0); }
-  38% { transform: translateY(calc(var(--a, 1) * -26px)); }
+  /* --lift is 1mm on screen, converted to viewBox units by app.js (inside an
+     SVG, a CSS px in a transform is one user unit, not one screen pixel). */
+  38% { transform: translateY(calc(var(--a, 1) * var(--lift, 20px) * -1)); }
 }
 
 @keyframes hero-mark-face {

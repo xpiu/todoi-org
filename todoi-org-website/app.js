@@ -1065,6 +1065,7 @@
     var REACH = 0.8;           // share of the mark the wave travels over
     var TRAVEL = 1150;         // ms for the front to cross that distance
     var BLOCK = 560;           // ms per block; matches the CSS animation
+    var VIEW_H = 1417;         // viewBox height
 
     var blocks = [];
     try {
@@ -1115,6 +1116,13 @@
     if (!layer.firstChild) return;
 
     function play() {
+      // Lift by 1mm on screen (96/25.4 CSS px), expressed in viewBox units,
+      // since CSS transforms inside the SVG are measured in user units.
+      var shown = svg.getBoundingClientRect().height;
+      if (shown > 0) {
+        var units = (96 / 25.4) * (VIEW_H / shown);
+        layer.style.setProperty('--lift', units.toFixed(1) + 'px');
+      }
       svg.appendChild(layer);
       window.setTimeout(function () {
         if (layer.parentNode) layer.parentNode.removeChild(layer);
