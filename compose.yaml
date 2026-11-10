@@ -1,0 +1,22 @@
+# Local PostgreSQL. Port 5434 on the host: 5432 and 5433 are held by Postgres.app
+# for other projects on the development machine.
+services:
+  db:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: todoi
+      POSTGRES_PASSWORD: todoi
+      POSTGRES_DB: todoi
+    ports:
+      - "127.0.0.1:5434:5432"
+    volumes:
+      - todoi-pg:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U todoi -d todoi"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  todoi-pg:

@@ -1,0 +1,41 @@
+Typefaces — provenance
+======================
+
+Two families, both under the SIL Open Font License 1.1 (full text in OFL.txt),
+downloaded from the Google Fonts CDN and served from this origin. Nothing is
+modified: each file is the woff2 Google Fonts build for that subset, so the
+unicode-range in style.css matches the file it guards. The page makes no
+third-party font request.
+
+DM Sans is a variable font — one file covers every weight the page uses, and
+it carries an optical-size axis (opsz 9–40) that `font-optical-sizing: auto`
+drives from the font-size. DM Mono ships static weights, and the three here
+are the three the design system actually sets (300 / 400 / 500), so no weight
+is ever synthesised.
+
+family      role                      copyright
+----------  ------------------------  -------------------------------------------
+DM Sans     display, text, interface  Copyright 2014-2023 Indian Type Foundry,
+                                      Jonny Pinhorn and the DM Sans Project
+                                      Authors (github.com/googlefonts/dm-fonts)
+DM Mono     figures and identifiers   Copyright 2020 The DM Mono Project Authors
+                                      (github.com/googlefonts/dm-mono)
+
+file                                   subset      fetched
+-------------------------------------  ----------  ----------
+dmsans-300-800-normal-latin.woff2      latin       2026-11-09
+dmsans-300-800-normal-latin-ext.woff2  latin-ext   2026-11-09
+dmmono-300-normal-latin.woff2          latin       2026-09-17
+dmmono-300-normal-latin-ext.woff2      latin-ext   2026-09-17
+dmmono-400-normal-latin.woff2          latin       2026-09-17
+dmmono-400-normal-latin-ext.woff2      latin-ext   2026-09-17
+dmmono-500-normal-latin.woff2          latin       2026-09-17
+dmmono-500-normal-latin-ext.woff2      latin-ext   2026-09-17
+
+Earlier revisions set Newsreader for display and Inter for text; both were
+replaced by DM Sans on 2026-11-09 so the page runs one grotesk beside its mono.
+
+Replacing a family means replacing its @font-face block in style.css §00 and the
+--font-* token in §01 together: the fallback stacks are ordered so the page still
+reads in the same two voices if a file is missing, not so a swap can be half
+done.
