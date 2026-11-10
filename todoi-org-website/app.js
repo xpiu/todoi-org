@@ -130,38 +130,32 @@
   var hasBoard = rows.length > 0 || cards.length > 0;
 
   /* --- one copy of each record's detail ---
-   * Every record's detail ships once, inside its matrix row; the card's panel
-   * arrives empty, because carrying both copies nearly doubled the page. The
-   * details live in whichever list is on screen: the cards below 900px (the
-   * breakpoint in style.css), the matrix above it, and the matrix in print,
-   * which always prints the table. */
-  var cardsQuery = window.matchMedia ? window.matchMedia('screen and (max-width: 899.98px)') : null;
-  function placeDetails(intoCards) {
-    cards.forEach(function (card) {
-      var slug = card.getAttribute('data-slug');
-      var panel = $('.card-detail', card);
-      var row = null;
-      for (var i = 0; i < rows.length; i++) {
-        if (rows[i].getAttribute('data-slug') === slug) { row = rows[i]; break; }
-      }
-      var detailRow = row && row.nextElementSibling;
-      var cell = detailRow && detailRow.classList.contains('detail-row') ? detailRow.firstElementChild : null;
-      if (!panel || !cell) return;
-      var from = intoCards ? cell : panel;
-      var to = intoCards ? panel : cell;
-      var detail = $('.detail', from);
-      if (detail && !$('.detail', to)) to.appendChild(detail);
-    });
+   * Every record's detail ships once, in its matrix detail row (#detail-slug);
+   * the card's panel (#cdetail-slug) arrives empty, because carrying both
+   * copies nearly doubled the page. A detail moves only when its record is
+   * open, into whichever list is on screen. style.css decides that by width;
+   * this reads the outcome instead of repeating the breakpoint. Print always
+   * uses the matrix, so every detail goes back there for the printout. */
+  function cardsShown() {
+    return cards.length > 0 && cards[0].parentNode.getClientRects().length > 0;
   }
-  function placeForScreen() { placeDetails(!!(cardsQuery && cardsQuery.matches)); }
+  function holdDetail(slug, inCard) {
+    var row = document.getElementById('detail-' + slug);
+    var panel = document.getElementById('cdetail-' + slug);
+    if (!row || !panel) return;
+    var cell = row.firstElementChild;
+    var detail = $('.detail', inCard ? cell : panel);
+    if (detail) (inCard ? panel : cell).appendChild(detail);
+  }
+  function holdOpenDetails() {
+    var inCards = cardsShown();
+    rows.concat(cards).forEach(function (h) { if (isOpen(h)) holdDetail(slugOf(h), inCards); });
+  }
   if (hasBoard) {
-    placeForScreen();
-    if (cardsQuery) {
-      if (cardsQuery.addEventListener) cardsQuery.addEventListener('change', placeForScreen);
-      else if (cardsQuery.addListener) cardsQuery.addListener(placeForScreen);
-    }
-    window.addEventListener('beforeprint', function () { placeDetails(false); });
-    window.addEventListener('afterprint', placeForScreen);
+    window.addEventListener('beforeprint', function () {
+      cards.forEach(function (c) { holdDetail(slugOf(c), false); });
+    });
+    window.addEventListener('afterprint', holdOpenDetails);
   }
 
   var q = $('#q');
@@ -542,7 +536,9 @@
   function writeURL() {
     if (!hasBoard || !hasParams || !window.history || !window.history.replaceState) return;
     var search = viewParams().toString();
-    var next = window.location.pathname + (search ? '?' + search : '') + window.location.hash;
+    // ?open=slug names the open record; a #slug that only repeats it is dropped.
+    var hash = openSlug && window.location.hash === '#' + openSlug ? '' : window.location.hash;
+    var next = window.location.pathname + (search ? '?' + search : '') + hash;
     var now = window.location.pathname + window.location.search + window.location.hash;
     if (next !== now) {
       try { window.history.replaceState(null, '', next); } catch (e) { /* file:// */ }
@@ -562,7 +558,10 @@
     });
     var sort = String(p.get('sort') || '').split('-');
     if (KEYS[sort[0]]) { sortKey = sort[0]; sortDir = sort[1] === 'asc' ? 'asc' : 'desc'; }
-    return p.get('open') || null;
+    // A bare #slug is the record's @id in the page's JSON-LD (…/#asana), so it
+    // opens the record too. Section anchors (#faq) match no record and pass by.
+    var hash = window.location.hash.slice(1);
+    return p.get('open') || (recordsOf(hash).length ? hash : null);
   }
 
   /* --- copy link ---
@@ -815,8 +814,10 @@
     btn.setAttribute('aria-expanded', String(!open));
     setShown(panel, !open);
     var slug = slugOf(hostOf(btn));
-    if (!open) openSlug = slug;
-    else if (openSlug === slug) openSlug = null;
+    if (!open) {
+      holdDetail(slug, cardsShown());
+      openSlug = slug;
+    } else if (openSlug === slug) openSlug = null;
     writeURL();
   });
 
@@ -826,7 +827,7 @@
   // all stay owned by the one handler above, then brings the row back into
   // view, because the row is now a long way up.
   $$('.detail').forEach(function (detail) {
-    if (!closest(detail, 'tr.detail-row') && !closest(detail, 'article.card')) return;
+    if (!closest(detail, 'tr.detail-row, article.card')) return;
     var foot = document.createElement('p');
     foot.className = 'detail-foot';
     var b = document.createElement('button');
@@ -837,8 +838,8 @@
     detail.appendChild(foot);
     b.addEventListener('click', function () {
       // Looked up on each click: the detail moves between row and card.
-      var host = closest(detail, 'tr.detail-row') || closest(detail, 'article.card');
-      var owner = !host ? null : host.classList.contains('card') ? host : host.previousElementSibling;
+      var host = closest(detail, 'tr.detail-row, article.card');
+      var owner = host && (host.classList.contains('card') ? host : host.previousElementSibling);
       var btn = owner && $('button.row-expand, button.card-expand', owner);
       if (!btn) return;
       btn.click();
@@ -881,7 +882,7 @@
   var clampTimer = null;
   window.addEventListener('resize', function () {
     if (clampTimer) clearTimeout(clampTimer);
-    clampTimer = setTimeout(markClamped, 150);
+    clampTimer = setTimeout(function () { markClamped(); holdOpenDetails(); }, 150);
   });
 
   if (hasBoard) {
@@ -891,18 +892,6 @@
     // The address bar may already describe a view; take it before first paint
     // of the sorted table so there is no flash of the default order.
     var linkedSlug = readURL();
-    // A bare #slug is the record's @id in the page's JSON-LD (…/#asana), so it
-    // opens the record too. Section anchors (#faq) match no record and pass by.
-    if (!linkedSlug && window.location.hash.length > 1) {
-      var hashSlug = window.location.hash.slice(1);
-      try { hashSlug = decodeURIComponent(hashSlug); } catch (e) { /* malformed */ }
-      if (recordsOf(hashSlug).length) {
-        linkedSlug = hashSlug;
-        // writeURL will say ?open=slug; the hash would only repeat it.
-        try { window.history.replaceState(null, '', window.location.pathname + window.location.search); }
-        catch (e) { /* file:// */ }
-      }
-    }
     readQuery();
     setLead(sortKey);
     syncSortUI();
@@ -911,6 +900,7 @@
       if (linked.length) {
         openSlug = linkedSlug;
         linked.forEach(expand);
+        holdDetail(linkedSlug, cardsShown());
       }
     }
     apply();
