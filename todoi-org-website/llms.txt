@@ -22,7 +22,7 @@ Corrections reach the directory at info@todoi.org. Send the source along with th
 
 - [Home](https://todoi.org/): Directory and comparison matrix of browser-based open-source task managers. The whole directory is this one page.
 - [Dataset (CSV)](https://todoi.org/todoi-dataset-2026-09-17.csv): Every field for all twenty-five projects across 38 columns, including the six scores and their written justifications. Generated from the page during publication.
-- [Commercial task managers](https://todoi.org/commercial/): Companion directory of 57 commercial, closed-source task managers, scored with the same method. Dataset: https://todoi.org/todoi-commercial-dataset-2026-11-10.csv
+- [Commercial task managers](https://todoi.org/commercial-task-managers/): Companion directory of 57 commercial, closed-source task managers, scored with the same method. Dataset: https://todoi.org/todoi-commercial-dataset-2026-11-10.csv
 - [Sitemap](https://todoi.org/sitemap.xml): URL list for search engines.
 - [llms.txt](https://todoi.org/llms.txt): This machine-readable index.
 
@@ -66,7 +66,7 @@ Ordered by community size, largest first, with alphabetical ties, matching the p
 
 ## Commercial task managers
 
-A companion page, [Commercial task managers compared](https://todoi.org/commercial/), applies the same method to 57 closed-source task managers sold as a service and usable in a browser. Two criteria differ: value for money replaces ease of deployment, and data control replaces data sovereignty. Prices are the cheapest paid plan per user per month, billed annually, in US dollars as published around 10 November 2026. The dataset is at https://todoi.org/todoi-commercial-dataset-2026-11-10.csv.
+A companion page, [Commercial task managers compared](https://todoi.org/commercial-task-managers/), applies the same method to 57 closed-source task managers sold as a service and usable in a browser. Two criteria differ: value for money replaces ease of deployment, and data control replaces data sovereignty. Prices are the cheapest paid plan per user per month, billed annually, in US dollars as published around 10 November 2026. The dataset is at https://todoi.org/todoi-commercial-dataset-2026-11-10.csv.
 
 Ordered by market presence, largest first, with alphabetical ties, matching the page.
 
