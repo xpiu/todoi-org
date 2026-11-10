@@ -890,7 +890,10 @@ a.wordmark:hover .wordmark-logo {
    caption the card list from above it. */
 .matrix-updated {
   margin: var(--sp-4) 0 0;
-  max-width: var(--measure);
+  /* A caption for the table above, so it runs to the table's width rather
+     than to a measure set in its own 13px ch: that stopped it at ~580px,
+     short of both the 1280px table and the provenance note under it. */
+  text-wrap: pretty;
   font-size: var(--fs-xs);
   line-height: var(--lh-ui);
   color: var(--text-faint);
@@ -2643,16 +2646,24 @@ a.wordmark:hover .wordmark-logo {
   text-decoration: underline;
 }
 
-/* On a phone the ledger stacks each label over its value; from 40em the
-   label sits to the left, and the list flows into two columns. */
-@media screen and (max-width: 39.99em) {
+/* The ledger is set by the width of the record it sits in, not the viewport:
+   the same record is the full shell in a table row and a padded card at
+   tablet widths, and a viewport breakpoint split a 600px card into two
+   columns with 160px of value each. Narrow, each label stacks over its
+   value; from 26rem the label sits to the left; only once each of two
+   columns can still hold a readable value does the list flow into two. */
+.detail-record {
+  container-type: inline-size;
+}
+
+@container (max-width: 25.99rem) {
   .fact {
     grid-template-columns: minmax(0, 1fr);
     gap: 2px;
   }
 }
 
-@media screen and (min-width: 40em) {
+@container (min-width: 46rem) {
   .facts {
     columns: 2;
   }
@@ -2877,10 +2888,18 @@ a.wordmark:hover .wordmark-logo {
   inset: -10px -6px;
 }
 
-/* Inside a card the tiles wrap to the card's width; each one may grow so a
-   row of them fills the line instead of ragging. */
+/* Inside a card the tiles share the card's width as equal tracks. Wrapped as
+   growing flex items, a row of four left the fifth alone on the next line,
+   stretched to twice the width of the tiles above it; a grid keeps every
+   tile the same size and fits all five on one line once the card allows. */
+.card-detail .caps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+}
+
 .card-detail .cap {
-  flex: 1 1 8rem;
+  min-inline-size: 0;
+  max-inline-size: none;
 }
 
 /* ==========================================================================
@@ -2988,7 +3007,6 @@ a.wordmark:hover .wordmark-logo {
 .matrix-foot {
   display: grid;
   gap: var(--sp-2);
-  max-width: var(--measure);
   margin-top: var(--sp-5);
   padding-top: var(--sp-3);
   border-top: var(--border);
@@ -3003,12 +3021,18 @@ a.wordmark:hover .wordmark-logo {
   max-width: none;
 }
 
-/* The rule and the spacing are the block's own; its paragraphs just stack. */
+/* The rule and the spacing are the block's own; its paragraphs just stack.
+   The block spans the table it annotates, and the note keeps a readable line
+   by setting in two columns once each can hold ~60 characters, rather than
+   by stopping at a measure and leaving half the table's width empty. */
 .matrix-foot .provenance {
   max-width: none;
   margin-top: 0;
   padding-top: 0;
   border-top: 0;
+  column-width: 24rem;
+  column-count: 2;
+  column-gap: var(--sp-8);
 }
 
 /* ==========================================================================
@@ -3070,11 +3094,33 @@ a.wordmark:hover .wordmark-logo {
   margin-top: var(--sp-3);
 }
 
+/* Three labels on one page, four on the other. auto-fit left one of them
+   alone on a second row whenever the column was a little too narrow for the
+   whole set (2+1 at tablet widths, 3+1 on the commercial page at desktop),
+   with an empty half or two-thirds beside it. The count picks the grid:
+   three sit in one row once they fit and stack before; four go two by two. */
 .model-defs {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--sp-6) var(--sp-8);
   margin-top: var(--sp-6);
+}
+
+.model-def .model-text {
+  max-width: var(--measure);
+}
+
+@media (min-width: 40rem) {
+  .model-defs:has(> .model-def:nth-child(4)) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 48rem) {
+  .model-defs:not(:has(> .model-def:nth-child(4))) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--sp-7);
+  }
 }
 
 .model-def {
