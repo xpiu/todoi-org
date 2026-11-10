@@ -77,9 +77,10 @@ a same-origin request and the session's CSRF token; sign-in is rate limited in t
 
 ## Deployment
 
-A push to `react` runs CI (`.github/workflows/ci.yml`); only when it passes does the workflow call
-Dokploy's deploy webhook (`DOKPLOY_DEPLOY_WEBHOOK`, a repository secret). Dokploy builds the
-`Dockerfile`: a multi-stage build whose runtime image holds the two bundles and the SQL migrations,
+A push to `main` that touches `todoi-org-react/` runs CI (`.github/workflows/react.yml` at the
+repository root); only when it passes does the workflow call Dokploy's deploy webhook
+(`DOKPLOY_DEPLOY_WEBHOOK`, a repository secret). Dokploy builds
+`todoi-org-react/Dockerfile` (build context `todoi-org-react`): a multi-stage build whose runtime image holds the two bundles and the SQL migrations,
 runs as `node`, migrates before listening and reports health on `/healthz` (which pings the
 database). Configure in Dokploy: `DATABASE_URL` (the managed PostgreSQL 18 on the internal network),
 `SESSION_SECRET` (32+ characters), `SITE_URL=https://todoi.org`. Backups: enable Dokploy's scheduled
