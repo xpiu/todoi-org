@@ -10,6 +10,18 @@ export interface Assets {
   styles: string[];
   /** Development only: the React refresh preamble Vite needs before any module. */
   preamble?: string;
+  /**
+   * Development only: every stylesheet's CSS, in cascade order, written into
+   * the page so it paints styled before any script runs. Vite's client adopts
+   * these tags by their id and updates them on hot reload.
+   */
+  inlineStyles?: InlineStyle[];
+}
+
+export interface InlineStyle {
+  /** Vite's module id for the sheet: its absolute file path. */
+  id: string;
+  css: string;
 }
 
 export interface RouterContext {

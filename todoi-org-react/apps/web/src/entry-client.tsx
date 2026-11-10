@@ -15,7 +15,16 @@ function readAssets(): Assets {
     s.getAttribute('src')!,
   );
   const preamble = document.querySelector('script[data-asset="preamble"]')?.textContent ?? undefined;
-  return preamble ? { styles, scripts, preamble } : { styles, scripts };
+  const inlineStyles = [...document.querySelectorAll<HTMLStyleElement>('style[data-vite-dev-id]')].map((s) => ({
+    id: s.dataset.viteDevId!,
+    css: s.textContent ?? '',
+  }));
+  return {
+    styles,
+    scripts,
+    ...(preamble ? { preamble } : {}),
+    ...(inlineStyles.length ? { inlineStyles } : {}),
+  };
 }
 
 const router = createAppRouter({

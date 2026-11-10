@@ -6,6 +6,8 @@
  */
 import { createServer } from 'node:http';
 import { existsSync } from 'node:fs';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getRequestListener } from '@hono/node-server';
 import { createServer as createViteServer } from 'vite';
@@ -31,12 +33,37 @@ const vite = await createViteServer({
   server: { middlewareMode: true, hmr: { server: httpServer } },
 });
 
+/**
+ * Every stylesheet's compiled CSS, in the cascade order styles/modules.ts
+ * imports them. Without these in the server's HTML, the CSS Modules would
+ * arrive only through JavaScript and the page would first paint unstyled
+ * (the hero logo at full width). Each tag carries the id Vite's client looks
+ * for, so the client adopts it rather than adding a second copy, and hot
+ * reload updates it in place.
+ */
+const stylesDir = `${webRoot}/src/styles`;
+async function inlineStyles() {
+  const order = await readFile(`${stylesDir}/modules.ts`, 'utf8');
+  const files = [...order.matchAll(/^import (?:\w+ from )?'([^']+\.css)';$/gm)].map((m) => resolve(stylesDir, m[1]!));
+  return Promise.all(
+    files.map(async (file) => {
+      const result = await vite.environments.client.transformRequest(`/@fs${file}?direct`);
+      return { id: file, css: result?.code ?? '' };
+    }),
+  );
+}
+
 /** The shape of apps/web/src/entry-server.tsx, declared here so the server does not depend on the web package. */
 interface EntryServer {
   render(opts: {
     request: Request;
     api: ReturnType<typeof serverApi>;
-    assets: { scripts: string[]; styles: string[]; preamble?: string };
+    assets: {
+      scripts: string[];
+      styles: string[];
+      preamble?: string;
+      inlineStyles?: { id: string; css: string }[];
+    };
     siteUrl: string;
   }): Promise<Response>;
 }
@@ -57,8 +84,7 @@ const app = createApp({
     return mod.render({
       request,
       api: serverApi(store),
-      // A plain <link> to the stylesheet avoids a flash of unstyled page in dev.
-      assets: { scripts: ['/@vite/client', '/src/entry-client.tsx'], styles: ['/src/styles/global.css', '/src/styles/late.css'], preamble },
+      assets: { scripts: ['/@vite/client', '/src/entry-client.tsx'], styles: [], inlineStyles: await inlineStyles(), preamble },
       siteUrl: env.SITE_URL,
     });
   },

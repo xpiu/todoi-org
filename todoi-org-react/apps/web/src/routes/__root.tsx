@@ -50,6 +50,10 @@ function RootDocument() {
         {assets.styles.map((href) => (
           <link key={href} rel="stylesheet" href={href} data-asset="style" />
         ))}
+        {assets.inlineStyles?.map(({ id, css }) => (
+          // Vite's client may already have refreshed the text by hydration; React leaves it.
+          <style key={id} data-vite-dev-id={id} suppressHydrationWarning dangerouslySetInnerHTML={{ __html: css }} />
+        ))}
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {assets.preamble ? (
           <script type="module" data-asset="preamble" dangerouslySetInnerHTML={{ __html: assets.preamble }} />
