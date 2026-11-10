@@ -1,0 +1,67 @@
+Product marks (commercial directory) - provenance
+=================================================
+
+Each file is the vendor's own published icon, downloaded from the vendor's own
+site on 2026-11-10, resized to 48x48 and saved as lossless WebP. Nothing is
+redrawn. Trademarks belong to their respective owners and are used here only
+to identify the products.
+
+file                       source
+-------------------------- ------------------------------------------------------------
+airtable.webp              https://www.airtable.com/favicon.ico
+akiflow.webp               https://framerusercontent.com/images/6iPdkAmt5PSRYjZma5sMZn2QrhM.png
+amazing-marvin.webp        https://app.amazingmarvin.com/favicon.ico
+any-do.webp                https://www.any.do/favicon.ico?98f78beac9723b5b
+asana.webp                 https://asana.com/assets/img/brand/asana-logo-favicon.ico
+azure-boards.webp          https://cdn.vsassets.io/content/icons/favicon.ico
+basecamp.webp              https://basecamp.com/assets/images/general/apple-touch-icon.png
+bitrix24.webp              https://www.bitrix24.com/apple-touch-icon.png
+businessmap.webp           https://businessmap.io/images/favicon.ico
+celoxis.webp               https://www.celoxis.com/apple-icon.png?apple-icon.2fu699sk3p38k.png
+clickup.webp               https://clickup.com/favicons/apple-touch-icon.png
+coda.webp                  https://cdn.coda.io/icons/png/color/coda-apple-180.png
+favro.webp                 https://cdn.prod.website-files.com/5eb8d3f3c300199312debf24/5ed7927a5e0209e8c97743d4_webclip.png
+fibery.webp                https://fibery.com/favicon.svg
+freedcamp.webp             https://cdn.freedcamp.com/frontpage/front_c/images/favicon/Favicon.svg
+ganttpro.webp              https://cdn.ganttpro.com/statics/media/favicon/apple-touch-icon.png?v2
+google-tasks.webp          https://www.gstatic.com/images/branding/product/2x/tasks_96dp.png
+hive.webp                  https://framerusercontent.com/images/gwU43bHfqpMwCjyiL0AaWhcbYs.png
+jira.webp                  https://www.atlassian.com/apple-touch-icon.png
+linear.webp                https://linear.app/static/apple-touch-icon.png?v=2
+meistertask.webp           https://www.meistertask.com/pages/favicon/apple-touch-icon.png
+microsoft-planner.webp     https://planner.cloud.microsoft/favicon.ico
+microsoft-to-do.webp       https://www.google.com/s2/favicons?domain=to-do.office.com&sz=128  (Google favicon service; the vendor site offered no usable icon)
+monday.webp                https://cdn.prod.website-files.com/656da6fea306219773d04208/65af6bd6e742d497b5f23f69_645898132bbaac20f1963919_256x256.png
+motion.webp                https://www.usemotion.com/favicon.svg
+nifty.webp                 https://niftypm.com/apple-touch-icon.png
+notion.webp                https://www.notion.com/front-static/logo-ios.png
+nozbe.webp                 https://nozbe.com/images/base/favicon/196x196.png
+omnifocus.webp             https://www.omnigroup.com/assets/img/icons/omnifocus-web@2x.png
+paymo.webp                 https://www.paymoapp.com/favicon/favicon-152x152.png
+plaky.webp                 https://plaky.com/assets/images/favicons/apple-touch-icon.png
+podio.webp                 https://www.google.com/s2/favicons?domain=podio.com&sz=128
+productive.webp            https://website-assets.productive.io/wf/69273e1d1bd1fcfcff2fe0d4/692d4e1ddbb0bdee9e624f23_68bd8252212540550b46f92f_webclip.png
+proofhub.webp              https://www.google.com/s2/favicons?domain=proofhub.com&sz=128  (Google favicon service; the vendor site offered no usable icon)
+quire.webp                 https://quire.io/apple-touch-icon-152x152.png
+redbooth.webp              https://redbooth.com/v_assets/favicon.png  (32px: the largest the site publishes)
+remember-the-milk.webp     https://www.rememberthemilk.com/img/favicon/apple-touch-icon.png?1791758400
+shortcut.webp              https://www.shortcut.com/favicons/production/apple-touch-icon.png
+smartsheet.webp            https://www.smartsheet.com/sites/default/files/favicons/apple-touch-icon.png
+sunsama.webp               https://pub-f7ae218077e542729e28e6f8f45a9a40.r2.dev/images/62d20083a317715004301f12_logo-icon-256.png
+superlist.webp             https://framerusercontent.com/images/bI0E6AOBvqILIpkzDCXQ2HSjAFQ.png
+taskade.webp               https://www.taskade.com/static_images/taskade-mascot-2026-180.png
+teamgantt.webp             https://www.teamgantt.com/apple-touch-icon.png
+teamhood.webp              https://teamhood.com/wp-content/themes/teamhood/dist/images/apple-touch-icon.png?id=eb9917202eb113998900
+teamwork.webp              https://cdn-website.teamwork.com/offload/app/uploads/2019/03/04183535/cropped-favicon-180x180.png
+ticktick.webp              https://d107mjio2rjf74.cloudfront.net/web/static/img/apple-touch-icon-180x180.png
+todoist.webp               https://www.todoist.com/static/favicon.ico
+toodledo.webp              https://www.toodledo.com/apple-touch-icon-144x144-precomposed.png
+trello.webp                https://www.trello.com/favicon.ico
+tweek.webp                 https://tweek.so/icons/pwa-512x512.png
+workflowy.webp             https://workflowy.com/apple-touch-icon.png
+workfront.webp             https://www.google.com/s2/favicons?domain=workfront.com&sz=128  (Google favicon service; the vendor site offered no usable icon)
+workzone.webp              https://www.workzone.com/wp-content/uploads/2025/04/cropped-workzone-favicon-180x180.png
+wrike.webp                 https://www.wrike.com/tp/static/favicon.ico?v8
+youtrack.webp              https://resources.jetbrains.com/storage/products/youtrack/img/meta/youtrack_logo_300x300.png
+zenkit.webp                https://zenkit.com/wp-content/uploads/2024/01/favicon.ico
+zoho-projects.webp         https://www.zohowebstatic.com/sites/zweb/images/favicon.ico

@@ -4267,3 +4267,65 @@ html:not(.js) .th-sort::after {
     display: none;
   }
 }
+
+/* --- the two directories, named where the page starts ----------------------
+   Two pages share one chrome, so the masthead says which one you are on and
+   where the other is. Set as a quiet tab pair above the title, mono like
+   every other label here; the current page carries the accent rule. */
+.dir-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-5);
+  margin-bottom: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+}
+
+.dir-tab {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  border-bottom: 2px solid transparent;
+  color: var(--text-2);
+  text-decoration: none;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.dir-tab:hover {
+  color: var(--accent);
+}
+
+.dir-tab[aria-current='page'] {
+  border-bottom-color: var(--accent);
+  color: var(--text);
+}
+
+/* A collapsed card names the product; without its one line, "Plaky" or
+   "Hive" is a word and nothing more. Two lines, then the record. */
+.card-blurb {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  margin-top: calc(var(--sp-1) * -1);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+/* The vendor's own figure, under the per-person one the column compares. */
+.cell-price .cell-sub-pub,
+.card-meta .card-lic-pub {
+  color: var(--text);
+}
+
+/* The dagger draws at 7x11px; its seat is a thumb's width. */
+.card-meta .stars-note::before {
+  inset: -16px -14px;
+}
+
+html:not(.js) .card-blurb {
+  -webkit-line-clamp: unset;
+}

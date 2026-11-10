@@ -615,6 +615,22 @@
     } else if (!query && filters) {
       title = (CFG.empty && CFG.empty.filtersTitle) || 'No project matches those filters';
       text = (CFG.empty && CFG.empty.filters) || 'Asking for native time tracking, Gantt, a calendar and CalDAV under a single licensing model rules out nearly everything, and partial support never satisfies a must-have. Loosen one filter and try again.';
+      // Name the constraints actually set, not a generic list that may
+      // include filters the reader never touched.
+      if (CFG.empty && CFG.empty.dynamic) {
+        var inline = CFG.empty.inline || {};
+        var want = on.map(function (t) { return inline[t.key] || (TOGGLE_NAMES[t.key] || t.key); });
+        var aud = lic.map(function (c) {
+          var k = c.getAttribute('data-model');
+          return (CFG.empty.audience || {})[k] || c.textContent.trim();
+        });
+        var listed = want.length > 1
+          ? want.slice(0, -1).join(', ') + ' and ' + want[want.length - 1]
+          : want.join('');
+        text = (listed ? 'No product here has ' + listed + (aud.length ? ' and is built for ' + aud.join(' or ') : '')
+                       : 'No product here is built for ' + aud.join(' or ') + ' with those filters')
+          + '. Partial support never satisfies a must-have. Remove one constraint below.';
+      }
       action = 'Clear filters';
     } else {
       title = 'Nothing matches \u201C' + query + '\u201D with those filters';
