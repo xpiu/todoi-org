@@ -8,7 +8,7 @@ import { defineConfig } from 'vite';
  * server-render bundle to dist/server. The editor is its own chunk through
  * route code splitting.
  */
-export default defineConfig(({ isSsrBuild }) => ({
+export default defineConfig(({ command, isSsrBuild }) => ({
   plugins: [
     tanstackRouter({
       target: 'react',
@@ -34,7 +34,7 @@ export default defineConfig(({ isSsrBuild }) => ({
         rollupOptions: { input: 'src/entry-client.tsx' },
       },
   // The server bundle carries its dependencies: the production image has no node_modules.
-  ssr: {
-    noExternal: true,
-  },
+  // Only when building: in dev, Vite's module runner cannot evaluate CommonJS
+  // packages such as react-dom/server, so they stay external and Node loads them.
+  ssr: command === 'build' ? { noExternal: true } : {},
 }));
