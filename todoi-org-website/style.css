@@ -1201,7 +1201,7 @@ a.wordmark:hover .wordmark-logo {
   min-width: 0;
 }
 
-.sort-pair .control-select {
+.sort-pair .select-wrap {
   flex: 1 1 auto;
   border-radius: var(--radius-2) 0 0 var(--radius-2);
 }
@@ -1211,6 +1211,41 @@ a.wordmark:hover .wordmark-logo {
   display: inline-flex;
   flex: none;
   align-items: center;
+/* The native arrow is drawn flush against the right border in Chromium and
+   collides with the label once the field narrows, so it is replaced by our
+   own chevron, inset by the field's own padding, with room reserved for it
+   so a long label truncates before reaching it. */
+.select-wrap {
+  position: relative;
+  display: block;
+}
+
+.select-wrap .control-select {
+  padding-right: calc(var(--sp-3) + 0.875rem + var(--sp-2));
+  text-overflow: ellipsis;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.select-wrap::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: var(--sp-3);
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-top: -0.4375rem;
+  background-color: var(--text-2);
+  pointer-events: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.select-wrap:hover::after {
+  background-color: var(--text);
+}
+
   gap: var(--sp-2);
   min-height: var(--control-h);
   min-inline-size: 9rem;

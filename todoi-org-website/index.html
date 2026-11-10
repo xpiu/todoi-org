@@ -117,26 +117,28 @@
           <div class="control-field control-field-sort">
             <label class="control-label" for="sort-field">Sort by</label>
             <div class="sort-pair">
-              <select id="sort-field" class="control-select">
-                <optgroup label="Overview">
-                  <option value="community" selected>Community size</option>
-                  <option value="stars">Repository stars</option>
-                  <option value="avg">Score</option>
-                  <option value="integrations">Integrations</option>
-                </optgroup>
-                <optgroup label="Criteria">
-                  <option value="deploy">Ease of deployment</option>
-                  <option value="use">Ease of use</option>
-                  <option value="enterprise">Enterprise features</option>
-                  <option value="flex">Interface flexibility</option>
-                  <option value="sovereignty">Data sovereignty</option>
-                  <option value="portability">Portability</option>
-                </optgroup>
-                <optgroup label="Identity">
-                  <option value="name">Name</option>
-                  <option value="year">First appeared</option>
-                </optgroup>
-              </select>
+              <span class="select-wrap">
+                <select id="sort-field" class="control-select">
+                  <optgroup label="Overview">
+                    <option value="community" selected>Community size</option>
+                    <option value="stars">Repository stars</option>
+                    <option value="avg">Score</option>
+                    <option value="integrations">Integrations</option>
+                  </optgroup>
+                  <optgroup label="Criteria">
+                    <option value="deploy">Ease of deployment</option>
+                    <option value="use">Ease of use</option>
+                    <option value="enterprise">Enterprise features</option>
+                    <option value="flex">Interface flexibility</option>
+                    <option value="sovereignty">Data sovereignty</option>
+                    <option value="portability">Portability</option>
+                  </optgroup>
+                  <optgroup label="Identity">
+                    <option value="name">Name</option>
+                    <option value="year">First appeared</option>
+                  </optgroup>
+                </select>
+              </span>
               <button type="button" id="sort-dir" class="sort-dir" data-dir="desc" aria-label="Order: large to small. Reverse the order"><span class="sort-dir-icon" aria-hidden="true"></span><span class="sort-dir-label" id="sort-dir-label">Large to small</span></button>
             </div>
           </div>
