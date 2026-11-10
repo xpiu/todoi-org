@@ -9,8 +9,6 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'theme-color', content: '#eef2f9', media: '(prefers-color-scheme: light)' },
-      { name: 'theme-color', content: '#0d1016', media: '(prefers-color-scheme: dark)' },
     ],
     links: [
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/img/favicon-32.png' },
@@ -45,6 +43,9 @@ function RootDocument() {
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
         <HeadContent />
+        {/* Two theme colours, one per scheme: HeadContent would merge same-named metas. */}
+        <meta name="theme-color" content="#eef2f9" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0d1016" media="(prefers-color-scheme: dark)" />
         {assets.styles.map((href) => (
           <link key={href} rel="stylesheet" href={href} data-asset="style" />
         ))}
