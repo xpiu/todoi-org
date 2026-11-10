@@ -855,6 +855,18 @@
     // The address bar may already describe a view; take it before first paint
     // of the sorted table so there is no flash of the default order.
     var linkedSlug = readURL();
+    // A bare #slug is the record's @id in the page's JSON-LD (…/#asana), so it
+    // opens the record too. Section anchors (#faq) match no record and pass by.
+    if (!linkedSlug && window.location.hash.length > 1) {
+      var hashSlug = window.location.hash.slice(1);
+      try { hashSlug = decodeURIComponent(hashSlug); } catch (e) { /* malformed */ }
+      if (recordsOf(hashSlug).length) {
+        linkedSlug = hashSlug;
+        // writeURL will say ?open=slug; the hash would only repeat it.
+        try { window.history.replaceState(null, '', window.location.pathname + window.location.search); }
+        catch (e) { /* file:// */ }
+      }
+    }
     readQuery();
     setLead(sortKey);
     syncSortUI();
