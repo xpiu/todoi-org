@@ -961,6 +961,18 @@ a.wordmark:hover .wordmark-logo {
   fill: currentColor;
 }
 
+/* Joints between blocks, in the page colour so they read as real cuts.
+   They come and go with their block's lift (the same timing as the wall),
+   so the stroke is unbroken before and after the wave. */
+.hero-mark-seam {
+  stroke: var(--bg);
+  stroke-width: 0.9px;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  animation: hero-mark-side 560ms var(--d, 0ms) linear both;
+}
+
 .hero-mark-side {
   fill: color-mix(in oklab, currentColor, #000 18%);
   opacity: 0;

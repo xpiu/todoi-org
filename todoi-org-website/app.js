@@ -1152,6 +1152,20 @@
         lift.setAttribute('class', 'hero-mark-lift');
         lift.setAttribute('style', '--d:' + delay + 'ms');
         lift.appendChild(rect('hero-mark-face', len, pt.x, pt.y, pt.deg));
+        // The joint: a hairline across the block's leading end only, the
+        // stroke's width and no longer, so it marks the block without ever
+        // running along (and tracing) the outline. Faces are drawn in path
+        // order, so it lands on the previous block's overlapping end.
+        var seam = document.createElementNS(NS, 'line');
+        var sx = String(-len / 2 + OVERLAP / 2);
+        seam.setAttribute('class', 'hero-mark-seam');
+        seam.setAttribute('x1', sx);
+        seam.setAttribute('x2', sx);
+        seam.setAttribute('y1', String(-WIDTH / 2));
+        seam.setAttribute('y2', String(WIDTH / 2));
+        seam.setAttribute('transform',
+          'translate(' + pt.x.toFixed(2) + ' ' + pt.y.toFixed(2) + ') rotate(' + pt.deg.toFixed(2) + ')');
+        lift.appendChild(seam);
         faces.appendChild(lift);
       });
     } catch (e) { return; }
