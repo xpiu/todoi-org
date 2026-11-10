@@ -3,6 +3,8 @@ import { directoryQuery } from './queries.ts';
 
 /** What the head needs, returned by the loader so it is dehydrated with the page. */
 export interface DirectoryHeadData {
+  /** Names the directory this page shows; the server render reads it to inline each record's detail. */
+  slug: string;
   siteUrl: string;
   path: string;
   csvFile: string;
@@ -19,7 +21,7 @@ export interface DirectoryHeadData {
 export async function loadDirectory(context: RouterContext, slug: string): Promise<DirectoryHeadData> {
   const data = await context.queryClient.ensureQueryData(directoryQuery(context.api, slug));
   const d = data.directory;
-  return { siteUrl: context.siteUrl, path: d.path, csvFile: d.csvFile, head: d.copy.head };
+  return { slug: d.slug, siteUrl: context.siteUrl, path: d.path, csvFile: d.csvFile, head: d.copy.head };
 }
 
 /** Title, description, canonical, Open Graph and Twitter tags: rendered on the server. */

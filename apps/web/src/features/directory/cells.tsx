@@ -1,0 +1,96 @@
+import {
+  bandLabel,
+  fill,
+  formatScore,
+  formatStars,
+  starGrade,
+  valueOf,
+  type DirectoryConfig,
+  type RecordSummary,
+} from '@todoi/shared';
+import { TagIcon } from '../../components/icons.tsx';
+
+export interface LeadSpec {
+  key: string;
+  head: string;
+  title: string;
+  sr: string;
+}
+
+/**
+ * The matrix shows one score. It is the mean by default, but sorting by a
+ * criterion would otherwise reorder the table against a number that is not
+ * on screen, so the column follows the sort. The band and integrations have
+ * columns of their own, so they leave it on the mean.
+ */
+export function leadSpec(config: DirectoryConfig, sortKey: string): LeadSpec {
+  const c = config.criteria.find((x) => x.key === sortKey);
+  if (c) return { key: c.key, head: c.head, title: c.tip + config.copy.score.critTail, sr: c.sr };
+  return { key: 'avg', head: 'Score', title: config.copy.score.tip, sr: config.copy.score.sr };
+}
+
+export function ModelTag({ config, record }: { config: DirectoryConfig; record: RecordSummary }) {
+  const seg = config.segments.find((s) => s.key === record.segment);
+  return (
+    <span className={`tag tag-${seg?.tagClass ?? 'seg'}`} data-lic={record.segment} tabIndex={0}>
+      <TagIcon name={seg?.icon ?? 'team'} />
+      {seg?.label ?? record.segment}
+    </span>
+  );
+}
+
+export function CommBand({ band, pill }: { band: number; pill?: boolean }) {
+  return (
+    <span className={pill ? 'pill comm-band' : 'comm-band'} data-comm={band} tabIndex={0}>
+      {bandLabel(band)}
+    </span>
+  );
+}
+
+export function LeadScore({ record, lead }: { record: RecordSummary; lead: LeadSpec }) {
+  const v = valueOf(record, lead.key);
+  const txt = formatScore(v);
+  return (
+    <>
+      <span className="score score-lead" data-score="" style={{ '--fill': fill(v) } as never}>
+        <span className="score-num">{txt}</span>
+      </span>
+      <span className="sr-only" data-score-sr="">
+        {`${lead.sr}: ${txt} out of 5`}
+      </span>
+    </>
+  );
+}
+
+function Dagger({ label, aria, note }: { label: string; aria: string; note: string }) {
+  return (
+    <span className="stars-note methodology" data-tip-label={label} tabIndex={0} aria-label={aria} title={note}>
+      †
+    </span>
+  );
+}
+
+/** Stars (open source) or the entry price (commercial), with its qualifications. */
+export function Metric({ record, sub }: { record: RecordSummary; sub: 'cell-sub' | 'card-lic' }) {
+  if (record.kind === 'oss') {
+    return (
+      <>
+        <span className="num" data-grade={starGrade(record.stars)}>
+          {formatStars(record.stars)}
+        </span>
+        {record.starsNote ? (
+          <Dagger label="Stars" aria="Qualification on this star count" note={record.starsNote} />
+        ) : null}
+      </>
+    );
+  }
+  return (
+    <>
+      <span className={record.price === null ? 'num num-quote' : 'num'}>{record.priceLabel}</span>
+      {record.priceNote ? <Dagger label="Price" aria="Qualification on this price" note={record.priceNote} /> : null}
+      {record.pricePublished ? <span className={`${sub} ${sub}-pub`}>{record.pricePublished}</span> : null}
+      {/* A product that is free outright has no paid tier to compare a free plan to. */}
+      <span className={sub}>{record.price === 0 ? 'No paid tier' : record.free ? 'Free plan' : 'No free plan'}</span>
+    </>
+  );
+}

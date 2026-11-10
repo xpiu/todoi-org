@@ -96,7 +96,7 @@ export function directoryCsv(dir: FullDirectory): string {
         ...scoreCols(dir, r),
         r.caveat,
         r.confidence,
-        r.sources.join(' | '),
+        r.sources.map((s) => s.url).join(' | '),
       ];
     });
     return toCsv([head, ...rows]);
@@ -167,7 +167,7 @@ export function directoryCsv(dir: FullDirectory): string {
       r.summary.join(' '),
       r.caveat,
       r.confidence,
-      r.sources.join(' | '),
+      r.sources.map((s) => s.url).join(' | '),
     ];
   });
   return toCsv([head, ...rows]);

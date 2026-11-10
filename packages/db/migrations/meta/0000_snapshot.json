@@ -1,5 +1,5 @@
 {
-  "id": "6424d953-bf12-4e2d-9609-52263a7c32f0",
+  "id": "defbc685-f2ac-48de-a6e7-1022aeea2e97",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -658,6 +658,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "capability_notes": {
+          "name": "capability_notes",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},
@@ -887,6 +893,12 @@
         },
         "url": {
           "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
           "type": "text",
           "primaryKey": false,
           "notNull": true

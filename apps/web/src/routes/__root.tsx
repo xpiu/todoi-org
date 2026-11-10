@@ -3,6 +3,7 @@ import type { RouterContext } from '../router.tsx';
 import { themeScript } from '../lib/theme-script.ts';
 import { NotFound } from '../components/NotFound.tsx';
 import '../styles/global.css';
+import '../styles/app.css';
 
 export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({

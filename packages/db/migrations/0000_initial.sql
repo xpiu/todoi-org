@@ -96,6 +96,7 @@ CREATE TABLE "oss_details" (
 	"deployment" text NOT NULL,
 	"stack" text NOT NULL,
 	"hosted_option" text NOT NULL,
+	"capability_notes" text,
 	CONSTRAINT "oss_details_stars" CHECK ("oss_details"."stars" >= 0)
 );
 --> statement-breakpoint
@@ -125,6 +126,7 @@ CREATE TABLE "record_sources" (
 	"record_id" integer NOT NULL,
 	"position" smallint NOT NULL,
 	"url" text NOT NULL,
+	"label" text NOT NULL,
 	CONSTRAINT "record_sources_record_id_position_pk" PRIMARY KEY("record_id","position")
 );
 --> statement-breakpoint

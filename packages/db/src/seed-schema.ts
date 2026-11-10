@@ -27,7 +27,7 @@ export const SeedRecord = z.object({
   confidence: z.enum(['High', 'Medium-high', 'Medium']),
   scores: z.record(z.string(), z.object({ score: z.number(), review: z.string() })),
   caps: z.record(z.string(), z.object({ level: Level, note: z.string().nullable() })),
-  sources: z.array(z.string()),
+  sources: z.array(z.object({ url: z.string(), label: z.string() })),
   oss: z
     .object({
       licence: z.string(),
@@ -39,6 +39,7 @@ export const SeedRecord = z.object({
       deployment: z.string(),
       stack: z.string(),
       hostedOption: z.string(),
+      capabilityNotes: z.string().nullable(),
     })
     .optional(),
   commercial: z

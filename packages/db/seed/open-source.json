@@ -533,8 +533,14 @@
         }
       },
       "sources": [
-        "https://huly.io",
-        "https://github.com/hcengineering/platform"
+        {
+          "url": "https://huly.io",
+          "label": "huly.io"
+        },
+        {
+          "url": "https://github.com/hcengineering/platform",
+          "label": "github.com/hcengineering/platform"
+        }
       ],
       "oss": {
         "licence": "EPL-2.0",
@@ -545,7 +551,8 @@
         "starsNote": "hcengineering/platform is the whole platform - tracker, documents, calendar and messaging. No repository counts Huly the task manager on its own.",
         "deployment": "Docker Compose across several services, with MongoDB or CockroachDB, object storage and a search index. The heaviest stack here.",
         "stack": "TypeScript and Svelte over MongoDB or CockroachDB.",
-        "hostedOption": "None recorded. The first-party hosted service closed in July 2026; self-hosting continues."
+        "hostedOption": "None recorded. The first-party hosted service closed in July 2026; self-hosting continues.",
+        "capabilityNotes": "<strong>Native time tracking</strong> - Partial, depending on the workflow."
       }
     },
     {
@@ -622,11 +629,26 @@
         }
       },
       "sources": [
-        "https://www.openproject.org/docs/enterprise-guide/enterprise-on-premises-guide/enterprise-on-premises-faq/",
-        "https://www.openproject.org/community-edition",
-        "https://www.openproject.org/docs",
-        "https://www.openproject.org/docs/api/endpoints/configuration",
-        "https://github.com/opf/openproject"
+        {
+          "url": "https://www.openproject.org/docs/enterprise-guide/enterprise-on-premises-guide/enterprise-on-premises-faq/",
+          "label": "OpenProject Enterprise licensing FAQ"
+        },
+        {
+          "url": "https://www.openproject.org/community-edition",
+          "label": "www.openproject.org/community-edition"
+        },
+        {
+          "url": "https://www.openproject.org/docs",
+          "label": "www.openproject.org/docs"
+        },
+        {
+          "url": "https://www.openproject.org/docs/api/endpoints/configuration",
+          "label": "www.openproject.org/docs/api/endpoints/configuration"
+        },
+        {
+          "url": "https://github.com/opf/openproject",
+          "label": "github.com/opf/openproject"
+        }
       ],
       "oss": {
         "licence": "GPL-3.0",
@@ -637,7 +659,8 @@
         "starsNote": null,
         "deployment": "A packaged all-in-one container, distribution packages, or an official Helm chart over PostgreSQL.",
         "stack": "Ruby on Rails and Angular over PostgreSQL.",
-        "hostedOption": "First-party (OpenProject Enterprise cloud)."
+        "hostedOption": "First-party (OpenProject Enterprise cloud).",
+        "capabilityNotes": null
       }
     },
     {
@@ -714,10 +737,22 @@
         }
       },
       "sources": [
-        "https://plane.so/open-source",
-        "https://docs.plane.so",
-        "https://docs.plane.so/core-concepts/issues/time-tracking",
-        "https://plane.so"
+        {
+          "url": "https://plane.so/open-source",
+          "label": "plane.so/open-source"
+        },
+        {
+          "url": "https://docs.plane.so",
+          "label": "docs.plane.so"
+        },
+        {
+          "url": "https://docs.plane.so/core-concepts/issues/time-tracking",
+          "label": "docs.plane.so/core-concepts/issues/time-tracking"
+        },
+        {
+          "url": "https://plane.so",
+          "label": "plane.so"
+        }
       ],
       "oss": {
         "licence": "AGPL for Community Edition",
@@ -728,7 +763,8 @@
         "starsNote": null,
         "deployment": "Docker Compose over PostgreSQL, Redis and MinIO object storage, or a Kubernetes chart. Several services, not one container.",
         "stack": "Next.js and TypeScript over Python (Django) and PostgreSQL.",
-        "hostedOption": "First-party (Plane Cloud), alongside the self-hosted Community Edition."
+        "hostedOption": "First-party (Plane Cloud), alongside the self-hosted Community Edition.",
+        "capabilityNotes": "<strong>Native time tracking</strong> - Available, but plan and edition dependent."
       }
     },
     {
@@ -805,9 +841,18 @@
         }
       },
       "sources": [
-        "https://www.redmine.org",
-        "https://www.redmine.org/projects/redmine/wiki/Features",
-        "https://github.com/redmine/redmine"
+        {
+          "url": "https://www.redmine.org",
+          "label": "www.redmine.org"
+        },
+        {
+          "url": "https://www.redmine.org/projects/redmine/wiki/Features",
+          "label": "www.redmine.org/projects/redmine/wiki/Features"
+        },
+        {
+          "url": "https://github.com/redmine/redmine",
+          "label": "github.com/redmine/redmine"
+        }
       ],
       "oss": {
         "licence": "GPLv2",
@@ -818,7 +863,8 @@
         "starsNote": "GitHub carries a read-only mirror. Development lives in the project’s own repository at redmine.org, so this figure sits far below two decades of installed base.",
         "deployment": "An official Docker image or distribution packages over PostgreSQL, MySQL or SQLite. Conventional and well documented.",
         "stack": "Ruby on Rails over PostgreSQL, MySQL or SQLite.",
-        "hostedOption": "Third-party only (Planio, Easy Redmine and others); no first-party service."
+        "hostedOption": "Third-party only (Planio, Easy Redmine and others); no first-party service.",
+        "capabilityNotes": "<strong>Agile boards, Kanban or Scrum</strong> - Not in core. Supplied by plugins."
       }
     },
     {
@@ -895,9 +941,18 @@
         }
       },
       "sources": [
-        "https://affine.pro/self-host",
-        "https://docs.affine.pro/self-host-affine/features/team-license",
-        "https://github.com/toeverything/AFFiNE/discussions/5947"
+        {
+          "url": "https://affine.pro/self-host",
+          "label": "affine.pro/self-host"
+        },
+        {
+          "url": "https://docs.affine.pro/self-host-affine/features/team-license",
+          "label": "docs.affine.pro/self-host-affine/features/team-license"
+        },
+        {
+          "url": "https://github.com/toeverything/AFFiNE/discussions/5947",
+          "label": "github.com/toeverything/AFFiNE/discussions/5947"
+        }
       ],
       "oss": {
         "licence": "MPL-2.0 client, EE backend",
@@ -908,7 +963,8 @@
         "starsNote": null,
         "deployment": "Documented Docker Compose with PostgreSQL and Redis, or the hosted service.",
         "stack": "Rust and TypeScript with React.",
-        "hostedOption": "First-party (AFFiNE Cloud), plus a paid self-hosted Team tier."
+        "hostedOption": "First-party (AFFiNE Cloud), plus a paid self-hosted Team tier.",
+        "capabilityNotes": "<strong>Calendar view</strong> - None. Databases have table, board and gallery views but no calendar."
       }
     },
     {
@@ -985,9 +1041,18 @@
         }
       },
       "sources": [
-        "https://github.com/AppFlowy-IO/AppFlowy-Cloud",
-        "https://appflowy.com/pricing",
-        "https://appflowy.io/"
+        {
+          "url": "https://github.com/AppFlowy-IO/AppFlowy-Cloud",
+          "label": "github.com/AppFlowy-IO/AppFlowy-Cloud"
+        },
+        {
+          "url": "https://appflowy.com/pricing",
+          "label": "appflowy.com/pricing"
+        },
+        {
+          "url": "https://appflowy.io/",
+          "label": "appflowy.io"
+        }
       ],
       "oss": {
         "licence": "AGPL-3.0",
@@ -998,7 +1063,8 @@
         "starsNote": null,
         "deployment": "Compose for the self-hosted AppFlowy Cloud sync server; the web client sits alongside desktop and mobile builds.",
         "stack": "Flutter and Rust over PostgreSQL.",
-        "hostedOption": "First-party (AppFlowy Cloud), with paid AI and vault add-ons."
+        "hostedOption": "First-party (AppFlowy Cloud), with paid AI and vault add-ons.",
+        "capabilityNotes": null
       }
     },
     {
@@ -1075,9 +1141,18 @@
         }
       },
       "sources": [
-        "https://github.com/HabitRPG/habitica",
-        "https://habitica.fandom.com/wiki/Application_Programming_Interface",
-        "https://habitica.com/"
+        {
+          "url": "https://github.com/HabitRPG/habitica",
+          "label": "github.com/HabitRPG/habitica"
+        },
+        {
+          "url": "https://habitica.fandom.com/wiki/Application_Programming_Interface",
+          "label": "habitica.fandom.com/wiki/Application_Programming_Interface"
+        },
+        {
+          "url": "https://habitica.com/",
+          "label": "habitica.com"
+        }
       ],
       "oss": {
         "licence": "GPL-3.0",
@@ -1088,7 +1163,8 @@
         "starsNote": null,
         "deployment": "Compose with Node.js, MongoDB and Redis.",
         "stack": "Node.js and Vue over MongoDB.",
-        "hostedOption": "First-party (habitica.com), where nearly all of its users are."
+        "hostedOption": "First-party (habitica.com), where nearly all of its users are.",
+        "capabilityNotes": "<strong>Agile boards, Kanban or Scrum</strong> - None. Habits, dailies, to-dos and rewards are the only four lists. <strong>Calendar view</strong> - None. Dailies repeat on a schedule you cannot see laid out. <strong>Gantt or dependency timeline</strong> - None, and none intended. <strong>Native time tracking</strong> - None. Completion is the unit, not duration."
       }
     },
     {
@@ -1165,9 +1241,18 @@
         }
       },
       "sources": [
-        "https://leantime.io",
-        "https://marketplace.leantime.io",
-        "https://github.com/Leantime/leantime"
+        {
+          "url": "https://leantime.io",
+          "label": "leantime.io"
+        },
+        {
+          "url": "https://marketplace.leantime.io",
+          "label": "marketplace.leantime.io"
+        },
+        {
+          "url": "https://github.com/Leantime/leantime",
+          "label": "github.com/Leantime/leantime"
+        }
       ],
       "oss": {
         "licence": "AGPLv3 core",
@@ -1178,7 +1263,8 @@
         "starsNote": null,
         "deployment": "Docker Compose with PHP, a web server and MySQL. One database, no queue or object store.",
         "stack": "PHP over MySQL, with a server-rendered interface.",
-        "hostedOption": "First-party (Leantime hosted)."
+        "hostedOption": "First-party (Leantime hosted).",
+        "capabilityNotes": null
       }
     },
     {
@@ -1255,9 +1341,18 @@
         }
       },
       "sources": [
-        "https://github.com/logseq/logseq",
-        "https://logseq.github.io/marketplace/",
-        "https://github.com/logseq/logseq/blob/master/docs/docker-web-app-guide.md"
+        {
+          "url": "https://github.com/logseq/logseq",
+          "label": "github.com/logseq/logseq"
+        },
+        {
+          "url": "https://logseq.github.io/marketplace/",
+          "label": "logseq.github.io/marketplace"
+        },
+        {
+          "url": "https://github.com/logseq/logseq/blob/master/docs/docker-web-app-guide.md",
+          "label": "github.com/logseq/logseq/blob/master/docs/docker-web-app-guide.md"
+        }
       ],
       "oss": {
         "licence": "AGPL-3.0",
@@ -1268,7 +1363,8 @@
         "starsNote": null,
         "deployment": "A self-hosted web app container, a desktop build, or the hosted browser demo reading a local folder.",
         "stack": "ClojureScript and React over plain text files.",
-        "hostedOption": "None. The files stay yours, synced by whatever you already use."
+        "hostedOption": "None. The files stay yours, synced by whatever you already use.",
+        "capabilityNotes": "<strong>Native time tracking</strong> - A clock log on TODO and DOING blocks, not a timesheet. <strong>Agile boards, Kanban or Scrum</strong> - A board exists as a marketplace plugin, not in the core. <strong>Calendar view</strong> - Daily journal pages, with calendar views available as plugins."
       }
     },
     {
@@ -1345,9 +1441,18 @@
         }
       },
       "sources": [
-        "https://nextcloud.com/blog/nextcloud-deck-kanban-board-gantt-chart-app-for-teams",
-        "https://apps.nextcloud.com/apps/deck",
-        "https://github.com/nextcloud/deck"
+        {
+          "url": "https://nextcloud.com/blog/nextcloud-deck-kanban-board-gantt-chart-app-for-teams",
+          "label": "nextcloud.com/blog/nextcloud-deck-kanban-board-gantt-chart-app-for-teams"
+        },
+        {
+          "url": "https://apps.nextcloud.com/apps/deck",
+          "label": "apps.nextcloud.com/apps/deck"
+        },
+        {
+          "url": "https://github.com/nextcloud/deck",
+          "label": "github.com/nextcloud/deck"
+        }
       ],
       "oss": {
         "licence": "AGPL",
@@ -1358,7 +1463,8 @@
         "starsNote": "The Deck app repository alone. Nextcloud, the platform Deck runs inside and inherits its install base from, holds about 36.8k of its own.",
         "deployment": "The Nextcloud all-in-one container or distribution packages over PostgreSQL or MariaDB, then Deck and Tasks as apps.",
         "stack": "PHP and Vue over PostgreSQL or MariaDB.",
-        "hostedOption": "Third-party providers under the Nextcloud provider programme."
+        "hostedOption": "Third-party providers under the Nextcloud provider programme.",
+        "capabilityNotes": "<strong>Native time tracking</strong> - Not native. A third-party add-on exists.; <strong>Calendar view</strong> - Through the separate Nextcloud Calendar integration."
       }
     },
     {
@@ -1435,9 +1541,18 @@
         }
       },
       "sources": [
-        "https://github.com/nocodb/nocodb",
-        "https://nocodb.com/docs/product-docs/automation/webhook",
-        "https://nocodb.com/"
+        {
+          "url": "https://github.com/nocodb/nocodb",
+          "label": "github.com/nocodb/nocodb"
+        },
+        {
+          "url": "https://nocodb.com/docs/product-docs/automation/webhook",
+          "label": "nocodb.com/docs/product-docs/automation/webhook"
+        },
+        {
+          "url": "https://nocodb.com/",
+          "label": "nocodb.com"
+        }
       ],
       "oss": {
         "licence": "AGPL-3.0",
@@ -1448,7 +1563,8 @@
         "starsNote": null,
         "deployment": "One container over SQLite, or pointed at an existing PostgreSQL or MySQL database.",
         "stack": "Node.js and Vue over SQLite, PostgreSQL or MySQL.",
-        "hostedOption": "First-party (NocoDB Cloud)."
+        "hostedOption": "First-party (NocoDB Cloud).",
+        "capabilityNotes": null
       }
     },
     {
@@ -1525,9 +1641,18 @@
         }
       },
       "sources": [
-        "https://planka.app",
-        "https://docs.planka.cloud",
-        "https://github.com/plankanban/planka"
+        {
+          "url": "https://planka.app",
+          "label": "planka.app"
+        },
+        {
+          "url": "https://docs.planka.cloud",
+          "label": "docs.planka.cloud"
+        },
+        {
+          "url": "https://github.com/plankanban/planka",
+          "label": "github.com/plankanban/planka"
+        }
       ],
       "oss": {
         "licence": "Edition-dependent; not treated here as pure OSI FOSS",
@@ -1538,7 +1663,8 @@
         "starsNote": null,
         "deployment": "A two-container Compose file: the application and PostgreSQL. Nothing else to run.",
         "stack": "Node.js and React over PostgreSQL.",
-        "hostedOption": "None recorded for the Community edition."
+        "hostedOption": "None recorded for the Community edition.",
+        "capabilityNotes": "<strong>Gantt or dependency timeline</strong> - No full dependency Gantt. The Pro edition adds a timeline view.; <strong>Calendar view</strong> - Pro edition only."
       }
     },
     {
@@ -1615,9 +1741,18 @@
         }
       },
       "sources": [
-        "https://taiga.io",
-        "https://docs.taiga.io",
-        "https://community.taiga.io"
+        {
+          "url": "https://taiga.io",
+          "label": "taiga.io"
+        },
+        {
+          "url": "https://docs.taiga.io",
+          "label": "docs.taiga.io"
+        },
+        {
+          "url": "https://community.taiga.io",
+          "label": "community.taiga.io"
+        }
       ],
       "oss": {
         "licence": "Open-source (project states 100% open source self-hosting)",
@@ -1628,7 +1763,8 @@
         "starsNote": "The codebase is split across taiga-docker, taiga-back and taiga-front. This is the largest of the three; the other two hold roughly 1.2k more between them.",
         "deployment": "A multi-container Compose stack with an official install script, over PostgreSQL, RabbitMQ and Redis.",
         "stack": "Python (Django) and React over PostgreSQL.",
-        "hostedOption": "First-party (Taiga cloud)."
+        "hostedOption": "First-party (Taiga cloud).",
+        "capabilityNotes": "<strong>Native time tracking</strong> - No native time tracking.; <strong>Gantt or dependency timeline</strong> - No native Gantt.; <strong>Calendar view</strong> - No native calendar."
       }
     },
     {
@@ -1705,9 +1841,18 @@
         }
       },
       "sources": [
-        "https://github.com/mattermost-community/focalboard",
-        "https://github.com/mattermost-community/focalboard/issues/5038",
-        "https://www.focalboard.com/"
+        {
+          "url": "https://github.com/mattermost-community/focalboard",
+          "label": "github.com/mattermost-community/focalboard"
+        },
+        {
+          "url": "https://github.com/mattermost-community/focalboard/issues/5038",
+          "label": "github.com/mattermost-community/focalboard/issues/5038"
+        },
+        {
+          "url": "https://www.focalboard.com/",
+          "label": "www.focalboard.com"
+        }
       ],
       "oss": {
         "licence": "MIT (personal server)",
@@ -1718,7 +1863,8 @@
         "starsNote": null,
         "deployment": "A single Docker image for the personal server, or the board plugin inside Mattermost.",
         "stack": "Go and React.",
-        "hostedOption": "Through Mattermost Cloud, as part of that product rather than on its own."
+        "hostedOption": "Through Mattermost Cloud, as part of that product rather than on its own.",
+        "capabilityNotes": null
       }
     },
     {
@@ -1795,9 +1941,18 @@
         }
       },
       "sources": [
-        "https://github.com/gristlabs/grist-core",
-        "https://support.getgrist.com/technical-docs/",
-        "https://www.getgrist.com/"
+        {
+          "url": "https://github.com/gristlabs/grist-core",
+          "label": "github.com/gristlabs/grist-core"
+        },
+        {
+          "url": "https://support.getgrist.com/technical-docs/",
+          "label": "support.getgrist.com/technical-docs"
+        },
+        {
+          "url": "https://www.getgrist.com/",
+          "label": "www.getgrist.com"
+        }
       ],
       "oss": {
         "licence": "Apache-2.0 (grist-core)",
@@ -1808,7 +1963,8 @@
         "starsNote": null,
         "deployment": "One official container over SQLite, with Python for formulas. No external database required.",
         "stack": "Python and TypeScript over SQLite.",
-        "hostedOption": "First-party (Grist hosted), with paid tiers above the Apache-2.0 core."
+        "hostedOption": "First-party (Grist hosted), with paid tiers above the Apache-2.0 core.",
+        "capabilityNotes": "<strong>Agile boards, Kanban or Scrum</strong> - A kanban widget over a table, configured rather than built in. <strong>Calendar view</strong> - A calendar widget over a date column, not a first-class view."
       }
     },
     {
@@ -1885,10 +2041,22 @@
         }
       },
       "sources": [
-        "https://kanboard.org",
-        "https://docs.kanboard.org/v1/user/time_tracking",
-        "https://docs.kanboard.org/v1/dev/webhooks",
-        "https://github.com/kanboard/kanboard"
+        {
+          "url": "https://kanboard.org",
+          "label": "kanboard.org"
+        },
+        {
+          "url": "https://docs.kanboard.org/v1/user/time_tracking",
+          "label": "docs.kanboard.org/v1/user/time_tracking"
+        },
+        {
+          "url": "https://docs.kanboard.org/v1/dev/webhooks",
+          "label": "docs.kanboard.org/v1/dev/webhooks"
+        },
+        {
+          "url": "https://github.com/kanboard/kanboard",
+          "label": "github.com/kanboard/kanboard"
+        }
       ],
       "oss": {
         "licence": "MIT",
@@ -1899,7 +2067,8 @@
         "starsNote": null,
         "deployment": "One PHP container over embedded SQLite, with PostgreSQL and MySQL optional. Almost no operational surface.",
         "stack": "PHP over SQLite by default; no build step and no JavaScript framework.",
-        "hostedOption": "None recorded. Self-hosting only."
+        "hostedOption": "None recorded. Self-hosting only.",
+        "capabilityNotes": null
       }
     },
     {
@@ -1976,9 +2145,18 @@
         }
       },
       "sources": [
-        "https://github.com/kimai/kimai",
-        "https://www.kimai.org/store/",
-        "https://www.kimai.org/en/integrations"
+        {
+          "url": "https://github.com/kimai/kimai",
+          "label": "github.com/kimai/kimai"
+        },
+        {
+          "url": "https://www.kimai.org/store/",
+          "label": "www.kimai.org/store"
+        },
+        {
+          "url": "https://www.kimai.org/en/integrations",
+          "label": "www.kimai.org/en/integrations"
+        }
       ],
       "oss": {
         "licence": "AGPL-3.0",
@@ -1989,7 +2167,8 @@
         "starsNote": null,
         "deployment": "One Compose file with PHP, a web server and MySQL.",
         "stack": "PHP (Symfony) over MySQL.",
-        "hostedOption": "First-party (Kimai Cloud)."
+        "hostedOption": "First-party (Kimai Cloud).",
+        "capabilityNotes": "<strong>Open calendar sync</strong> - An iCalendar feed of the timesheet. No CalDAV. <strong>Agile boards, Kanban or Scrum</strong> - There is no board. Work is a timesheet entry against a project activity."
       }
     },
     {
@@ -2066,9 +2245,18 @@
         }
       },
       "sources": [
-        "https://github.com/johannesjo/super-productivity",
-        "https://super-productivity.com/integrations/",
-        "https://super-productivity.com/"
+        {
+          "url": "https://github.com/johannesjo/super-productivity",
+          "label": "github.com/johannesjo/super-productivity"
+        },
+        {
+          "url": "https://super-productivity.com/integrations/",
+          "label": "super-productivity.com/integrations"
+        },
+        {
+          "url": "https://super-productivity.com/",
+          "label": "super-productivity.com"
+        }
       ],
       "oss": {
         "licence": "MIT",
@@ -2079,7 +2267,8 @@
         "starsNote": null,
         "deployment": "No server at all: a browser app, with optional WebDAV, Dropbox or local-file sync.",
         "stack": "TypeScript and Angular, storing to IndexedDB.",
-        "hostedOption": "None needed, and none offered."
+        "hostedOption": "None needed, and none offered.",
+        "capabilityNotes": "<strong>Open calendar sync</strong> - Reads tasks from a CalDAV server as one more issue source. It is not itself a CalDAV server. <strong>Gantt or dependency timeline</strong> - A schedule view that timeboxes today, not a dependency chart. <strong>Calendar view</strong> - A day and week schedule, plus a read-only Google Calendar feed. <strong>Agile boards, Kanban or Scrum</strong> - No board of any kind. This is a list and a timer."
       }
     },
     {
@@ -2156,9 +2345,18 @@
         }
       },
       "sources": [
-        "https://github.com/GothenburgBitFactory/taskwarrior",
-        "https://taskwarrior.org/docs/sync/",
-        "https://docs.wingtask.com/docs/syncing_taskwarrior/"
+        {
+          "url": "https://github.com/GothenburgBitFactory/taskwarrior",
+          "label": "github.com/GothenburgBitFactory/taskwarrior"
+        },
+        {
+          "url": "https://taskwarrior.org/docs/sync/",
+          "label": "taskwarrior.org/docs/sync"
+        },
+        {
+          "url": "https://docs.wingtask.com/docs/syncing_taskwarrior/",
+          "label": "docs.wingtask.com/docs/syncing_taskwarrior"
+        }
       ],
       "oss": {
         "licence": "MIT",
@@ -2169,7 +2367,8 @@
         "starsNote": null,
         "deployment": "A local task database, plus an optional TaskChampion sync server.",
         "stack": "Rust and C++.",
-        "hostedOption": "Third-party only (WingTask); no first-party service."
+        "hostedOption": "Third-party only (WingTask); no first-party service.",
+        "capabilityNotes": "<strong>Calendar view</strong> - A calendar report in the terminal, not a schedulable view. <strong>Agile boards, Kanban or Scrum</strong> - None. Contexts and filters do the work a board would."
       }
     },
     {
@@ -2246,9 +2445,18 @@
         }
       },
       "sources": [
-        "https://github.com/TriliumNext/Trilium",
-        "https://github.com/TriliumNext/Trilium/wiki/ETAPI",
-        "https://docs.triliumnotes.org/user-guide/"
+        {
+          "url": "https://github.com/TriliumNext/Trilium",
+          "label": "github.com/TriliumNext/Trilium"
+        },
+        {
+          "url": "https://github.com/TriliumNext/Trilium/wiki/ETAPI",
+          "label": "github.com/TriliumNext/Trilium/wiki/ETAPI"
+        },
+        {
+          "url": "https://docs.triliumnotes.org/user-guide/",
+          "label": "docs.triliumnotes.org/user-guide"
+        }
       ],
       "oss": {
         "licence": "AGPL-3.0",
@@ -2259,7 +2467,8 @@
         "starsNote": "TriliumNext/Trilium is the renamed original repository, so the count carries the archived project’s following with it rather than starting again.",
         "deployment": "One container with embedded SQLite; desktop clients sync to it.",
         "stack": "Node.js over SQLite.",
-        "hostedOption": "None. A self-hosted server, or a local desktop application."
+        "hostedOption": "None. A self-hosted server, or a local desktop application.",
+        "capabilityNotes": "<strong>Agile boards, Kanban or Scrum</strong> - None. Community scripts approximate one from note attributes. <strong>Calendar view</strong> - Day notes and a calendar over them, aimed at journalling rather than scheduling. <strong>Native time tracking</strong> - None, though a script could record it as an attribute."
       }
     },
     {
@@ -2336,10 +2545,22 @@
         }
       },
       "sources": [
-        "https://vikunja.io/features",
-        "https://vikunja.io/pricing",
-        "https://vikunja.io",
-        "https://github.com/go-vikunja/vikunja"
+        {
+          "url": "https://vikunja.io/features",
+          "label": "vikunja.io/features"
+        },
+        {
+          "url": "https://vikunja.io/pricing",
+          "label": "vikunja.io/pricing"
+        },
+        {
+          "url": "https://vikunja.io",
+          "label": "vikunja.io"
+        },
+        {
+          "url": "https://github.com/go-vikunja/vikunja",
+          "label": "github.com/go-vikunja/vikunja"
+        }
       ],
       "oss": {
         "licence": "AGPL",
@@ -2350,7 +2571,8 @@
         "starsNote": "GitHub carries a mirror. The project develops on its own Gitea at code.vikunja.io, and the following there is not counted in this figure.",
         "deployment": "A single Go binary, or a two-container Compose file over SQLite or PostgreSQL. The lightest server here.",
         "stack": "Go and Vue over SQLite, PostgreSQL or MySQL.",
-        "hostedOption": "First-party (Vikunja Cloud)."
+        "hostedOption": "First-party (Vikunja Cloud).",
+        "capabilityNotes": "<strong>Native time tracking</strong> - Not in the AGPL core; part of the separate Pro tier, in private beta when researched."
       }
     },
     {
@@ -2427,9 +2649,18 @@
         }
       },
       "sources": [
-        "https://github.com/wekan/wekan",
-        "https://github.com/wekan/wekan/wiki/Integrations",
-        "https://wekan.fi/docs/"
+        {
+          "url": "https://github.com/wekan/wekan",
+          "label": "github.com/wekan/wekan"
+        },
+        {
+          "url": "https://github.com/wekan/wekan/wiki/Integrations",
+          "label": "github.com/wekan/wekan/wiki/Integrations"
+        },
+        {
+          "url": "https://wekan.fi/docs/",
+          "label": "wekan.fi/docs"
+        }
       ],
       "oss": {
         "licence": "MIT",
@@ -2440,7 +2671,8 @@
         "starsNote": null,
         "deployment": "Docker Compose or a snap package, over MongoDB.",
         "stack": "Meteor and Node.js over MongoDB.",
-        "hostedOption": "Third-party providers; no first-party service."
+        "hostedOption": "Third-party providers; no first-party service.",
+        "capabilityNotes": "<strong>Open calendar sync</strong> - An iCalendar feed of due dates. No CalDAV. <strong>Native time tracking</strong> - Received and due dates, but no timer and no timesheet."
       }
     },
     {
@@ -2517,8 +2749,14 @@
         }
       },
       "sources": [
-        "https://github.com/RestyaPlatform/board",
-        "https://restya.com/board"
+        {
+          "url": "https://github.com/RestyaPlatform/board",
+          "label": "github.com/RestyaPlatform/board"
+        },
+        {
+          "url": "https://restya.com/board",
+          "label": "restya.com/board"
+        }
       ],
       "oss": {
         "licence": "OSL-3.0",
@@ -2529,7 +2767,8 @@
         "starsNote": null,
         "deployment": "Docker with Nginx, PHP and PostgreSQL.",
         "stack": "PHP and Backbone.js over PostgreSQL.",
-        "hostedOption": "First-party (Restyaboard Cloud)."
+        "hostedOption": "First-party (Restyaboard Cloud).",
+        "capabilityNotes": "<strong>Open calendar sync</strong> - An iCalendar feed of due dates. No CalDAV. <strong>Gantt or dependency timeline</strong> - A Gantt view ships, though like the rest of it, unchanged since 2022."
       }
     },
     {
@@ -2606,8 +2845,14 @@
         }
       },
       "sources": [
-        "https://github.com/kromitgmbh/titra",
-        "https://titra.io/"
+        {
+          "url": "https://github.com/kromitgmbh/titra",
+          "label": "github.com/kromitgmbh/titra"
+        },
+        {
+          "url": "https://titra.io/",
+          "label": "titra.io"
+        }
       ],
       "oss": {
         "licence": "AGPL-3.0",
@@ -2618,7 +2863,8 @@
         "starsNote": null,
         "deployment": "One container over MongoDB.",
         "stack": "Meteor and React over MongoDB.",
-        "hostedOption": "First-party (Titra Cloud)."
+        "hostedOption": "First-party (Titra Cloud).",
+        "capabilityNotes": "<strong>Calendar view</strong> - A time grid by day and week, not a calendar of work. <strong>Agile boards, Kanban or Scrum</strong> - No board. Tasks exist as things to book time against."
       }
     },
     {
@@ -2695,9 +2941,18 @@
         }
       },
       "sources": [
-        "https://worklenz.com",
-        "https://github.com/Worklenz/worklenz",
-        "https://worklenz.com/de/timesheets"
+        {
+          "url": "https://worklenz.com",
+          "label": "worklenz.com"
+        },
+        {
+          "url": "https://github.com/Worklenz/worklenz",
+          "label": "github.com/Worklenz/worklenz"
+        },
+        {
+          "url": "https://worklenz.com/de/timesheets",
+          "label": "worklenz.com/de/timesheets"
+        }
       ],
       "oss": {
         "licence": "AGPL for core",
@@ -2708,7 +2963,8 @@
         "starsNote": null,
         "deployment": "Docker Compose with Node.js and PostgreSQL, plus object storage for attachments.",
         "stack": "Node.js and Angular over PostgreSQL.",
-        "hostedOption": "First-party (worklenz.com)."
+        "hostedOption": "First-party (worklenz.com).",
+        "capabilityNotes": "<strong>Calendar view</strong> - Not a core highlighted view."
       }
     }
   ]

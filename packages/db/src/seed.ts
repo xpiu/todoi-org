@@ -123,7 +123,7 @@ export async function seedDatabase(db: Db, seeds: SeedDirectory[], opts: { reset
           })),
         );
         if (r.sources.length) {
-          await tx.insert(t.recordSources).values(r.sources.map((url, position) => ({ recordId, position, url })));
+          await tx.insert(t.recordSources).values(r.sources.map((s, position) => ({ recordId, position, url: s.url, label: s.label })));
         }
       }
     }

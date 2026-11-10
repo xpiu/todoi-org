@@ -406,7 +406,7 @@ export function importDirectory(input: ImportInput): SeedDirectory {
       confidence: fact('Confidence') as SeedRecord['confidence'],
       scores,
       caps,
-      sources: detail.querySelectorAll('.srcs a').map((a) => attr(a, 'href')),
+      sources: detail.querySelectorAll('.srcs a').map((a) => ({ url: attr(a, 'href'), label: text(a) })),
     };
 
     // The band's own line in the assessment: "Very large. <evidence>".
@@ -429,6 +429,7 @@ export function importDirectory(input: ImportInput): SeedDirectory {
         deployment: fact('Deployment'),
         stack: fact('Stack'),
         hostedOption: fact('Hosted option'),
+        capabilityNotes: facts.has('Capability notes') ? facts.get('Capability notes')!.innerHTML.trim() : null,
       };
     } else {
       const priceCell = one(row, 'td.cell-price');

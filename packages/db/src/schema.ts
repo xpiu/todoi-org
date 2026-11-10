@@ -161,6 +161,8 @@ export const ossDetails = pgTable(
     deployment: text('deployment').notNull(),
     stack: text('stack').notNull(),
     hostedOption: text('hosted_option').notNull(),
+    /** The record's own line on its partial or missing capabilities: editorial, sanitised inline HTML. */
+    capabilityNotes: text('capability_notes'),
   },
   (t) => [check('oss_details_stars', sql`${t.stars} >= 0`)],
 );
@@ -244,6 +246,8 @@ export const recordSources = pgTable(
       .references(() => records.id, { onDelete: 'cascade' }),
     position: smallint('position').notNull(),
     url: text('url').notNull(),
+    /** The link text as published: usually the address without its scheme. */
+    label: text('label').notNull(),
   },
   (t) => [primaryKey({ columns: [t.recordId, t.position] })],
 );

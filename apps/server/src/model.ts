@@ -91,6 +91,7 @@ export function toDetail(r: FullRecord): RecordDetail {
       deployment: o.deployment,
       stack: o.stack,
       hostedOption: o.hostedOption,
+      capabilityNotes: o.capabilityNotes as never,
     };
   }
   const c = r.commercial!;

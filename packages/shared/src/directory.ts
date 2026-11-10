@@ -263,7 +263,7 @@ const DetailBase = z.object({
   dataOut: z.string(),
   caveat: z.string(),
   confidence: z.string(),
-  sources: z.array(z.string()),
+  sources: z.array(z.object({ url: z.string(), label: z.string() })),
 });
 export const OssDetail = DetailBase.extend({
   kind: z.literal('oss'),
@@ -274,6 +274,8 @@ export const OssDetail = DetailBase.extend({
   deployment: z.string(),
   stack: z.string(),
   hostedOption: z.string(),
+  /** Inline HTML: the record's line on its partial or missing capabilities. */
+  capabilityNotes: Html.nullable(),
 });
 export const CommercialDetail = DetailBase.extend({
   kind: z.literal('commercial'),

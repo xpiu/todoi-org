@@ -14,6 +14,11 @@ export function serverApi(store: DirectoryStore) {
       if (!dir) throw notFound('Directory');
       return toResponse(dir);
     },
+    async details(directory: string): Promise<ReadonlyMap<string, RecordDetail>> {
+      const dir = await store.get(directory);
+      if (!dir) throw notFound('Directory');
+      return new Map(dir.records.map((r) => [r.slug, toDetail(r)]));
+    },
     async record(directory: string, slug: string): Promise<RecordDetail> {
       const dir = await store.get(directory);
       const rec = dir?.records.find((r) => r.slug === slug);

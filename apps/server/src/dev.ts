@@ -58,7 +58,7 @@ const app = createApp({
       request,
       api: serverApi(store),
       // A plain <link> to the stylesheet avoids a flash of unstyled page in dev.
-      assets: { scripts: ['/@vite/client', '/src/entry-client.tsx'], styles: ['/src/styles/global.css'], preamble },
+      assets: { scripts: ['/@vite/client', '/src/entry-client.tsx'], styles: ['/src/styles/global.css', '/src/styles/app.css'], preamble },
       siteUrl: env.SITE_URL,
     });
   },
