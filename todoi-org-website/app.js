@@ -37,6 +37,19 @@
     el.style.display = show ? '' : 'none';
   }
 
+  // A page may carry its own copy and keys (the commercial directory does):
+  // <script type="application/json" id="directory-config">. Anything it leaves
+  // out falls back to the open-source directory's defaults below.
+  var CFG = (function () {
+    var el = document.getElementById('directory-config');
+    if (!el) return {};
+    try { return JSON.parse(el.textContent) || {}; } catch (e) { return {}; }
+  }());
+  function merge(base, extra) {
+    if (extra) for (var k in extra) if (Object.prototype.hasOwnProperty.call(extra, k)) base[k] = extra[k];
+    return base;
+  }
+
   var reduceMotion = mediaQuery('(prefers-reduced-motion: reduce)') || { matches: false };
 
   /* --- theme --- */
@@ -124,7 +137,7 @@
   var sortButtons = $$('button.th-sort[data-sort]');
   var chipBox = $('#model-chips');
   var chips = chipBox ? $$('button.chip[data-model]', chipBox) : [];
-  var toggles = ['tt', 'agile', 'gantt', 'calendar', 'caldav']
+  var toggles = (CFG.toggles || ['tt', 'agile', 'gantt', 'calendar', 'caldav'])
     .map(function (key) { return { key: key, el: $('#f-' + key) }; })
     .filter(function (t) { return !!t.el; });
   var countEl = $('#result-count');
@@ -153,7 +166,7 @@
     var active = secondaryFilterCount();
     var open = filterPanel.classList.contains('is-open');
     if (filterDisclosureSummary) {
-      var resultText = countEl ? countEl.textContent.trim() : 'Features & licensing';
+      var resultText = countEl ? countEl.textContent.trim() : (CFG.filterSummary || 'Features & licensing');
       var visible = resultText.split(' of ')[0].split(' ')[0];
       filterDisclosureSummary.textContent = active
         ? active + ' active · ' + visible + ' results'
@@ -161,7 +174,7 @@
     }
     filterDisclosure.setAttribute('aria-expanded', String(open));
     filterDisclosure.setAttribute('aria-label', (open ? 'Hide' : 'Show')
-      + ' feature and licensing filters' + (active ? ', ' + active + ' active' : ''));
+      + ' ' + (CFG.filterNoun || 'feature and licensing filters') + (active ? ', ' + active + ' active' : ''));
   }
 
   if (filterDisclosure && filterPanel) {
@@ -195,6 +208,7 @@
   var KEYS = { name: 1, avg: 1, deploy: 1, use: 1, enterprise: 1, flex: 1,
     sovereignty: 1, portability: 1, community: 1, stars: 1, integrations: 1,
     year: 1 };
+  merge(KEYS, CFG.keys);
   // Community size is the default order: it is the one column on a collapsed
   // row that speaks to whether a team can get help, and unlike the mean it is
   // not a ranking anyone can mistake for one. Stars sit beside it as a column
@@ -211,18 +225,23 @@
     stars: ['Many to few', 'Few to many'],
     integrations: ['Many to few', 'Few to many']
   };
+  merge(DIR_WORDS, CFG.dirWords);
   function dirWords(key, dir) {
     var pair = DIR_WORDS[key] || ['High to low', 'Low to high'];
-    if (key === 'name') return dir === 'asc' ? pair[0] : pair[1];
+    if (ascFirst(key)) return dir === 'asc' ? pair[0] : pair[1];
     return dir === 'desc' ? pair[0] : pair[1];
   }
   // A fresh field opens on the order a reader most likely wants: most, best
   // or newest first - except names, which read forwards.
-  function defaultDir(key) { return key === 'name' ? 'asc' : 'desc'; }
+  // A price reads cheapest first, the way a name reads A to Z.
+  var ASC_KEYS = merge({ name: 1 }, CFG.ascKeys);
+  function ascFirst(key) { return !!ASC_KEYS[key]; }
+  function defaultDir(key) { return ascFirst(key) ? 'asc' : 'desc'; }
   // Which record is open, for the address bar. One slug: the most recent.
   var openSlug = null;
   var TOGGLE_NAMES = { tt: 'Time tracking', agile: 'Agile boards', gantt: 'Gantt',
     calendar: 'Calendar', caldav: 'CalDAV' };
+  merge(TOGGLE_NAMES, CFG.toggleNames);
 
   /* --- the lead score column ---
    * The matrix shows one score. It is the mean by default, but sorting by a
@@ -244,6 +263,12 @@
     sovereignty: { head: 'Sov',    title: 'Data sovereignty, 1-5: whether you can run it independently, read its source, and keep control of the application and the data under it.' + CRIT_TAIL, sr: 'Data sovereignty' },
     portability: { head: 'Port',   title: 'Portability, 1-5: APIs and exports, conventional storage and database choices, licensing constraints, and how realistically you could leave.' + CRIT_TAIL, sr: 'Portability' }
   };
+  if (CFG.crit) for (var ck in CFG.crit) {
+    if (Object.prototype.hasOwnProperty.call(CFG.crit, ck)) {
+      CRIT[ck] = CFG.crit[ck];
+      if (CFG.critTail && ck !== 'avg') CRIT[ck].title += CFG.critTail;
+    }
+  }
   var leadLabel = $('.th-lead-l');
   var leadButton = $('.th-lead .th-sort');
   var leadCells = $$('[data-score]');
@@ -359,8 +384,12 @@
   function compare(a, b) {
     var d = sortDir === 'asc' ? 1 : -1;
     if (sortKey === 'name') return d * str(a, 'name').localeCompare(str(b, 'name'));
-    var delta = num(a, sortKey) - num(b, sortKey);
-    if (delta !== 0) return d * delta;
+    var va = num(a, sortKey), vb = num(b, sortKey);
+    // A record with no figure (a quote-only price) has nothing to rank by:
+    // it goes to the end whichever way the column is read.
+    if (va === -Infinity || vb === -Infinity) {
+      if (va !== vb) return va === -Infinity ? 1 : -1;
+    } else if (va !== vb) return d * (va - vb);
     // Stable, predictable tiebreak: alphabetical, regardless of direction.
     return str(a, 'name').localeCompare(str(b, 'name'));
   }
@@ -380,7 +409,7 @@
   var lastCount = null;
   function announce(visible, total) {
     if (!countEl) return;
-    var noun = total === 1 ? 'project' : 'projects';
+    var noun = total === 1 ? (CFG.noun || ['project'])[0] : (CFG.noun || [null, 'projects'])[1];
     var text = (visible === total ? total : visible + ' of ' + total) + ' ' + noun;
     // #result-count is aria-live: rewriting identical text re-announces it, so
     // write only when the number has genuinely changed.
@@ -581,11 +610,11 @@
     var title, text, action;
     if (query && !filters) {
       title = 'Nothing matches \u201C' + query + '\u201D';
-      text = 'The search reads names, licences and the one-line descriptions. Try a shorter word, a licence such as MIT or AGPL, or clear it and browse.';
+      text = (CFG.empty && CFG.empty.search) || 'The search reads names, licences and the one-line descriptions. Try a shorter word, a licence such as MIT or AGPL, or clear it and browse.';
       action = 'Clear search';
     } else if (!query && filters) {
-      title = 'No project matches those filters';
-      text = 'Asking for native time tracking, Gantt, a calendar and CalDAV under a single licensing model rules out nearly everything, and partial support never satisfies a must-have. Loosen one filter and try again.';
+      title = (CFG.empty && CFG.empty.filtersTitle) || 'No project matches those filters';
+      text = (CFG.empty && CFG.empty.filters) || 'Asking for native time tracking, Gantt, a calendar and CalDAV under a single licensing model rules out nearly everything, and partial support never satisfies a must-have. Loosen one filter and try again.';
       action = 'Clear filters';
     } else {
       title = 'Nothing matches \u201C' + query + '\u201D with those filters';
@@ -604,12 +633,12 @@
       }));
     }
     on.forEach(function (t) {
-      emptyActive.appendChild(token('Native', TOGGLE_NAMES[t.key] || t.key, function () {
+      emptyActive.appendChild(token(CFG.toggleToken || 'Native', TOGGLE_NAMES[t.key] || t.key, function () {
         t.el.checked = false;
       }));
     });
     lic.forEach(function (c) {
-      emptyActive.appendChild(token('Licence', c.textContent.trim(), function () {
+      emptyActive.appendChild(token(CFG.chipToken || 'Licence', c.textContent.trim(), function () {
         c.setAttribute('aria-pressed', 'false');
       }));
     });
@@ -665,7 +694,8 @@
     btn.addEventListener('click', function () {
       var key = btn.getAttribute('data-sort');
       // Contract: a header click cycles desc -> asc (and back to desc).
-      setSort(key, (key === sortKey && sortDir === 'desc') ? 'asc' : 'desc');
+      // A second click reverses; a first click opens on the field's natural order.
+      setSort(key, key === sortKey ? (sortDir === 'desc' ? 'asc' : 'desc') : defaultDir(key));
     });
   });
 
@@ -867,7 +897,9 @@
     };
     // Same tail on every band, written once: what the band is read from, and
     // the one thing no repository metric can stand in for.
-    var COMM_TAIL = ' Set by contributors, release cadence, forum activity, ecosystem and installed base together - never one metric, and never a count of deployments.';
+    merge(LIC, CFG.lic);
+    merge(COMM, CFG.comm);
+    var COMM_TAIL = CFG.commTail != null ? CFG.commTail : ' Set by contributors, release cadence, forum activity, ecosystem and installed base together - never one metric, and never a count of deployments.';
     // Heading and dagger copy is authored in the HTML as title=, so a reader
     // without JavaScript still gets it from the browser. Lift it into
     // data-method here and take title= off, or both tips would open at once.
@@ -1046,13 +1078,16 @@
 
   /* --- hero mark ripple --- */
   // Plays once: the stroke is cut into blocks of its own width, and a wave
-  // contracting from the outer ring to the inner one lifts them a hair and
-  // sets them back down. When a block moves is set by its distance from the
-  // centre (outside first); how far it lifts is set by its distance from the
-  // notch, fading out at 80% of the mark so the crown of the ring stays
-  // still. Purely decorative: skipped
-  // under reduced motion, when the mark is not displayed, or without the
-  // SVG geometry API. Styles live under .hero-mark-ripple in style.css.
+  // contracting from the outer ring to the inner one lifts each block a hair
+  // and sets it back down. A block is the stroke itself (same ink, no
+  // outline); only a slightly darker side wall shows while it is raised, so
+  // the line ripples rather than gaining shapes of its own. The outline is
+  // one closed loop, so the wave starts at the crown of the outer ring and
+  // runs both ways along it: down the sides, up the legs, and round the
+  // inner ring, where the two fronts meet. Purely
+  // decorative: skipped under reduced motion, when the mark is not
+  // displayed, or without the SVG geometry API. Styles live under
+  // .hero-mark-ripple in style.css.
   (function heroRipple() {
     if (reduceMotion.matches) return;
     var svg = $('.hero-mark-svg');
@@ -1061,78 +1096,68 @@
     if (window.getComputedStyle(svg.parentNode).display === 'none') return;
 
     var NS = 'http://www.w3.org/2000/svg';
-    var WIDTH = 63;            // the stroke-width, so the long edges sit on
-                               // the shape's own outline and never widen it
-    var GAP = 12;              // joint between blocks (~0.6px on screen): the
-                               // stroke beneath shows through it
+    var WIDTH = 58;            // just under the 63-unit stroke, so on the
+                               // tight inner ring a block's corners stay
+                               // inside the outline instead of ticking past it
+    var OVERLAP = 4;           // blocks overlap slightly so curves show no seams
     var STEP = 84;             // target block length along the stroke
-    var ORIGIN = { x: 731, y: 1240 }; // the notch between the two legs
-    var CENTRE = { x: 731, y: 731 };  // shared centre of both rings
-    var R_OUT = 698;           // outer ring radius: where the wave starts
-    var R_IN = 253.5;          // inner ring radius: where it ends
-    var REACH = 0.8;           // share of the mark that lifts at all
-    var TRAVEL = 950;          // ms for the front to go from R_OUT to R_IN
+    var TRAVEL = 1250;         // ms for a front to cover half the loop
     var BLOCK = 560;           // ms per block; matches the CSS animation
-    var VIEW_H = 1417;         // viewBox height
 
-    var blocks = [];
+    function rect(cls, len, x, y, deg) {
+      var r = document.createElementNS(NS, 'rect');
+      r.setAttribute('class', cls);
+      r.setAttribute('x', String(-len / 2));
+      r.setAttribute('y', String(-WIDTH / 2));
+      r.setAttribute('width', String(len));
+      r.setAttribute('height', String(WIDTH));
+      r.setAttribute('transform',
+        'translate(' + x.toFixed(2) + ' ' + y.toFixed(2) + ') rotate(' + deg.toFixed(2) + ')');
+      return r;
+    }
+
+    // Every wall is drawn beneath every face, so a wall only shows where a
+    // raised face has actually left the stroke, never over a neighbour.
+    var layer = document.createElementNS(NS, 'g');
+    layer.setAttribute('class', 'hero-mark-ripple');
+    var walls = document.createElementNS(NS, 'g');
+    var faces = document.createElementNS(NS, 'g');
+    layer.appendChild(walls);
+    layer.appendChild(faces);
+    var last = 0;
     try {
       var total = path.getTotalLength();
       var n = Math.max(1, Math.round(total / STEP));
       var step = total / n;
+      var pts = [];
+      var crown = 0;           // index of the topmost block
       for (var i = 0; i < n; i++) {
         var s = (i + 0.5) * step;
         var p = path.getPointAtLength(s);
         var a = path.getPointAtLength(Math.max(0, s - 2));
         var b = path.getPointAtLength(Math.min(total, s + 2));
-        blocks.push({
-          x: p.x,
-          y: p.y,
-          deg: Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI,
-          dist: Math.sqrt(Math.pow(p.x - ORIGIN.x, 2) + Math.pow(p.y - ORIGIN.y, 2)),
-          r: Math.sqrt(Math.pow(p.x - CENTRE.x, 2) + Math.pow(p.y - CENTRE.y, 2)),
-          len: step
-        });
+        pts.push({ x: p.x, y: p.y, deg: Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI });
+        if (p.y < pts[crown].y) crown = i;
       }
+      pts.forEach(function (pt, j) {
+        var along = Math.abs(j - crown);
+        along = Math.min(along, n - along);           // shorter way round
+        var delay = Math.round(along / (n / 2) * TRAVEL);
+        last = Math.max(last, delay);
+        var len = step + OVERLAP;
+        var wall = rect('hero-mark-side', len, pt.x, pt.y, pt.deg);
+        wall.setAttribute('style', '--d:' + delay + 'ms');
+        walls.appendChild(wall);
+        var lift = document.createElementNS(NS, 'g');
+        lift.setAttribute('class', 'hero-mark-lift');
+        lift.setAttribute('style', '--d:' + delay + 'ms');
+        lift.appendChild(rect('hero-mark-face', len, pt.x, pt.y, pt.deg));
+        faces.appendChild(lift);
+      });
     } catch (e) { return; }
-
-    var far = 0;
-    blocks.forEach(function (bk) { far = Math.max(far, bk.dist); });
-    var reach = far * REACH;
-
-    var layer = document.createElementNS(NS, 'g');
-    layer.setAttribute('class', 'hero-mark-ripple');
-    var last = 0;
-    blocks.forEach(function (bk) {
-      var t = bk.dist / reach;
-      if (t >= 1) return;
-      var lift = Math.cos(t * Math.PI / 2); // full at the notch, 0 at the reach
-      if (lift < 0.12) return;
-      var inward = Math.min(1, Math.max(0, (R_OUT - bk.r) / (R_OUT - R_IN)));
-      var delay = Math.round(inward * TRAVEL);
-      last = Math.max(last, delay);
-      var g = document.createElementNS(NS, 'g');
-      g.setAttribute('style', '--d:' + delay + 'ms;--a:' + lift.toFixed(3));
-      var r = document.createElementNS(NS, 'rect');
-      r.setAttribute('x', String(-(bk.len - GAP) / 2));
-      r.setAttribute('y', String(-WIDTH / 2));
-      r.setAttribute('width', String(bk.len - GAP));
-      r.setAttribute('height', String(WIDTH));
-      r.setAttribute('transform',
-        'translate(' + bk.x.toFixed(2) + ' ' + bk.y.toFixed(2) + ') rotate(' + bk.deg.toFixed(2) + ')');
-      g.appendChild(r);
-      layer.appendChild(g);
-    });
     if (!layer.firstChild) return;
 
     function play() {
-      // Lift by 1mm on screen (96/25.4 CSS px), expressed in viewBox units,
-      // since CSS transforms inside the SVG are measured in user units.
-      var shown = svg.getBoundingClientRect().height;
-      if (shown > 0) {
-        var units = (96 / 25.4) * (VIEW_H / shown);
-        layer.style.setProperty('--lift', units.toFixed(1) + 'px');
-      }
       svg.appendChild(layer);
       window.setTimeout(function () {
         if (layer.parentNode) layer.parentNode.removeChild(layer);

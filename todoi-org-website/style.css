@@ -944,45 +944,46 @@ a.wordmark:hover .wordmark-logo {
 }
 
 /* Ripple: app.js lays a row of blocks along the stroke and plays them once.
-   Each block is the stroke's own width, invisible at rest. As the wave
-   passes, its lit face lifts a hair, so the ink beneath shows as the block's
-   side, then settles back flush and fades into the stroke again. Blocks carry
-   no outline: the joint between them is a sub-pixel gap where the stroke
-   beneath shows through, so the shape's outer edge is never traced. --d is the delay, set by
-   distance from the centre so the wave runs from the outer ring inward; --a
-   the lift, fading out before the top of the ring. */
+   A block is the stroke itself: its face is the same ink at the same width,
+   with no outline, so at rest it is invisible. As the wave passes the face
+   lifts by --lift, and the side wall left behind it, a touch darker, is the
+   only new colour on the mark, so the line ripples rather than sprouting
+   shapes. --lift is under 60% of the 63-unit stroke width (inside an SVG a
+   CSS px in a transform is one viewBox unit), so a face never clears the
+   stroke and floats free. --d is the delay, set by distance along the line
+   from the crown of the outer ring, so the wave runs from outside in. */
 .hero-mark-ripple {
+  --lift: 36px;
   pointer-events: none;
 }
 
-.hero-mark-ripple rect {
-  fill: color-mix(in oklab, var(--accent), #fff 20%);
+.hero-mark-face {
+  fill: currentColor;
+}
+
+.hero-mark-side {
+  fill: color-mix(in oklab, currentColor, #000 18%);
   opacity: 0;
+  animation: hero-mark-side 560ms var(--d, 0ms) linear both;
 }
 
-.hero-mark-ripple g {
+.hero-mark-lift {
   animation: hero-mark-lift 560ms var(--d, 0ms) cubic-bezier(0.3, 0, 0.2, 1) both;
-}
-
-.hero-mark-ripple g rect {
-  animation: hero-mark-face 560ms var(--d, 0ms) linear both;
 }
 
 @keyframes hero-mark-lift {
   0%,
   100% { transform: translateY(0); }
-  /* --lift is 1mm on screen, converted to viewBox units by app.js (inside an
-     SVG, a CSS px in a transform is one user unit, not one screen pixel). */
-  38% { transform: translateY(calc(var(--a, 1) * var(--lift, 20px) * -1)); }
+  38% { transform: translateY(calc(var(--lift) * -1)); }
 }
 
-@keyframes hero-mark-face {
+/* The wall is only drawn while its face is off the stroke, so no darker
+   edge can fringe the outline at rest. */
+@keyframes hero-mark-side {
   0%,
   100% { opacity: 0; }
-  /* The face dims with its lift, so the wave thins out instead of ending
-     on a hard edge. */
-  14%,
-  66% { opacity: min(1, calc(var(--a, 1) * 1.6)); }
+  10%,
+  85% { opacity: 1; }
 }
 
 /* ==========================================================================
@@ -1203,14 +1204,13 @@ a.wordmark:hover .wordmark-logo {
 
 .sort-pair .select-wrap {
   flex: 1 1 auto;
+  min-width: 0;
+}
+
+.sort-pair .control-select {
   border-radius: var(--radius-2) 0 0 var(--radius-2);
 }
 
-.sort-dir {
-  position: relative;
-  display: inline-flex;
-  flex: none;
-  align-items: center;
 /* The native arrow is drawn flush against the right border in Chromium and
    collides with the label once the field narrows, so it is replaced by our
    own chevron, inset by the field's own padding, with room reserved for it
@@ -1246,6 +1246,11 @@ a.wordmark:hover .wordmark-logo {
   background-color: var(--text);
 }
 
+.sort-dir {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
   gap: var(--sp-2);
   min-height: var(--control-h);
   min-inline-size: 9rem;
@@ -4119,5 +4124,144 @@ html:not(.js) .th-sort::after {
 
   .field-entries {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ==========================================================================
+   27  THE COMMERCIAL DIRECTORY — what differs from the open-source matrix
+
+   /commercial/ is the same document with a different question: who a product
+   is sold to and what it costs, rather than what its licence lets you do.
+   Everything not named here is the shared component, unchanged.
+   ========================================================================== */
+
+/* Audience tags. Unlike the licensing padlock these are not ordered - a team
+   tool is not "more" than a personal one - so all four share one neutral
+   weight and the glyph alone tells them apart. No fill, no dashed edge: those
+   channels mean openness on the front page and must not be borrowed for a
+   different scale. */
+.tag-seg {
+  border-color: var(--line-heavy);
+  color: var(--text);
+  font-weight: 400;
+}
+
+.tag-seg[data-lic] {
+  cursor: help;
+}
+
+.th-price {
+  width: 6.25rem;
+}
+
+/* The price is the column a reader scans down, so the figure keeps the
+   numeric weight and the free-plan note drops beneath it as a sub-line,
+   the way a vendor's name sits under its audience tag. */
+.cell-price {
+  white-space: nowrap;
+}
+
+.cell-price .num {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.cell-price .cell-sub {
+  white-space: nowrap;
+}
+
+/* "Quote" is an absence of a figure, not a figure: quieter than a price. */
+.cell-price .num-quote,
+.card-meta .num-quote {
+  font-weight: 400;
+  color: var(--text-2);
+}
+
+.card-fact-price .card-lic {
+  white-space: nowrap;
+}
+
+/* --- the cross-link between the two directories ---------------------------
+   One quiet route at the foot of each page. It is a signpost, not a banner:
+   a bordered row in the prose column, the same raised surface as a record,
+   and an arrow that is the only accent until it is hovered. */
+.crosslink {
+  padding-block: 0 var(--section-pad);
+}
+
+.crosslink-inner {
+  max-width: var(--shell-prose);
+  margin-inline: max(0px, (100% - var(--shell)) / 2) auto;
+}
+
+.crosslink-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-5);
+  padding: var(--sp-5) var(--sp-6);
+  border: var(--border);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-raised);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.crosslink-link:hover {
+  border-color: var(--accent);
+}
+
+.crosslink-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.crosslink-title {
+  display: block;
+  margin-top: var(--sp-1);
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: var(--tracking-title);
+}
+
+.crosslink-text {
+  display: block;
+  max-width: var(--measure);
+  margin-top: var(--sp-1);
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+
+.crosslink-arrow {
+  flex: none;
+  color: var(--accent);
+  transition: transform var(--dur) var(--ease);
+}
+
+.crosslink-link:hover .crosslink-arrow {
+  transform: translateX(3px);
+}
+
+@media (max-width: 40rem) {
+  .crosslink-link {
+    padding: var(--sp-4);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crosslink-link:hover .crosslink-arrow {
+    transform: none;
+  }
+}
+
+@media print {
+  .crosslink {
+    display: none;
   }
 }
