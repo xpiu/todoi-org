@@ -46,7 +46,7 @@ export function toSummary(dir: FullDirectory, r: FullRecord): RecordSummary {
     search: searchText(dir, r),
     version: r.version,
   };
-  if (r.oss) return { ...base, kind: 'oss', stars: r.oss.stars, starsNote: r.oss.starsNote };
+  if (r.oss) return { ...base, kind: 'oss', licence: r.oss.licence, stars: r.oss.stars, starsNote: r.oss.starsNote };
   const c = r.commercial!;
   return {
     ...base,

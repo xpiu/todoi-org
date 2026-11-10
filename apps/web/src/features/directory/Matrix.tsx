@@ -52,7 +52,19 @@ function SortHead({
   );
 }
 
-function Row({ record, lead, shown, clamped }: { record: RecordSummary; lead: LeadSpec; shown: boolean; clamped: boolean }) {
+function Row({
+  record,
+  lead,
+  shown,
+  clamped,
+  eager,
+}: {
+  record: RecordSummary;
+  lead: LeadSpec;
+  shown: boolean;
+  clamped: boolean;
+  eager: boolean;
+}) {
   const { config, isOpen, toggle } = useDirectory();
   const hydrated = useHydrated();
   const open = isOpen(record.slug);
@@ -67,7 +79,15 @@ function Row({ record, lead, shown, clamped }: { record: RecordSummary; lead: Le
       >
         <th scope="row" className="cell-project">
           <div className="project-id">
-            <img className="project-icon" src={record.icon} alt="" width={48} height={48} decoding="async" />
+            <img
+              className="project-icon"
+              src={record.icon}
+              alt=""
+              width={48}
+              height={48}
+              decoding="async"
+              loading={eager ? undefined : 'lazy'}
+            />
             <a className="project-name" href={record.url} rel="noopener external">
               {record.name}
             </a>
@@ -233,8 +253,9 @@ export function Matrix() {
           </tr>
         </thead>
         <tbody id="matrix-body" ref={tbody}>
-          {ordered.map((r) => (
+          {ordered.map((r, i) => (
             <Row
+              eager={i < m.eagerIcons}
               key={r.slug}
               record={r}
               lead={lead}

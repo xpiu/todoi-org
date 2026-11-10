@@ -124,11 +124,14 @@ export const DirectoryCopy = z.object({
     integrations: ColumnHead,
     year: ColumnHead,
     capsTip: z.string(),
+    /** Rows whose icon loads eagerly: the first screenful. The rest load lazily. */
+    eagerIcons: z.number().int(),
     updated: Html,
     provenance: Html,
   }),
   cards: z.object({
     blurb: z.boolean(),
+    eagerIcons: z.number().int(),
     modelLabel: z.string(),
     communityLabel: z.string(),
     metricLabel: z.string(),
@@ -224,6 +227,8 @@ const RecordBase = z.object({
 
 export const OssRecord = RecordBase.extend({
   kind: z.literal('oss'),
+  /** The licence in full, as a card prints it under the tag. */
+  licence: z.string(),
   stars: z.number().int(),
   starsNote: z.string().nullable(),
 });

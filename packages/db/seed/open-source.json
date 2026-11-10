@@ -166,11 +166,13 @@
         "tip": "The year the project first appeared in public, as its own history records it - a first release, a first tag or the repository's first commit, whichever the project itself dates from. Age is not quality: it reads next to the community band as one signal of how settled a project is."
       },
       "capsTip": "Five capability checks, read from documentation and release notes, each three-state: native, partial, or not native. What partial means is column-specific, and every check states it in its own screen-reader text.",
+      "eagerIcons": 11,
       "updated": "Twenty-five projects, compiled <time datetime=\"2026-09-17\">17 September 2026</time>. Expand a row for capabilities, scores and sources. Scores are editorial judgements on a 1-5 scale.",
       "provenance": "Community size is a proxy from repository signals, cadence and ecosystem, not a deployment count. Star counts were read from repository APIs on 17 September 2026; a &#8224; marks a repository that does not map cleanly onto the product. Integration figures estimate packaged connectors, importers and plugins; APIs and webhooks are in each record."
     },
     "cards": {
       "blurb": false,
+      "eagerIcons": 11,
       "modelLabel": "Licence",
       "communityLabel": "Community",
       "metricLabel": "Stars"

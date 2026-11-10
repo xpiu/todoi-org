@@ -7,7 +7,7 @@ import { FetchedDetail } from './DetailSlot.tsx';
 import { recordQuery } from './queries.ts';
 import { useDirectory } from './state.tsx';
 
-function Card({ record, lead, shown }: { record: RecordSummary; lead: LeadSpec; shown: boolean }) {
+function Card({ record, lead, shown, eager }: { record: RecordSummary; lead: LeadSpec; shown: boolean; eager: boolean }) {
   const { config, isOpen, toggle } = useDirectory();
   const { api } = useRouteContext({ from: '__root__' });
   const queryClient = useQueryClient();
@@ -29,6 +29,7 @@ function Card({ record, lead, shown }: { record: RecordSummary; lead: LeadSpec; 
             width={48}
             height={48}
             decoding="async"
+            loading={eager ? undefined : 'lazy'}
           />
           <a className="project-name" href={record.url} rel="noopener external">
             {record.name}
@@ -60,7 +61,8 @@ function Card({ record, lead, shown }: { record: RecordSummary; lead: LeadSpec; 
           <dt>{copy.cards.modelLabel}</dt>
           <dd>
             <ModelTag config={config} record={record} />
-            <span className="card-lic">{record.modelSub}</span>
+            {/* The matrix has room for the short form only; a card prints the licence whole. */}
+            <span className="card-lic">{record.kind === 'oss' ? record.licence : record.modelSub}</span>
           </dd>
         </div>
         <div className="card-fact card-fact-comm">
@@ -105,8 +107,8 @@ export function Cards() {
   const lead = leadSpec(config, view.sortKey);
   return (
     <div className="cards" id="cards">
-      {ordered.map((r) => (
-        <Card key={r.slug} record={r} lead={lead} shown={visible.has(r.slug)} />
+      {ordered.map((r, i) => (
+        <Card key={r.slug} record={r} lead={lead} shown={visible.has(r.slug)} eager={i < config.copy.cards.eagerIcons} />
       ))}
     </div>
   );

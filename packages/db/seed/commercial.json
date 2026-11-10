@@ -174,11 +174,13 @@
         "tip": "The year the product first launched publicly, as the vendor’s own history records it where it can. Age is not quality: it reads next to the market band as a measure of how long the product has had to settle."
       },
       "capsTip": "Five capability checks, read from the vendor’s documentation and plan pages, each three-state: native, partial, or not native. What partial means is column-specific, and every check states it in its own screen-reader text.",
+      "eagerIcons": 8,
       "updated": "Fifty-seven products, compiled <time datetime=\"2026-11-10\">10 November 2026</time>. Expand a row for capabilities, scores and sources. Scores are editorial judgements on a 1-5 scale.",
       "provenance": "Market presence is an editorial band read from users, customers, revenue and headcount, not a market-share figure. Prices were read from vendor pricing pages around 10 November 2026, per user per month billed annually, in US dollars; &#8776; marks a flat team price shown per person for ten people, or a converted currency; a &#8224; marks a price with a further qualification. Integration figures estimate packaged connectors and marketplace apps; APIs and webhooks are in each record."
     },
     "cards": {
       "blurb": true,
+      "eagerIcons": 4,
       "modelLabel": "Built for",
       "communityLabel": "Market presence",
       "metricLabel": "Paid from"

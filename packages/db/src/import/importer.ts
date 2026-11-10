@@ -284,11 +284,13 @@ export function importDirectory(input: ImportInput): SeedDirectory {
       integrations: head(5),
       year: head(6),
       capsTip: title(one(firstDetail, '.detail-caps .detail-h .methodology')),
+      eagerIcons: doc.querySelectorAll('tr.matrix-row img.project-icon:not([loading])').length,
       updated: html(one(doc, '.matrix-updated')) as DirectoryCopy['matrix']['updated'],
       provenance: html(one(doc, '.matrix-foot .provenance')) as DirectoryCopy['matrix']['provenance'],
     },
     cards: {
       blurb: doc.querySelector('article.card .card-blurb') !== null,
+      eagerIcons: doc.querySelectorAll('article.card img.project-icon:not([loading])').length,
       modelLabel: must(cardFacts[0], 'card model label'),
       communityLabel: must(cardFacts[1], 'card community label'),
       metricLabel: must(cardFacts[2], 'card metric label'),

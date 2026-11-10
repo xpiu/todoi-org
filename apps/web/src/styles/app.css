@@ -43,9 +43,13 @@ html:not(.js) .copy-link {
 }
 
 /* --- FAQ: Base UI Accordion ----------------------------------------------- */
+/* The accordion's header is an <h3> for the outline; it must not bring the
+   heading typography (balanced wrapping, display tracking) to the question. */
 .acc-h {
   margin: 0;
   font: inherit;
+  letter-spacing: normal;
+  text-wrap: wrap;
 }
 
 .acc-q {
@@ -65,6 +69,8 @@ html:not(.js) .copy-link {
    blanket [hidden] rule in global.css would make it display:none instead. */
 .acc-a[hidden='until-found'] {
   display: block !important;
+  /* content-visibility hides the answer but not its box: a closed one takes no room. */
+  padding-block: 0;
 }
 
 /* Without JavaScript nothing can open an answer, so every answer shows. */
