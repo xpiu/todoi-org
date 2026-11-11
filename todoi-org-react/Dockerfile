@@ -7,12 +7,13 @@
 # The PostgreSQL parts are commented out below, not removed: docs/json-store.md
 # is the way back.
 
-ARG NODE_VERSION=22.21.1
+ARG NODE_VERSION=26.13.0
 
 # --- build: install, typecheck-free production build ---------------------------
 FROM node:${NODE_VERSION}-slim AS build
 WORKDIR /app
-RUN corepack enable && corepack prepare pnpm@10.28.1 --activate
+# Node 25 and later ship without Corepack; npm installs the pinned pnpm.
+RUN npm install --global pnpm@10.34.9
 
 # Manifests first, so dependency layers are cached across code changes.
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
