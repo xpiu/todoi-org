@@ -95,9 +95,28 @@ jobs:
       - name: Ask Dokploy to pull and build
         env:
           DOKPLOY_DEPLOY_WEBHOOK: ${{ secrets.DOKPLOY_DEPLOY_WEBHOOK }}
+          # Through the environment, never into the script: a commit message is free text.
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           if [ -z "$DOKPLOY_DEPLOY_WEBHOOK" ]; then
             echo "::notice::DOKPLOY_DEPLOY_WEBHOOK is not set yet; nothing deployed."
             exit 0
           fi
-          curl --fail --silent --show-error --max-time 30 -X POST "$DOKPLOY_DEPLOY_WEBHOOK"
+          # Dokploy's webhook deploys only for what looks like a GitHub push to the
+          # application's branch: the X-GitHub-Event header and a matching `ref`. A bare
+          # POST is answered 301 "Branch Not Match" and nothing is deployed. `commits`
+          # satisfies the application's Watch Paths (todoi-org-react/**); this workflow
+          # is already filtered to those paths, so one path under it is enough.
+          payload=$(jq -n --arg ref "$GITHUB_REF" --arg sha "$GITHUB_SHA" --arg message "$COMMIT_MESSAGE" \
+            '{ref: $ref, head_commit: {id: $sha, message: $message}, commits: [{modified: ["todoi-org-react/Dockerfile"]}]}')
+          # Dokploy refuses with a 301, which `curl --fail` lets through: only a 200 is a deploy.
+          status=$(curl --silent --show-error --max-time 30 \
+            --output "$RUNNER_TEMP/dokploy.json" --write-out '%{http_code}' \
+            -X POST "$DOKPLOY_DEPLOY_WEBHOOK" \
+            -H 'X-GitHub-Event: push' -H 'Content-Type: application/json' \
+            --data "$payload")
+          cat "$RUNNER_TEMP/dokploy.json"; echo
+          if [ "$status" != 200 ]; then
+            echo "::error::Dokploy answered $status; nothing deployed."
+            exit 1
+          fi
