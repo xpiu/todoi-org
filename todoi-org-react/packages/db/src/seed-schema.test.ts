@@ -32,6 +32,23 @@ describe('seed/data.json', () => {
     expect(() => SeedData.parse({ directories: [] })).toThrow();
   });
 
+  it('derives each licensing label from the source map, and refuses one that disagrees', () => {
+    const { directories } = SeedData.parse(raw);
+    const oss = structuredClone(directories[0]!);
+    const record = oss.records.find((r) => r.model === 'foss')!;
+    // Closing the paid extras makes it open core, whatever the tag says.
+    record.source.extras = { level: 0, label: 'Closed', note: null };
+    expect(() => directoriesFromSeed([oss])).toThrow(/tagged "foss" but its source map makes it "open-core"/);
+    // A product whose own code is open does not belong on the commercial page.
+    const commercial = structuredClone(directories[1]!);
+    commercial.records[0]!.source.app = { level: 2, label: 'MIT', note: null };
+    expect(() => directoriesFromSeed([commercial])).toThrow(/belongs in the open-source directory/);
+    // A half mark has to say why.
+    const partial = structuredClone(directories[1]!);
+    partial.records[0]!.source.parts = { level: 1, label: 'Tools only', note: null };
+    expect(() => directoriesFromSeed([partial])).toThrow(/needs a note saying why/);
+  });
+
   it('refuses the same directory twice', () => {
     const { directories } = SeedData.parse(raw);
     expect(() => directoriesFromSeed([directories[0]!, directories[0]!])).toThrow(/share the slug "open-source"/);

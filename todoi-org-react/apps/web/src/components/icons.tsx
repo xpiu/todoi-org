@@ -75,6 +75,14 @@ const GLYPHS: Record<string, ReactNode> = {
       <rect x="2.9" y="7.7" width="10.2" height="6.1" rx="1.4" />
     </>
   ),
+  // Shut and half solid: part of the product's own code is open, part is not.
+  'mixed-source': (
+    <>
+      <path d="M5.5 7.9V5.9a2.5 2.5 0 0 1 5 0v2" />
+      <rect x="2.9" y="7.7" width="10.2" height="6.1" rx="1.4" />
+      <path d="M8 8.5H4.6a.7.7 0 0 0-.7.7v2.7a.7.7 0 0 0 .7.7H8z" fill="currentColor" stroke="none" />
+    </>
+  ),
   personal: (
     <>
       <circle cx="8" cy="5.2" r="2.6" />
@@ -108,11 +116,13 @@ export function Glyph({ name, className, size }: { name: string; className: stri
 
 export const TagIcon = ({ name }: { name: string }) => <Glyph name={name} className={cx('tag-ico')} size={13} />;
 
-/** Native, partial, none: a full disc, a half disc, a ring. */
-export function MarkSvg({ level }: { level: Level }) {
+/** Native, partial, none: a full disc, a half disc, a ring. Null is a dash: there is nothing to mark. */
+export function MarkSvg({ level }: { level: Level | null }) {
   return (
     <svg className={cx('mark-svg')} viewBox="0 0 16 16" width="13" height="13" {...hidden}>
-      {level === 2 ? (
+      {level === null ? (
+        <path d="M4.5 8h7" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      ) : level === 2 ? (
         <circle cx="8" cy="8" r="6.25" fill="currentColor" />
       ) : (
         <>

@@ -1,0 +1,2 @@
+ALTER TABLE "records" ADD COLUMN "source" jsonb DEFAULT '{"app":{"level":0,"label":"Closed","note":null},"server":{"level":0,"label":"Closed","note":null},"extras":null,"parts":null}'::jsonb NOT NULL;--> statement-breakpoint
+ALTER TABLE "records" ADD COLUMN "source_change" text;

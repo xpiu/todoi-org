@@ -15,7 +15,15 @@ import {
   timestamp,
   unique,
 } from 'drizzle-orm/pg-core';
-import type { DirectoryCopy, FilterToggle } from '@todoi/shared';
+import type { DirectoryCopy, FilterToggle, SourceMap } from '@todoi/shared';
+
+/** A record created without a source map starts closed throughout, until an editor says otherwise. */
+const CLOSED_SOURCE: SourceMap = {
+  app: { level: 0, label: 'Closed', note: null },
+  server: { level: 0, label: 'Closed', note: null },
+  extras: null,
+  parts: null,
+};
 
 const timestamps = {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
@@ -134,6 +142,10 @@ export const records = pgTable(
     dataOut: text('data_out').notNull(),
     caveat: text('caveat').notNull(),
     confidence: text('confidence', { enum: ['High', 'Medium-high', 'Medium'] }).notNull(),
+    /** The source map: app, server, extras, parts. The class is derived from it (shared/source.ts). */
+    source: jsonb('source').$type<SourceMap>().notNull().default(CLOSED_SOURCE),
+    /** A dated licence change, when there has been one. */
+    sourceChange: text('source_change'),
     ...version,
     ...timestamps,
   },

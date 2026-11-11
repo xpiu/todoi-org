@@ -1,5 +1,5 @@
 import { asc, eq, inArray } from 'drizzle-orm';
-import type { DirectoryConfig, Level, Segment } from '@todoi/shared';
+import type { DirectoryConfig, Level, Segment, SourceMap } from '@todoi/shared';
 import type { Db } from './index.ts';
 import * as t from './schema.ts';
 
@@ -31,6 +31,8 @@ export interface FullRecord {
   scores: Record<string, { score: number; review: string; version: number }>;
   caps: Record<string, { level: Level; note: string | null; version: number }>;
   sources: { url: string; label: string }[];
+  source: SourceMap;
+  sourceChange: string | null;
   oss: typeof t.ossDetails.$inferSelect | null;
   commercial: typeof t.commercialDetails.$inferSelect | null;
 }
@@ -122,6 +124,8 @@ export async function loadFullDirectory(db: Db, slug: string): Promise<FullDirec
       scores: rs,
       caps: rc,
       sources: sources.filter((s) => s.recordId === r.id).map((s) => ({ url: s.url, label: s.label })),
+      source: r.source,
+      sourceChange: r.sourceChange,
       oss: ossBy.get(r.id) ?? null,
       commercial: comBy.get(r.id) ?? null,
     };

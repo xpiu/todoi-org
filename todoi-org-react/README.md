@@ -64,6 +64,15 @@ order. No utility framework.
 build scripts did not) and wrote `packages/db/seed/data.json`. The Score is never stored: the mean of
 the six criteria and the band, rounded half up, defined once in `packages/shared`.
 
+**Source map.** Every record says what is open and what is closed in four layers: `source.app`,
+`source.server`, `source.extras` (paid editions and plugins) and `source.parts` (what the owner
+publishes separately), each `{ level, label, note }` on the capability scale (2 open-source licence,
+1 partly open or with conditions, 0 closed) or `null` when the product has no such layer. The label a
+reader sees (FOSS, open core, source-available, mixed source, closed core, closed) is never stored:
+`sourceClass()` in `packages/shared/src/source.ts` derives it, and the store refuses an open-source
+record whose tag disagrees. Open core and closed core are mirror images: an open base with closed
+extras, a closed base with open parts.
+
 ### `packages/db/seed/data.json`: the temporary replacement for PostgreSQL
 
 Until PostgreSQL returns, this one file is the whole data store: the server reads it and nothing
@@ -116,6 +125,7 @@ a same-origin request and the session's CSRF token; sign-in is rate limited in t
 | Dark defines every token; text pairs reach AA | `apps/web/src/styles/tokens.test.ts` |
 | ⏸ An edit shows at once, survives a reload, rolls back on failure | `e2e/admin.spec.ts` (skipped while the editor is parked) |
 | `data.json` is well formed, in id order, and read the same by the store and the seeder | `packages/db/src/seed-schema.test.ts` |
+| A licensing label is derived from the record's source map, and a label that disagrees stops the server | `packages/shared/src/source.test.ts`, `packages/db/src/seed-schema.test.ts` |
 | No database: every record in `data.json` is served; sign-in, the editor and its API are 404 | `e2e/json-store.spec.ts` |
 | ⏸ The JSON store equals a freshly seeded PostgreSQL, field for field | `packages/db/src/json.test.ts` (needs `TEST_DATABASE_URL`) |
 | ⏸ Sign-in and editor writes, through the parked API | `apps/server/src/routes/admin.test.ts` (needs `TEST_DATABASE_URL`) |

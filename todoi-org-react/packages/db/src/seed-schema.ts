@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Capability, Criterion, DirectoryCopy, DirectoryKind, FilterToggle, Level, Segment } from '@todoi/shared';
+import { Capability, Criterion, DirectoryCopy, DirectoryKind, FilterToggle, Level, Segment, SourceMap } from '@todoi/shared';
 
 /**
  * The committed seed, packages/db/seed/data.json: what the importer read from
@@ -32,6 +32,10 @@ export const SeedRecord = z.object({
   scores: z.record(z.string(), z.object({ score: z.number(), review: z.string() })),
   caps: z.record(z.string(), z.object({ level: Level, note: z.string().nullable() })),
   sources: z.array(z.object({ url: z.string(), label: z.string() })),
+  /** What is open and what is closed, layer by layer; the record's class is derived from it. */
+  source: SourceMap,
+  /** A dated licence change: "AGPL-3.0 until 8 January 2026." */
+  sourceChange: z.string().nullable(),
   oss: z
     .object({
       licence: z.string(),

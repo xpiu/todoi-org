@@ -185,6 +185,10 @@
   color: var(--text-faint);      /* ○ not available natively */
 }
 
+.mark-na {
+  color: var(--text-faint);      /* – nothing to mark: the product has no such layer */
+}
+
 /* 1–5 score. --fill (0–1) is set inline per cell and draws the rule. */
 .score {
   display: inline-block;
@@ -321,6 +325,14 @@
   border-style: dashed;
   color: var(--text-2);
   font-weight: 300;
+}
+
+/* Half and half: the solid edge of open core's ink on source-available's dashes. */
+.tag-mixed-source {
+  border-style: dashed;
+  border-color: var(--line-heavy);
+  color: var(--text);
+  font-weight: 400;
 }
 
 .pill,

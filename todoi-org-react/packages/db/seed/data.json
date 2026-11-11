@@ -9,7 +9,7 @@
         "projects"
       ],
       "compiledOn": "2026-09-17",
-      "modifiedOn": "2026-11-10",
+      "modifiedOn": "2026-11-11",
       "csvFile": "todoi-dataset-2026-09-17.csv",
       "toggles": [
         {
@@ -149,7 +149,7 @@
           },
           "model": {
             "label": "Licensing",
-            "tip": "Based on licence files and edition documentation: FOSS uses open-source terms; open core combines an open-source core with non-open-source additions; source-available uses restrictive source terms. Paid availability is recorded separately in the feature marks and record notes."
+            "tip": "Based on licence files and edition documentation: FOSS uses open-source terms; open core combines an open-source core with non-open-source additions; source-available uses restrictive source terms; mixed source splits app and server between those. The label is derived from the Source row in each record. Paid availability is recorded separately in the feature marks and record notes."
           },
           "community": {
             "label": "Community",
@@ -215,16 +215,78 @@
           "title": "How the scores work",
           "note": "Six criteria and the community band, each 1 to 5, each with a written justification. The number is an editorial summary; the reasoning is the point.",
           "notes": [
-            "The <strong>Score</strong> column is the unweighted mean of all seven, so the band carries one seventh of it. The directory opens by community size, largest first. Each record also carries a <strong>Confidence</strong> value: <em>High</em> is stronger evidence and a second reading; <em>Medium-high</em> flags a remaining qualification; <em>Medium</em> is usually a first pass. Read the caveat and sources with the label."
+            "The <strong>Score</strong> column is the unweighted mean of all seven, so the band carries one seventh of it. The directory opens by community size, largest first. Each record also carries a <strong>Confidence</strong> value: <em>High</em> is stronger evidence and a second reading; <em>Medium-high</em> flags a remaining qualification; <em>Medium</em> is usually a first pass. Read the caveat and sources with the label.",
+            "Every record carries a <strong>Source</strong> map: the app, the server, the paid extras and the parts published separately, each marked open, partly open or closed, with the licence named. <em>FOSS</em> means app and server are open and no closed code is held back; <em>open core</em> means the paid extras are closed; <em>source-available</em> means the code can be read under restrictions; <em>mixed source</em> means app and server differ."
           ],
           "modelsTitle": "Licensing and paid features",
-          "modelsNote": "Labels follow the assessed code, not the marketing site. Paid hosting or GPL add-ons do not by themselves make a project open core - OpenProject&#8217;s Enterprise add-ons are GPLv3."
+          "modelsNote": "Labels are derived from each record&#8217;s <strong>Source</strong> map, not from the marketing site, so a label cannot outlive a licence change. Paid hosting never changes one, and open code that needs a paid key is still open code: OpenProject&#8217;s Enterprise add-ons and Vikunja&#8217;s Pro features are in the open repository."
         },
         "contribute": {
           "text": "If a record is wrong, send the correction with a source. Licences change, features leave the core, hosted services shut down; each correction is checked against the same criteria as everything else.",
           "listingTitle": "What gets listed",
-          "listing": "Two rules: usable in a browser, and source open at least in part. Small, new or awkward to install is not a reason to leave it out; unverifiable is. A new entry gets the same six criteria, with lower <strong>Confidence</strong> until a second reader has been through it. Nobody pays to be listed.",
+          "listing": "Two rules: usable in a browser, and the source of the app or its server is public. A closed product that only publishes parts around itself belongs on the <a href=\"/commercial-task-managers/\">commercial page</a>. Small, new or awkward to install is not a reason to leave it out; unverifiable is. A new entry gets the same six criteria, with lower <strong>Confidence</strong> until a second reader has been through it. Nobody pays to be listed.",
           "mailSubject": "todoi.org correction"
+        },
+        "source": {
+          "title": "Source",
+          "tip": "What anyone can read and reuse, layer by layer: the app you use, the server behind it, the paid extras on top and the parts the owner publishes separately. A full mark is an open-source licence, a half mark is partly open or open with conditions, an empty one is closed. Paid hosting never changes a mark.",
+          "layers": [
+            {
+              "key": "app",
+              "label": "App",
+              "tip": "The client you use, web first. Partial is source you can read under restrictions.",
+              "sr": "App source",
+              "csv": "App_source"
+            },
+            {
+              "key": "server",
+              "label": "Server",
+              "tip": "The backend that stores and syncs the data. Partial is source you can read but not freely run, host or resell.",
+              "sr": "Server source",
+              "csv": "Server_source"
+            },
+            {
+              "key": "extras",
+              "label": "Extras",
+              "tip": "Paid editions, plugins and gated features on top of the product. Partial is open code that only runs with a paid key, or extras under a restricted licence. None means nothing is held back.",
+              "sr": "Paid extras",
+              "csv": "Extras_source"
+            },
+            {
+              "key": "parts",
+              "label": "Parts",
+              "tip": "Building blocks and tools the owner publishes separately. The full mark needs a working part of the product itself under an open-source licence, updated in the last twelve months. Partial is API tooling only, or parts that have gone quiet.",
+              "sr": "Published parts",
+              "csv": "Parts_source"
+            }
+          ],
+          "classes": {
+            "foss": {
+              "label": "FOSS",
+              "tip": "App and server are under an open-source licence and no closed code is held back. Open code that needs a paid key still counts."
+            },
+            "open-core": {
+              "label": "Open core",
+              "tip": "App and server are open source; the paid extras are closed."
+            },
+            "source-available": {
+              "label": "Source-available",
+              "tip": "App and server can be read, under terms that restrict use, hosting or resale."
+            },
+            "mixed-source": {
+              "label": "Mixed source",
+              "tip": "The product’s own code is split: one of app and server is open source, the other is restricted or closed."
+            },
+            "closed-core": {
+              "label": "Closed core",
+              "tip": "App and server are closed, and the owner publishes working parts of the product as open source. The mirror image of open core."
+            },
+            "closed": {
+              "label": "Closed",
+              "tip": "App and server are closed, and no working part of the product is open. API tooling alone does not change that."
+            }
+          },
+          "changeLabel": "Licence history"
         },
         "crosslink": {
           "href": "/commercial-task-managers/",
@@ -237,7 +299,7 @@
           "otherHref": "/commercial-task-managers/"
         },
         "llms": {
-          "before": "# Todoi.org\n\n> A volunteer-run directory comparing twenty-five open-source and source-available browser-based task managers, each scored on six criteria with the reasoning published.\n\nTodoi.org compares task and project management systems. Two rules decide what is listed: the system must be usable in a browser, and its source must be open at least in part. Self-hosting is common among the entries but is not itself a requirement.\n\nEvery project carries licensing model, community-size proxy, a repository star count, estimated integration surface, five capability checks (time tracking, agile boards, Gantt, calendar, open calendar sync) and six editorial criteria scored 1-5 (ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability), plus deployment, calendar sync, data-out routes, stack, hosted option and a repository link.\n\nDepth of research is not uniform, and the Research_Confidence field on every record states it. Eleven projects were researched first and read twice. Fourteen were added later the same day with checked facts and a considered first-pass score read once; most are marked Medium. Cite the confidence alongside the score.\n\nEvery score carries a written justification, and each project record keeps a four-paragraph summary, its own caveat and its source list. The summary is on the page only: the CSV and the JSON-LD carry the comparison fields rather than the prose. Scores are editorial judgements, not benchmarks. Community size is a proxy drawn from repository signals and release cadence, not a deployment count. Star counts were read from the repository APIs on 17 September 2026 and are a visibility signal only; six of them carry a caveat on the page because the repository does not map onto the product. Integration figures are estimates of meaningful packaged connections; API and webhook extensibility is recorded separately.\n\nLicensing labels follow code terms: FOSS uses open-source licences; open core combines an open-source core with non-open-source additions; source-available uses restrictive source terms. Paid availability is recorded separately in capability marks and edition notes. OpenProject remains FOSS because its Enterprise add-ons are GPLv3 too. Cost is treated as operational burden and portability, not seat licences.\n\nCompiled 2026-09-17. Twake Workplace was researched and excluded: its named repository carries two commits and no task-management module.\n\nCrawlers and AI agents are welcome. Access rules live in `/robots.txt`. This file is a curated overview, not an access-control list.\n\nCorrections reach the directory at info@todoi.org. Send the source along with the correction; it is checked against the same criteria as everything else.\n\n## Site\n\n- [Home](https://todoi.org/): Directory and comparison matrix of browser-based open-source task managers. The whole directory is this one page.\n- [Dataset (CSV)](https://todoi.org/todoi-dataset-2026-09-17.csv): Every field for all twenty-five projects across 38 columns, including the six scores and their written justifications. Generated from the page during publication.\n- [Commercial task managers](https://todoi.org/commercial-task-managers/): Companion directory of 58 commercial, closed-source task managers, scored with the same method. Dataset: https://todoi.org/todoi-commercial-dataset-2026-11-10.csv\n- [Sitemap](https://todoi.org/sitemap.xml): URL list for search engines.\n- [llms.txt](https://todoi.org/llms.txt): This machine-readable index.\n\n## Sections of the page\n\n- [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-five projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.\n- [Where to start](https://todoi.org/#start): Eleven concrete situations mapped to the projects the research supports for each.\n- [How the scores work](https://todoi.org/#method): The six criteria, what each one measures, and the three licensing models kept apart.\n- [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, how deep the assessments go, listing rules, and how current the data is.\n- [Corrections and additions](https://todoi.org/#contribute): The two listing rules, research confidence, how to send a correction, and the revision log.\n\n## Projects assessed\n\nOrdered by community size, largest first, with alphabetical ties, matching the page. Scores are unweighted means of seven inputs, the six editorial criteria and community size read as 1 (small) to 5 (very large), not an overall recommendation.\n",
+          "before": "# Todoi.org\n\n> A volunteer-run directory comparing twenty-five open-source and source-available browser-based task managers, each scored on six criteria with the reasoning published.\n\nTodoi.org compares task and project management systems. Two rules decide what is listed: the system must be usable in a browser, and the source of its app or server must be public. Self-hosting is common among the entries but is not itself a requirement.\n\nEvery project carries licensing model, community-size proxy, a repository star count, estimated integration surface, five capability checks (time tracking, agile boards, Gantt, calendar, open calendar sync) and six editorial criteria scored 1-5 (ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability), plus deployment, calendar sync, data-out routes, stack, hosted option and a repository link.\n\nDepth of research is not uniform, and the Research_Confidence field on every record states it. Eleven projects were researched first and read twice. Fourteen were added later the same day with checked facts and a considered first-pass score read once; most are marked Medium. Cite the confidence alongside the score.\n\nEvery score carries a written justification, and each project record keeps a four-paragraph summary, its own caveat and its source list. The summary is on the page only: the CSV and the JSON-LD carry the comparison fields rather than the prose. Scores are editorial judgements, not benchmarks. Community size is a proxy drawn from repository signals and release cadence, not a deployment count. Star counts were read from the repository APIs on 17 September 2026 and are a visibility signal only; six of them carry a caveat on the page because the repository does not map onto the product. Integration figures are estimates of meaningful packaged connections; API and webhook extensibility is recorded separately.\n\nLicensing labels follow code terms: FOSS uses open-source licences; open core combines an open-source core with non-open-source additions; source-available uses restrictive source terms. Paid availability is recorded separately in capability marks and edition notes. OpenProject remains FOSS because its Enterprise add-ons are GPLv3 too. Cost is treated as operational burden and portability, not seat licences.\n\nCompiled 2026-09-17. Twake Workplace was researched and excluded: its named repository carries two commits and no task-management module.\n\nCrawlers and AI agents are welcome. Access rules live in `/robots.txt`. This file is a curated overview, not an access-control list.\n\nCorrections reach the directory at info@todoi.org. Send the source along with the correction; it is checked against the same criteria as everything else.\n\n## Site\n\n- [Home](https://todoi.org/): Directory and comparison matrix of browser-based open-source task managers. The whole directory is this one page.\n- [Dataset (CSV)](https://todoi.org/todoi-dataset-2026-09-17.csv): Every field for all twenty-five projects across 43 columns, including the six scores and their written justifications. Generated from the page during publication.\n- [Commercial task managers](https://todoi.org/commercial-task-managers/): Companion directory of 58 commercial, closed-source task managers, scored with the same method. Dataset: https://todoi.org/todoi-commercial-dataset-2026-11-10.csv\n- [Sitemap](https://todoi.org/sitemap.xml): URL list for search engines.\n- [llms.txt](https://todoi.org/llms.txt): This machine-readable index.\n\n## Sections of the page\n\n- [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-five projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.\n- [Where to start](https://todoi.org/#start): Eleven concrete situations mapped to the projects the research supports for each.\n- [How the scores work](https://todoi.org/#method): The six criteria, what each one measures, and the three licensing models kept apart.\n- [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, how deep the assessments go, listing rules, and how current the data is.\n- [Corrections and additions](https://todoi.org/#contribute): The two listing rules, research confidence, how to send a correction, and the revision log.\n\n## Projects assessed\n\nOrdered by community size, largest first, with alphabetical ties, matching the page. Scores are unweighted means of seven inputs, the six editorial criteria and community size read as 1 (small) to 5 (very large), not an overall recommendation.\n",
           "after": ""
         },
         "ld": {
@@ -253,10 +315,10 @@
               "Software portability"
             ]
           },
-          "websiteDescription": "Twenty-five open-source and source-available browser-based task managers, compared across 38 fields.",
+          "websiteDescription": "Twenty-five open-source and source-available browser-based task managers, compared across 43 fields.",
           "dataset": {
             "name": "Open-source and source-available browser-based task managers, 2026",
-            "description": "Twenty-five browser-based open-source and source-available task and project management projects, each assessed across 38 fields: licensing model, community proxy, repository stars, estimated integrations, five capability checks, deployment, calendar sync, data-out routes, stack and hosted option, plus six editorial 1-5 criteria, each carrying a written justification and a source list.",
+            "description": "Twenty-five browser-based open-source and source-available task and project management projects, each assessed across 43 fields: licensing model, community proxy, repository stars, estimated integrations, five capability checks, deployment, calendar sync, data-out routes, stack and hosted option, plus six editorial 1-5 criteria, each carrying a written justification and a source list.",
             "measurementTechnique": "Editorial assessment of project documentation, source repositories and release histories against six published criteria.",
             "keywords": [
               "self-hosted task manager",
@@ -426,6 +488,19 @@
           "csvLabel": "Source-available"
         },
         {
+          "key": "mixed-source",
+          "label": "Mixed source",
+          "chip": "Mixed",
+          "chipAria": "Mixed source",
+          "filter": "mixed-source",
+          "tagClass": "mixed-source",
+          "icon": "mixed-source",
+          "tip": "The product’s own code is split: one of the app and its server is open source, the other is restricted or closed. The Source row in the record says which.",
+          "definition": "The product’s own code is split: one of app and server is open source, the other restricted or closed. The record’s Source row says which.",
+          "audience": null,
+          "csvLabel": "Mixed source"
+        },
+        {
           "key": "foss-app",
           "label": "FOSS app",
           "chip": null,
@@ -504,7 +579,7 @@
         },
         {
           "case": "Documents and tasks that need to sit in the same place",
-          "pick": "<strong>AppFlowy</strong> is the closest to Notion on an AGPL core - check that what you need is not in an AI or vault tier. <strong>AFFiNE</strong> has the better whiteboard, but its self-hosted backend is under an Enterprise Edition licence, not an open one. <strong>Nextcloud Deck</strong> if documents already mean Nextcloud."
+          "pick": "<strong>AppFlowy</strong> is the closest to Notion, with AGPL clients on a server that is now closed - check that what you need is not in an AI or vault tier. <strong>AFFiNE</strong> has the better whiteboard, but its self-hosted backend is under an Enterprise Edition licence, not an open one. <strong>Nextcloud Deck</strong> if documents already mean Nextcloud."
         },
         {
           "case": "Large existing custom workflows and a strong internal IT team",
@@ -515,6 +590,10 @@
         {
           "date": "2026-09-17",
           "text": "First publication, then a same-day pass from eleven projects to twenty-five. Open calendar sync joined the matrix. Twake Workplace was researched and dropped: the named repository has two commits and no task-management module."
+        },
+        {
+          "date": "2026-11-11",
+          "text": "A <strong>Source</strong> map joined every record: app, server, paid extras and published parts, each marked open, partly open or closed, with the licensing label now derived from it. Five labels changed. NocoDB is source-available since it left AGPL-3.0 in January 2026; AppFlowy and AFFiNE are mixed source, with open clients on a closed or restricted server; Vikunja and Worklenz are FOSS; Restyaboard is open core. Focalboard&#8217;s licence was corrected to AGPL-3.0 source with MIT binaries."
         }
       ],
       "records": [
@@ -601,6 +680,25 @@
               "label": "github.com/hcengineering/platform"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "EPL-2.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "EPL-2.0",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "EPL-2.0",
+              "note": "The self-hosting kit and side projects are open too."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "EPL-2.0",
             "modelNote": "FOSS self-hosted platform; hosted-service continuity caveat",
@@ -709,6 +807,29 @@
               "label": "github.com/opf/openproject"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "GPL-3.0",
+              "note": "The beta mobile app has no public source."
+            },
+            "server": {
+              "level": 2,
+              "label": "GPL-3.0",
+              "note": null
+            },
+            "extras": {
+              "level": 1,
+              "label": "GPL-3.0, paid key",
+              "note": "Enterprise add-ons are in the GPL code but only run with a paid token."
+            },
+            "parts": {
+              "level": 2,
+              "label": "GPL-3.0 and MIT",
+              "note": "A CLI, Helm charts and integrations."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "GPL-3.0",
             "modelNote": "FOSS; GPLv3 Community and Enterprise add-ons, with paid Enterprise availability",
@@ -813,6 +934,29 @@
               "label": "plane.so"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": "The mobile apps are closed and do not work with the Community Edition."
+            },
+            "server": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "extras": {
+              "level": 0,
+              "label": "Closed",
+              "note": "The Commercial and Airgapped editions are separate, closed builds."
+            },
+            "parts": {
+              "level": 2,
+              "label": "MIT",
+              "note": "SDKs and an MCP server."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "AGPL for Community Edition",
             "modelNote": "AGPL Community Edition + commercial/open-core tiers",
@@ -913,6 +1057,21 @@
               "label": "github.com/redmine/redmine"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "GPL-2.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "GPL-2.0",
+              "note": null
+            },
+            "extras": null,
+            "parts": null
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "GPLv2",
             "modelNote": "FOSS",
@@ -932,15 +1091,15 @@
           "url": "https://affine.pro/",
           "icon": "/icons/affine.webp",
           "blurb": "Documents, an infinite whiteboard and databases in one workspace, with tasks as database views rather than a tracker of their own.",
-          "model": "source-available",
-          "modelSub": "Edition-dependent",
+          "model": "mixed-source",
+          "modelSub": "MIT client, EE server",
           "summary": [
             "AFFiNE puts documents, an infinite whiteboard and databases in one workspace, with tasks as database views rather than a tracker of their own. The interface is among the most finished in this directory, and the licence underneath it splits in a way no other entry here does.",
             "A page has two modes: a document, and an edgeless canvas where the same blocks sit on a whiteboard alongside shapes, frames and connectors. Databases carry table, board and gallery views, though no calendar, and blocks written in a document can be pulled onto the canvas without leaving the page. The whiteboard has no real peer among the tools here.",
-            "The licensing line runs between client and backend. The client is MPL-2.0; the self-hosted backend ships under an AFFiNE Enterprise Edition licence, and multi-admin roles and team management sit in a paid self-hosted tier. That is why sovereignty scores 2.8, the lowest in this table, for a product whose source you can read.",
+            "The licensing line runs between client and backend. The client is MIT; the self-hosted backend ships under an AFFiNE Enterprise Edition licence, and multi-admin roles and team management sit in a paid self-hosted tier. That is why sovereignty scores 2.8, the lowest in this table, for a product whose source you can read.",
             "Running it is Docker Compose with PostgreSQL and Redis, which is more machinery than a notes application suggests. Exports are Markdown, HTML, JSON and PDF or PNG over a GraphQL API with WebSocket sync - fine for documents, thinner for structured work. The audience is large for the editor and much smaller for the backend, so self-hosting questions find fewer public answers than the star count implies."
           ],
-          "summaryDate": "2026-09-18",
+          "summaryDate": "2026-11-11",
           "year": 2022,
           "band": 4,
           "bandEvidence": "72.7k GitHub stars and frequent releases; a large audience for the editor, a much smaller one running the backend themselves.",
@@ -1013,8 +1172,31 @@
               "label": "github.com/toeverything/AFFiNE/discussions/5947"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "MIT",
+              "note": null
+            },
+            "server": {
+              "level": 1,
+              "label": "AFFiNE EE licence",
+              "note": "Readable, but under an Enterprise Edition licence rather than an open one."
+            },
+            "extras": {
+              "level": 1,
+              "label": "AFFiNE EE licence",
+              "note": "Team features sit in the same restricted backend, behind a paid tier."
+            },
+            "parts": {
+              "level": 2,
+              "label": "MIT",
+              "note": "BlockSuite, the editor framework."
+            }
+          },
+          "sourceChange": "The Enterprise Edition licence covered the server only until 29 December 2025; it now covers the whole backend.",
           "oss": {
-            "licence": "MPL-2.0 client, EE backend",
+            "licence": "MIT client, EE backend",
             "modelNote": "Open client, source-available backend under an Enterprise Edition licence",
             "repository": "github.com/toeverything/AFFiNE",
             "repositoryUrl": "https://github.com/toeverything/AFFiNE",
@@ -1032,15 +1214,15 @@
           "url": "https://appflowy.io/",
           "icon": "/icons/appflowy.webp",
           "blurb": "A Notion-shaped workspace of nested documents and inline databases, where board, table and calendar are three views of the same records.",
-          "model": "open-core",
-          "modelSub": "AGPL core + paid AI and vault tiers",
+          "model": "mixed-source",
+          "modelSub": "AGPL clients, closed server",
           "summary": [
             "AppFlowy is a Notion-shaped workspace: nested documents with inline databases, where table, board and calendar are three views of the same records. It has one of the largest followings in this directory, and a much smaller share of that following runs the backend itself.",
             "Documents are the container and databases are embedded in them, with typed fields underneath; a view is a saved arrangement of one database rather than an object of its own. Kanban, grid and calendar are all first-class, workspace roles and guest links cover sharing, and the desktop and mobile builds lead the web one.",
             "Self-hosting means running AppFlowy Cloud, the sync server, from Compose: several services over PostgreSQL, documented but not a single container. The clients are Flutter and Rust, and sync is WebSocket-based over a cloud API. There is no CalDAV or iCalendar interface, so the calendar view stays internal.",
-            "The core is AGPL and the margin is elsewhere: AI features and a vault tier are paid, and SSO and audit belong to the commercial side. Which build a capability lives in is the question to settle first, because the answer has moved with the releases. Exports are JSON, Markdown and CSV, which is adequate for documents and thinner for structured work."
+            "The clients are AGPL and the margin is elsewhere: the server that syncs them has been closed and commercially licensed since late 2025, AI features and a vault tier are paid, and SSO and audit belong to the commercial side. Which build a capability lives in is the question to settle first, because the answer has moved with the releases. Exports are JSON, Markdown and CSV, which is adequate for documents and thinner for structured work."
           ],
-          "summaryDate": "2026-09-17",
+          "summaryDate": "2026-11-11",
           "year": 2021,
           "band": 4,
           "bandEvidence": "76.8k GitHub stars and active releases through 2026, with a following much larger than the self-hosted share of it.",
@@ -1049,7 +1231,7 @@
           "integrationNotes": "A self-hosted cloud sync server, local and hosted language models, and a cloud API. Packaged connectors to other task systems are limited.",
           "calendarSync": "None. Neither CalDAV nor an iCalendar feed.",
           "dataOut": "JSON, Markdown and CSV exports; a cloud API with WebSocket sync.",
-          "caveat": "Open core, and the desktop and mobile clients lead the web one. Check that the capability you need is in the AGPL build rather than in an AI or vault tier before committing.",
+          "caveat": "Open clients on a closed server, and the desktop and mobile clients lead the web one. Check that the capability you need is in the AGPL build rather than in an AI or vault tier before committing.",
           "confidence": "Medium",
           "scores": {
             "deploy": {
@@ -1070,7 +1252,7 @@
             },
             "sovereignty": {
               "score": 3.8,
-              "review": "The AGPL workspace self-hosts, though the AI and vault tiers are where the vendor keeps its margin."
+              "review": "The AGPL clients work local-first, but self-hosted sync now runs on a closed, commercially licensed server, and the AI and vault tiers are where the vendor keeps its margin."
             },
             "portability": {
               "score": 3.6,
@@ -1113,9 +1295,32 @@
               "label": "appflowy.io"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": "The public client source lags the shipped releases."
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": "The open server is archived; self-hosting now uses a commercially licensed build."
+            },
+            "extras": {
+              "level": 0,
+              "label": "Closed",
+              "note": "AI and the higher tiers are switched on by licence key."
+            },
+            "parts": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": "The editor and board components."
+            }
+          },
+          "sourceChange": "The server was AGPL-3.0 until late 2025, when it moved to a closed commercial licence.",
           "oss": {
-            "licence": "AGPL-3.0",
-            "modelNote": "AGPLv3 core + commercial AI and enterprise tiers",
+            "licence": "AGPL-3.0 clients; closed server",
+            "modelNote": "AGPLv3 clients on a server that has been closed and commercially licensed since late 2025",
             "repository": "github.com/AppFlowy-IO/AppFlowy",
             "repositoryUrl": "https://github.com/AppFlowy-IO/AppFlowy",
             "stars": 76783,
@@ -1213,6 +1418,25 @@
               "label": "habitica.com"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "GPL-3.0",
+              "note": "Habitica’s own art and content are CC-BY-NC-SA, not reusable commercially."
+            },
+            "server": {
+              "level": 2,
+              "label": "GPL-3.0",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "GPL-3.0",
+              "note": "The Android and iOS apps."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "GPL-3.0",
             "modelNote": "GPLv3, with cosmetic subscriptions on the hosted service only",
@@ -1313,6 +1537,29 @@
               "label": "github.com/Leantime/leantime"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "extras": {
+              "level": 0,
+              "label": "Closed",
+              "note": "Paid marketplace plugins under an enterprise licence."
+            },
+            "parts": {
+              "level": 2,
+              "label": "Apache-2.0",
+              "note": "The plugin template and Docker image."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "AGPLv3 core",
             "modelNote": "AGPL core + commercial/marketplace plugins",
@@ -1413,6 +1660,25 @@
               "label": "github.com/logseq/logseq/blob/master/docs/docker-web-app-guide.md"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": "The new mobile app’s repository has no licence file yet."
+            },
+            "server": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": "The sync server is open and self-hostable; hosted sync is paid."
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "MIT",
+              "note": "Plugin and publishing tools."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "AGPL-3.0",
             "modelNote": "AGPLv3, with a paid sync service beside it rather than above it",
@@ -1513,6 +1779,21 @@
               "label": "github.com/nextcloud/deck"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": "Runs only inside Nextcloud Server, itself AGPL-3.0."
+            },
+            "extras": null,
+            "parts": null
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "AGPL",
             "modelNote": "FOSS Nextcloud app",
@@ -1532,15 +1813,15 @@
           "url": "https://nocodb.com/",
           "icon": "/icons/nocodb.webp",
           "blurb": "Puts grid, kanban, gallery, form and calendar views over a SQL database you already own, so the task board is a view rather than a new system of record.",
-          "model": "open-core",
-          "modelSub": "AGPL core + paid cloud and enterprise",
+          "model": "source-available",
+          "modelSub": "Sustainable Use License",
           "summary": [
             "NocoDB puts grid, kanban, gallery, form and calendar views over a SQL database, including one you already run, so a task board becomes a view rather than a new system of record. It is the largest project here by star count and among the furthest from being a task manager out of the box.",
             "Point it at an existing PostgreSQL or MySQL schema and it reads the tables as they stand; start from scratch and it keeps its own SQLite. Either way you get formulas, lookups, rollups, links between tables, per-view filters and sorts, and forms that write rows. Five view types over any table is a lot of interface for something that models nothing about tasks in particular.",
             "Because the database can be yours, the data need never enter NocoDB’s storage in the first place, which is the strongest portability position in this directory. Exports are CSV, JSON and Excel, the REST API is generated from the schema with Swagger, webhooks fire per table, and Zapier, n8n and Make connectors are packaged.",
-            "The AGPL core self-hosts in full from one container, with owner, creator, editor, commenter and viewer roles per base; SSO, audit logs and row-level policy sit in the paid tiers. What it does not supply is a method. Sprints, dependencies and timelines exist only once you have modelled them, and the modelling is yours to get right."
+            "The core self-hosts in full from one container, under a source-available licence since it left AGPL in January 2026, with owner, creator, editor, commenter and viewer roles per base; SSO, audit logs and row-level policy sit in the paid tiers. What it does not supply is a method. Sprints, dependencies and timelines exist only once you have modelled them, and the modelling is yours to get right."
           ],
-          "summaryDate": "2026-09-17",
+          "summaryDate": "2026-11-11",
           "year": 2021,
           "band": 4,
           "bandEvidence": "65.0k GitHub stars with frequent releases, and wide deployment as a self-hosted Airtable replacement.",
@@ -1570,7 +1851,7 @@
             },
             "sovereignty": {
               "score": 4,
-              "review": "The AGPL core self-hosts in full; governance features are the part held back."
+              "review": "The core self-hosts in full, though under a source-available licence since January 2026; governance features are the part held back."
             },
             "portability": {
               "score": 4.8,
@@ -1613,9 +1894,32 @@
               "label": "nocodb.com"
             }
           ],
+          "source": {
+            "app": {
+              "level": 1,
+              "label": "Sustainable Use License",
+              "note": "Readable, but for internal or non-commercial use only."
+            },
+            "server": {
+              "level": 1,
+              "label": "Sustainable Use License",
+              "note": "The same licence as the app."
+            },
+            "extras": {
+              "level": 0,
+              "label": "Closed",
+              "note": "Enterprise features are switched on by licence key."
+            },
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "MIT agent skills; the SDK shares the core’s licence."
+            }
+          },
+          "sourceChange": "AGPL-3.0 until 8 January 2026; Sustainable Use License since.",
           "oss": {
-            "licence": "AGPL-3.0",
-            "modelNote": "AGPLv3 core + commercial cloud and enterprise tiers",
+            "licence": "Sustainable Use License (AGPL-3.0 until January 2026)",
+            "modelNote": "Source-available since January 2026, with closed enterprise features by licence key",
             "repository": "github.com/nocodb/nocodb",
             "repositoryUrl": "https://github.com/nocodb/nocodb",
             "stars": 64995,
@@ -1633,7 +1937,7 @@
           "icon": "/icons/planka.webp",
           "blurb": "Board-first Trello alternative. The Community edition is capable; timeline and calendar sit in the paid tiers.",
           "model": "source-available",
-          "modelSub": "Edition-dependent",
+          "modelSub": "Fair Use License",
           "summary": [
             "PLANKA is the closest self-hosted thing to Trello: lists of cards on a board, dragged between columns, with swimlanes, labels, due dates and attachments. The Community edition is a working board for a team; the timeline and calendar views sit in the paid tiers.",
             "Board mechanics are where the effort has gone. Cards carry checklists, comments, membership and stopwatch-style time entries, notifications reach a wide set of targets, and boards move in and out as JSON. There is no portfolio layer and no dependency model, because the board is the product rather than a view onto something larger.",
@@ -1713,8 +2017,31 @@
               "label": "github.com/plankanban/planka"
             }
           ],
+          "source": {
+            "app": {
+              "level": 1,
+              "label": "Fair Use License",
+              "note": "Readable, but commercial hosting and resale are not allowed."
+            },
+            "server": {
+              "level": 1,
+              "label": "Fair Use License",
+              "note": "The same licence as the app."
+            },
+            "extras": {
+              "level": 0,
+              "label": "Closed",
+              "note": "The Pro and Enterprise editions."
+            },
+            "parts": {
+              "level": 1,
+              "label": "Docs and installer",
+              "note": "Only the documentation and installer are AGPL-3.0."
+            }
+          },
+          "sourceChange": "AGPL-3.0 until version 2 on 10 May 2025; PLANKA Community License since.",
           "oss": {
-            "licence": "Edition-dependent; not treated here as pure OSI FOSS",
+            "licence": "PLANKA Community License (Fair Use License); AGPL-3.0 until version 2",
             "modelNote": "Source-available / fair-code Community + Pro/Enterprise",
             "repository": "github.com/plankanban/planka",
             "repositoryUrl": "https://github.com/plankanban/planka",
@@ -1813,6 +2140,25 @@
               "label": "community.taiga.io"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "MPL-2.0",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "MPL-2.0",
+              "note": "Events, authentication and integration plugins."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "Open-source (project states 100% open source self-hosting)",
             "modelNote": "FOSS self-hosted product",
@@ -1833,14 +2179,14 @@
           "icon": "/icons/focalboard.webp",
           "blurb": "Trello-shaped boards with table, gallery and calendar views over the same cards, from the Mattermost project and now maintained by whoever turns up.",
           "model": "foss",
-          "modelSub": "MIT core, AGPL enterprise build",
+          "modelSub": "AGPL source, MIT binaries",
           "summary": [
             "Focalboard is a Trello-shaped board with Notion-shaped properties: table, gallery and calendar views over the same cards, custom fields, filters and grouping. It came out of the Mattermost project, and it is now maintained by whoever turns up.",
             "A board is a table of cards with typed properties - select, date, person, number, text - and the four views are four ways of drawing that table. Grouping by any select property makes a different board without moving any data. Above the board there is nothing: roles are admin, editor, commenter and viewer, per board, with no organisational model over them.",
-            "The personal server is a single Docker image, or the board runs as a plugin inside an existing Mattermost, where identity and sharing come from the platform instead. MIT covers the personal server and an AGPL enterprise build sits beside it. Hosting exists only inside Mattermost Cloud, which is to say there is nowhere to buy the board on its own.",
+            "The personal server is a single Docker image, or the board runs as a plugin inside an existing Mattermost, where identity and sharing come from the platform instead. The source is AGPL-3.0, or commercial from Mattermost; Mattermost’s own compiled binaries are MIT. Hosting exists only inside Mattermost Cloud, which is to say there is nowhere to buy the board on its own.",
             "Governance is the caveat and it is a hard one. Mattermost stopped bundling the plugin in September 2023 and contributes neither features nor fixes; community commits continue into 2026 against an open call for maintainers. Plan around a roadmap that is not there, and read the exit routes as the operative feature: JSON board archives, CSV exports and a REST API are enough to leave with, which for a project in this state is what matters."
           ],
-          "summaryDate": "2026-09-18",
+          "summaryDate": "2026-11-11",
           "year": 2021,
           "band": 3,
           "bandEvidence": "26.5k GitHub stars from the Mattermost era, with community commits continuing into 2026 against an open call for maintainers.",
@@ -1870,7 +2216,7 @@
             },
             "sovereignty": {
               "score": 4.4,
-              "review": "MIT, self-hostable in full, and small enough to fork if it comes to that."
+              "review": "AGPL source with MIT binaries, self-hostable in full, and small enough to fork if it comes to that."
             },
             "portability": {
               "score": 3.6,
@@ -1913,9 +2259,24 @@
               "label": "www.focalboard.com"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0 or commercial",
+              "note": "Mattermost’s own compiled binaries are MIT."
+            },
+            "server": {
+              "level": 2,
+              "label": "AGPL-3.0 or commercial",
+              "note": null
+            },
+            "extras": null,
+            "parts": null
+          },
+          "sourceChange": null,
           "oss": {
-            "licence": "MIT (personal server)",
-            "modelNote": "MIT personal edition, with an AGPL enterprise build",
+            "licence": "AGPL-3.0 or commercial source; MIT official binaries",
+            "modelNote": "AGPL-3.0 or commercial source, with MIT for Mattermost’s own binaries",
             "repository": "github.com/mattermost-community/focalboard",
             "repositoryUrl": "https://github.com/mattermost-community/focalboard",
             "stars": 26466,
@@ -2013,6 +2374,29 @@
               "label": "www.getgrist.com"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "Apache-2.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "Apache-2.0",
+              "note": null
+            },
+            "extras": {
+              "level": 0,
+              "label": "Closed",
+              "note": "The full edition runs by activation key, free under US$1M in annual funding."
+            },
+            "parts": {
+              "level": 2,
+              "label": "Apache-2.0",
+              "note": "The desktop app and custom widgets."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "Apache-2.0 (grist-core)",
             "modelNote": "Apache-2.0 core + commercial Enterprise features",
@@ -2117,6 +2501,21 @@
               "label": "github.com/kanboard/kanboard"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "MIT",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "MIT",
+              "note": null
+            },
+            "extras": null,
+            "parts": null
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "MIT",
             "modelNote": "FOSS",
@@ -2217,6 +2616,29 @@
               "label": "www.kimai.org/en/integrations"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "extras": {
+              "level": 0,
+              "label": "Closed",
+              "note": "Paid plugins from the Kimai store."
+            },
+            "parts": {
+              "level": 2,
+              "label": "MIT",
+              "note": "A CLI, API client and free plugins."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "AGPL-3.0",
             "modelNote": "AGPLv3 core + a commercial plugin store",
@@ -2317,6 +2739,21 @@
               "label": "super-productivity.com"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "MIT",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "MIT",
+              "note": "The sync server is open and self-hostable."
+            },
+            "extras": null,
+            "parts": null
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "MIT",
             "modelNote": "MIT, with no hosted tier to hold anything back",
@@ -2417,6 +2854,25 @@
               "label": "docs.wingtask.com/docs/syncing_taskwarrior"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "MIT",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "MIT",
+              "note": "The sync server is a separate MIT project."
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "MIT",
+              "note": "The sync library and companion tools."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "MIT",
             "modelNote": "MIT, with the browser client supplied by third parties",
@@ -2517,6 +2973,25 @@
               "label": "docs.triliumnotes.org/user-guide"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": "The web clipper."
+            }
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "AGPL-3.0",
             "modelNote": "AGPLv3, community-run with no commercial tier",
@@ -2536,7 +3011,7 @@
           "url": "https://vikunja.io/",
           "icon": "/icons/vikunja.webp",
           "blurb": "Lightweight, sovereignty-first task management with list, Kanban, Gantt and table views, CalDAV, and importers from the major SaaS tools.",
-          "model": "open-core",
+          "model": "foss",
           "modelSub": "AGPL",
           "summary": [
             "Vikunja is task management that stays a task list: list, Kanban, table and Gantt views over tasks, labels and reminders, with CalDAV underneath and importers from the tools people are usually leaving. It is the lightest server in this directory and one of only two entries with two-way calendar sync.",
@@ -2621,9 +3096,32 @@
               "label": "github.com/go-vikunja/vikunja"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "extras": {
+              "level": 1,
+              "label": "AGPL-3.0, paid key",
+              "note": "Pro features are in the open code, switched on by a licence key."
+            },
+            "parts": {
+              "level": 2,
+              "label": "MIT",
+              "note": "The mobile app."
+            }
+          },
+          "sourceChange": null,
           "oss": {
-            "licence": "AGPL",
-            "modelNote": "AGPL core + separate Pro tier",
+            "licence": "AGPL-3.0",
+            "modelNote": "AGPLv3 throughout; Pro features are in the open code, switched on by a paid key",
             "repository": "github.com/go-vikunja/vikunja",
             "repositoryUrl": "https://github.com/go-vikunja/vikunja",
             "stars": 5434,
@@ -2721,6 +3219,21 @@
               "label": "wekan.fi/docs"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "MIT",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "MIT",
+              "note": null
+            },
+            "extras": null,
+            "parts": null
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "MIT",
             "modelNote": "MIT, with no held-back edition",
@@ -2740,8 +3253,8 @@
           "url": "https://restya.com/board",
           "icon": "/icons/restyaboard.webp",
           "blurb": "A Trello-shaped board with offline caching, card-level messaging and email-to-card, effectively frozen since 2022.",
-          "model": "foss",
-          "modelSub": "OSL-3.0",
+          "model": "open-core",
+          "modelSub": "OSL-3.0 + paid apps",
           "summary": [
             "Restyaboard is a Trello-shaped board with offline caching, card-level messaging and email-to-card, last tagged at 1.7.1 in March 2022. It is recorded here for completeness rather than as a recommendation.",
             "The feature list was ahead of its moment: Kanban, list, Gantt and calendar views, offline sync, chat on cards, and mail dropped straight onto a board. Organisation admins, board managers and restricted guests cover the access model. All of it works, and all of it looks precisely like 2022.",
@@ -2817,9 +3330,28 @@
               "label": "restya.com/board"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "OSL-3.0 or commercial",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "OSL-3.0 or commercial",
+              "note": null
+            },
+            "extras": {
+              "level": 0,
+              "label": "Closed",
+              "note": "Paid add-on apps."
+            },
+            "parts": null
+          },
+          "sourceChange": null,
           "oss": {
-            "licence": "OSL-3.0",
-            "modelNote": "OSL-3.0, with paid add-ons around a dormant core",
+            "licence": "OSL-3.0 or commercial",
+            "modelNote": "OSL-3.0 core, dormant since 2022, with closed paid add-on apps",
             "repository": "github.com/RestyaPlatform/board",
             "repositoryUrl": "https://github.com/RestyaPlatform/board",
             "stars": 2089,
@@ -2913,6 +3445,21 @@
               "label": "titra.io"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "extras": null,
+            "parts": null
+          },
+          "sourceChange": null,
           "oss": {
             "licence": "AGPL-3.0",
             "modelNote": "AGPLv3, with hosting rather than features sold on top",
@@ -2932,8 +3479,8 @@
           "url": "https://worklenz.com/",
           "icon": "/icons/worklenz.webp",
           "blurb": "Agency and services-firm workflow: client projects, billable time, task management and reporting.",
-          "model": "open-core",
-          "modelSub": "AGPL (core)",
+          "model": "foss",
+          "modelSub": "AGPL-3.0",
           "summary": [
             "Worklenz is built for agencies and services firms: client projects, task boards, billable time, and the reports that turn one into an invoice. It is younger than most of this table and the commercial model around it is still settling.",
             "Work is organised by client and project, with tasks carrying estimates, assignees and time entries, and timesheets rolling up per person and per project. Boards, lists, Gantt and a reporting section cover the views. The workflow extension depth of Redmine or OpenProject is not there, and for this audience it is not what is being bought.",
@@ -3013,9 +3560,24 @@
               "label": "worklenz.com/de/timesheets"
             }
           ],
+          "source": {
+            "app": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "server": {
+              "level": 2,
+              "label": "AGPL-3.0",
+              "note": null
+            },
+            "extras": null,
+            "parts": null
+          },
+          "sourceChange": "A commercial split of the repository, added on 28 August 2026, was reverted on 25 September 2026.",
           "oss": {
-            "licence": "AGPL for core",
-            "modelNote": "AGPL open-core / commercial direction",
+            "licence": "AGPL-3.0",
+            "modelNote": "AGPLv3 throughout; a commercial split added in August 2026 was reverted a month later",
             "repository": "github.com/Worklenz/worklenz",
             "repositoryUrl": "https://github.com/Worklenz/worklenz",
             "stars": 3179,
@@ -3087,12 +3649,20 @@
           "token": "Free plan",
           "inline": "a free plan",
           "icon": "free"
+        },
+        {
+          "key": "parts",
+          "label": "Open parts",
+          "title": "Open-source parts",
+          "token": "Open-source parts",
+          "inline": "open-source parts",
+          "icon": "foss"
         }
       ],
       "copy": {
         "head": {
           "title": "58 commercial task managers compared (2026) · todoi.org",
-          "description": "Pricing, features and six scored criteria for commercial, closed-source task managers sold as a service, each with the reasoning attached.",
+          "description": "Pricing, features and six scored criteria for commercial, closed-source task managers offered as a service, each with the reasoning attached.",
           "ogTitle": "58 commercial task managers compared (2026)",
           "ogImage": "https://todoi.org/img/og-commercial.png",
           "ogImageAlt": "todoi.org: 58 commercial task managers compared, each with a Score from 1 to 5.",
@@ -3100,7 +3670,7 @@
         },
         "hero": {
           "title": "Commercial task managers compared",
-          "lede": "Pricing, features and six scored criteria for closed-source software sold as a service, with the reasoning attached.",
+          "lede": "Pricing, features and six scored criteria for closed-source software offered as a service, with the reasoning attached.",
           "mark": false
         },
         "controls": {
@@ -3260,7 +3830,8 @@
           "notes": [
             "The <strong>Score</strong> column is the unweighted mean of all seven, so the band carries one seventh of it. The directory opens by market presence, largest first. Each record also carries a <strong>Confidence</strong> value: <em>High</em> means pricing, features and data handling were verified on the vendor&#8217;s own current pages; <em>Medium-high</em> flags one remaining qualification; <em>Medium</em> means part of the record rests on secondary sources. Read the caveat and sources with the label.",
             "A product sold only by quote scores low on value for money by design: a price a reader cannot see cannot be judged good value. That pulls the mean of enterprise suites down, so read their other five criteria on their own.",
-            "The two directories share a scale but not two of their criteria, so a commercial product and an open-source one are best compared on the four criteria they share, not on the mean."
+            "The two directories share a scale but not two of their criteria, so a commercial product and an open-source one are best compared on the four criteria they share, not on the mean.",
+            "Every record also carries a <strong>Source</strong> map: the app, the server, the paid extras and the parts the owner publishes separately, each marked open, partly open or closed. Everything on this page has a closed app and server. <em>Closed core</em> marks the products whose owner publishes a working part of the product as open source, such as an editor or a UI kit, and has updated it in the last twelve months; API clients and other tooling alone do not count. It is the mirror image of open core."
           ],
           "modelsTitle": "Who each product is built for",
           "modelsNote": "The label follows the market the vendor sells to, not every use the product can be put to. Plenty of software teams run on a general team tool, and plenty of individuals live in one built for teams."
@@ -3268,8 +3839,69 @@
         "contribute": {
           "text": "If a record is wrong, send the correction with a source. Prices rise, features move between tiers, products are acquired or shut down; each correction is checked against the same criteria as everything else.",
           "listingTitle": "What gets listed",
-          "listing": "Three rules: closed source, sold as a service, and usable in a web browser. A desktop-only app does not qualify, however good it is; neither does a product that has stopped selling. Nobody pays to be listed.",
+          "listing": "Three rules: the app and its server are closed source, whatever the owner publishes around them; it is offered as a service, paid or free; and it is usable in a web browser. A desktop-only app does not qualify, however good it is; neither does a product that is no longer offered. Nobody pays to be listed.",
           "mailSubject": "todoi.org commercial correction"
+        },
+        "source": {
+          "title": "Source",
+          "tip": "What anyone can read and reuse, layer by layer: the app you use, the server behind it, the paid extras on top and the parts the owner publishes separately. A full mark is an open-source licence, a half mark is partly open or open with conditions, an empty one is closed. Paid hosting never changes a mark.",
+          "layers": [
+            {
+              "key": "app",
+              "label": "App",
+              "tip": "The client you use, web first. Partial is source you can read under restrictions.",
+              "sr": "App source",
+              "csv": "App_source"
+            },
+            {
+              "key": "server",
+              "label": "Server",
+              "tip": "The backend that stores and syncs the data. Partial is source you can read but not freely run, host or resell.",
+              "sr": "Server source",
+              "csv": "Server_source"
+            },
+            {
+              "key": "extras",
+              "label": "Extras",
+              "tip": "Paid editions, plugins and gated features on top of the product. Partial is open code that only runs with a paid key, or extras under a restricted licence. None means nothing is held back.",
+              "sr": "Paid extras",
+              "csv": "Extras_source"
+            },
+            {
+              "key": "parts",
+              "label": "Parts",
+              "tip": "Building blocks and tools the owner publishes separately. The full mark needs a working part of the product itself under an open-source licence, updated in the last twelve months. Partial is API tooling only, or parts that have gone quiet.",
+              "sr": "Published parts",
+              "csv": "Parts_source"
+            }
+          ],
+          "classes": {
+            "foss": {
+              "label": "FOSS",
+              "tip": "App and server are under an open-source licence and no closed code is held back. Open code that needs a paid key still counts."
+            },
+            "open-core": {
+              "label": "Open core",
+              "tip": "App and server are open source; the paid extras are closed."
+            },
+            "source-available": {
+              "label": "Source-available",
+              "tip": "App and server can be read, under terms that restrict use, hosting or resale."
+            },
+            "mixed-source": {
+              "label": "Mixed source",
+              "tip": "The product’s own code is split: one of app and server is open source, the other is restricted or closed."
+            },
+            "closed-core": {
+              "label": "Closed core",
+              "tip": "App and server are closed, and the owner publishes working parts of the product as open source. The mirror image of open core."
+            },
+            "closed": {
+              "label": "Closed",
+              "tip": "App and server are closed, and no working part of the product is open. API tooling alone does not change that."
+            }
+          },
+          "changeLabel": "Licence history"
         },
         "crosslink": {
           "href": "/",
@@ -3282,7 +3914,7 @@
           "otherHref": "/"
         },
         "llms": {
-          "before": "\n## Commercial task managers\n\nA companion page, [Commercial task managers compared](https://todoi.org/commercial-task-managers/), applies the same method to 58 closed-source task managers sold as a service and usable in a browser. One of them, Todoi, is built by this directory’s maintainer, and its record says so. Two criteria differ: value for money replaces ease of deployment, and data control replaces data sovereignty. Prices are the cheapest paid plan per user per month, billed annually, in US dollars as published around 10 November 2026. The dataset is at https://todoi.org/todoi-commercial-dataset-2026-11-10.csv.\n\nOrdered by market presence, largest first, with alphabetical ties, matching the page.\n",
+          "before": "\n## Commercial task managers\n\nA companion page, [Commercial task managers compared](https://todoi.org/commercial-task-managers/), applies the same method to 58 closed-source task managers offered as a service and usable in a browser. One of them, Todoi, is built by this directory’s maintainer, and its record says so. Two criteria differ: value for money replaces ease of deployment, and data control replaces data sovereignty. Prices are the cheapest paid plan per user per month, billed annually, in US dollars as published around 10 November 2026. The dataset is at https://todoi.org/todoi-commercial-dataset-2026-11-10.csv.\n\nOrdered by market presence, largest first, with alphabetical ties, matching the page.\n",
           "after": "\n## Notes for citation\n\nScores are editorial judgements published with their reasoning, not benchmark results. Cite the individual criterion and its justification rather than the mean, and cite the confidence beside the score. Every record names the date it was compiled and the sources it was compiled from.\n"
         },
         "ld": {
@@ -3294,7 +3926,7 @@
           "websiteDescription": null,
           "dataset": {
             "name": "todoi.org commercial task manager dataset",
-            "description": "58 commercial, closed-source task managers sold as a service: pricing, audience, five capability checks, six scored criteria with written reasoning, and sources.",
+            "description": "58 commercial, closed-source task managers offered as a service: pricing, audience, five capability checks, six scored criteria with written reasoning, and sources.",
             "measurementTechnique": null,
             "keywords": null,
             "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -3537,6 +4169,10 @@
         {
           "date": "2026-11-11",
           "text": "Todoi added, which makes fifty-eight products. It is built by this directory&#8217;s maintainer and scored against the same criteria as the rest; its record states the connection."
+        },
+        {
+          "date": "2026-11-11",
+          "text": "A <strong>Source</strong> map joined every record. All fifty-eight have a closed app and server; nine are marked closed core because the owner publishes a working part of the product as open source. Open parts joined the filters, and the listing rule now reads offered as a service, paid or free."
         }
       ],
       "records": [
@@ -3683,6 +4319,25 @@
               "label": "github.com/AdobeDocs/workfront.en"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An Apache-2.0 API client and code samples."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Adobe Inc. Public company (NASDAQ: ADBE), headquartered in San Jose, California, US; Adobe bought Workfront of Lehi, Utah for $1.5 billion in December 2020.",
             "yearNote": "2001. Release of @task, the product AtTask sold before renaming itself Workfront in 2015.",
@@ -3841,6 +4496,25 @@
               "label": "investors.asana.com/news-releases/news-release-details/asana-announces-fourth-quarter-and-fiscal-year-2026-results"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "MIT API clients and the OpenAPI specification."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Asana, Inc. Publicly listed on the NYSE (ASAN); headquartered in San Francisco, United States.",
             "yearNote": "2011. Public launch of the web app in November 2011; the company was founded in 2008.",
@@ -4003,6 +4677,25 @@
               "label": "learn.microsoft.com/en-us/azure/devops/organizations/security/stakeholder-access"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "MIT API clients, a CLI extension and an MCP server; the UI package is MIT on npm, without a public source repository."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Microsoft. Publicly listed (NASDAQ: MSFT); headquartered in Redmond, Washington, USA. Azure Boards is part of the Azure DevOps Services suite.",
             "yearNote": "2018. Launched as Azure Boards on 10 September 2018 within Azure DevOps, succeeding Visual Studio Team Services and the work tracking of Team Foundation Server.",
@@ -4149,6 +4842,25 @@
               "label": "pypi.org/project/google-tasks-to-todoist"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "Apache-2.0 Google API clients and samples."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Google LLC, a subsidiary of Alphabet Inc. (NASDAQ: GOOGL). Publicly traded, headquartered in Mountain View, California, USA.",
             "yearNote": "2008. Launched as a Gmail Labs feature in December 2008; the standalone mobile app followed in April 2018.",
@@ -4327,6 +5039,25 @@
               "label": "atlassian.com/licensing/data-center-end-of-life"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": "Cloud gives no source access; the retiring Data Center edition gives licence holders the source."
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "Apache-2.0 UI kit",
+              "note": "Atlaskit, the component library Jira is built from, and the Pragmatic drag and drop toolkit."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Atlassian. Publicly listed (NASDAQ: TEAM); founded in Sydney, Australia, in 2002, incorporated in Delaware since 2022, with headquarters in Sydney and San Francisco.",
             "yearNote": "2002. First release of Jira as downloadable software in 2002, the year Atlassian was founded; Jira Cloud followed later.",
@@ -4473,6 +5204,25 @@
               "label": "techcommunity.microsoft.com/blog/plannerblog/whats-new-in-microsoft-planner--september-2026/4560866"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "Only the general MIT Microsoft Graph SDKs."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Microsoft Corporation. Public company (NASDAQ: MSFT), headquartered in Redmond, Washington, US.",
             "yearNote": "2016. General availability in Office 365 on 6 June 2016; Project for the web was folded into it on 1 August 2025.",
@@ -4611,6 +5361,25 @@
               "label": "9to5google.com/2017/04/19/microsoft-wunderlist-replacement-to-do"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "Only the general MIT Microsoft Graph SDKs."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Microsoft Corporation. Publicly traded (NASDAQ: MSFT), headquartered in Redmond, Washington, USA; To Do came from the team behind Wunderlist, acquired in 2015.",
             "yearNote": "2017. Public preview released in April 2017 by the former Wunderlist team as Wunderlist’s successor.",
@@ -4761,6 +5530,25 @@
               "label": "support.monday.com/hc/en-us/articles/4404392703250-Data-residency-where-your-data-is-stored"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "MIT design system",
+              "note": "Vibe, the React component library monday.com is built with, beside MIT SDKs and an MCP server."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "monday.com Ltd. Publicly listed on Nasdaq (MNDY); headquartered in Tel Aviv, Israel.",
             "yearNote": "2014. Commercial launch as daPulse in 2014; renamed monday.com in November 2017.",
@@ -4895,6 +5683,25 @@
               "label": "notion.com/help/guides/notion-enterprise-security-provisions"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT SDK and MCP server."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Notion Labs, Inc. Privately held and venture-funded; headquartered in San Francisco, United States.",
             "yearNote": "2016. Release of Notion 1.0 in August 2016; Notion Labs was founded in 2013.",
@@ -5041,6 +5848,25 @@
               "label": "sec.gov/Archives/edgar/data/1366561/000136656124000220/q32025smarearnings.htm"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "Apache-2.0 API SDKs and samples."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Smartsheet Inc. Privately held since January 2025, when Blackstone and Vista Equity Partners completed an $8.4 billion take-private; headquartered in Bellevue, Washington, United States.",
             "yearNote": "2006. Public introduction of the web app in 2006, after development began in 2005.",
@@ -5203,6 +6029,25 @@
               "label": "support.atlassian.com/security-and-access-policies/docs/understand-data-residency"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "Apache-2.0 drag and drop",
+              "note": "Atlassian’s Pragmatic drag and drop toolkit, which powers Trello’s boards; Trello’s own older libraries are archived."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Atlassian. Publicly listed (NASDAQ: TEAM); founded in Sydney, Australia, now incorporated in the United States. Trello is run as part of Atlassian’s business-teams products.",
             "yearNote": "2011. Public launch by Fog Creek Software in September 2011; acquired by Atlassian in 2017.",
@@ -5373,6 +6218,25 @@
               "label": "sec.gov/Archives/edgar/data/2004711/000200471126000013/bsp_ex99-1.htm"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT API client and CLI; the extension SDK is public but proprietary."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Airtable. Owned by Bending Spoons S.p.A. (Milan, Italy; Nasdaq: BSP) since its acquisition closed on 4 September 2026; headquartered in San Francisco, United States.",
             "yearNote": "2015. Public availability of the web app and API in 2015; the company was founded in 2012.",
@@ -5515,6 +6379,25 @@
               "label": "any.do/blog/?p=8151"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Any.do Inc. and affiliates. Privately held; the privacy policy relies on Israel’s EU adequacy decision for data transfers, pointing to operations in Israel, but publishes no head office address.",
             "yearNote": "2011. First public app release; the vendor’s homepage says it has been helping people for 15 years as of 2026.",
@@ -5673,6 +6556,25 @@
               "label": "5.basecamp-help.com/article/1147-basecamp-on-desktop"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "MIT editor",
+              "note": "Trix, the rich-text editor Basecamp uses; 37signals also publishes the frameworks it is built on."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "37signals LLC. Privately held and self-funded, based in Chicago, United States; also makes HEY and Fizzy.",
             "yearNote": "2004. Public launch of Basecamp by 37signals in 2004; the current version, Basecamp 5, shipped in 2026.",
@@ -5843,6 +6745,25 @@
               "label": "status.bitrix24.com"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": "Full source ships to On-Premise customers under a proprietary licence, except the mobile app and Messenger."
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "MIT SDKs and a UI kit for building apps."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Alaio Inc. of Alexandria, Virginia, USA contracts with most customers; Alaio Cloud Limited of Limassol, Cyprus with European ones; the terms are governed by Virginia law. Privately held. The Record reported in December 2023 that Bitrix24’s parent company, 1C-Bitrix, is headquartered in Russia; Bitrix24 did not respond to the report, and the vendor does not publish who owns the Alaio entities.",
             "yearNote": "2012. Public release of the Bitrix24 cloud service in April 2012, per the vendor’s about page.",
@@ -5993,6 +6914,25 @@
               "label": "help.clickup.com/hc/en-us/articles/15999383444247-Data-hosting"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "One small MIT plugin for AI coding tools."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Mango Technologies, Inc., trading as ClickUp. Privately held and venture-funded; headquartered in San Diego, United States.",
             "yearNote": "2017. Public launch of the web app in 2017.",
@@ -6139,6 +7079,25 @@
               "label": "web.archive.org/web/20261001093326/https://ticktick.com/about/upgrade"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Appest Inc., which TickTick’s Terms of Service name as the provider; the App Store lists Appest Limited as seller, and a Chinese edition is sold as Dida365. Privately held; no head office is published.",
             "yearNote": "2013. First public release; TickTick’s own blog posts about the app date from 2013.",
@@ -6293,6 +7252,25 @@
               "label": "trustcenter.todoist.net/faq"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "MIT editor",
+              "note": "Typist, the rich-text editor Todoist uses, beside an MIT MCP server, CLI and SDKs."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Todoist Inc. (formerly Doist). Privately held and founder-led, remote-first since 2011 with 108 staff in 38 countries; incorporated in Delaware, USA.",
             "yearNote": "2007. Founder Amir Salihefendić launched Todoist as a personal project in 2007; the company behind it formed later.",
@@ -6447,6 +7425,25 @@
               "label": "help.wrike.com/hc/en-us/articles/209605689-Purchasing-Upgrading-and-Managing-Subscription"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "MIT agent skills for its hosted MCP server."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Wrike, Inc. Privately held, owned by Symphony Technology Group since July 2023 (previously part of Citrix from 2021); headquartered in San Diego, United States.",
             "yearNote": "2006. Founding year and start of the vendor’s own product timeline; Wrike does not give a separate launch date.",
@@ -6593,6 +7590,25 @@
               "label": "zoho.com/accounts/protocol/oauth/multi-dc.html"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An Apache-2.0 agent plugin; the older API wrappers are dormant."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Zoho Corporation. Privately held and never externally funded; founded in 1996 and headquartered in Chennai, India.",
             "yearNote": "2006. Public launch of Zoho Projects; Zoho marked the product’s 18th birthday in 2024.",
@@ -6755,6 +7771,25 @@
               "label": "coda.io/product/ai"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "The MIT Packs SDK and examples."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Superhuman (Grammarly, Inc., renamed Superhuman in October 2025). Privately held, San Francisco, United States; Grammarly announced its acquisition of Coda in December 2024 and bought Superhuman Mail in July 2025.",
             "yearNote": "2019. Coda left beta in February 2019 after a public beta announced in October 2017; the company was founded in 2014, per Superhuman’s own timeline.",
@@ -6897,6 +7932,25 @@
               "label": "help.ganttpro.com/hc/en-us/articles/360020656577-What-is-API-and-how-to-set-it-up"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "DPM Solutions Sp. z o.o. Privately held; registered in Kraków, Poland.",
             "yearNote": "2015. First paid purchase ($9), as the vendor’s own story records; development began in 2014.",
@@ -7063,6 +8117,25 @@
               "label": "help.hive.com/en/articles/5407965-getting-started-with-the-hive-api"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "MIT plugins for AI coding tools."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Hive Technology, Inc. Venture-backed and privately held, based in New York City; raised a $10.6 million Series A led by Comcast Ventures in 2019.",
             "yearNote": "2015. Earliest date on Hive’s own timeline: the company graduated from the AngelPad accelerator in 2015. No separate public launch date is given.",
@@ -7225,6 +8298,25 @@
               "label": "builtin.com/articles/linear-raises-82m-series-c-1b-valuation-20250611"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT SDK, importer and release CLI."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Linear Orbit, Inc. Privately held, venture-backed (Accel, Sequoia); founded in 2019, a remote company with staff across North America and Europe, US-incorporated.",
             "yearNote": "2020. Public launch on 30 June 2020, when sign-ups opened to all after an invite-only beta.",
@@ -7431,6 +8523,25 @@
               "label": "api.frankfurter.dev/v1/latest?base=EUR&symbols=USD"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "MIT agent skills."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "MeisterLabs GmbH. Privately held, based in Vienna, Austria and Munich, Germany; founded in 2006, with Verdane leading a $52 million growth round in 2021.",
             "yearNote": "2015. Public release of the web app in March 2015, announced by MeisterLabs.",
@@ -7609,6 +8720,25 @@
               "label": "wonderly.com"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "NexusBird, Inc. (dba Motion), San Francisco, US. Privately held and venture backed: $75M raised in total, valued at $550M in September 2025.",
             "yearNote": "2020. First public product under the Motion name, a browser focus tool covered in March 2020 after Y Combinator’s Winter 2020 batch; the AI calendar and task manager came later.",
@@ -7783,6 +8913,25 @@
               "label": "sec.gov/Archives/edgar/data/876167/000155278124000575/e24427_prgs-8k.htm"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "MIT API clients, two of them still maintained."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Progress Software Corporation. Publicly listed (NASDAQ: PRGS), based in the United States; Podio passed from Citrix (2012) to Cloud Software Group and then to Progress with ShareFile on 31 October 2024.",
             "yearNote": "2011. Official launch in March 2011; founded in Denmark in 2009 as Hoist.",
@@ -7933,6 +9082,25 @@
               "label": "help.proofhub.com/swift/faqs"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "ProofHub. Independent and founder-led (Sandeep Kashyap); lists its office in Covina, California, United States, and 50+ employees.",
             "yearNote": "2012. Launch of ProofHub, per the vendor’s about page; it grew out of an earlier proofing tool, ProofMini, built in 2007.",
@@ -8079,6 +9247,25 @@
               "label": "rememberthemilk.com/services/api"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Remember The Milk Inc. Privately held and independent, based in San Francisco, USA, with a distributed team; its founders came from Sydney, Australia.",
             "yearNote": "2005. Public launch in October 2005, after work began in 2004, per the vendor’s About page.",
@@ -8241,6 +9428,25 @@
               "label": "help.taskade.com/en/collections/8400831-integrations-extensions"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT MCP server, CLI and integration source."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Taskade. Privately held, venture-backed US startup (Y Combinator S19, $5M seed in October 2019) founded in 2017 by John Xie, Dionis Loire and Stan Chang.",
             "yearNote": "2017. Public beta launched on 5 December 2017, per Taskade’s about page.",
@@ -8387,6 +9593,25 @@
               "label": "bregal.com/portfolio/teamworkcom"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT MCP server and Go SDK; the open markdown editor is archived."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Teamwork.com (Teamwork Ltd). Headquartered in Cork, Ireland; privately held, bootstrapped for 14 years before a $70 million investment from Bregal Milestone in July 2021.",
             "yearNote": "2007. Founding year and first release of the project tool (then TeamworkPM) by Peter Coppinger and Dan Mackey in Cork.",
@@ -8557,6 +9782,25 @@
               "label": "plugins.jetbrains.com/api/searchPlugins?max=24&offset=0&products=youtrack_app"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": "The self-hosted Server ships as a binary image, without source."
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "Apache-2.0 database, UI kit",
+              "note": "Xodus, the embedded database built for YouTrack, and the Ring UI component library; the mobile app’s source was archived in 2026."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "JetBrains s.r.o. Privately held and never venture-funded; founded in Prague, Czech Republic, in 2000, the maker of IntelliJ IDEA and Kotlin.",
             "yearNote": "2009. First release of YouTrack in 2009, recorded as a new product that year in JetBrains’ company timeline.",
@@ -8719,6 +9963,25 @@
               "label": "web.archive.org/web/20251101233640/https://akiflow.com/pricing"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT plugin for its hosted MCP server."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Akiflow Inc., a Delaware corporation with a fully remote team ‘designed in Italy’; Y Combinator lists it in Spain. Privately held, backed by Y Combinator and Benson Oak Ventures.",
             "yearNote": "2020. Year the company was founded and went through Y Combinator (Summer 2020); the vendor publishes no separate launch date.",
@@ -8901,6 +10164,25 @@
               "label": "play.google.com/store/apps/details?id=com.kanbanize.android"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT n8n node."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Businessmap (formerly Kanbanize). Privately held and founder-led; offices in Sofia, Bulgaria, Bilbao, Spain and São Paulo, Brazil.",
             "yearNote": "2011. Launched as Kanbanize on 1 January 2011; renamed Businessmap in October 2023.",
@@ -9071,6 +10353,25 @@
               "label": "celoxis.com/kb/latest/webhooks/concepts/overview"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": "The on-premise edition is delivered as object code only."
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT n8n node."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Celoxis. Privately held and founder-led (Nikhil Daddikar and Ravindra Wankar); head office in Pune, India.",
             "yearNote": "2001. Launch of the web-based product after two years of development, as Celoxis’s own history records it.",
@@ -9257,6 +10558,25 @@
               "label": "help.favro.com/en/articles/3780738-faq"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Dormant",
+              "note": "Two MIT API samples, untouched since 2024."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Uppsala collaborative technologies AB, trading as Favro. Privately held, registered in Uppsala, Sweden; founded by Hans Dahlström, Erik Olofsson and Patric Palm, whose earlier agile-planning company was sold to a US acquirer.",
             "yearNote": "2015. Earliest dated public release found: Favro AB’s iOS app on the App Store in July 2015.",
@@ -9415,6 +10735,25 @@
               "label": "fibery.com/blog/guides/time-tracking"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "MIT browser extension",
+              "note": "The web clipper is open; the rest is API tooling."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Fibery Limited. Privately held, venture-funded ($8.3 million to date); founded in 2016 by Targetprocess co-founder Michael Dubakov, remote team with offices in Warsaw and Nicosia.",
             "yearNote": "2019. Fibery 1.0 opened public registration in November 2019 after a private beta from early 2019.",
@@ -9573,6 +10912,25 @@
               "label": "getlatka.com/companies/freedcamp.com"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Freedcamp Inc. Privately held and founder-led (Angel Grablev); based in Santa Barbara, California, United States.",
             "yearNote": "2010. Public launch of the web app in Santa Barbara, California, after development in 2009.",
@@ -9739,6 +11097,25 @@
               "label": "producthunt.com/products/nifty"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Nifty Technologies, Inc. Privately held, based at 315 W 36th St, New York, United States.",
             "yearNote": "2018. First public product launches on Product Hunt in September and October 2018; Product Hunt’s company profile dates the company to 2017.",
@@ -9901,6 +11278,25 @@
               "label": "nozbe.com/blog/new-prices-2026"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Dormant",
+              "note": "WatermelonDB, the MIT sync database that powers Nozbe, has had no commits since August 2025; importers and an API client are current."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "NOZBE sp. z o.o., Gdynia, Poland. Privately held and owned by founder and CEO Michael Sliwinski; fully remote, with 15 full-time staff and about 10 regular contractors.",
             "yearNote": "2007. Launch of the original Nozbe (later Nozbe Classic) in 2007; the current app, formerly Nozbe Teams, became the company’s main product in 2022.",
@@ -10051,6 +11447,25 @@
               "label": "apps.apple.com/us/app/omnifocus-4/id1542143627"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Dormant",
+              "note": "The Omni frameworks were last published in 2022."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "The Omni Group, Seattle, Washington, US. Employee-owned and private; founded in the early 1990s as a NeXT consultancy.",
             "yearNote": "2008. OmniFocus 1.0 for Mac, released 8 January 2008; OmniFocus for the Web followed in 2019 as a companion to the Apple apps.",
@@ -10201,6 +11616,25 @@
               "label": "app.paymoapp.com"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Paymo LLC. Privately held; office in Oradea, Romania (EU).",
             "yearNote": "2007. Year Paymo’s own history gives for its start, as a time-tracking and invoicing tool built inside a small web agency.",
@@ -10363,6 +11797,25 @@
               "label": "plaky.com/security"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "CAKE.com Inc., Palo Alto, California, USA (customers outside North America contract with CAKE.com AG, Zug, Switzerland). Privately held; founded in 2009 and also makes Clockify and Pumble.",
             "yearNote": "2022. Launch of Plaky as CAKE.com’s project management product, per the CAKE.com about page.",
@@ -10529,6 +11982,25 @@
               "label": "productive.io/careers"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT API client."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "The Productive Company, Inc. Self-funded and profitable; incorporated in Delaware, US, with its office and hiring in Zagreb, Croatia; founded by the people who built a 350-person design and development firm.",
             "yearNote": "2014. Launch year implied by the vendor’s “12 years” of building Productive, stated in November 2026.",
@@ -10667,6 +12139,25 @@
               "label": "quire.io/dev/api"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT API client, CLI and add-ins, beside the vendor’s build of the Quill editor."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Potix Corporation. Privately held software company headquartered in Taipei, Taiwan; its terms are governed by Taiwan law.",
             "yearNote": "2014. First public release in August 2014, per Quire’s own FAQ.",
@@ -10861,6 +12352,25 @@
               "label": "drive.google.com/file/d/1QsHNrBvINR725Ha97AKHDbiAV8zFj7tb/view?usp=sharing"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Dormant",
+              "note": "Teambox, its AGPL predecessor, was archived in 2013; one agent extension is current."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Redbooth, Inc. (the seller named on its App Store listing; formerly Teambox), headquartered in Auburn, California, USA, with staff in Toronto, Barcelona, Paris and Thailand. Privately held and venture-backed (Avalon Ventures, NHN Ventures, Andreessen, Y Combinator per its about page); its terms and DPA name only “Redbooth”, with no legal entity, address or governing law.",
             "yearNote": "2008. Founding of Teambox in Barcelona in 2008; the product was relaunched under the Redbooth name in January 2014.",
@@ -11023,6 +12533,25 @@
               "label": "itunes.apple.com/search?term=shortcut%20software&entity=software"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Tools only",
+              "note": "An MIT API client and sample scripts."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Shortcut Software Company. Privately held, venture-backed (Battery Ventures, Greylock Partners); founded in New York City in 2014, headquartered there.",
             "yearNote": "2016. Public launch as Clubhouse in 2016 after a year in beta; renamed Shortcut on 13 September 2021.",
@@ -11201,6 +12730,25 @@
               "label": "web.archive.org/web/20261103010336/https://www.sunsama.com/pricing"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "MIT mobile components",
+              "note": "The calendar and swiper components from the mobile app."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Summay, Inc., a Delaware corporation with a business address in Alexandria, Virginia, US. Privately held and fully remote; Y Combinator backed in 2018, $2.4M seed, profitable since 2022.",
             "yearNote": "2018. Public launch on Product Hunt, as the vendor’s About page records it.",
@@ -11371,6 +12919,25 @@
               "label": "help.superlist.com/en/articles/18967-manage-your-settings-and-account"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 2,
+              "label": "MIT Flutter packages",
+              "note": "The native-extension and list packages the apps are built on."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Superlist GmbH, Germany, built by Christian Reber and the original Wunderlist team. Privately held and remote-first; venture backed by Cherry Ventures and EQT Ventures, with €13.5M raised by February 2024 (TechCrunch).",
             "yearNote": "2024. Superlist 1.0, released in February 2024 to open the product to new users; beta versions date back to at least January 2023.",
@@ -11493,6 +13060,25 @@
               "label": "api-docs.teamgantt.com"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "TeamGantt. Bootstrapped and privately held, never taken outside equity; headquartered in Baltimore, Maryland, US, with a fully remote team of 22.",
             "yearNote": "2009. Year TeamGantt was founded and first built; the vendor does not date the first public release separately.",
@@ -11667,6 +13253,25 @@
               "label": "stocks.observer-reporter.com/observerreporter/article/prdistribution-2021-5-4-teamhood-delivers-a-solution-to-bridge-project-and-functional-teams"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "UAB Eylean, Vilnius, Lithuania. Privately held; makers of Eylean Board since 2011, with Vidas Vasiliauskas as CEO.",
             "yearNote": "2020. Approximate: a 2024 vendor blog post says the first Teamhood version went live four years and 100 releases earlier, and a May 2021 press release already describes an upgrade of the platform; Eylean itself dates from 2011.",
@@ -11817,6 +13422,25 @@
               "label": "api.toodledo.com/3/index.php"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Dormant",
+              "note": "OAuth samples from 2015."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Toodledo, Inc. Privately held; its terms give a New York, USA mailing address and California governing law, and no owners or executives are named.",
             "yearNote": "2004. The service dates from 2004, per the vendor’s copyright line, which starts in 2004, and its press page’s “over the last 22 years”.",
@@ -11955,6 +13579,25 @@
               "label": "producthunt.com/products/tweek"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Scada SIA, Riga, Latvia (EU). Privately held; the App Store lists the copyright as Scada Inc.",
             "yearNote": "2020. Product Hunt launch in 2020 (ranked second of the day on 2 September 2020); Tweek 2.0 followed in June 2022.",
@@ -12129,6 +13772,25 @@
               "label": "en.wikipedia.org/wiki/Workflowy"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "FunRoutine, Inc., a privately held US company with its official address in Centennial, Colorado.",
             "yearNote": "2010. Public release of the web outliner in August 2010, created by Mike Turitzin and Jesse Patel after a Y Combinator startup camp.",
@@ -12291,6 +13953,25 @@
               "label": "workzone.com/blog/whats-new-workzone-may-2026"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "WorkZone, LLC, Philadelphia, Pennsylvania, USA (the privacy policy also gives a Blue Bell, Pennsylvania address). Privately owned per a 2017 vendor press release; founded by Rick and Allan in the early 2000s, with no parent company or investors named.",
             "yearNote": "2002. Service in use since 2002, per a June 2017 vendor press release (“serving diverse industries and projects since 2002”); the about page says only that the company was founded in the early 2000s.",
@@ -12465,6 +14146,25 @@
               "label": "zenkit.com/en/security-practices"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 0,
+              "label": "Nothing published",
+              "note": null
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Axonic GmbH, Karlsruhe, Germany (Amtsgericht Mannheim HRB 110424); privately held, managed by Martin Welker. Axonic also makes Zenkit To Do, Hypernotes, Zenforms and Zenchat.",
             "yearNote": "2016. Public release of Zenkit in October 2016, per the vendor’s about page; work began at Axonic in 2014.",
@@ -12627,6 +14327,25 @@
               "label": "help.amazingmarvin.com/amazing-marvin/welcome-to-the-new-marvin-mobile-app"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "server": {
+              "level": 0,
+              "label": "Closed",
+              "note": null
+            },
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Dormant",
+              "note": "An MIT browser extension last updated in 2023, and a CLI."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Amazing GmbH, a Swiss company founded and run by Christina Willner. Privately held; the About page lists a team of three.",
             "yearNote": "2017. Public launch of the app, as the vendor’s About page records it (work on it began in 2014).",
@@ -12773,6 +14492,21 @@
               "label": "github.com/xpiu/minimal-to-do"
             }
           ],
+          "source": {
+            "app": {
+              "level": 0,
+              "label": "Closed",
+              "note": "There is no server: the app runs entirely in the browser tab."
+            },
+            "server": null,
+            "extras": null,
+            "parts": {
+              "level": 1,
+              "label": "Dormant",
+              "note": "minimal-to-do, the MIT app Todoi extends, was last updated in September 2025."
+            }
+          },
+          "sourceChange": null,
           "commercial": {
             "vendor": "Todoi; the contact page names Flo Zuallaert as lead developer and gives no company or country. The same developer maintains this directory. The app is closed source; core features are released as open-source projects, such as minimal-to-do (MIT), which Todoi extends.",
             "yearNote": "2025. todoi.com went live on 21 November 2025, per the vendor’s launch note; the current terms and privacy pages are versioned web-1.0, effective August 2026.",

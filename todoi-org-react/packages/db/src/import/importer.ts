@@ -1,5 +1,13 @@
 import { parse, type HTMLElement } from 'node-html-parser';
-import { bandOf, csvObjects, type DirectoryCopy, type FilterToggle, type Level } from '@todoi/shared';
+import {
+  bandOf,
+  csvObjects,
+  SOURCE_LAYERS,
+  type DirectoryCopy,
+  type FilterToggle,
+  type Level,
+  type SourceLayerKey,
+} from '@todoi/shared';
 import { SeedDirectory, type SeedRecord } from '../seed-schema.ts';
 import { APP_DEFAULTS } from './defaults.ts';
 
@@ -95,6 +103,8 @@ export const ICON_BODIES: Record<string, string> = {
   'open-core':
     '<path d="M5.5 7.9V5.2a2.5 2.5 0 0 1 5 0"/><rect x="2.9" y="7.7" width="10.2" height="6.1" rx="1.4"/><path d="M8 8.5H4.6a.7.7 0 0 0-.7.7v2.7a.7.7 0 0 0 .7.7H8z" fill="currentColor" stroke="none"/>',
   'source-available': '<path d="M5.5 7.9V5.9a2.5 2.5 0 0 1 5 0v2"/><rect x="2.9" y="7.7" width="10.2" height="6.1" rx="1.4"/>',
+  'mixed-source':
+    '<path d="M5.5 7.9V5.9a2.5 2.5 0 0 1 5 0v2"/><rect x="2.9" y="7.7" width="10.2" height="6.1" rx="1.4"/><path d="M8 8.5H4.6a.7.7 0 0 0-.7.7v2.7a.7.7 0 0 0 .7.7H8z" fill="currentColor" stroke="none"/>',
   personal: '<circle cx="8" cy="5.2" r="2.6"/><path d="M3 14.2a5 5 0 0 1 10 0"/>',
   team: '<circle cx="5.6" cy="5.6" r="2.2"/><circle cx="11" cy="6.4" r="1.8"/><path d="M1.6 13.8a4 4 0 0 1 8 0M10.2 10.1a3.4 3.4 0 0 1 4.4 3.3"/>',
   software: '<path d="M5.4 4.4 1.8 8l3.6 3.6M10.6 4.4 14.2 8l-3.6 3.6M9.1 2.9 6.9 13.1"/>',
@@ -115,6 +125,30 @@ export interface ImportInput {
   modifiedOn: string;
   /** The hand-written prose of llms.txt around this directory's record lines. */
   llms: { before: string; after: string };
+  /**
+   * The source map's copy (layer tips, class rules). The page shows only the
+   * classes its records fall in, so this is carried over from the seed rather
+   * than read back.
+   */
+  source: DirectoryCopy['source'];
+}
+
+/**
+ * The source row of a record: one tile per layer, the level in data-level
+ * (empty for a layer the product does not have), then the label and, when
+ * the mark needs one, the note.
+ */
+function sourceMap(detail: HTMLElement, slug: string): SeedRecord['source'] {
+  const tiles = new Map(detail.querySelectorAll('.caps-src .cap-src').map((el) => [el.getAttribute('data-layer') ?? '', el] as const));
+  const layer = (key: SourceLayerKey) => {
+    const el = must(tiles.get(key), `${slug}: source tile ${key}`);
+    const level = el.getAttribute('data-level') ?? '';
+    if (level === '') return null;
+    const notes = el.querySelectorAll('.cap-note');
+    return { level: Number(level) as Level, label: prose(must(notes[0], `${slug}: source label ${key}`)), note: notes[1] ? prose(notes[1]) : null };
+  };
+  const [app, server, extras, parts] = SOURCE_LAYERS.map(layer);
+  return { app: app ?? null, server: server ?? null, extras: extras ?? null, parts: parts ?? null };
 }
 
 export function importDirectory(input: ImportInput): SeedDirectory {
@@ -163,7 +197,8 @@ export function importDirectory(input: ImportInput): SeedDirectory {
   const firstDetail = one(doc, 'tr.detail-row');
   const capLabels = firstDetail.querySelectorAll('.cap .cap-l > .methodology');
   const capSr = firstDetail.querySelectorAll('.cap > .sr-only').map((s) => text(s).split(': ')[0]!);
-  const capKeys = (cfg.toggles ?? ['tt', 'agile', 'gantt', 'calendar', 'caldav']).filter((k) => k !== 'free');
+  // Two toggles filter on something other than a capability: the free plan, and open parts (the source map).
+  const capKeys = (cfg.toggles ?? ['tt', 'agile', 'gantt', 'calendar', 'caldav']).filter((k) => k !== 'free' && k !== 'parts');
   const capCsvCols =
     kind === 'oss'
       ? ['Time_Tracking', 'Agile_Views', 'Gantt_View', 'Calendar_View', 'Open_Calendar_Sync']
@@ -253,7 +288,7 @@ export function importDirectory(input: ImportInput): SeedDirectory {
   const comm = { ...(kind === 'oss' ? APP_DEFAULTS.comm : {}), ...(cfg.comm ?? {}) };
   const cardFacts = one(doc, 'article.card').querySelectorAll('.card-meta dt').map(text);
 
-  const copy: Omit<DirectoryCopy, 'ld' | 'llms'> & Partial<Pick<DirectoryCopy, 'ld' | 'llms'>> = {
+  const copy: Omit<DirectoryCopy, 'ld' | 'llms' | 'source'> & Partial<Pick<DirectoryCopy, 'ld' | 'llms' | 'source'>> = {
     head: {
       title: text(one(doc, 'title')),
       description: meta('meta[name="description"]'),
@@ -349,6 +384,7 @@ export function importDirectory(input: ImportInput): SeedDirectory {
   const str = (v: unknown) => (typeof v === 'string' ? v : null);
   const strs = (v: unknown) => (Array.isArray(v) && v.every((x) => typeof x === 'string') ? (v as string[]) : null);
   copy.llms = input.llms;
+  copy.source = input.source;
   copy.ld = {
     org: {
       description: str(org.description),
@@ -405,7 +441,7 @@ export function importDirectory(input: ImportInput): SeedDirectory {
     });
     const bandCrit = must(crits[criteria.length], `${slug}: band crit`);
 
-    const capEls = detail.querySelectorAll('.caps .cap');
+    const capEls = detail.querySelectorAll('.caps .cap').filter((el) => !el.classList.contains('cap-src'));
     const caps: SeedRecord['caps'] = {};
     capabilities.forEach((c, i) => {
       const el = must(capEls[i], `${slug}: cap ${c.key}`);
@@ -441,6 +477,8 @@ export function importDirectory(input: ImportInput): SeedDirectory {
       scores,
       caps,
       sources: detail.querySelectorAll('.srcs a').map((a) => ({ url: attr(a, 'href'), label: text(a) })),
+      source: sourceMap(detail, slug),
+      sourceChange: facts.has(input.source.changeLabel) ? fact(input.source.changeLabel) : null,
     };
 
     // The band's own line in the assessment: "Very large. <evidence>".

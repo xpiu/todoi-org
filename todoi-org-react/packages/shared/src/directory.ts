@@ -65,6 +65,39 @@ export const FilterToggle = z.object({
 });
 export type FilterToggle = z.infer<typeof FilterToggle>;
 
+/**
+ * How open one layer of a product is. The levels read as they do for a
+ * capability: 2 is an open-source licence, 1 is partly open or open with
+ * conditions (the note says which), 0 is closed. A layer the product does not
+ * have is null in the map, not a mark.
+ */
+export const SourceMark = z.object({
+  level: Level,
+  /** What the tile prints under the layer's name: "AGPL-3.0", "Closed", "MIT editor (Typist)". */
+  label: z.string(),
+  /** Why a mark needs qualifying; required in spirit for a partial. */
+  note: z.string().nullable(),
+});
+export type SourceMark = z.infer<typeof SourceMark>;
+
+/** The four layers every record answers for, in the order a user meets them. */
+export const SOURCE_LAYERS = ['app', 'server', 'extras', 'parts'] as const;
+export type SourceLayerKey = (typeof SOURCE_LAYERS)[number];
+
+/**
+ * A record's source map: the app you use, the server behind it, the paid
+ * extras on top, and the parts the owner publishes separately. The record's
+ * class (FOSS, open core, closed core...) is derived from it, never stored:
+ * see sourceClass() in source.ts.
+ */
+export const SourceMap = z.strictObject({
+  app: SourceMark.nullable(),
+  server: SourceMark.nullable(),
+  extras: SourceMark.nullable(),
+  parts: SourceMark.nullable(),
+});
+export type SourceMap = z.infer<typeof SourceMap>;
+
 /** A licensing model (open source) or an audience (commercial). */
 export const Segment = z.object({
   key: z.string(),
@@ -165,6 +198,17 @@ export const DirectoryCopy = z.object({
     listingTitle: z.string(),
     listing: Html,
     mailSubject: z.string(),
+  }),
+  /** The source map on every record: its heading, its four layers and the classes they add up to. */
+  source: z.object({
+    title: z.string(),
+    tip: z.string(),
+    /** The four layers, keyed app, server, extras, parts. Same shape as a capability. */
+    layers: z.array(Capability),
+    /** class key → its name and the rule behind it: "closed-core" → "Closed core". */
+    classes: z.record(z.string(), z.object({ label: z.string(), tip: z.string() })),
+    /** The record fact that dates a licence change: "Licence history". */
+    changeLabel: z.string(),
   }),
   crosslink: z.object({ href: z.string(), title: z.string(), text: z.string() }),
   footer: z.object({ note: z.string(), otherLabel: z.string(), otherHref: z.string() }),
@@ -294,6 +338,11 @@ const DetailBase = z.object({
   caveat: z.string(),
   confidence: z.string(),
   sources: z.array(z.object({ url: z.string(), label: z.string() })),
+  /** The source map, and the class derived from it. */
+  source: SourceMap,
+  sourceClass: z.string(),
+  /** A dated licence change, when there has been one. */
+  sourceChange: z.string().nullable(),
 });
 export const OssDetail = DetailBase.extend({
   kind: z.literal('oss'),

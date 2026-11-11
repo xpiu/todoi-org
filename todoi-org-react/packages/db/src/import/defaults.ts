@@ -76,6 +76,8 @@ export const APP_DEFAULTS = {
       'An open-source core is offered alongside extensions or editions under proprietary or other non-open-source terms. The distinction is the licence of those additions, not whether the free edition feels complete.',
     'source-available':
       'The assessed edition exposes source code under terms that restrict open-source freedoms, such as use, modification or redistribution. Read the licence and edition caveat; visible source and permission to self-host do not by themselves make software open source.',
+    'mixed-source':
+      'The product’s own code is split: one of the app and its server is open source, the other is restricted or closed. The Source row in the record says which.',
   } as Record<string, string>,
   comm: {
     '5': 'Many active contributors, a busy forum or chat, releases on a steady cadence, and an installed base large enough that almost anything you hit already has a public answer.',

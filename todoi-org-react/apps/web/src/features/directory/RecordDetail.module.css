@@ -163,6 +163,41 @@
   color: var(--text-2);
 }
 
+/* The source map: four more tiles in the same language, one per layer of the
+   product (app, server, extras, parts). A tile names its licence or says
+   Closed itself, so the generated state word is switched off; a layer the
+   product does not have is a dash on a dotted tile. The class the four add
+   up to sits in the heading. */
+.detail-h-src {
+  margin-top: var(--sp-5);
+}
+
+.src-class {
+  padding: 0.1em 0.55em;
+  border: var(--border);
+  border-radius: var(--radius-1);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.cap.cap-src:has(:global(.mark)) .cap-l::after {
+  content: none;
+}
+
+.cap-src:has(:global(.mark-none)) .cap-note,
+.cap-src:has(:global(.mark-na)) .cap-note {
+  color: var(--text-faint);
+}
+
+.cap-src:has(:global(.mark-na)) {
+  background-color: transparent;
+  border-style: dotted;
+}
+
+.cap-src:has(:global(.mark-na)) .cap-l {
+  color: var(--text-faint);
+}
+
 /* The write-up a two-line blurb cannot carry: one paragraph saying what the
    project is, then three on what is actually in it. The lead is set in the
    display serif at lede size, because it is the sentence the reader who

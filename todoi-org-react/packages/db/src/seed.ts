@@ -100,6 +100,8 @@ export async function seedDatabase(db: Db, seeds: SeedDirectory[], opts: { reset
             dataOut: r.dataOut,
             caveat: r.caveat,
             confidence: r.confidence,
+            source: r.source,
+            sourceChange: r.sourceChange,
           })
           .returning({ id: t.records.id });
         const recordId = rec!.id;

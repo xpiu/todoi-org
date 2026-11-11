@@ -1,5 +1,5 @@
 import type { FullDirectory, FullRecord } from '@todoi/db';
-import { bandLabel, computeScore } from '@todoi/shared';
+import { bandLabel, computeScore, sourceClass } from '@todoi/shared';
 import { htmlToText } from '../html.ts';
 import { defaultOrder } from './csv.ts';
 
@@ -20,6 +20,12 @@ const dec = (n: number) => ({ [ONE_DECIMAL]: n });
 
 function bare(label: string): string {
   return label.replace(/(\d),(?=\d{3}\b)/g, '$1');
+}
+
+/** The class a record's source map adds up to, as the page names it: "Closed core". */
+function sourceLabel(dir: FullDirectory, r: FullRecord): string {
+  const key = sourceClass(r.source);
+  return dir.config.copy.source.classes[key]?.label ?? key;
 }
 
 function scoreOf(dir: FullDirectory, r: FullRecord): number {
@@ -66,6 +72,7 @@ function ossGraph(dir: FullDirectory, site: string): Node[] {
       additionalProperty: [
         ...config.criteria.map((c) => prop(c.name, dec(r.scores[c.key]!.score), true)),
         prop('Licensing model', o.modelNote),
+        prop('Source model', sourceLabel(dir, r)),
         prop('Community size proxy', bandLabel(r.band)),
         prop('Estimated external integrations', r.integrationsLabel),
         prop('Deployment', o.deployment),
@@ -218,6 +225,7 @@ function commercialGraph(dir: FullDirectory, site: string): Node[] {
       additionalProperty: [
         ...config.criteria.map((k) => prop(k.name, dec(r.scores[k.key]!.score), true)),
         prop('Built for', segLabel(r)),
+        prop('Source model', sourceLabel(dir, r)),
         prop('Market presence', bandLabel(r.band)),
         prop('Estimated integrations', bare(r.integrationsLabel)),
         prop('Free plan', c.freePlan),

@@ -1,5 +1,16 @@
 import type { FullDirectory, FullRecord } from '@todoi/db';
-import { bandLabel, computeScore, formatScore, sortRecords, toCsv, DEFAULT_SORT_DIR, DEFAULT_SORT_KEY } from '@todoi/shared';
+import {
+  bandLabel,
+  computeScore,
+  formatScore,
+  sortRecords,
+  sourceClass,
+  sourceWord,
+  toCsv,
+  DEFAULT_SORT_DIR,
+  DEFAULT_SORT_KEY,
+  type SourceLayerKey,
+} from '@todoi/shared';
 import { toSummary } from '../model.ts';
 
 const LEVEL = ['NO', 'PARTIAL', 'NATIVE'] as const;
@@ -38,6 +49,30 @@ function price(n: number | null): string {
   return n === null ? '' : String(n);
 }
 
+/**
+ * The source map as five columns: the class it adds up to, then one per layer.
+ * A layer reads "Open: AGPL-3.0", "Partly open: ... " with its note, "Closed"
+ * or "None". They close the row, so no earlier column changes position.
+ */
+function sourceHead(dir: FullDirectory): string[] {
+  return ['Source_Model', ...dir.config.copy.source.layers.map((l) => l.csv)];
+}
+
+function sourceCols(dir: FullDirectory, r: FullRecord): string[] {
+  const { classes, layers } = dir.config.copy.source;
+  const key = sourceClass(r.source);
+  return [
+    classes[key]?.label ?? key,
+    ...layers.map((l) => {
+      const mark = r.source[l.key as SourceLayerKey] ?? null;
+      const word = sourceWord(mark);
+      if (!mark) return word;
+      const label = mark.label === word ? word : `${word}: ${mark.label}`;
+      return mark.note ? `${label}. ${mark.note}` : label;
+    }),
+  ];
+}
+
 /** The dataset as published: same columns, same order, same quoting. */
 export function directoryCsv(dir: FullDirectory): string {
   const { criteria, capabilities, kind, compiledOn } = dir.config;
@@ -70,6 +105,7 @@ export function directoryCsv(dir: FullDirectory): string {
       'Activity_or_Caveat',
       'Research_Confidence',
       'Source_URLs',
+      ...sourceHead(dir),
     ];
     const rows = records.map((r) => {
       const o = r.oss!;
@@ -97,6 +133,7 @@ export function directoryCsv(dir: FullDirectory): string {
         r.caveat,
         r.confidence,
         r.sources.map((s) => s.url).join(' | '),
+        ...sourceCols(dir, r),
       ];
     });
     return toCsv([head, ...rows]);
@@ -131,6 +168,7 @@ export function directoryCsv(dir: FullDirectory): string {
     'Caveat',
     'Research_Confidence',
     'Source_URLs',
+    ...sourceHead(dir),
   ];
   const rows = records.map((r) => {
     const c = r.commercial!;
@@ -168,6 +206,7 @@ export function directoryCsv(dir: FullDirectory): string {
       r.caveat,
       r.confidence,
       r.sources.map((s) => s.url).join(' | '),
+      ...sourceCols(dir, r),
     ];
   });
   return toCsv([head, ...rows]);

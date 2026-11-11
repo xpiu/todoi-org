@@ -10,6 +10,7 @@ import { resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { importDirectory } from '../import/importer.ts';
 import { SeedData } from '../seed-schema.ts';
+import current from '../../seed/data.json' with { type: 'json' };
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 const site = resolve(process.argv[2] ?? join(here, '../../../../../todoi-org-website'));
@@ -75,6 +76,8 @@ async function main() {
       csvFile: job.csvFile,
       modifiedOn: lastmod(job.loc),
       llms: llmsParts[job.slug as keyof typeof llmsParts],
+      // Not all of it is on the page: carried over from the seed being replaced.
+      source: SeedData.parse(current).directories.find((d) => d.slug === job.slug)!.copy.source,
     });
     directories.push(seed);
     console.log(`${job.slug}: ${seed.records.length} records, ${seed.faqs.length} questions`);

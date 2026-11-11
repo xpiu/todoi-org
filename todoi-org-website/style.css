@@ -2058,6 +2058,10 @@ a.wordmark:hover .wordmark-logo {
   color: var(--text-faint);      /* ○ not available natively */
 }
 
+.mark-na {
+  color: var(--text-faint);      /* – nothing to mark: the product has no such layer */
+}
+
 /* 1–5 score. --fill (0–1) is set inline per cell and draws the rule. */
 .score {
   display: inline-block;
@@ -2191,6 +2195,14 @@ a.wordmark:hover .wordmark-logo {
   border-style: dashed;
   color: var(--text-2);
   font-weight: 300;
+}
+
+/* Half and half: the solid edge of open core's ink on source-available's dashes. */
+.tag-mixed-source {
+  border-style: dashed;
+  border-color: var(--line-heavy);
+  color: var(--text);
+  font-weight: 400;
 }
 
 .pill,
@@ -2456,6 +2468,41 @@ a.wordmark:hover .wordmark-logo {
   font-weight: 400;
   line-height: 1.4;
   color: var(--text-2);
+}
+
+/* The source map: four more tiles in the same language, one per layer of the
+   product (app, server, extras, parts). A tile names its licence or says
+   Closed itself, so the generated state word is switched off; a layer the
+   product does not have is a dash on a dotted tile. The class the four add
+   up to sits in the heading. */
+.detail-h-src {
+  margin-top: var(--sp-5);
+}
+
+.src-class {
+  padding: 0.1em 0.55em;
+  border: var(--border);
+  border-radius: var(--radius-1);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.cap.cap-src:has(.mark) .cap-l::after {
+  content: none;
+}
+
+.cap-src:has(.mark-none) .cap-note,
+.cap-src:has(.mark-na) .cap-note {
+  color: var(--text-faint);
+}
+
+.cap-src:has(.mark-na) {
+  background-color: transparent;
+  border-style: dotted;
+}
+
+.cap-src:has(.mark-na) .cap-l {
+  color: var(--text-faint);
 }
 
 /* The write-up a two-line blurb cannot carry: one paragraph saying what the

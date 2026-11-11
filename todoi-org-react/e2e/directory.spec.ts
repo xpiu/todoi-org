@@ -252,6 +252,8 @@ test.describe('without JavaScript', () => {
       await expect(page.locator('tr.detail-row:visible')).toHaveCount(count);
       for (const d of await details.all()) {
         await expect(d.locator('.crit')).toHaveCount(7);
+        // The source map: app, server, extras and parts on every record.
+        await expect(d.locator('.cap-src')).toHaveCount(4);
         expect((await d.locator('.summary').innerText()).length).toBeGreaterThan(200);
       }
       // The FAQ answers are open too: nothing could open them.

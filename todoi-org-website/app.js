@@ -936,7 +936,8 @@
       'foss': 'The assessed software uses a recognised free and open-source licence. Paid hosting, support or GPL-licensed add-ons do not change that classification; FOSS does not mean every feature is available in the free edition.',
       'foss-app': 'A recognised free licence, but this is an app inside a host platform rather than a product that stands alone. Freedom over the code is full; the dependency you take on is the platform underneath it.',
       'open-core': 'An open-source core is offered alongside extensions or editions under proprietary or other non-open-source terms. The distinction is the licence of those additions, not whether the free edition feels complete.',
-      'source-available': 'The assessed edition exposes source code under terms that restrict open-source freedoms, such as use, modification or redistribution. Read the licence and edition caveat; visible source and permission to self-host do not by themselves make software open source.'
+      'source-available': 'The assessed edition exposes source code under terms that restrict open-source freedoms, such as use, modification or redistribution. Read the licence and edition caveat; visible source and permission to self-host do not by themselves make software open source.',
+      'mixed-source': 'The product’s own code is split: one of the app and its server is open source, the other is restricted or closed. The Source row in the record says which.'
     };
     // What puts a project in a band, and what the band means for a team that
     // will have to find its own answers. Deliberately no numbers: Redmine is

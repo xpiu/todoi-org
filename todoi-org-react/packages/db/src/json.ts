@@ -14,6 +14,7 @@
  *
  * The way back is in docs/json-store.md.
  */
+import { sourceClass } from '@todoi/shared';
 import data from '../seed/data.json' with { type: 'json' };
 import type { FullDirectory, FullRecord } from './queries.ts';
 import { SeedData, type SeedDirectory } from './seed-schema.ts';
@@ -60,6 +61,18 @@ export function directoriesFromSeed(seeds: SeedDirectory[]): FullDirectory[] {
       for (const key of Object.keys(r.caps)) {
         if (!capabilityKeys.has(key)) throw new Error(`seed ${where}: unknown capability "${key}"`);
       }
+      // The class is derived from the source map. Where the segment is the licensing
+      // label (open source), the two must agree, so a label cannot outlive its facts.
+      const derived = sourceClass(r.source);
+      if (d.kind === 'oss' && segment.filter !== derived) {
+        throw new Error(`seed ${where}: tagged "${segment.key}" but its source map makes it "${derived}"`);
+      }
+      if (d.kind === 'commercial' && derived !== 'closed' && derived !== 'closed-core') {
+        throw new Error(`seed ${where}: its source map makes it "${derived}", which belongs in the open-source directory`);
+      }
+      for (const [layer, mark] of Object.entries(r.source)) {
+        if (mark?.level === 1 && !mark.note) throw new Error(`seed ${where}: the partial "${layer}" mark needs a note saying why`);
+      }
       if (r.oss && r.oss.stars < 0) throw new Error(`seed ${where}: stars cannot be negative`);
       if (r.commercial?.price != null && r.commercial.price < 0) throw new Error(`seed ${where}: price cannot be negative`);
 
@@ -101,6 +114,8 @@ export function directoriesFromSeed(seeds: SeedDirectory[]): FullDirectory[] {
         scores,
         caps,
         sources: r.sources.map((s) => ({ url: s.url, label: s.label })),
+        source: r.source,
+        sourceChange: r.sourceChange,
         oss: r.oss ? { recordId, ...r.oss } : null,
         commercial: r.commercial ? { recordId, ...r.commercial } : null,
       };

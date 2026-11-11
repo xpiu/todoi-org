@@ -5,6 +5,8 @@ import {
   bareUrl,
   fill,
   formatScore,
+  SOURCE_LAYERS,
+  sourceWord,
   type DirectoryConfig,
   type Level,
   type RecordDetail as Detail,
@@ -54,6 +56,14 @@ export function RecordDetailBody({
     return { ...c, level, note: detail.capNotes[c.key] ?? null };
   });
   const band = bandLabel(record.band);
+  // The source map: the same four layers on every record, in the capability tiles' own language.
+  const src = copy.source;
+  const srcClass = src.classes[detail.sourceClass];
+  const layers = SOURCE_LAYERS.flatMap((key) => {
+    const layer = src.layers.find((l) => l.key === key);
+    return layer ? [{ ...layer, mark: detail.source[key] }] : [];
+  });
+  const history = detail.sourceChange ? <Fact label={src.changeLabel}>{detail.sourceChange}</Fact> : null;
 
   let facts: ReactNode;
   if (detail.kind === 'oss') {
@@ -65,6 +75,7 @@ export function RecordDetailBody({
         </Fact>
         <Fact label="Licence">{detail.licence}</Fact>
         <Fact label="Model">{detail.modelNote}</Fact>
+        {history}
         <Fact label="Deployment">{detail.deployment}</Fact>
         <Fact label="Calendar sync">{detail.calendarSync}</Fact>
         <Fact label="Data out">{detail.dataOut}</Fact>
@@ -87,6 +98,7 @@ export function RecordDetailBody({
       <>
         <Fact label={copy.facts.yearLabel}>{detail.yearNote ?? record.year}</Fact>
         <Fact label="Vendor">{detail.vendor}</Fact>
+        {history}
         <Fact label="Website">
           <ExternalLink href={record.url}>{bareUrl(record.url)}</ExternalLink>
         </Fact>
@@ -129,6 +141,33 @@ export function RecordDetailBody({
               </span>
               <span className={cx('sr-only')}>
                 {`${c.sr}: ${LEVEL_WORDS[c.level]}.${c.note ? ` ${c.note}` : ''}`}
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className={cx('detail-h detail-h-src')}>
+          <span className={cx('methodology')} data-tip-label={src.title} title={src.tip}>
+            {src.title}
+          </span>
+          <span className={cx('src-class methodology')} data-tip-label={srcClass?.label} title={srcClass?.tip}>
+            {srcClass?.label ?? detail.sourceClass}
+          </span>
+        </p>
+        <div className={cx('caps caps-src')}>
+          {layers.map((l) => (
+            <div className={cx('cap cap-src')} key={l.key} data-layer={l.key} data-level={l.mark?.level ?? ''}>
+              <span className={cx(`mark ${l.mark ? MARK_CLASS[l.mark.level] : 'mark-na'}`)}>
+                <MarkSvg level={l.mark?.level ?? null} />
+              </span>
+              <span className={cx('cap-l')}>
+                <span className={cx('methodology')} data-tip-label={l.label} title={l.tip}>
+                  {l.label}
+                </span>
+                <span className={cx('cap-note')}>{l.mark?.label ?? sourceWord(null)}</span>
+                {l.mark?.note ? <span className={cx('cap-note')}>{l.mark.note}</span> : null}
+              </span>
+              <span className={cx('sr-only')}>
+                {`${l.sr}: ${sourceWord(l.mark)}.${l.mark ? ` ${l.mark.label}.` : ''}${l.mark?.note ? ` ${l.mark.note}` : ''}`}
               </span>
             </div>
           ))}

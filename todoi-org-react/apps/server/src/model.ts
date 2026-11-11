@@ -1,5 +1,5 @@
 import type { FullDirectory, FullRecord } from '@todoi/db';
-import type { DirectoryResponse, Level, RecordDetail, RecordSummary } from '@todoi/shared';
+import { sourceClass, type DirectoryResponse, type Level, type RecordDetail, type RecordSummary } from '@todoi/shared';
 
 /**
  * The lower-case haystack the search box reads, in the static site's exact
@@ -22,6 +22,8 @@ export function capsOf(r: FullRecord): Record<string, Level> {
   for (const [k, v] of Object.entries(r.caps)) caps[k] = v.level;
   // The free plan filters like a capability: a permanent free tier is "native".
   if (r.commercial) caps.free = r.commercial.freePlan ? 2 : 0;
+  // So do open parts: a closed product whose owner publishes working parts of it.
+  if (r.commercial) caps.parts = r.source.parts?.level ?? 0;
   return caps;
 }
 
@@ -78,6 +80,9 @@ export function toDetail(r: FullRecord): RecordDetail {
     caveat: r.caveat,
     confidence: r.confidence,
     sources: r.sources,
+    source: r.source,
+    sourceClass: sourceClass(r.source),
+    sourceChange: r.sourceChange,
   };
   if (r.oss) {
     const o = r.oss;
