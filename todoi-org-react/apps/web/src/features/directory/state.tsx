@@ -141,7 +141,7 @@ export function DirectoryProvider({ data, children }: { data: DirectoryResponse;
     () => ({ config, records, view, ordered, visible, lead, update, clearFilters, isOpen, toggle }),
     [config, records, view, ordered, visible, lead, update, clearFilters, isOpen, toggle],
   );
-  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
+  return <Ctx value={value}>{children}</Ctx>;
 }
 
 export type { SortDir };

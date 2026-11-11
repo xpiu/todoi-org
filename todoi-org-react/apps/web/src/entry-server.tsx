@@ -54,9 +54,9 @@ export function render({ request, api, assets, siteUrl }: RenderOptions): Promis
       router,
       responseHeaders,
       children: (
-        <SsrDetails.Provider value={html}>
+        <SsrDetails value={html}>
           <RouterServer router={router} />
-        </SsrDetails.Provider>
+        </SsrDetails>
       ),
     });
   });
