@@ -15,6 +15,7 @@ export default defineConfig({
     rollupOptions: {
       output: { entryFileNames: 'index.js', format: 'es' },
       // Optional native bindings pg probes for; never installed.
+      // TEMP(json-store): moot for now, `pg` is not in the bundle at all (docs/json-store.md).
       external: ['pg-native'],
     },
   },

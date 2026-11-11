@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./app": "./src/app.ts"
+    "./app": "./src/app.ts",
+    "./editor-api": "./src/editor-api.ts"
   },
   "scripts": {
     "dev": "tsx watch --clear-screen=false --ignore '../web/**' src/dev.ts",

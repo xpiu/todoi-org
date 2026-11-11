@@ -1,16 +1,25 @@
 /**
  * Production: one process serves the pages, the API, the generated files and
- * the built client assets. Migrations run before the server listens.
+ * the built client assets.
+ *
+ * TEMP(json-store): no database. The directories are the seed files, bundled
+ * into this server; sign-in and the editor are off. The lines that connected,
+ * migrated and mounted the editor are kept below, commented out, as the way
+ * back. See docs/json-store.md.
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { serve } from '@hono/node-server';
-import { connect } from '@todoi/db';
-import { runMigrations } from '@todoi/db/migrate';
+// TEMP(json-store): back with PostgreSQL.
+// import { connect } from '@todoi/db';
+// import { runMigrations } from '@todoi/db/migrate';
+// import { mountEditor } from './editor-api.ts';
+// import { postgresSource } from './sources/postgres.ts';
 import type { render as Render } from '@todoi/web/entry-server';
 import { createApp } from './app.ts';
 import { loadEnv } from './env.ts';
+import { jsonSource } from './sources/json.ts';
 import { serverApi } from './ssr-api.ts';
 import { DirectoryStore } from './store.ts';
 
@@ -49,20 +58,28 @@ const ssrEntry = resolve(webDist, 'server/entry-server.js');
 if (!existsSync(ssrEntry)) throw new Error(`no server bundle at ${ssrEntry}; run pnpm build`);
 const { render } = (await import(pathToFileURL(ssrEntry).href)) as { render: typeof Render };
 
-const database = connect(env.DATABASE_URL);
-if (process.env.MIGRATE_ON_START !== 'false') {
-  // Bundled, import.meta.url points at dist/: name the folder (the image sets MIGRATIONS_DIR).
-  await runMigrations(database.db, resolve(process.env.MIGRATIONS_DIR ?? resolve(here, '../../../packages/db/migrations')));
-  console.log('migrations applied');
-}
-const store = new DirectoryStore(database.db);
+// TEMP(json-store): the seed files are the data. A malformed seed throws here, before the server listens.
+const store = new DirectoryStore(jsonSource());
+console.log(`directories loaded from the seed files: ${(await store.list()).map((d) => d.slug).join(', ')}`);
+
+// TEMP(json-store): back with PostgreSQL, in place of the two lines above
+// (and with DATABASE_URL and SESSION_SECRET required again in env.ts):
+//
+// const database = connect(env.DATABASE_URL);
+// if (process.env.MIGRATE_ON_START !== 'false') {
+//   // Bundled, import.meta.url points at dist/: name the folder (the image sets MIGRATIONS_DIR).
+//   await runMigrations(database.db, resolve(process.env.MIGRATIONS_DIR ?? resolve(here, '../../../packages/db/migrations')));
+//   console.log('migrations applied');
+// }
+// const store = new DirectoryStore(postgresSource(database.db));
 
 const app = createApp({
-  db: database.db,
   store,
   env,
   staticRoot: resolve(webDist, 'client'),
   render: (request) => render({ request, api: serverApi(store), assets, siteUrl: env.SITE_URL }),
+  // TEMP(json-store): back with PostgreSQL, sign-in and the editor's API:
+  // mount: (app) => mountEditor(app, database.db),
 });
 
 const server = serve({ fetch: app.fetch, port: env.PORT, hostname: env.HOST }, (info) => {
@@ -70,7 +87,9 @@ const server = serve({ fetch: app.fetch, port: env.PORT, hostname: env.HOST }, (
 });
 
 const shutdown = () => {
-  server.close(() => void database.close().then(() => process.exit(0)));
+  // TEMP(json-store): back with PostgreSQL, close the pool first:
+  // server.close(() => void database.close().then(() => process.exit(0)));
+  server.close(() => process.exit(0));
   setTimeout(() => process.exit(0), 10_000).unref();
 };
 process.on('SIGINT', shutdown);

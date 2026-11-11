@@ -1,8 +1,21 @@
+/*
+ * PARKED, TEMP(json-store): sign-in and the editor's API need PostgreSQL, and
+ * the site runs on the seed files for now. `pnpm test` leaves this file out
+ * (vitest.config.ts) unless a test database is named:
+ *
+ *   docker compose up -d
+ *   TEST_DATABASE_URL=postgres://todoi:todoi@127.0.0.1:5434/todoi_test pnpm test
+ *
+ * It mounts the parked editor API the way index.ts will when the database
+ * returns (docs/json-store.md), so that code is still proven to work.
+ */
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { sql } from 'drizzle-orm';
 import { hashPassword, schema, type Database } from '@todoi/db';
 import { createApp } from '../app.ts';
+import { mountEditor } from '../editor-api.ts';
 import type { Env } from '../env.ts';
+import { postgresSource } from '../sources/postgres.ts';
 import { DirectoryStore } from '../store.ts';
 import { testDatabase } from '../test/db.ts';
 
@@ -10,9 +23,7 @@ const env: Env = {
   NODE_ENV: 'test',
   PORT: 0,
   HOST: '127.0.0.1',
-  DATABASE_URL: 'postgres://unused',
   SITE_URL: 'https://todoi.org',
-  SESSION_SECRET: 'x'.repeat(32),
   TRUST_PROXY: false,
 };
 const ORIGIN = 'http://localhost';
@@ -27,10 +38,10 @@ beforeAll(async () => {
   database = await testDatabase();
   const passwordHash = await hashPassword(PASSWORD);
   await database.db.insert(schema.users).values({ email: EMAIL, passwordHash }).onConflictDoUpdate({ target: schema.users.email, set: { passwordHash } });
-  store = new DirectoryStore(database.db);
+  store = new DirectoryStore(postgresSource(database.db));
   app = createApp({
-    db: database.db,
     store,
+    mount: (app) => mountEditor(app, database.db),
     env,
     cachePages: false,
     render: async () => new Response('<html><body></body></html>', { headers: { 'content-type': 'text/html' } }),

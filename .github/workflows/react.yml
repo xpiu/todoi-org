@@ -1,6 +1,11 @@
 name: React app
 
 # The React rebuild lives in todoi-org-react/; this runs when it changes.
+#
+# TEMP(json-store): the app serves its seed files (todoi-org-react/packages/db/seed/*.json)
+# and connects to no database, so this job starts none. The PostgreSQL service and its
+# addresses are commented out below, not removed: todoi-org-react/docs/json-store.md is
+# the way back. Without them the PostgreSQL-only tests (the parked editor) do not run here.
 on:
   push:
     branches: [main]
@@ -24,20 +29,22 @@ jobs:
       run:
         working-directory: todoi-org-react
     timeout-minutes: 30
-    services:
-      postgres:
-        image: postgres:18
-        env:
-          POSTGRES_USER: todoi
-          POSTGRES_PASSWORD: todoi
-          POSTGRES_DB: todoi
-        ports: ['5432:5432']
-        options: >-
-          --health-cmd "pg_isready -U todoi -d todoi"
-          --health-interval 2s --health-timeout 3s --health-retries 30
+    # TEMP(json-store): back with PostgreSQL.
+    # services:
+    #   postgres:
+    #     image: postgres:18
+    #     env:
+    #       POSTGRES_USER: todoi
+    #       POSTGRES_PASSWORD: todoi
+    #       POSTGRES_DB: todoi
+    #     ports: ['5432:5432']
+    #     options: >-
+    #       --health-cmd "pg_isready -U todoi -d todoi"
+    #       --health-interval 2s --health-timeout 3s --health-retries 30
     env:
-      DATABASE_URL: postgres://todoi:todoi@localhost:5432/todoi
-      TEST_DATABASE_URL: postgres://todoi:todoi@localhost:5432/todoi_test
+      # TEMP(json-store): back with PostgreSQL.
+      # DATABASE_URL: postgres://todoi:todoi@localhost:5432/todoi
+      # TEST_DATABASE_URL: postgres://todoi:todoi@localhost:5432/todoi_test
       CI: 'true'
     steps:
       - uses: actions/checkout@v4
@@ -54,7 +61,8 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      # Typecheck, lint, unit and integration tests (the latter against PostgreSQL).
+      # Typecheck, lint, unit tests. TEMP(json-store): the integration tests against
+      # PostgreSQL are left out while TEST_DATABASE_URL is unset (vitest.config.ts).
       - run: pnpm check
 
       - run: pnpm build
@@ -62,7 +70,8 @@ jobs:
       - name: Install Chromium for Playwright
         run: pnpm exec playwright install --with-deps chromium
 
-      # Runs the production build against a freshly seeded test database.
+      # Runs the production build. TEMP(json-store): it serves the seed files; with
+      # PostgreSQL back, against a freshly seeded test database.
       - run: pnpm e2e
 
       - name: Keep the Playwright report

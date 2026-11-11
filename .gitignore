@@ -4,6 +4,7 @@
 .test/
 .impeccable/
 AGENTS.md
+/todo.md
 
 # ── Secrets / env ──
 .env

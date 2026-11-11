@@ -60,10 +60,14 @@ export function DirectoryProvider({ data, children }: { data: DirectoryResponse;
       void navigate({
         to: '.',
         search: viewSearch(next),
-        // ?open=slug names the open record; a #slug that only repeats it is dropped.
-        hash: (prev) => (prev && next.open && prev === next.open ? '' : (prev ?? '')),
+        // ?open=slug names the open record. Opening one drops the hash: a #section
+        // no longer says where the reader is, and a #slug only repeats ?open=.
+        hash: (prev) => (patch.open || (prev && prev === next.open) ? '' : (prev ?? '')),
         replace: true,
         resetScroll: false,
+        // A kept #section hash must not pull the page back to that section on every
+        // view change (opening a record, sorting, typing a filter).
+        hashScrollIntoView: false,
       });
     },
     [view, navigate],

@@ -2,7 +2,7 @@
   "name": "todoi-org",
   "private": true,
   "type": "module",
-  "description": "todoi.org: a server-rendered, database-backed directory of task managers.",
+  "description": "todoi.org: a server-rendered directory of task managers. Temporarily served from committed JSON instead of PostgreSQL: see docs/json-store.md.",
   "license": "MIT",
   "packageManager": "pnpm@10.28.1",
   "engines": {

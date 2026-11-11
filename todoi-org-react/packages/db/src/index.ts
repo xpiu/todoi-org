@@ -1,3 +1,10 @@
+/*
+ * PARKED, TEMP(json-store): the PostgreSQL side of this package (connection,
+ * queries, mutations, seeding, passwords). The site does not import this entry
+ * at run time for now; it reads the seed files through ./json.ts instead, and
+ * only this package's types are used. Kept whole for the return to PostgreSQL:
+ * docs/json-store.md.
+ */
 import { drizzle, type NodePgDatabase } from 'drizzle-orm/node-postgres';
 import pg from 'pg';
 import * as schema from './schema.ts';

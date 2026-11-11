@@ -23,6 +23,12 @@ for (const mode of ['light', 'dark']) {
 const ctx = await b.newContext({ viewport: { width: 1440, height: 1000 }, colorScheme: 'dark' });
 await ctx.addInitScript(() => localStorage.setItem('todoi-theme', 'dark'));
 const p = await ctx.newPage();
+// TEMP(json-store): the editor is off (docs/json-store.md), so /admin is the 404 page and the
+// sign-in below finds no form. Run this tool with EDITOR=1 once PostgreSQL and the editor are back.
+if (!process.env.EDITOR) {
+  await b.close();
+  process.exit(0);
+}
 await p.goto(base + '/admin?dir=commercial&record=asana');
 await p.getByLabel('E-mail').fill(process.env.E2E_EDITOR_EMAIL ?? 'e2e-editor@todoi.test');
 await p.getByLabel('Password').fill(process.env.E2E_EDITOR_PASSWORD ?? 'e2e-editor-password');

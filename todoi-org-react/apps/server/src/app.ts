@@ -3,7 +3,6 @@ import { Hono } from 'hono';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { compress } from 'hono/compress';
 import { etag } from 'hono/etag';
-import type { Db } from '@todoi/db';
 import type { Env } from './env.ts';
 import { HttpProblem } from './errors.ts';
 import { directoryCsv } from './generate/csv.ts';
@@ -11,17 +10,19 @@ import { jsonLdScript } from './generate/jsonld.ts';
 import { llmsTxt, sitemapXml } from './generate/site-files.ts';
 import { securityHeaders } from './middleware/security.ts';
 import { publicApi } from './routes/public.ts';
-import { adminApi } from './routes/admin.ts';
-import { authApi } from './routes/auth.ts';
-import { loadSession, sameOrigin } from './auth.ts';
 import type { DirectoryStore } from './store.ts';
 import type { AppEnv } from './types.ts';
-import { sql } from 'drizzle-orm';
+
+/*
+ * TEMP(json-store): this file imports nothing that reaches PostgreSQL. The
+ * directories come from the seed files through `store`; sign-in and the
+ * editor's API (editor-api.ts) are parked and not mounted, so /api/v1/auth/*
+ * and /api/v1/admin/* answer 404. See docs/json-store.md for the way back.
+ */
 
 export type RenderPage = (request: Request) => Promise<Response>;
 
 export interface AppDeps {
-  db: Db;
   store: DirectoryStore;
   env: Env;
   /** Server-renders a page; dev passes Vite's module graph, production the built bundle. */
@@ -30,14 +31,21 @@ export interface AppDeps {
   cachePages?: boolean;
   /** Production: the built client (fingerprinted assets, fonts, icons, images). */
   staticRoot?: string;
+  /**
+   * More API routes, added after the public ones and before the pages.
+   * TEMP(json-store): this is where the parked editor API comes back in
+   * (`mount: (app) => mountEditor(app, db)`, see editor-api.ts). Unset in
+   * index.ts and dev.ts for as long as the site runs on the seed files.
+   */
+  mount?: (app: Hono<AppEnv>) => void;
 }
 
-/** The typed API surface the browser client is generated from (Hono RPC). */
-const api = new Hono<AppEnv>()
-  .basePath('/api/v1')
-  .route('/', publicApi)
-  .route('/auth', authApi)
-  .route('/admin', adminApi);
+/**
+ * The typed API surface the browser client is generated from (Hono RPC).
+ * TEMP(json-store): read-only. The editor's half (`/auth`, `/admin`) is typed
+ * and built in editor-api.ts, parked.
+ */
+const api = new Hono<AppEnv>().basePath('/api/v1').route('/', publicApi);
 export type AppType = typeof api;
 
 /** Rendered pages, keyed by URL, kept until the data changes. */
@@ -72,7 +80,6 @@ export function createApp(deps: AppDeps) {
   deps.store.onInvalidate(() => pages.clear());
 
   app.use('*', async (c, next) => {
-    c.set('db', deps.db);
     c.set('store', deps.store);
     c.set('env', deps.env);
     c.set('user', null);
@@ -106,20 +113,21 @@ export function createApp(deps: AppDeps) {
     return renderPage(c.req.raw, 404);
   });
 
+  // TEMP(json-store): there is no database to ping. Healthy means the seed
+  // loaded, which it did or the process would not have started. With PostgreSQL
+  // back, this pings it again (`select 1`) and answers 503 when it is down.
   app.get('/healthz', async (c) => {
-    try {
-      await deps.db.execute(sql`select 1`);
-      return c.json({ ok: true, db: 'up' });
-    } catch {
-      return c.json({ ok: false, db: 'down' }, 503);
-    }
+    const directories = (await deps.store.list()).length;
+    return c.json({ ok: directories > 0, data: 'seed-json', directories }, directories > 0 ? 200 : 503);
   });
 
   app.use('/api/v1/directories/*', etag({ weak: true }));
-  // Sessions and writes: the editor's API only. Public pages never read a cookie.
-  app.use('/api/v1/auth/*', sameOrigin, loadSession);
-  app.use('/api/v1/admin/*', sameOrigin, loadSession);
   app.route('/', api);
+  // TEMP(json-store): nothing is mounted here in production or development; see AppDeps.mount.
+  deps.mount?.(app);
+  // An API address nothing answered is an API 404 (JSON), never a rendered page:
+  // with the editor parked, that is all of /api/v1/auth and /api/v1/admin.
+  app.all('/api/*', (c) => c.notFound());
 
   // The datasets, at the URLs they have always had.
   app.get('/:file{todoi-[a-z-]*dataset-\\d{4}-\\d{2}-\\d{2}\\.csv}', etag({ weak: true }), async (c) => {

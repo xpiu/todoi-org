@@ -1,19 +1,15 @@
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { loadFullDirectory, type Database, type FullDirectory } from '@todoi/db';
-import { testDatabase } from '../test/db.ts';
+import { describe, expect, it } from 'vitest';
+import { loadSeedDirectories } from '@todoi/db/json';
 import { llmsTxt, sitemapXml } from './site-files.ts';
 
 const fixture = (file: string) => readFile(fileURLToPath(new URL(`../../test/fixtures/${file}`, import.meta.url)), 'utf8');
 
-let database: Database;
-let dirs: FullDirectory[];
-beforeAll(async () => {
-  database = await testDatabase();
-  dirs = [(await loadFullDirectory(database.db, 'open-source'))!, (await loadFullDirectory(database.db, 'commercial'))!];
-});
-afterAll(() => database.close());
+// TEMP(json-store): these read the directories from the seed files, as the site
+// does. With PostgreSQL back they read the test database again
+// (testDatabase() and loadFullDirectory): see docs/json-store.md.
+const dirs = loadSeedDirectories();
 
 describe('sitemap.xml', () => {
   it('lists the same pages with the same dates as the published one', async () => {

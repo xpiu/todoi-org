@@ -4,6 +4,9 @@ import { Capability, Criterion, DirectoryCopy, DirectoryKind, FilterToggle, Leve
 /**
  * The committed seed: what the importer read from the published site, and
  * what `pnpm db:seed` writes into an empty database. One file per directory.
+ *
+ * TEMP(json-store): for now these files are not only the seed but the data the
+ * site serves (json.ts reads them; no database runs). See docs/json-store.md.
  */
 export const SeedRecord = z.object({
   slug: z.string(),

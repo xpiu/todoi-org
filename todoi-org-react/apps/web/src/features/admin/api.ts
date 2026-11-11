@@ -1,3 +1,10 @@
+/*
+ * PARKED, TEMP(json-store): the editor's client. The server does not mount
+ * sign-in or the editor's API while the site runs on the seed files, and the
+ * /admin route answers 404 (routes/admin.tsx), so nothing here is ever called.
+ * Kept whole and typed against the parked server code for the return to
+ * PostgreSQL: docs/json-store.md.
+ */
 import { queryOptions } from '@tanstack/react-query';
 import {
   AdminDirectory,
@@ -12,9 +19,15 @@ import {
   type RecordPatch,
   type ScorePut,
 } from '@todoi/shared';
+import { hc } from 'hono/client';
 import { z } from 'zod';
-import { client } from '../../lib/http-api.ts';
+import type { EditorAppType } from '@todoi/server/editor-api';
 import { HttpError } from '../../lib/api.ts';
+
+/** Typed client for the editor's half of the API (parked on the server: editor-api.ts). */
+const client = hc<EditorAppType>('/', {
+  init: { credentials: 'same-origin' },
+});
 
 const Session = z.object({ email: z.string(), csrfToken: z.string() });
 export type Session = z.infer<typeof Session>;

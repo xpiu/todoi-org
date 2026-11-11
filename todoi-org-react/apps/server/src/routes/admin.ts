@@ -1,3 +1,9 @@
+/*
+ * PARKED, TEMP(json-store): the editor's API: every write to PostgreSQL goes through here.
+ * The site runs on the seed files for now and nothing mounts this
+ * (see editor-api.ts). Kept whole and compiled for the return to PostgreSQL:
+ * docs/json-store.md.
+ */
 import { Hono } from 'hono';
 import { z } from 'zod';
 import {
@@ -25,7 +31,7 @@ import { requireEditor } from '../auth.ts';
 import { conflict, HttpProblem, notFound } from '../errors.ts';
 import { sanitizeInline } from '../html.ts';
 import { zv } from '../middleware/validate.ts';
-import type { AppEnv } from '../types.ts';
+import type { EditorEnv } from '../types.ts';
 
 function toAdmin(r: FullRecord): AdminRecord {
   return {
@@ -62,7 +68,7 @@ const recordParam = z.object({ slug: Slug, record: Slug });
  * session's CSRF token and invalidates the public pages, which are rendered
  * again on their next request.
  */
-export const adminApi = new Hono<AppEnv>()
+export const adminApi = new Hono<EditorEnv>()
   .use('*', requireEditor)
   .use('*', async (c, next) => {
     await next();

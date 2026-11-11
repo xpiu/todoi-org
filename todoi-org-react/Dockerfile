@@ -1,6 +1,11 @@
 # syntax=docker/dockerfile:1.7
 # todoi.org: one Node process serving pages, API, generated files and assets.
 # Dokploy builds this from the repository; Traefik terminates TLS in front of it.
+#
+# TEMP(json-store): the image needs no database. The directory data is the seed
+# files (packages/db/seed/*.json), bundled into server/index.js by `pnpm build`.
+# The PostgreSQL parts are commented out below, not removed: docs/json-store.md
+# is the way back.
 
 ARG NODE_VERSION=22.21.1
 
@@ -22,25 +27,29 @@ COPY . .
 RUN pnpm build
 
 # --- runtime: no node_modules, no source, not root ------------------------------
-# Both bundles carry their dependencies; the image holds the build output, the
-# SQL migrations and nothing else.
+# Both bundles carry their dependencies; the image holds the build output and
+# nothing else. (With PostgreSQL back: and the SQL migrations.)
 FROM node:${NODE_VERSION}-slim AS runtime
 ENV NODE_ENV=production \
     HOST=0.0.0.0 \
     PORT=3000 \
     WEB_DIST=/app/web \
-    MIGRATIONS_DIR=/app/migrations \
     TRUST_PROXY=true
+# TEMP(json-store): back with PostgreSQL.
+# ENV MIGRATIONS_DIR=/app/migrations
 WORKDIR /app
 COPY --from=build --chown=node:node /app/apps/server/dist ./server
 COPY --from=build --chown=node:node /app/apps/web/dist ./web
-COPY --from=build --chown=node:node /app/packages/db/migrations ./migrations
+# TEMP(json-store): back with PostgreSQL.
+# COPY --from=build --chown=node:node /app/packages/db/migrations ./migrations
 USER node
 EXPOSE 3000
 
-# Liveness includes a database ping (/healthz answers 503 when the database is down).
+# TEMP(json-store): /healthz answers once the seed files have loaded; there is no database
+# to ping. (With PostgreSQL back it pings it, and answers 503 when the database is down.)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
   CMD ["node", "-e", "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
 
-# Migrations run at start, before the server listens.
+# TEMP(json-store): nothing to migrate. (With PostgreSQL back: migrations run at start,
+# before the server listens.)
 CMD ["node", "--enable-source-maps", "server/index.js"]

@@ -1,3 +1,9 @@
+/*
+ * PARKED, TEMP(json-store): the PostgreSQL test database, for routes/admin.test.ts only.
+ * The site runs on the seed files for now and nothing mounts this
+ * (see editor-api.ts). Kept whole and compiled for the return to PostgreSQL:
+ * docs/json-store.md.
+ */
 import pg from 'pg';
 import { connect, type Database } from '@todoi/db';
 import { runMigrations } from '@todoi/db/migrate';

@@ -3,6 +3,11 @@
  * asset and HMR requests; everything else goes to the Hono app, which renders
  * pages through Vite's module graph so a change to a component shows on the
  * next request without a restart.
+ *
+ * TEMP(json-store): no database here either. The directories are the seed
+ * files; `tsx watch` restarts this server when one of them is saved. The lines
+ * that connected to PostgreSQL are kept below, commented out. See
+ * docs/json-store.md.
  */
 import { createServer } from 'node:http';
 import { existsSync } from 'node:fs';
@@ -11,9 +16,13 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getRequestListener } from '@hono/node-server';
 import { createServer as createViteServer } from 'vite';
-import { connect } from '@todoi/db';
+// TEMP(json-store): back with PostgreSQL.
+// import { connect } from '@todoi/db';
+// import { mountEditor } from './editor-api.ts';
+// import { postgresSource } from './sources/postgres.ts';
 import { createApp } from './app.ts';
 import { loadEnv } from './env.ts';
+import { jsonSource } from './sources/json.ts';
 import { serverApi } from './ssr-api.ts';
 import { DirectoryStore } from './store.ts';
 
@@ -22,8 +31,10 @@ if (existsSync(envFile)) process.loadEnvFile(envFile);
 
 const env = loadEnv();
 const webRoot = fileURLToPath(new URL('../../web', import.meta.url));
-const database = connect(env.DATABASE_URL);
-const store = new DirectoryStore(database.db);
+// TEMP(json-store): the seed files are the data. Back with PostgreSQL:
+// const database = connect(env.DATABASE_URL);
+// const store = new DirectoryStore(postgresSource(database.db));
+const store = new DirectoryStore(jsonSource());
 const httpServer = createServer();
 
 const vite = await createViteServer({
@@ -75,10 +86,11 @@ window.$RefreshSig$ = () => (type) => type;
 window.__vite_plugin_react_preamble_installed__ = true;`;
 
 const app = createApp({
-  db: database.db,
   store,
   env,
   cachePages: false,
+  // TEMP(json-store): back with PostgreSQL, sign-in and the editor's API:
+  // mount: (app) => mountEditor(app, database.db),
   async render(request) {
     const mod = (await vite.ssrLoadModule('/src/entry-server.tsx')) as EntryServer;
     return mod.render({
@@ -102,7 +114,8 @@ httpServer.listen(env.PORT, env.HOST, () => {
 
 const shutdown = async () => {
   await vite.close();
-  await database.close();
+  // TEMP(json-store): back with PostgreSQL.
+  // await database.close();
   httpServer.close();
   process.exit(0);
 };

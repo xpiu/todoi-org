@@ -1,3 +1,9 @@
+/*
+ * PARKED, TEMP(json-store): sessions, CSRF and the sign-in rate limit, all stored in PostgreSQL.
+ * The site runs on the seed files for now and nothing mounts this
+ * (see editor-api.ts). Kept whole and compiled for the return to PostgreSQL:
+ * docs/json-store.md.
+ */
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto';
 import { and, eq, gt, lt, sql } from 'drizzle-orm';
 import type { Context } from 'hono';
@@ -6,7 +12,7 @@ import { createMiddleware } from 'hono/factory';
 import { getConnInfo } from '@hono/node-server/conninfo';
 import { schema } from '@todoi/db';
 import { forbidden, HttpProblem, unauthorized } from './errors.ts';
-import type { AppEnv, SessionUser } from './types.ts';
+import type { EditorEnv, SessionUser } from './types.ts';
 
 export const SESSION_COOKIE = 'todoi_session';
 const SESSION_DAYS = 14;
@@ -20,7 +26,7 @@ function sameToken(a: string, b: string): boolean {
 }
 
 /** Create a session, set its cookie, and return the CSRF token the editor must send with every write. */
-export async function startSession(c: Context<AppEnv>, userId: number): Promise<string> {
+export async function startSession(c: Context<EditorEnv>, userId: number): Promise<string> {
   const token = randomBytes(32).toString('base64url');
   const csrfToken = randomBytes(24).toString('base64url');
   const expiresAt = new Date(Date.now() + SESSION_DAYS * 864e5);
@@ -37,14 +43,14 @@ export async function startSession(c: Context<AppEnv>, userId: number): Promise<
   return csrfToken;
 }
 
-export async function endSession(c: Context<AppEnv>): Promise<void> {
+export async function endSession(c: Context<EditorEnv>): Promise<void> {
   const token = getCookie(c, SESSION_COOKIE);
   if (token) await c.var.db.delete(schema.sessions).where(eq(schema.sessions.id, sha256(token)));
   deleteCookie(c, SESSION_COOKIE, { path: '/' });
 }
 
 /** Reads the session cookie, if any, into c.var.user. */
-export const loadSession = createMiddleware<AppEnv>(async (c, next) => {
+export const loadSession = createMiddleware<EditorEnv>(async (c, next) => {
   const token = getCookie(c, SESSION_COOKIE);
   if (token) {
     const [row] = await c.var.db
@@ -67,7 +73,7 @@ export const loadSession = createMiddleware<AppEnv>(async (c, next) => {
  * on a POST, PUT, PATCH or DELETE) names this host. With SameSite=Lax cookies
  * that already stops cross-site forms; the CSRF token below covers the rest.
  */
-export const sameOrigin = createMiddleware<AppEnv>(async (c, next) => {
+export const sameOrigin = createMiddleware<EditorEnv>(async (c, next) => {
   if (c.req.method !== 'GET' && c.req.method !== 'HEAD') {
     const origin = c.req.header('origin');
     const host = c.req.header('x-forwarded-host') ?? c.req.header('host');
@@ -77,7 +83,7 @@ export const sameOrigin = createMiddleware<AppEnv>(async (c, next) => {
 });
 
 /** Signed in, and (for writes) carrying the session's CSRF token. */
-export const requireEditor = createMiddleware<AppEnv>(async (c, next) => {
+export const requireEditor = createMiddleware<EditorEnv>(async (c, next) => {
   const user = c.var.user;
   if (!user) throw unauthorized();
   if (c.req.method !== 'GET' && c.req.method !== 'HEAD') {
@@ -88,7 +94,7 @@ export const requireEditor = createMiddleware<AppEnv>(async (c, next) => {
   await next();
 });
 
-export function clientAddress(c: Context<AppEnv>): string {
+export function clientAddress(c: Context<EditorEnv>): string {
   if (c.var.env.TRUST_PROXY) {
     const fwd = c.req.header('x-forwarded-for')?.split(',')[0]?.trim();
     if (fwd) return fwd;
@@ -107,7 +113,7 @@ const LIMITS = { ip: 20, email: 8 };
  * Login is rate limited per client address and per e-mail, counted in the
  * database so a restart does not reset it and two processes share it.
  */
-export async function checkLoginRate(c: Context<AppEnv>, email: string): Promise<void> {
+export async function checkLoginRate(c: Context<EditorEnv>, email: string): Promise<void> {
   const keys = [`ip:${clientAddress(c)}`, `email:${email}`];
   const since = sql`now() - make_interval(mins => ${WINDOW_MINUTES})`;
   const counts = await Promise.all(
@@ -127,6 +133,6 @@ export async function checkLoginRate(c: Context<AppEnv>, email: string): Promise
   await c.var.db.delete(schema.loginAttempts).where(lt(schema.loginAttempts.at, sql`now() - interval '1 day'`));
 }
 
-export async function clearLoginRate(c: Context<AppEnv>, email: string): Promise<void> {
+export async function clearLoginRate(c: Context<EditorEnv>, email: string): Promise<void> {
   await c.var.db.delete(schema.loginAttempts).where(eq(schema.loginAttempts.key, `email:${email}`));
 }

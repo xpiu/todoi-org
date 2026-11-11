@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./json": "./src/json.ts",
     "./schema": "./src/schema.ts",
     "./migrate": "./src/migrate.ts",
     "./seed": "./src/seed.ts"

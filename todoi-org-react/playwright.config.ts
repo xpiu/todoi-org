@@ -2,8 +2,13 @@ import { defineConfig, devices } from '@playwright/test';
 
 /**
  * E2E runs against a production build by default (`pnpm build`, then the
- * server starts here against the test database). Set E2E_BASE_URL to point
- * at a server you already run, such as `pnpm dev`.
+ * server starts here). Set E2E_BASE_URL to point at a server you already
+ * run, such as `pnpm dev`.
+ *
+ * TEMP(json-store): the build serves the seed files; there is no test database
+ * and the editor is off. The 'editor' project stays listed, and its one file
+ * (admin.spec.ts) skips itself with the reason, so the report keeps saying
+ * what is parked. See docs/json-store.md.
  *
  * The parity suite also needs the static site served somewhere:
  *   STATIC_URL=http://127.0.0.1:8080 pnpm e2e parity
