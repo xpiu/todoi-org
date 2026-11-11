@@ -31,6 +31,11 @@ pnpm check               # typecheck, lint, unit tests
 pnpm build && pnpm e2e   # Playwright, against the production build
 ```
 
+Before updating a dependency or reworking a component, `e2e/tools/snapshot.mjs` screenshots the
+site's main states (both directories, four widths, light and dark, an open record, the sort menu, the
+empty state, the 404); run it again afterwards and `--diff` the two folders. Usage is at the top of
+the file.
+
 ⏸ Parked with PostgreSQL: `docker compose up -d` (PostgreSQL 18 on port **5434**; 5432 and 5433 are
 left to anything else on the machine), `pnpm db:migrate`, `pnpm db:seed`, `pnpm db:user`. They still
 work against a database, and the site ignores it. The PostgreSQL tests run with
