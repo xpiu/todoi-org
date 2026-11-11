@@ -1,6 +1,6 @@
 /*
  * PARKED, TEMP(json-store): sign-in and the editor's API need PostgreSQL, and
- * the site runs on the seed files for now. `pnpm test` leaves this file out
+ * the site runs on data.json for now. `pnpm test` leaves this file out
  * (vitest.config.ts) unless a test database is named:
  *
  *   docker compose up -d

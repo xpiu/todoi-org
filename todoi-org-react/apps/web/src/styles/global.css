@@ -383,7 +383,7 @@ table {
   border-spacing: 0;
 }
 
-/* app.js toggles [hidden] on #empty, .detail-row and .card-detail; component
+/* React toggles [hidden] on rows, cards, #empty and the record details; component
    `display` rules would otherwise out-specify the UA sheet. */
 [hidden] {
   display: none !important;

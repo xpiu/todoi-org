@@ -5,7 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
  * server starts here). Set E2E_BASE_URL to point at a server you already
  * run, such as `pnpm dev`.
  *
- * TEMP(json-store): the build serves the seed files; there is no test database
+ * TEMP(json-store): the build serves data.json; there is no test database
  * and the editor is off. The 'editor' project stays listed, and its one file
  * (admin.spec.ts) skips itself with the reason, so the report keeps saying
  * what is parked. See docs/json-store.md.

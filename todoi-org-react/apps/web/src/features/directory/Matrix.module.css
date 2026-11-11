@@ -278,25 +278,17 @@
   color: var(--text-2);
 }
 
-/* The ellipsis is where the reader notices the text was cut, so the ellipsis
-   is where the answer has to be — but it is drawn by the browser and is not an
-   element that can hold a handler. The clamped blurb becomes the target
-   instead: app.js measures which ones the browser actually cut and marks only
-   those, so a blurb that fits never pretends to be a button. The row's own
-   chevron answers the same hover, which is what says where the click will
-   land. Keyboard and screen-reader users have that button; the cards are not
-   clamped and need none of this. */
-.project-blurb.is-clamped {
+/* With scripting, a tap anywhere on a row that is not a control of its own
+   opens the record (disclosure.tsx), so the whole row is the target and its
+   chevron answers the hover, which says what the click will do. Keyboard and
+   screen-reader users have that button. */
+:global(.js) .matrix-row {
   cursor: pointer;
 }
 
-.project-blurb.is-clamped:hover {
-  color: var(--text);
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-decoration-color: var(--text-faint);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
+:global(.js) .matrix-row:hover :global(.row-expand) {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .cell-model {
@@ -412,7 +404,7 @@
   }
 
   /* The six criterion scores and the sources live in the expanded record, and
-       app.js collapses every record on load. On paper there is nothing to
+       the page collapses every record once scripting runs. On paper there is nothing to
        expand, so the records print open — as the FAQ answers above do. */
   .detail-row[hidden] {
     display: table-row !important;

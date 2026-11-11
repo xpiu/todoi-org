@@ -85,11 +85,6 @@
   text-decoration-color: currentColor;
 }
 
-:global(.matrix-row):has(:global(.project-blurb):global(.is-clamped):hover) .row-expand {
-  color: var(--accent);
-  border-color: var(--accent);
-}
-
 /* The dagger marks a count whose repository does not map onto the product —
    a mirror, a split codebase, an app inside a platform. It is a footnote mark
    and must read as one: raised, quiet, and never as wide as a digit. */
@@ -239,7 +234,7 @@
 }
 
 /* Community is an editorial five-step band; stars use five logarithmic-ish
-   buckets set from the raw data in app.js. Both resolve through the same ramp
+   buckets set from the raw data by starGrade(). Both resolve through the same ramp
    so low, middle and high read consistently without pretending the two
    measures are equivalent. */
 .comm-band,
@@ -346,7 +341,7 @@
 }
 
 /* Licensing tags and community-size bands carry an explanation. The cursor
-   advertises it; the tooltip itself is built by app.js (§ token tooltips) and
+   advertises it; the tooltip itself is built by useTokenTips and
    lives on <body>, because the matrix is a horizontal scroller and would clip
    a positioned child. */
 .tag[data-lic],

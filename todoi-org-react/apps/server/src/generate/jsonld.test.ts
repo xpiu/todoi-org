@@ -9,7 +9,7 @@ const fixture = async (file: string) =>
     '@graph': Record<string, unknown>[];
   };
 
-// TEMP(json-store): these read the directories from the seed files, as the site
+// TEMP(json-store): these read the directories from data.json, as the site
 // does. With PostgreSQL back they read the test database again
 // (testDatabase() and loadFullDirectory): see docs/json-store.md.
 const directories = loadSeedDirectories();

@@ -3,7 +3,7 @@
 # Dokploy builds this from the repository; Traefik terminates TLS in front of it.
 #
 # TEMP(json-store): the image needs no database. The directory data is the seed
-# files (packages/db/seed/*.json), bundled into server/index.js by `pnpm build`.
+# file (packages/db/seed/data.json), bundled into server/index.js by `pnpm build`.
 # The PostgreSQL parts are commented out below, not removed: docs/json-store.md
 # is the way back.
 
@@ -45,7 +45,7 @@ COPY --from=build --chown=node:node /app/apps/web/dist ./web
 USER node
 EXPOSE 3000
 
-# TEMP(json-store): /healthz answers once the seed files have loaded; there is no database
+# TEMP(json-store): /healthz answers once data.json has loaded; there is no database
 # to ping. (With PostgreSQL back it pings it, and answers 503 when the database is down.)
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
   CMD ["node", "-e", "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]

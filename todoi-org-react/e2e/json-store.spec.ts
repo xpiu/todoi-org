@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { expect, test } from '@playwright/test';
 
 /**
- * TEMP(json-store): the site runs on the committed seed files, with no
+ * TEMP(json-store): the site runs on the committed seed file, data.json, with no
  * database, and sign-in and the editor are off (docs/json-store.md). These
  * hold the production build to both halves of that: every record in the seed
  * is served, and nothing that would need PostgreSQL is reachable.
@@ -16,11 +16,13 @@ interface Seed {
   csvFile: string;
   records: { slug: string; name: string }[];
 }
-const seed = (slug: string) =>
-  JSON.parse(readFileSync(fileURLToPath(new URL(`../packages/db/seed/${slug}.json`, import.meta.url)), 'utf8')) as Seed;
-const SEEDS = [seed('open-source'), seed('commercial')];
+const SEEDS = (
+  JSON.parse(readFileSync(fileURLToPath(new URL('../packages/db/seed/data.json', import.meta.url)), 'utf8')) as {
+    directories: Seed[];
+  }
+).directories;
 
-test('health reports the seed files as the data, with no database behind it', async ({ request }) => {
+test('health reports data.json as the data, with no database behind it', async ({ request }) => {
   const res = await request.get('/healthz');
   expect(res.status()).toBe(200);
   expect(await res.json()).toEqual({ ok: true, data: 'seed-json', directories: SEEDS.length });

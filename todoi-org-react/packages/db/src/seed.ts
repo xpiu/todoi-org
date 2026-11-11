@@ -3,14 +3,13 @@ import { fileURLToPath } from 'node:url';
 import { sql } from 'drizzle-orm';
 import type { Db } from './index.ts';
 import * as t from './schema.ts';
-import { SeedDirectory } from './seed-schema.ts';
+import { SeedData, type SeedDirectory } from './seed-schema.ts';
 
-export const SEED_FILES = ['open-source', 'commercial'].map((slug) =>
-  fileURLToPath(new URL(`../seed/${slug}.json`, import.meta.url)),
-);
+export const SEED_FILE = fileURLToPath(new URL('../seed/data.json', import.meta.url));
 
-export async function readSeeds(files = SEED_FILES): Promise<SeedDirectory[]> {
-  return Promise.all(files.map(async (f) => SeedDirectory.parse(JSON.parse(await readFile(f, 'utf8')))));
+/** Every directory in the seed file, in its order: the order they are seeded in. */
+export async function readSeeds(file = SEED_FILE): Promise<SeedDirectory[]> {
+  return SeedData.parse(JSON.parse(await readFile(file, 'utf8'))).directories;
 }
 
 /**

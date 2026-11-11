@@ -2,8 +2,8 @@
  * TEMP(json-store): the directories, read straight from the committed seed.
  *
  * Until the site needs PostgreSQL again (sign-in, the editor, configuration,
- * social features), nothing is running a database: the two seed files are the
- * data, bundled into the server, and a record changes by editing them and
+ * social features), nothing is running a database: seed/data.json is the
+ * data, bundled into the server, and a record changes by editing it and
  * committing. This module is the whole of that store. It returns exactly what
  * `loadFullDirectory` (queries.ts) returns from a freshly seeded database, so
  * everything downstream (pages, API, CSV, JSON-LD, sitemap, llms.txt) cannot
@@ -14,13 +14,9 @@
  *
  * The way back is in docs/json-store.md.
  */
-import commercial from '../seed/commercial.json' with { type: 'json' };
-import openSource from '../seed/open-source.json' with { type: 'json' };
+import data from '../seed/data.json' with { type: 'json' };
 import type { FullDirectory, FullRecord } from './queries.ts';
-import { SeedDirectory } from './seed-schema.ts';
-
-/** In the order `pnpm db:seed` writes them: it decides the ids below. */
-const SEEDS: unknown[] = [openSource, commercial];
+import { SeedData, type SeedDirectory } from './seed-schema.ts';
 
 const SLUG = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
@@ -157,7 +153,11 @@ function unique(keys: string[], what: string): void {
   }
 }
 
-/** Every directory, validated against the seed schema. Throws on a malformed seed. */
+/**
+ * Every directory in seed/data.json, in file order (the order `pnpm db:seed`
+ * writes them, which decides the ids), validated against the seed schema.
+ * Throws on a malformed seed.
+ */
 export function loadSeedDirectories(): FullDirectory[] {
-  return directoriesFromSeed(SEEDS.map((seed) => SeedDirectory.parse(seed)));
+  return directoriesFromSeed(SeedData.parse(data).directories);
 }

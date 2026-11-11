@@ -3,7 +3,7 @@ import type { FullDirectory } from '@todoi/db';
 /**
  * Where the directories come from. One implementation is wired at a time:
  *
- *   sources/json.ts      the committed seed files      <- TEMP(json-store): in use
+ *   sources/json.ts      the committed seed/data.json <- TEMP(json-store): in use
  *   sources/postgres.ts  PostgreSQL, through Drizzle   <- parked until the database returns
  *
  * See docs/json-store.md.

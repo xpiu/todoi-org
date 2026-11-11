@@ -2,11 +2,12 @@ import { z } from 'zod';
 import { Capability, Criterion, DirectoryCopy, DirectoryKind, FilterToggle, Level, Segment } from '@todoi/shared';
 
 /**
- * The committed seed: what the importer read from the published site, and
- * what `pnpm db:seed` writes into an empty database. One file per directory.
+ * The committed seed, packages/db/seed/data.json: what the importer read from
+ * the published site, and what `pnpm db:seed` writes into an empty database.
+ * One file, every directory in it, in the order the database numbers them.
  *
- * TEMP(json-store): for now these files are not only the seed but the data the
- * site serves (json.ts reads them; no database runs). See docs/json-store.md.
+ * TEMP(json-store): for now this file is not only the seed but the data the
+ * site serves (json.ts reads it; no database runs). See docs/json-store.md.
  */
 export const SeedRecord = z.object({
   slug: z.string(),
@@ -87,3 +88,13 @@ export const SeedDirectory = z.object({
   records: z.array(SeedRecord),
 });
 export type SeedDirectory = z.infer<typeof SeedDirectory>;
+
+/**
+ * The whole file. Directories are a list, not a map keyed by slug: their order
+ * is the page order, the seeding order and so every id. Unknown top-level keys
+ * are refused, so a misspelt "directories" fails loudly instead of serving nothing.
+ */
+export const SeedData = z.strictObject({
+  directories: z.array(SeedDirectory).min(1),
+});
+export type SeedData = z.infer<typeof SeedData>;

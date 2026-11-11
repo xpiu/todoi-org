@@ -148,7 +148,13 @@
   color: var(--text-faint);
 }
 
+:global(.js) .card {
+  cursor: pointer;
+}
+
+/* The same tap on a card, minus the open record inside it, which is for reading. */
 .card-detail {
+  cursor: auto;
   margin-top: var(--sp-1);
   padding-top: var(--sp-4);
   border-top: var(--border);

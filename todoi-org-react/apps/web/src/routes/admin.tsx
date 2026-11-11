@@ -4,8 +4,8 @@ import { AdminPage } from '../features/admin/AdminPage.tsx';
 
 /**
  * TEMP(json-store): the editor is switched off. The site runs on the seed
- * files (packages/db/seed/*.json) with no database, so there is nothing to
- * sign in to and nothing to write to; records change by editing those files
+ * file (packages/db/seed/data.json) with no database, so there is nothing to
+ * sign in to and nothing to write to; records change by editing that file
  * and committing. While this is false, /admin is an unknown address like any
  * other: the server renders the 404 page and the editor's chunk is never
  * loaded. The editor itself (features/admin) is kept whole.

@@ -1,6 +1,6 @@
 /**
  * PARKED, TEMP(json-store): the directories from PostgreSQL. Nothing imports
- * this while the site runs on the seed files (sources/json.ts), so `pg` and
+ * this while the site runs on data.json (sources/json.ts), so `pg` and
  * Drizzle stay out of the server bundle. It is kept compiled, and exercised by
  * routes/admin.test.ts, so the way back is a change of wiring, not a rewrite.
  * See docs/json-store.md.

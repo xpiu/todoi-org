@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { hydrated, ready } from './ready.ts';
 
 /** Behaviour that must survive the rebuild (plan §06), exercised in a real browser. */
 
@@ -14,12 +15,6 @@ test.afterEach(() => {
   expect(errors, 'no errors in the console (hydration included)').toEqual([]);
 });
 
-async function ready(page: Page, url: string) {
-  await page.goto(url);
-  // Hydrated: the theme store has synced and React owns the board.
-  await page.waitForFunction(() => document.querySelector('#theme-switch [aria-checked="true"]') !== null);
-  await page.waitForLoadState('networkidle');
-}
 
 const visibleSlugs = (page: Page) =>
   page.locator('tr.matrix-row:visible').evaluateAll((rows) => rows.map((r) => r.getAttribute('data-slug')));
@@ -107,7 +102,7 @@ test('the empty state names each constraint and removes it on demand', async ({ 
   await page.locator('#empty-clear').click();
   await expect(empty).toBeHidden();
   await expect(page.locator('#q')).toBeFocused();
-  await expect(page.locator('#result-count')).toHaveText('57 products');
+  await expect(page.locator('#result-count')).toHaveText('58 products');
 });
 
 test('a record expands, names itself in the URL, and closes from its foot', async ({ page }) => {
@@ -124,6 +119,37 @@ test('a record expands, names itself in the URL, and closes from its foot', asyn
   await expect(detail).toBeHidden();
   await expect(page).toHaveURL(/\/$/);
   await expect(row.locator('button.row-expand')).toBeFocused();
+});
+
+test('a tap on a row or card background opens it; its controls keep their own taps', async ({ page }) => {
+  await ready(page, '/commercial-task-managers/');
+  const row = page.locator('tr.matrix-row:visible').first();
+  const slug = await row.getAttribute('data-slug');
+  const detail = page.locator(`#detail-${slug}`);
+  await row.locator('td.cell-year').click({ position: { x: 4, y: 4 } });
+  await expect(detail).toBeVisible();
+  await expect(row.locator('button.row-expand')).toHaveAttribute('aria-expanded', 'true');
+  await detail.click({ position: { x: 20, y: 20 } });
+  await expect(detail).toBeVisible();
+  await row.locator('.project-blurb').click();
+  await expect(detail).toBeHidden();
+  await row.locator('.tag').click();
+  await expect(detail).toBeHidden();
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const card = page.locator('article.card:visible').first();
+  const panel = card.locator('.card-detail');
+  await card.click({ position: { x: 5, y: 5 } });
+  await expect(panel.locator('.detail')).toBeVisible();
+  await panel.click({ position: { x: 10, y: 30 } });
+  await expect(panel).toBeVisible();
+  await card.click({ position: { x: 5, y: 5 } });
+  await expect(panel).toBeHidden();
+  // A card closes from its foot too, handing focus back to its expander.
+  await card.locator('button.card-expand').click();
+  await panel.locator('.detail-close').click();
+  await expect(panel).toBeHidden();
+  await expect(card.locator('button.card-expand')).toBeFocused();
 });
 
 test('old links keep working: ?open=, #slug and /index.html', async ({ page }) => {
@@ -161,9 +187,12 @@ test('the theme switch persists, follows the arrows, and never flashes', async (
   await page.locator('.theme-switch-opt[data-theme-value="dark"]').click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   expect(await page.evaluate(() => localStorage.getItem('todoi-theme'))).toBe('dark');
-  await page.reload();
+  await page.reload({ waitUntil: 'commit' });
   // Set by the head script before paint, before React hydrates.
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  // The arrows belong to the radio group React renders: wait for it to own the switch.
+  await hydrated(page);
+  await expect(page.locator('.theme-switch-opt[data-theme-value="dark"]')).toHaveAttribute('aria-checked', 'true');
   await page.locator('.theme-switch-opt[data-theme-value="dark"]').focus();
   await page.keyboard.press('ArrowLeft');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
@@ -215,7 +244,7 @@ test.describe('without JavaScript', () => {
   test('every record’s detail is in the page and readable', async ({ page }) => {
     for (const [path, count] of [
       ['/', 25],
-      ['/commercial-task-managers/', 57],
+      ['/commercial-task-managers/', 58],
     ] as const) {
       await page.goto(path);
       const details = page.locator('tr.detail-row .detail');

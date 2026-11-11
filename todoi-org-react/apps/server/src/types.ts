@@ -21,7 +21,7 @@ export interface AppEnv {
 /**
  * PARKED, TEMP(json-store): what the editor's handlers (auth.ts, routes/auth.ts,
  * routes/admin.ts) reach as well: the database. Only editor-api.ts sets it, and
- * nothing mounts editor-api.ts while the site runs on the seed files.
+ * nothing mounts editor-api.ts while the site runs on data.json.
  * See docs/json-store.md.
  */
 export interface EditorEnv {

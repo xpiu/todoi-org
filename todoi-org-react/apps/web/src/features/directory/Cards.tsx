@@ -2,25 +2,27 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useRouteContext } from '@tanstack/react-router';
 import type { RecordSummary } from '@todoi/shared';
 import { useHydrated } from '../../lib/hydrated.ts';
-import { CommBand, LeadScore, leadSpec, Metric, ModelTag, type LeadSpec } from './cells.tsx';
+import { CommBand, LeadScore, Metric, ModelTag } from './cells.tsx';
 import { FetchedDetail } from './DetailSlot.tsx';
+import { Expander, useRecordDisclosure } from './disclosure.tsx';
 import { recordQuery } from './queries.ts';
 import { useDirectory } from './state.tsx';
 import { cx } from '../../styles/modules.ts';
 
-function Card({ record, lead, shown, eager }: { record: RecordSummary; lead: LeadSpec; shown: boolean; eager: boolean }) {
-  const { config, isOpen, toggle } = useDirectory();
+function Card({ record, shown, eager }: { record: RecordSummary; shown: boolean; eager: boolean }) {
+  const { config, lead } = useDirectory();
   const { api } = useRouteContext({ from: '__root__' });
   const queryClient = useQueryClient();
   const hydrated = useHydrated();
-  const open = isOpen(record.slug);
+  // The open record inside the card is reading matter: a tap there is not a request to close it.
+  const { open, host, expander, onTap, onDetailClick } = useRecordDisclosure<HTMLElement>(record.slug, '.card-detail');
   const panelId = `cdetail-${record.slug}`;
   const { copy } = config;
   // Fetch the record's prose as soon as the reader reaches for it.
   const prefetch = () => void queryClient.prefetchQuery(recordQuery(api, config.slug, record.slug));
 
   return (
-    <article className={cx('card')} data-slug={record.slug} hidden={!shown} style={shown ? undefined : { display: 'none' }}>
+    <article ref={host} className={cx('card')} data-slug={record.slug} onClick={onTap} hidden={!shown}>
       <div className={cx('card-head')}>
         <h3 className={cx('card-title')}>
           <img
@@ -43,18 +45,7 @@ function Card({ record, lead, shown, eager }: { record: RecordSummary; lead: Lea
           </span>
           <LeadScore record={record} lead={lead} />
         </p>
-        <button
-          type="button"
-          className={cx('card-expand')}
-          aria-expanded={open}
-          aria-controls={panelId}
-          aria-label={`Summary, assessment and sources for ${record.name}`}
-          onClick={() => toggle(record.slug)}
-          onPointerEnter={prefetch}
-          onFocus={prefetch}
-        >
-          <span className={cx('row-expand-mark')} aria-hidden="true" />
-        </button>
+        <Expander ref={expander} className="card-expand" record={record} open={open} controls={panelId} onReach={prefetch} />
       </div>
       {copy.cards.blurb ? <p className={cx('card-blurb')}>{record.blurb}</p> : null}
       <dl className={cx('card-meta')}>
@@ -84,7 +75,7 @@ function Card({ record, lead, shown, eager }: { record: RecordSummary; lead: Lea
         id={panelId}
         data-open={open ? '' : undefined}
         hidden={hydrated && !open}
-        style={hydrated && !open ? { display: 'none' } : undefined}
+        onClick={onDetailClick}
       >
         {hydrated ? (
           open ? (
@@ -104,12 +95,11 @@ function Card({ record, lead, shown, eager }: { record: RecordSummary; lead: Lea
 
 /** The same records as cards: the view below 900px. Each detail is fetched when its card opens. */
 export function Cards() {
-  const { config, view, ordered, visible } = useDirectory();
-  const lead = leadSpec(config, view.sortKey);
+  const { config, ordered, visible } = useDirectory();
   return (
     <div className={cx('cards')} id="cards">
       {ordered.map((r, i) => (
-        <Card key={r.slug} record={r} lead={lead} shown={visible.has(r.slug)} eager={i < config.copy.cards.eagerIcons} />
+        <Card key={r.slug} record={r} shown={visible.has(r.slug)} eager={i < config.copy.cards.eagerIcons} />
       ))}
     </div>
   );

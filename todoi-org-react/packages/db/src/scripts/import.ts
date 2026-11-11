@@ -1,6 +1,7 @@
 /**
  * One-off importer: reads the published static site and writes the committed
- * seed data. The only code in this repository that reads ../todoi-org-website.
+ * seed data, packages/db/seed/data.json. The only code in this repository that
+ * reads ../todoi-org-website.
  *
  *   pnpm db:import [path-to-todoi-org-website]
  */
@@ -8,6 +9,7 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { importDirectory } from '../import/importer.ts';
+import { SeedData } from '../seed-schema.ts';
 
 const here = fileURLToPath(new URL('.', import.meta.url));
 const site = resolve(process.argv[2] ?? join(here, '../../../../../todoi-org-website'));
@@ -62,7 +64,7 @@ async function main() {
     commercial: { before: part(ossRun[1] + 1, comRun[0]), after: part(comRun[1] + 1, lines.length) },
   } as const;
 
-  await mkdir(out, { recursive: true });
+  const directories = [];
   for (const job of jobs) {
     const seed = importDirectory({
       kind: job.kind,
@@ -74,10 +76,14 @@ async function main() {
       modifiedOn: lastmod(job.loc),
       llms: llmsParts[job.slug as keyof typeof llmsParts],
     });
-    const file = join(out, `${job.slug}.json`);
-    await writeFile(file, JSON.stringify(seed, null, 2) + '\n');
-    console.log(`${job.slug}: ${seed.records.length} records, ${seed.faqs.length} questions → ${file}`);
+    directories.push(seed);
+    console.log(`${job.slug}: ${seed.records.length} records, ${seed.faqs.length} questions`);
   }
+  // One file for every directory, in page order: that order decides the ids.
+  const file = join(out, 'data.json');
+  await mkdir(out, { recursive: true });
+  await writeFile(file, JSON.stringify(SeedData.parse({ directories }), null, 2) + '\n');
+  console.log(`→ ${file}`);
 }
 
 main().catch((err: unknown) => {

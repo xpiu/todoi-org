@@ -1,6 +1,6 @@
 /*
  * PARKED, TEMP(json-store): the editor's API: every write to PostgreSQL goes through here.
- * The site runs on the seed files for now and nothing mounts this
+ * The site runs on data.json for now and nothing mounts this
  * (see editor-api.ts). Kept whole and compiled for the return to PostgreSQL:
  * docs/json-store.md.
  */

@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type Page } from '@playwright/test';
+import { ready } from './ready.ts';
 
 /** axe reports no WCAG 2.2 AA failures, and the keyboard reaches everything (plan §11). */
 
@@ -7,9 +8,7 @@ const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
 async function open(page: Page, url: string, mode: 'light' | 'dark') {
   await page.addInitScript((m) => localStorage.setItem('todoi-theme', m), mode);
-  await page.goto(url);
-  await page.waitForFunction(() => document.querySelector('#theme-switch [aria-checked="true"]') !== null);
-  await page.waitForLoadState('networkidle');
+  await ready(page, url);
 }
 
 async function audit(page: Page) {

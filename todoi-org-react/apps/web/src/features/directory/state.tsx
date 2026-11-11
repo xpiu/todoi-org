@@ -12,6 +12,25 @@ import {
   type View,
 } from '@todoi/shared';
 
+export interface LeadSpec {
+  key: string;
+  head: string;
+  title: string;
+  sr: string;
+}
+
+/**
+ * The matrix shows one score. It is the mean by default, but sorting by a
+ * criterion would otherwise reorder the table against a number that is not
+ * on screen, so the column follows the sort. The band and integrations have
+ * columns of their own, so they leave it on the mean.
+ */
+export function leadSpec(config: DirectoryConfig, sortKey: string): LeadSpec {
+  const c = config.criteria.find((x) => x.key === sortKey);
+  if (c) return { key: c.key, head: c.head, title: c.tip + config.copy.score.critTail, sr: c.sr };
+  return { key: 'avg', head: 'Score', title: config.copy.score.tip, sr: config.copy.score.sr };
+}
+
 export interface DirectoryState {
   config: DirectoryConfig;
   records: RecordSummary[];
@@ -20,6 +39,8 @@ export interface DirectoryState {
   ordered: RecordSummary[];
   /** Slugs that pass the search and filters. */
   visible: Set<string>;
+  /** The score the matrix and cards show: the mean, or the criterion sorted by. */
+  lead: LeadSpec;
   update(patch: Partial<View>): void;
   clearFilters(): void;
   /** Records expanded right now. Several may be; the URL names the latest. */
@@ -53,6 +74,8 @@ export function DirectoryProvider({ data, children }: { data: DirectoryResponse;
     () => new Set(records.filter((r) => matches(r, view)).map((r) => r.slug)),
     [records, view],
   );
+
+  const lead = useMemo(() => leadSpec(config, view.sortKey), [config, view.sortKey]);
 
   const update = useCallback(
     (patch: Partial<View>) => {
@@ -115,8 +138,8 @@ export function DirectoryProvider({ data, children }: { data: DirectoryResponse;
   );
 
   const value = useMemo<DirectoryState>(
-    () => ({ config, records, view, ordered, visible, update, clearFilters, isOpen, toggle }),
-    [config, records, view, ordered, visible, update, clearFilters, isOpen, toggle],
+    () => ({ config, records, view, ordered, visible, lead, update, clearFilters, isOpen, toggle }),
+    [config, records, view, ordered, visible, lead, update, clearFilters, isOpen, toggle],
   );
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

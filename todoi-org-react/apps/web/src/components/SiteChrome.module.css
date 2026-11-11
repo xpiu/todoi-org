@@ -111,7 +111,7 @@ a.wordmark:hover .wordmark-logo {
 
    The occupied seat is resolved from :root[data-theme] in CSS alone. The
    blocking head script stamps that attribute before first paint, so the switch
-   is already truthful when the page appears; app.js only mirrors it into
+   is already truthful when the page appears; ThemeSwitch only mirrors it into
    aria-checked and owns the keyboard. */
 .theme-switch {
   --seat: 2.25rem;      /* 36px; +1px pad +1px border = --control-h */

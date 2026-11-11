@@ -6,10 +6,10 @@ site it replaces.
 
 > ## ⚠ Temporary: no PostgreSQL. The data is JSON in this repository.
 >
-> Since 2026-11-11 the site runs **without a database**. The records are the two committed seed
-> files, `packages/db/seed/open-source.json` and `packages/db/seed/commercial.json`, bundled into
-> the server at build time. **Sign-in and the editor at `/admin` are switched off** (they answer
-> 404); a record changes by editing a seed file and committing.
+> Since 2026-11-11 the site runs **without a database**. All of its data is one committed file,
+> **`packages/db/seed/data.json`**, standing in for PostgreSQL until the database returns. It is
+> bundled into the server at build time. **Sign-in and the editor at `/admin` are switched off**
+> (they answer 404); a record changes by editing `data.json` and committing.
 >
 > This is a stopgap, not the design. The application was built on PostgreSQL 18 with a private
 > editor, and goes back to it when features that need a database arrive: sign-in, the editor,
@@ -41,7 +41,7 @@ work against a database, and the site ignores it. The PostgreSQL tests run with
 ```
 apps/web        React 19: routes/, features/directory, features/admin, components/, styles/, public/
 apps/server     Hono: public API, generated files (CSV, JSON-LD, sitemap, llms.txt); ⏸ editor API, sessions
-packages/db     the committed seed and the JSON store that reads it; ⏸ Drizzle schema, SQL migrations; the importer
+packages/db     seed/data.json (all the data, for now) and the JSON store that reads it; ⏸ Drizzle schema, SQL migrations; the importer
 packages/shared Zod schemas, the Score, view state, CSV
 e2e/            Playwright suites and the visual-comparison tools
 docs/           json-store.md: the temporary JSON store and the way back to PostgreSQL
@@ -50,7 +50,7 @@ docs/           json-store.md: the temporary JSON store and the way back to Post
 **Stack.** TypeScript (strict) · Vite · React 19 server-rendered by Hono · TanStack Router (file
 routes, Zod-typed search params) · TanStack Query (one `queryOptions` factory per resource) ·
 Zustand (colour mode, filter panel) · Base UI · Zod at every boundary · ⏸ PostgreSQL 18 + Drizzle
-(for now: the seed JSON, read by `packages/db/src/json.ts`).
+(for now: `packages/db/seed/data.json`, read by `packages/db/src/json.ts`).
 Types flow from the Drizzle schema to Zod to the Hono RPC client.
 
 **Styling.** CSS Modules over global design tokens. `styles/global.css` holds the fonts, the light
@@ -61,9 +61,34 @@ scripts and other modules' `:global()` selectors can name it. `styles/modules.ts
 order. No utility framework.
 
 **Data.** `pnpm db:import` read the published pages and CSVs once (they carried hand edits the old
-build scripts did not) and wrote `packages/db/seed/*.json`. The Score is never stored: the mean of
-the six criteria and the band, rounded half up, defined once in `packages/shared`. For now those
-seed files are not only the starting point but the data itself: the server reads them and nothing else.
+build scripts did not) and wrote `packages/db/seed/data.json`. The Score is never stored: the mean of
+the six criteria and the band, rounded half up, defined once in `packages/shared`.
+
+### `packages/db/seed/data.json`: the temporary replacement for PostgreSQL
+
+Until PostgreSQL returns, this one file is the whole data store: the server reads it and nothing
+else, and `pnpm db:seed` will be what loads it into the database on the way back.
+
+```jsonc
+{
+  "directories": [
+    { "slug": "open-source", "path": "/", "criteria": [...], "segments": [...], "records": [...] },  // 25 records
+    { "slug": "commercial", "path": "/commercial-task-managers/", ...,           "records": [...] }   // 58 records
+  ]
+}
+```
+
+- **One entry per directory, each self-contained.** The two share a shape but no values (different
+  criteria, capabilities, segments, copy and records), so nothing is factored out between them.
+- **Order matters.** Directories, records, FAQs and routes are numbered in file order, exactly as
+  PostgreSQL's serials number them when seeded: keep new directories at the end.
+- **Checked at start.** The Zod schema (`SeedData` in `packages/db/src/seed-schema.ts`) and the
+  database's constraints (`packages/db/src/json.ts`: unique slugs, known segments, criterion and
+  capability keys, scores 1 to 5) run when the server starts; a bad edit stops it, naming the record.
+- **To change a record**, edit the file, bump that directory's `modifiedOn`, run `pnpm test` (the
+  CSV and JSON-LD fixtures are compared byte for byte), commit. `pnpm dev` restarts on save.
+
+[docs/json-store.md](docs/json-store.md) has the rest: what is switched off, and the way back.
 
 **Rendering.** Pages arrive as complete HTML and hydrate. Every record's detail is rendered on the
 server into the matrix, so it is readable without JavaScript, but it is not shipped a second time as
@@ -90,7 +115,8 @@ a same-origin request and the session's CSRF token; sign-in is rate limited in t
 | No WCAG 2.2 AA failures; keyboard reaches everything | `e2e/a11y.spec.ts` (axe), both modes and widths |
 | Dark defines every token; text pairs reach AA | `apps/web/src/styles/tokens.test.ts` |
 | ⏸ An edit shows at once, survives a reload, rolls back on failure | `e2e/admin.spec.ts` (skipped while the editor is parked) |
-| No database: every seed record is served; sign-in, the editor and its API are 404 | `e2e/json-store.spec.ts` |
+| `data.json` is well formed, in id order, and read the same by the store and the seeder | `packages/db/src/seed-schema.test.ts` |
+| No database: every record in `data.json` is served; sign-in, the editor and its API are 404 | `e2e/json-store.spec.ts` |
 | ⏸ The JSON store equals a freshly seeded PostgreSQL, field for field | `packages/db/src/json.test.ts` (needs `TEST_DATABASE_URL`) |
 | ⏸ Sign-in and editor writes, through the parked API | `apps/server/src/routes/admin.test.ts` (needs `TEST_DATABASE_URL`) |
 | Lighthouse no worse than the static site | Median of three runs, mobile and desktop: equal or higher in every category on both pages |
@@ -101,7 +127,7 @@ A push to `main` that touches `todoi-org-react/` runs CI (`.github/workflows/rea
 repository root); only when it passes does the workflow call Dokploy's deploy webhook
 (`DOKPLOY_DEPLOY_WEBHOOK`, a repository secret). Dokploy builds
 `todoi-org-react/Dockerfile` (build context `todoi-org-react`): a multi-stage build whose runtime image holds the two bundles
-(the seed data is inside the server bundle), runs as `node` and reports health on `/healthz`.
+(`data.json` is inside the server bundle), runs as `node` and reports health on `/healthz`.
 Configure in Dokploy: `SITE_URL=https://todoi.org`. Nothing else: there is no database to attach, no
 secret, and nothing to back up beyond the repository itself. Going live is attaching `todoi.org` to
 this application; the static application stays available to switch back.

@@ -1,6 +1,6 @@
 /*
  * PARKED, TEMP(json-store): the editor's client. The server does not mount
- * sign-in or the editor's API while the site runs on the seed files, and the
+ * sign-in or the editor's API while the site runs on data.json, and the
  * /admin route answers 404 (routes/admin.tsx), so nothing here is ever called.
  * Kept whole and typed against the parked server code for the return to
  * PostgreSQL: docs/json-store.md.

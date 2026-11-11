@@ -15,7 +15,7 @@ import type { AppEnv } from './types.ts';
 
 /*
  * TEMP(json-store): this file imports nothing that reaches PostgreSQL. The
- * directories come from the seed files through `store`; sign-in and the
+ * directories come from data.json through `store`; sign-in and the
  * editor's API (editor-api.ts) are parked and not mounted, so /api/v1/auth/*
  * and /api/v1/admin/* answer 404. See docs/json-store.md for the way back.
  */
@@ -35,7 +35,7 @@ export interface AppDeps {
    * More API routes, added after the public ones and before the pages.
    * TEMP(json-store): this is where the parked editor API comes back in
    * (`mount: (app) => mountEditor(app, db)`, see editor-api.ts). Unset in
-   * index.ts and dev.ts for as long as the site runs on the seed files.
+   * index.ts and dev.ts for as long as the site runs on data.json.
    */
   mount?: (app: Hono<AppEnv>) => void;
 }

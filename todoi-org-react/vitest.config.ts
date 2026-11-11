@@ -1,7 +1,7 @@
 import { configDefaults, defineConfig } from 'vitest/config';
 
 /**
- * TEMP(json-store): the site runs on the seed files, so the suite needs no
+ * TEMP(json-store): the site runs on data.json, so the suite needs no
  * database. The tests that are about PostgreSQL itself (the parked editor API,
  * and the proof that the JSON store equals a seeded database) only run when a
  * test database is named:

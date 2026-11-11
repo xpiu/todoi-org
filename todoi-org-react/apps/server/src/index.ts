@@ -2,7 +2,7 @@
  * Production: one process serves the pages, the API, the generated files and
  * the built client assets.
  *
- * TEMP(json-store): no database. The directories are the seed files, bundled
+ * TEMP(json-store): no database. The directories are data.json, bundled
  * into this server; sign-in and the editor are off. The lines that connected,
  * migrated and mounted the editor are kept below, commented out, as the way
  * back. See docs/json-store.md.
@@ -58,9 +58,9 @@ const ssrEntry = resolve(webDist, 'server/entry-server.js');
 if (!existsSync(ssrEntry)) throw new Error(`no server bundle at ${ssrEntry}; run pnpm build`);
 const { render } = (await import(pathToFileURL(ssrEntry).href)) as { render: typeof Render };
 
-// TEMP(json-store): the seed files are the data. A malformed seed throws here, before the server listens.
+// TEMP(json-store): data.json is the data. A malformed seed throws here, before the server listens.
 const store = new DirectoryStore(jsonSource());
-console.log(`directories loaded from the seed files: ${(await store.list()).map((d) => d.slug).join(', ')}`);
+console.log(`directories loaded from data.json: ${(await store.list()).map((d) => d.slug).join(', ')}`);
 
 // TEMP(json-store): back with PostgreSQL, in place of the two lines above
 // (and with DATABASE_URL and SESSION_SECRET required again in env.ts):

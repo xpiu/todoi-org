@@ -1,6 +1,6 @@
 // Playwright's web server: run the production build.
 //
-// TEMP(json-store): the build serves the seed files and needs no database, so
+// TEMP(json-store): the build serves data.json and needs no database, so
 // there is nothing to reset first. The lines that prepared the test database
 // and passed its address are kept below, commented out, for the return to
 // PostgreSQL: see docs/json-store.md.

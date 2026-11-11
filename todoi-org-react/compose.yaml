@@ -1,5 +1,5 @@
-# TEMP(json-store): NOT NEEDED TO RUN THE SITE. The site serves the seed files
-# (packages/db/seed/*.json) and connects to no database; see docs/json-store.md.
+# TEMP(json-store): NOT NEEDED TO RUN THE SITE. The site serves the seed
+# file (packages/db/seed/data.json) and connects to no database; see docs/json-store.md.
 # This stays for the parked PostgreSQL code: its tests
 # (TEST_DATABASE_URL=... pnpm test) and the `pnpm db:*` scripts.
 #

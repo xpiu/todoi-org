@@ -9,26 +9,8 @@ import {
   type RecordSummary,
 } from '@todoi/shared';
 import { TagIcon } from '../../components/icons.tsx';
+import type { LeadSpec } from './state.tsx';
 import { cx } from '../../styles/modules.ts';
-
-export interface LeadSpec {
-  key: string;
-  head: string;
-  title: string;
-  sr: string;
-}
-
-/**
- * The matrix shows one score. It is the mean by default, but sorting by a
- * criterion would otherwise reorder the table against a number that is not
- * on screen, so the column follows the sort. The band and integrations have
- * columns of their own, so they leave it on the mean.
- */
-export function leadSpec(config: DirectoryConfig, sortKey: string): LeadSpec {
-  const c = config.criteria.find((x) => x.key === sortKey);
-  if (c) return { key: c.key, head: c.head, title: c.tip + config.copy.score.critTail, sr: c.sr };
-  return { key: 'avg', head: 'Score', title: config.copy.score.tip, sr: config.copy.score.sr };
-}
 
 export function ModelTag({ config, record }: { config: DirectoryConfig; record: RecordSummary }) {
   const seg = config.segments.find((s) => s.key === record.segment);

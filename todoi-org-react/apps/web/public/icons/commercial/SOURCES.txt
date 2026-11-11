@@ -54,6 +54,7 @@ teamgantt.webp             https://www.teamgantt.com/apple-touch-icon.png
 teamhood.webp              https://teamhood.com/wp-content/themes/teamhood/dist/images/apple-touch-icon.png?id=eb9917202eb113998900
 teamwork.webp              https://cdn-website.teamwork.com/offload/app/uploads/2019/03/04183535/cropped-favicon-180x180.png
 ticktick.webp              https://d107mjio2rjf74.cloudfront.net/web/static/img/apple-touch-icon-180x180.png
+todoi.webp                 https://todoi.com/apple-touch-icon.png  (downloaded 2026-11-11)
 todoist.webp               https://www.todoist.com/static/favicon.ico
 toodledo.webp              https://www.toodledo.com/apple-touch-icon-144x144-precomposed.png
 trello.webp                https://www.trello.com/favicon.ico

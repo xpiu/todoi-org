@@ -7,7 +7,7 @@ import { directoryCsv } from './csv.ts';
 /** The published datasets, committed as fixtures: the proof the store holds them whole. */
 const fixture = (file: string) => readFile(fileURLToPath(new URL(`../../test/fixtures/${file}`, import.meta.url)), 'utf8');
 
-// TEMP(json-store): these read the directories from the seed files, as the site
+// TEMP(json-store): these read the directories from data.json, as the site
 // does. With PostgreSQL back they read the test database again
 // (testDatabase() and loadFullDirectory): see docs/json-store.md.
 const directories = loadSeedDirectories();

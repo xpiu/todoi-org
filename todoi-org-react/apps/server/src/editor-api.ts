@@ -2,7 +2,7 @@
  * PARKED, TEMP(json-store): sign-in and the editor's API, the only parts of the
  * server that write, and so the only parts that need PostgreSQL.
  *
- * While the site runs on the seed files, index.ts and dev.ts do not mount
+ * While the site runs on data.json, index.ts and dev.ts do not mount
  * this: /api/v1/auth/* and /api/v1/admin/* answer 404, and `pg` and Drizzle
  * are not in the server bundle. The code is kept whole and compiled, and
  * routes/admin.test.ts still runs it when a test database is given

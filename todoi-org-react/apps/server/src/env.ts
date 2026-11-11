@@ -8,7 +8,7 @@ const Env = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   PORT: z.coerce.number().int().min(1).max(65535).default(3000),
   HOST: z.string().default('0.0.0.0'),
-  // TEMP(json-store): the site runs on the seed files, so no database address is
+  // TEMP(json-store): the site runs on data.json, so no database address is
   // read. Set or not, DATABASE_URL is ignored. Back with PostgreSQL (docs/json-store.md):
   // DATABASE_URL: z.url().refine((u) => /^postgres(ql)?:\/\//.test(u), 'must be a postgres:// URL'),
   SITE_URL: z

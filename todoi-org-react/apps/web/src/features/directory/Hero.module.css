@@ -64,7 +64,7 @@
   color: var(--accent);
 }
 
-/* Ripple: app.js lays a row of blocks along the stroke and plays them once,
+/* Ripple: HeroMark lays a row of blocks along the stroke and plays them once,
    timed by distance from the centre so the wave closes in from every side
    at once. A block is the stroke itself: the same ink, invisible at rest.
    It rises by swelling about its own centre (a uniform scale, so it has no

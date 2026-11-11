@@ -31,7 +31,7 @@ if (existsSync(envFile)) process.loadEnvFile(envFile);
 
 const env = loadEnv();
 const webRoot = fileURLToPath(new URL('../../web', import.meta.url));
-// TEMP(json-store): the seed files are the data. Back with PostgreSQL:
+// TEMP(json-store): data.json is the data. Back with PostgreSQL:
 // const database = connect(env.DATABASE_URL);
 // const store = new DirectoryStore(postgresSource(database.db));
 const store = new DirectoryStore(jsonSource());

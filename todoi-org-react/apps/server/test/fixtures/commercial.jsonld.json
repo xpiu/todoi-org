@@ -22,7 +22,7 @@
    "@type": "WebPage",
    "@id": "https://todoi.org/commercial-task-managers/#webpage",
    "url": "https://todoi.org/commercial-task-managers/",
-   "name": "57 commercial task managers compared (2026) · todoi.org",
+   "name": "58 commercial task managers compared (2026) · todoi.org",
    "description": "Pricing, features and six scored criteria for commercial, closed-source task managers sold as a service, each with the reasoning attached.",
    "isPartOf": {
     "@id": "https://todoi.org/#website"
@@ -34,9 +34,9 @@
     "@id": "https://todoi.org/commercial-task-managers/#products"
    },
    "inLanguage": "en",
-   "datePublished": "2026-11-10",
-   "dateModified": "2026-11-10",
-   "lastReviewed": "2026-11-10",
+   "datePublished": "2026-11-11",
+   "dateModified": "2026-11-11",
+   "lastReviewed": "2026-11-11",
    "reviewedBy": {
     "@id": "https://todoi.org/#org"
    },
@@ -66,7 +66,7 @@
    "@type": "ItemList",
    "@id": "https://todoi.org/commercial-task-managers/#products",
    "name": "Commercial task managers compared",
-   "numberOfItems": 57,
+   "numberOfItems": 58,
    "itemListOrder": "https://schema.org/ItemListUnordered",
    "itemListElement": [
     {
@@ -5643,6 +5643,103 @@
        "description": "Marvin Pro, per person per month billed annually ($96 a year); $12 billed monthly. 50% student discount and ‘pay what you can’ on request."
       }
      }
+    },
+    {
+     "@type": "ListItem",
+     "position": 58,
+     "item": {
+      "@type": "SoftwareApplication",
+      "@id": "https://todoi.org/commercial-task-managers/#todoi",
+      "name": "Todoi",
+      "url": "https://todoi.com/",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Task and project management",
+      "operatingSystem": "Web only; no native apps.",
+      "description": "A small, free task manager that opens ready to use in a browser tab: each project seen as a list, a board and a calendar, with no account.",
+      "author": {
+       "@type": "Organization",
+       "name": "Todoi"
+      },
+      "featureList": [
+       "Kanban or Scrum boards",
+       "Calendar view"
+      ],
+      "additionalProperty": [
+       {
+        "@type": "PropertyValue",
+        "name": "Value for money",
+        "value": 4.0,
+        "minValue": 1,
+        "maxValue": 5
+       },
+       {
+        "@type": "PropertyValue",
+        "name": "Ease of use",
+        "value": 4.5,
+        "minValue": 1,
+        "maxValue": 5
+       },
+       {
+        "@type": "PropertyValue",
+        "name": "Enterprise features",
+        "value": 1.0,
+        "minValue": 1,
+        "maxValue": 5
+       },
+       {
+        "@type": "PropertyValue",
+        "name": "Interface flexibility",
+        "value": 2.4,
+        "minValue": 1,
+        "maxValue": 5
+       },
+       {
+        "@type": "PropertyValue",
+        "name": "Data control",
+        "value": 3.8,
+        "minValue": 1,
+        "maxValue": 5
+       },
+       {
+        "@type": "PropertyValue",
+        "name": "Portability",
+        "value": 1.3,
+        "minValue": 1,
+        "maxValue": 5
+       },
+       {
+        "@type": "PropertyValue",
+        "name": "Built for",
+        "value": "Personal"
+       },
+       {
+        "@type": "PropertyValue",
+        "name": "Market presence",
+        "value": "Small"
+       },
+       {
+        "@type": "PropertyValue",
+        "name": "Estimated integrations",
+        "value": "0"
+       },
+       {
+        "@type": "PropertyValue",
+        "name": "Free plan",
+        "value": true
+       },
+       {
+        "@type": "PropertyValue",
+        "name": "Research confidence",
+        "value": "Medium-high"
+       }
+      ],
+      "offers": {
+       "@type": "Offer",
+       "price": "0.00",
+       "priceCurrency": "USD",
+       "description": "No paid tier: the whole app is free, with no account, trial or seat count."
+      }
+     }
     }
    ]
   },
@@ -5650,12 +5747,12 @@
    "@type": "Dataset",
    "@id": "https://todoi.org/commercial-task-managers/#dataset",
    "name": "todoi.org commercial task manager dataset",
-   "description": "57 commercial, closed-source task managers sold as a service: pricing, audience, five capability checks, six scored criteria with written reasoning, and sources.",
+   "description": "58 commercial, closed-source task managers sold as a service: pricing, audience, five capability checks, six scored criteria with written reasoning, and sources.",
    "url": "https://todoi.org/commercial-task-managers/",
    "creator": {
     "@id": "https://todoi.org/#org"
    },
-   "dateModified": "2026-11-10",
+   "dateModified": "2026-11-11",
    "license": "https://creativecommons.org/licenses/by/4.0/",
    "isAccessibleForFree": true,
    "distribution": [
@@ -5675,7 +5772,7 @@
      "name": "Why does a directory of open-source software list closed-source products?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Most people choosing a task manager are weighing a commercial service, and the open-source options are easier to judge against the market they compete with. This page applies the same method to fifty-seven of those services. No vendor pays to be listed, and there are no affiliate links."
+      "text": "Most people choosing a task manager are weighing a commercial service, and the open-source options are easier to judge against the market they compete with. This page applies the same method to fifty-eight of those services. No vendor pays to be listed, and there are no affiliate links. One product, Todoi, is built by this directory’s maintainer, and its record says so."
      }
     },
     {
@@ -5704,7 +5801,7 @@
     },
     {
      "@type": "Question",
-     "name": "Are all fifty-seven assessed to the same depth?",
+     "name": "Are all fifty-eight assessed to the same depth?",
      "acceptedAnswer": {
       "@type": "Answer",
       "text": "No. Every record carries a Confidence value. Each product was researched from the vendor’s own pricing, documentation and trust pages, checked against the live pages by a second reader, then edited against the rest of the set so that a 4 means the same thing in every row. Where a fact rests on a secondary source, the record says so."
@@ -5715,7 +5812,7 @@
      "name": "How current is this?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Compiled on 10 November 2026. Commercial prices and plans change several times a year, far more often than open-source licences do, so check the vendor’s own page before you buy. Each record’s caveat names what was changing when it was written."
+      "text": "Compiled on 11 November 2026. Commercial prices and plans change several times a year, far more often than open-source licences do, so check the vendor’s own page before you buy. Each record’s caveat names what was changing when it was written."
      }
     }
    ]

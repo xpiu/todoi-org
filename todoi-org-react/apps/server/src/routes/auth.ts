@@ -1,6 +1,6 @@
 /*
  * PARKED, TEMP(json-store): editor sign-in, against the users table in PostgreSQL.
- * The site runs on the seed files for now and nothing mounts this
+ * The site runs on data.json for now and nothing mounts this
  * (see editor-api.ts). Kept whole and compiled for the return to PostgreSQL:
  * docs/json-store.md.
  */

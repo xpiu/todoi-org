@@ -3,8 +3,8 @@
 **Status: in force since 2026-11-11. Temporary. The site was not live when this was done.**
 
 The application was built on PostgreSQL 18 (Drizzle) with a private editor at `/admin`. For now it
-runs **without any database**: the directory data is the two committed seed files, and sign-in and
-the editor are switched off. PostgreSQL comes back when features that need it do: sign-in, the
+runs **without any database**: the directory data is one committed file,
+`packages/db/seed/data.json`, and sign-in and the editor are switched off. PostgreSQL comes back when features that need it do: sign-in, the
 editor, configuration, social features, anything that writes at run time.
 
 Nothing was deleted. The PostgreSQL code is parked: unmounted, still compiled, still tested when a
@@ -19,8 +19,8 @@ grep -n  "TEMP(json-store)" ../.github/workflows/react.yml
 
 | | |
 |---|---|
-| The data | `packages/db/seed/open-source.json` and `packages/db/seed/commercial.json` |
-| The store | `packages/db/src/json.ts` turns them into the same objects `loadFullDirectory` returned from the database |
+| The data | `packages/db/seed/data.json`: `{ "directories": [open-source, commercial] }`, in id order |
+| The store | `packages/db/src/json.ts` turns it into the same objects `loadFullDirectory` returned from the database |
 | Wiring | `apps/server/src/sources/json.ts`, given to `DirectoryStore` in `apps/server/src/index.ts` and `dev.ts` |
 | Build | `pnpm build` bundles the seed into `apps/server/dist/index.js`; `pg` and Drizzle are not in the bundle |
 | Environment | `PORT`, `HOST`, `SITE_URL`, `NODE_ENV`, `TRUST_PROXY`. `DATABASE_URL` and `SESSION_SECRET` are not read |
@@ -31,17 +31,19 @@ unchanged: they read the store, and the store returns what it always did.
 
 ## Changing a record
 
-Edit the seed file, bump `modifiedOn` at the top of that file to today (the sitemap's `lastmod` and
+Edit `packages/db/seed/data.json`, bump that directory's `modifiedOn` to today (the sitemap's `lastmod` and
 the JSON-LD `dateModified` follow it; the editor used to do this on every write), commit, deploy.
-`pnpm dev` restarts when a seed file is saved.
+`pnpm dev` restarts when `data.json` is saved. Keep the directories in their order: it numbers
+every id, as PostgreSQL's serials will when the file is seeded.
 
 The seed is checked when the server starts, and a bad one stops it with a message naming the
-record: the Zod schema in `packages/db/src/seed-schema.ts`, plus the constraints the database
+record: the Zod schema in `packages/db/src/seed-schema.ts` (`SeedData`; a misspelt top-level key is
+refused, not ignored), plus the constraints the database
 enforced (unique slugs, a known segment, known criterion and capability keys, scores from 1 to 5).
 Two things the editor did that a hand edit does not:
 
 - **HTML is not sanitised.** FAQ answers and the other inline-HTML fields went through an
-  allow-list on write. A seed file is trusted as committed: keep to `<strong>`, `<em>`, `<a href>`,
+  allow-list on write. `data.json` is trusted as committed: keep to `<strong>`, `<em>`, `<a href>`,
   `<time>`.
 - **The published CSV fixtures are compared byte for byte** (`apps/server/src/generate/csv.test.ts`,
   also JSON-LD and `llms.txt`). A data edit that changes them fails `pnpm test` until the fixture in
@@ -85,7 +87,7 @@ TEST_DATABASE_URL=postgres://todoi:todoi@127.0.0.1:5434/todoi_test pnpm test
 
 ## Going back to PostgreSQL
 
-The seed files stay the source until the switch; whatever they hold on that day is what the
+`data.json` stays the source until the switch; whatever it holds on that day is what the
 database starts with.
 
 1. **Database.** `docker compose up -d` locally; a managed PostgreSQL 18 in Dokploy. Then
@@ -107,5 +109,5 @@ database starts with.
    `json.test.ts`, `apps/server/src/sources/json.ts` and this file, or keep the JSON store on purpose
    as a database-free mode and say so here.
 
-From then on the database is the source and the seed files are only its starting point: edits made
+From then on the database is the source and `data.json` is only its starting point: edits made
 in the editor are not written back to them.

@@ -7,7 +7,7 @@ import { expect, test, type APIRequestContext, type Page } from '@playwright/tes
  */
 
 // PARKED, TEMP(json-store): sign-in and the editor need PostgreSQL, and the site
-// runs on the seed files for now, so /admin is a 404 (json-store.spec.ts checks
+// runs on data.json for now, so /admin is a 404 (json-store.spec.ts checks
 // that it is). Every test in this file is skipped, and reported as skipped,
 // until the database returns: remove this one line then. See docs/json-store.md.
 test.skip(true, 'Editor parked: the site runs on the seed JSON, without PostgreSQL (docs/json-store.md).');

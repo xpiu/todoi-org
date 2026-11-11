@@ -1,6 +1,6 @@
 /*
  * PARKED, TEMP(json-store): the PostgreSQL test database, for routes/admin.test.ts only.
- * The site runs on the seed files for now and nothing mounts this
+ * The site runs on data.json for now and nothing mounts this
  * (see editor-api.ts). Kept whole and compiled for the return to PostgreSQL:
  * docs/json-store.md.
  */

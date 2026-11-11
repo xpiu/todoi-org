@@ -52,8 +52,8 @@
 }
 
 /* A record is five screens on a phone and one and a half on a desktop; the
-   chevron that opened it is at the top of all of them. app.js appends a way
-   back at the foot, which closes the record and brings its row into view. */
+   chevron that opened it is at the top of all of them. Its foot carries a way
+   back, which closes the record and brings its row into view (usePageBehaviour). */
 .detail-foot {
   grid-column: 1 / -1;
   display: flex;

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
 import type { RouterContext } from '../router.tsx';
 import { themeScript } from '../lib/theme-script.ts';
@@ -38,9 +39,15 @@ export const Route = createRootRouteWithContext<RouterContext>()({
 
 function RootDocument() {
   const { assets } = Route.useRouteContext();
+  // Marks the page interactive. The server's markup already looks finished (the
+  // theme switch even claims a seat before the store has read the real one), so
+  // nothing else in it says when React has taken over. The root's effect runs
+  // after every child's, so the stores have synced by the time it is set.
+  useEffect(() => document.documentElement.setAttribute('data-hydrated', ''), []);
   return (
     // The head script stamps data-theme, data-theme-source and the js class
     // before React hydrates; React never renders those, so it never fights them.
+    // data-hydrated likewise comes from the effect above, never from render.
     <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
         <HeadContent />

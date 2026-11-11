@@ -1,5 +1,5 @@
 /**
- * TEMP(json-store): the directories come from packages/db/seed/*.json, read
+ * TEMP(json-store): the directories come from packages/db/seed/data.json, read
  * once when the server starts. No database is involved; a malformed seed
  * stops the server here, before it listens. See docs/json-store.md.
  */
