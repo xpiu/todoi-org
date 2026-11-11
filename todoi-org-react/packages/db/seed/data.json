@@ -12655,7 +12655,7 @@
           "model": "personal",
           "modelSub": "Todoi",
           "summary": [
-            "Todoi is a young, deliberately small task manager, on todoi.com since November 2025. It suits one person planning a day or a small piece of work who wants to start typing without signing up for anything. The app is closed source, but its developer releases core features as open-source projects.",
+            "Todoi is a young, deliberately small task manager, on todoi.com since November 2025. It suits one person planning a day or a small piece of work who wants to start typing without signing up for anything. The app is closed source, but its developer releases some core features as open-source projects.",
             "Each project is shown three ways over the same items: a list, a board whose columns are the project’s lists, and a month calendar that undated items can be dragged onto. Items carry subitems, tags, due dates, priorities and notes, with search, filters, sorting and keyboard shortcuts for the views. Edits apply at once because nothing goes to a server, and there is nothing to set up. Time tracking, Gantt and collaboration are not part of it; the app is young and still being developed, with product notes published through August 2026.",
             "It is free: there is no paid plan, no trial and no account, and no caps are published.",
             "Tasks never leave the browser. The workspace is held in the tab’s session storage, so the vendor has no copy of it and there is no assistant reading it. The other side of that choice, which the vendor calls deliberate, is that closing the tab clears the workspace; there is no sync, export or API."
