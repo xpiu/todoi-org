@@ -279,6 +279,7 @@ playwright-report/
 test-results/
 blob-report/
 .playwright/
+.screens/
 lcov.info
 
 # ── Databases / local data ──
