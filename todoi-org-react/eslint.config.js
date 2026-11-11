@@ -1,22 +1,21 @@
 import js from '@eslint/js';
+import { defineConfig, globalIgnores } from 'eslint/config';
 import reactHooks from 'eslint-plugin-react-hooks';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
-  {
-    ignores: [
-      '**/dist/**',
-      '**/node_modules/**',
-      '**/routeTree.gen.ts',
-      'playwright-report/**',
-      'test-results/**',
-      '.screens/**',
-      'packages/db/migrations/**',
-    ],
-  },
+export default defineConfig(
+  globalIgnores([
+    '**/dist/**',
+    '**/node_modules/**',
+    '**/routeTree.gen.ts',
+    'playwright-report/**',
+    'test-results/**',
+    '.screens/**',
+    'packages/db/migrations/**',
+  ]),
   js.configs.recommended,
-  ...tseslint.configs.recommended,
+  tseslint.configs.recommended,
   {
     languageOptions: {
       ecmaVersion: 2023,
@@ -31,10 +30,13 @@ export default tseslint.config(
   },
   {
     files: ['apps/web/**/*.{ts,tsx}'],
-    plugins: { 'react-hooks': reactHooks },
+    extends: [reactHooks.configs.flat.recommended],
     rules: {
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
+      // Off for now: five places were written before these two rules existed (the URL
+      // and the open-record set kept in step, the copy button's reset, a latest-value
+      // ref). They work and are tested. Turn the rules on when that code is reworked.
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/refs': 'off',
     },
   },
   {
