@@ -16,7 +16,7 @@
     "@tanstack/react-router": "1.170.46",
     "@tanstack/react-router-ssr-query": "1.167.3",
     "@todoi/shared": "workspace:*",
-    "hono": "4.13.17",
+    "hono": "4.13.18",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "zod": "4.6.7",
@@ -30,6 +30,6 @@
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.3.0",
     "typescript": "6.0.3",
-    "vite": "8.3.7"
+    "vite": "8.3.8"
   }
 }
