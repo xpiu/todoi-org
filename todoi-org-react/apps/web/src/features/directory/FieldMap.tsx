@@ -663,7 +663,13 @@ export function FieldMap() {
                   <span className={cx('map-key-end')}>{BAND_LABELS[BAND_LABELS.length - 1]}</span>
                 </span>
               </div>
-              {oss ? null : (
+              {oss ? (
+                <div className={cx('map-key')}>
+                  <span className={cx('map-key-item')}>
+                    <Swatch look="split" /> Mixed source
+                  </span>
+                </div>
+              ) : (
                 <div className={cx('map-key')}>
                   <span className={cx('map-key-label')}>Free plan</span>
                   <span className={cx('map-key-items')}>
