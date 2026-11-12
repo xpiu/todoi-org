@@ -153,9 +153,9 @@ a same-origin request and the session's CSRF token; sign-in is rate limited in t
 
 ## Deployment
 
-A push to `main` that touches `todoi-org-react/` runs CI (`.github/workflows/react.yml` at the
-repository root); only when it passes does the workflow call Dokploy's deploy webhook
-(`DOKPLOY_DEPLOY_WEBHOOK`, a repository secret). Dokploy builds
+A push to `main` that touches `todoi-org-react/` deploys through the GitHub App's push webhook
+in Dokploy. CI (`.github/workflows/react.yml` at the repository root) runs independently;
+deployment does not wait for its checks or require the Actions deploy job. Dokploy builds
 `todoi-org-react/Dockerfile` (build context `todoi-org-react`): a multi-stage build whose runtime image holds the two bundles
 (`data.json` is inside the server bundle), runs as `node` and reports health on `/healthz`.
 Configure in Dokploy: `SITE_URL=https://todoi.org`. Nothing else: there is no database to attach, no
