@@ -131,6 +131,8 @@ export interface ImportInput {
    * than read back.
    */
   source: DirectoryCopy['source'];
+  /** The map's copy and its ready-made views: written for this application, never on the static page. */
+  map: DirectoryCopy['map'];
 }
 
 /**
@@ -288,7 +290,8 @@ export function importDirectory(input: ImportInput): SeedDirectory {
   const comm = { ...(kind === 'oss' ? APP_DEFAULTS.comm : {}), ...(cfg.comm ?? {}) };
   const cardFacts = one(doc, 'article.card').querySelectorAll('.card-meta dt').map(text);
 
-  const copy: Omit<DirectoryCopy, 'ld' | 'llms' | 'source'> & Partial<Pick<DirectoryCopy, 'ld' | 'llms' | 'source'>> = {
+  const copy: Omit<DirectoryCopy, 'ld' | 'llms' | 'source' | 'map'> &
+    Partial<Pick<DirectoryCopy, 'ld' | 'llms' | 'source' | 'map'>> = {
     head: {
       title: text(one(doc, 'title')),
       description: meta('meta[name="description"]'),
@@ -385,6 +388,7 @@ export function importDirectory(input: ImportInput): SeedDirectory {
   const strs = (v: unknown) => (Array.isArray(v) && v.every((x) => typeof x === 'string') ? (v as string[]) : null);
   copy.llms = input.llms;
   copy.source = input.source;
+  copy.map = input.map;
   copy.ld = {
     org: {
       description: str(org.description),

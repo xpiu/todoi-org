@@ -6,8 +6,9 @@ import { computeScore } from './score.ts';
  * The view lives in the address bar: ?q= search, ?f= must-have toggles,
  * ?lic= licensing models or audiences, ?sort=key-dir, ?open=slug. These are
  * the parameter names the static site has always written, so every link
- * anyone has shared keeps working. Parsing is lenient on purpose: an unknown
- * key is dropped, never an error page.
+ * anyone has shared keeps working. ?map=x-y names the two figures the map
+ * plots when they are not the page's own. Parsing is lenient on purpose: an
+ * unknown key is dropped, never an error page.
  */
 export const DirectorySearch = z.object({
   q: z.string().optional().catch(undefined),
@@ -15,6 +16,7 @@ export const DirectorySearch = z.object({
   lic: z.string().optional().catch(undefined),
   sort: z.string().optional().catch(undefined),
   open: z.string().optional().catch(undefined),
+  map: z.string().optional().catch(undefined),
 });
 export type DirectorySearch = z.infer<typeof DirectorySearch>;
 
@@ -27,6 +29,8 @@ export interface View {
   sortKey: string;
   sortDir: SortDir;
   open: string | null;
+  /** The map's two figures, across then up; null is the directory's own opening pair. */
+  map: [string, string] | null;
 }
 
 export const DEFAULT_SORT_KEY = 'community';
@@ -64,6 +68,9 @@ export function parseView(
     sortKey = k;
     sortDir = d === 'asc' ? 'asc' : 'desc';
   }
+  // Any two different sort keys but the name, which has no position on an axis.
+  const [mx, my] = String(search.map ?? '').split('-');
+  const map: View['map'] = mx && my && mx !== my && mx !== 'name' && my !== 'name' && keys.includes(mx) && keys.includes(my) ? [mx, my] : null;
   return {
     q: search.q ?? '',
     toggles: list(search.f, dir.toggles.map((t) => t.key)),
@@ -71,6 +78,7 @@ export function parseView(
     sortKey,
     sortDir,
     open: search.open || null,
+    map,
   };
 }
 
@@ -85,6 +93,7 @@ export function viewSearch(view: View): DirectorySearch {
     out.sort = `${view.sortKey}-${view.sortDir}`;
   }
   if (view.open) out.open = view.open;
+  if (view.map) out.map = view.map.join('-');
   return out;
 }
 

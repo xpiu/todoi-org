@@ -1,0 +1,684 @@
+/* The map: the directory as bubbles, under the matrix it is drawn from.
+   One white sheet for the plot and one for what is read off it, on the same
+   hairlines, inks and mono figures as the matrix. Classes owned elsewhere are
+   named as :global(.hook). */
+
+.map {
+  padding-block: var(--section-pad);
+  border-top: var(--border);
+}
+
+/* --- The bar: ready-made views on the left, the two axes on the right ---- */
+.map-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-3) var(--sp-7);
+  margin-bottom: var(--sp-4);
+}
+
+.map-views {
+  min-width: 0;
+}
+
+.map-views-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+/* A view is a sentence-case choice, not a tag: the chips' shape in the
+   interface face, pressed in the same soft accent. */
+.map-view {
+  min-height: var(--control-h);
+  padding-inline: var(--sp-3);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  font-size: var(--fs-sm);
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease),
+  background-color var(--dur) var(--ease);
+}
+
+.map-view:hover {
+  border-color: var(--line-heavy);
+  color: var(--text);
+}
+
+.map-view[aria-pressed='true'] {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  font-weight: 500;
+}
+
+.map-axes {
+  display: flex;
+  flex: 0 1 34rem;
+  align-items: flex-end;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+
+.map-field {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.map-swap {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--control-h);
+  height: var(--control-h);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease);
+}
+
+.map-swap:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* --- Plot and side sheet -------------------------------------------------- */
+.map-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-4);
+}
+
+.map-plot,
+.map-side {
+  min-width: 0;
+  border: var(--border);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-raised);
+}
+
+.map-plot {
+  /* The canvas takes its height from the sheet's width, in cqi. */
+  container-type: inline-size;
+  padding: var(--sp-4) var(--sp-4) var(--sp-3);
+}
+
+/* The picture in one sentence, set as the plot's own title. */
+.map-finding {
+  max-width: var(--measure);
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-md);
+  font-weight: 500;
+  line-height: var(--lh-ui);
+  color: var(--text);
+}
+
+.map-canvas {
+  position: relative;
+  height: clamp(23rem, 62cqi, 34rem);
+}
+
+.map-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  overflow: visible;
+  /* A tap picks a bubble; a drag still scrolls the page. */
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.map-grid {
+  stroke: var(--line);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+/* The lane past the end of a scale: records with no figure to place. */
+.map-lane {
+  fill: var(--bg-sunken);
+  opacity: 0.55;
+}
+
+.map-tick {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  fill: var(--text-faint);
+}
+
+.map-axis-title {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  fill: var(--text-2);
+}
+
+/* The middle of what is shown: one step darker than the grid, and named. */
+.map-median {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+.map-median-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  fill: var(--text-2);
+  paint-order: stroke;
+  stroke: var(--bg-raised);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+/* --- Bubbles -------------------------------------------------------------- */
+.map-dot {
+  cursor: pointer;
+}
+
+/* The ring is drawn here, round, instead of the browser's square outline. */
+.map-dot:focus,
+.map-dot:focus-visible {
+  outline: none;
+}
+
+.map-dot-ghost {
+  cursor: default;
+  pointer-events: none;
+}
+
+/* A new pair of axes is a change of state: the bubbles travel to it, so the
+   eye can follow one from the old picture into the new. */
+.map-canvas[data-live] .map-dot {
+  transition: transform 380ms var(--ease);
+}
+
+/* The paper showing between two bubbles that overlap. */
+.map-dot-ring {
+  fill: none;
+  stroke: var(--bg-raised);
+  stroke-width: 1.5;
+}
+
+.map-dot-mark {
+  stroke-width: 1.5;
+  transition: fill-opacity var(--dur) var(--ease);
+}
+
+.map-dot-mark[data-look='full'] {
+  fill: var(--accent);
+  fill-opacity: 0.28;
+  stroke: var(--accent);
+}
+
+.map-dot-mark[data-look='part'] {
+  fill: var(--signal);
+  fill-opacity: 0.3;
+  stroke: var(--signal);
+}
+
+.map-dot-mark[data-look='split'] {
+  fill: var(--bg-raised);
+  fill-opacity: 0.6;
+  stroke: var(--accent);
+  stroke-dasharray: 3 2.5;
+}
+
+.map-dot-mark[data-look='shut'] {
+  fill: var(--bg-raised);
+  fill-opacity: 0.6;
+  stroke: var(--line-heavy);
+  stroke-dasharray: 3 2.5;
+}
+
+.map-dot-mark[data-look='hollow'] {
+  fill: var(--bg-raised);
+  fill-opacity: 0.6;
+  stroke: var(--line-heavy);
+}
+
+/* Left out by the search or a filter: still on the sheet, so the field keeps its shape. */
+.map-dot-mark[data-look='ghost'] {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.map-dot[data-active] .map-dot-mark {
+  stroke-width: 2.5;
+}
+
+.map-dot[data-active] .map-dot-mark[data-look='full'],
+.map-dot[data-active] .map-dot-mark[data-look='part'] {
+  fill-opacity: 0.5;
+}
+
+.map-dot-halo {
+  fill: none;
+  stroke: none;
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.map-dot[data-pinned] .map-dot-halo {
+  stroke: var(--text);
+}
+
+.map-dot:focus-visible .map-dot-halo {
+  stroke: var(--ring);
+}
+
+/* Names: the mono face, so a name's width is known before it is drawn, with
+   a paper edge where one crosses a rule. */
+.map-name {
+  font-family: var(--font-mono);
+  fill: var(--text-2);
+  paint-order: stroke;
+  stroke: var(--bg-raised);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.map-name[data-on] {
+  fill: var(--text);
+  font-weight: 500;
+}
+
+/* --- The tooltip: the page's one floating surface, kept inside the canvas - */
+.map-tip {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 2px;
+  width: max-content;
+  max-width: 16rem;
+  padding: var(--sp-2) var(--sp-3);
+  border: var(--border);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  box-shadow: var(--shadow-pop);
+  font-size: var(--fs-2xs);
+  line-height: var(--lh-snug);
+  color: var(--text-2);
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+}
+
+.map-tip[data-side='below'] {
+  transform: translate(-50%, 0);
+}
+
+.map-tip-name {
+  margin-bottom: 2px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* The figure leads; its name follows. */
+.map-tip-row b {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* --- Keys under the plot -------------------------------------------------- */
+.map-keys {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3) var(--sp-6);
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: var(--border);
+}
+
+.map-key {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+  min-width: 0;
+}
+
+.map-key-label {
+  font-size: var(--fs-2xs);
+  font-weight: 500;
+  line-height: var(--lh-ui);
+  color: var(--text-faint);
+}
+
+.map-key-sizes,
+.map-key-items,
+.map-key-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+.map-key-items {
+  gap: var(--sp-3);
+}
+
+.map-key-end,
+.map-key-item {
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  color: var(--text-2);
+}
+
+.map-swatch {
+  flex: none;
+  max-width: none;
+  overflow: visible;
+}
+
+.map-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+/* The matrix's own licensing or audience filter, within reach of the map:
+   the same chips, a size down, and on the open-source page each carries the
+   ink its bubbles are drawn in. */
+.map-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: 2rem;
+  padding-inline: var(--sp-2);
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease),
+  background-color var(--dur) var(--ease);
+}
+
+.map-chip:hover {
+  border-color: var(--line-heavy);
+  color: var(--text);
+}
+
+.map-chip[aria-pressed='true'] {
+  background-color: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  font-weight: 500;
+}
+
+.map-count {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.map-clear {
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.map-clear:hover {
+  color: var(--accent-strong);
+}
+
+/* --- The side sheet ------------------------------------------------------- */
+.map-side {
+  padding: var(--sp-5);
+}
+
+.map-read-title {
+  font-size: var(--fs-md);
+  letter-spacing: var(--tracking-ui);
+}
+
+.map-read-list {
+  display: grid;
+  margin-top: var(--sp-3);
+}
+
+.map-read-item {
+  padding-block: var(--sp-3);
+  border-top: var(--border);
+}
+
+.map-read-item dt {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.map-read-item dd {
+  margin-top: var(--sp-1);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+/* The arrow that ties a figure to its axis. */
+.map-fig-axis {
+  display: inline-block;
+  width: 1.25em;
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+
+.map-read-hint {
+  padding-top: var(--sp-3);
+  border-top: var(--border);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text-faint);
+}
+
+.map-pin-head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.map-pin-icon {
+  --icon-size: 1.5rem;
+  flex: none;
+  margin-top: 0;
+}
+
+.map-pin-name {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--fs-lg);
+  letter-spacing: var(--tracking-ui);
+}
+
+.map-pin-name :global(.project-name) {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.map-pin-close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.875rem;
+  height: 1.875rem;
+  border: var(--border-strong);
+  border-radius: var(--radius-1);
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-lg);
+  line-height: 1;
+  transition: color var(--dur) var(--ease),
+  border-color var(--dur) var(--ease);
+}
+
+.map-pin-close:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.map-pin-blurb {
+  margin-top: var(--sp-3);
+  font-size: var(--fs-xs);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+.map-pin-model {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+}
+
+.map-pin-sub {
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  color: var(--text-faint);
+}
+
+.map-figs {
+  display: grid;
+  margin-top: var(--sp-4);
+  border-top: var(--border);
+}
+
+.map-fig {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  min-height: 2rem;
+  padding-block: var(--sp-1);
+  border-bottom: var(--border);
+  font-size: var(--fs-xs);
+}
+
+.map-fig-name {
+  color: var(--text-2);
+}
+
+/* The two figures the map is plotting are the ones the eye came in on. */
+.map-fig[data-axis] .map-fig-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.map-fig-val {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-xs);
+}
+
+.map-fig-val :global(.num) {
+  min-inline-size: 2.25ch;
+  text-align: right;
+}
+
+.map-fig-bar {
+  inline-size: 3.5rem;
+  block-size: 4px;
+  border-radius: 2px;
+  background-color: var(--track);
+  background-image: linear-gradient(
+  to right,
+  var(--accent) calc(var(--fill, 0) * 100%),
+  transparent calc(var(--fill, 0) * 100%)
+  );
+}
+
+.map-fig-metric {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+}
+
+.map-fig-metric :global(.card-lic) {
+  order: -1;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  color: var(--text-faint);
+}
+
+.map-pin-actions {
+  margin-top: var(--sp-4);
+}
+
+/* Side by side only once the plot keeps room for its names: under 64rem the
+   sheet for the picked-out record goes below it. */
+@media (min-width: 64rem) {
+  .map-body {
+    grid-template-columns: minmax(0, 1fr) 21rem;
+    align-items: stretch;
+  }
+
+}
+
+@media (max-width: 39.9375rem) {
+  .map-plot {
+    padding: var(--sp-3) var(--sp-3) var(--sp-2);
+  }
+
+  /* Thumbs: the chips come back up to the page's touch floor. */
+  .map-chip {
+    min-height: var(--control-h);
+  }
+
+  .map-axes {
+    flex-basis: 100%;
+  }
+
+  .map-count {
+    margin-left: 0;
+  }
+
+}
+
+@media print {
+  .map {
+    padding-block: 0 8mm;
+    border-top: 0;
+    break-inside: avoid;
+  }
+
+  .map-bar,
+  .map-side,
+  .map-tip,
+  .map-clear,
+  .map-key-chips {
+    display: none;
+  }
+
+}

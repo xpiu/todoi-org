@@ -78,6 +78,7 @@ async function main() {
       llms: llmsParts[job.slug as keyof typeof llmsParts],
       // Not all of it is on the page: carried over from the seed being replaced.
       source: SeedData.parse(current).directories.find((d) => d.slug === job.slug)!.copy.source,
+      map: SeedData.parse(current).directories.find((d) => d.slug === job.slug)!.copy.map,
     });
     directories.push(seed);
     console.log(`${job.slug}: ${seed.records.length} records, ${seed.faqs.length} questions`);

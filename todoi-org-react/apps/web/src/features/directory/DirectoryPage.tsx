@@ -6,6 +6,7 @@ import { SiteFooter, SiteHeader } from '../../components/SiteChrome.tsx';
 import { Cards } from './Cards.tsx';
 import { Controls } from './Controls.tsx';
 import { Empty } from './Empty.tsx';
+import { FieldMap } from './FieldMap.tsx';
 import { Matrix } from './Matrix.tsx';
 import { directoryQuery } from './queries.ts';
 import { Contribute, Crosslink, Faq, Hero, Method, Routes } from './Sections.tsx';
@@ -57,6 +58,7 @@ function Page() {
             </div>
           </div>
         </section>
+        <FieldMap />
         <Routes />
         <Method />
         <Faq />

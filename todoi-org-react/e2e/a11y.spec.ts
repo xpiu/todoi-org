@@ -33,6 +33,15 @@ for (const mode of ['light', 'dark'] as const) {
       await page.locator('.acc-q').first().click();
       await audit(page);
     });
+    test(`${path} in ${mode}: the map, with a bubble kept beside it and another in focus`, async ({ page }) => {
+      await open(page, `${path}?map=year-community`, mode);
+      const dots = page.locator('#map .map-dot[role="button"]');
+      await dots.first().press('Enter');
+      await expect(page.locator('#map .map-pin')).toBeVisible();
+      await dots.nth(3).focus();
+      await expect(page.locator('#map .map-tip')).toBeVisible();
+      await audit(page);
+    });
     test(`${path} in ${mode}: the empty state`, async ({ page }) => {
       await open(page, `${path}?q=zzzz`, mode);
       await audit(page);

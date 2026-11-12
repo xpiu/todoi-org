@@ -30,6 +30,7 @@ const SCENES = [
   ['row-detail', '/', ['desktop'], MODES, (page) => page.locator('tr.matrix-row[data-slug="plane"] button.row-expand').click()],
   ['card-detail', '/', ['phone'], MODES, (page) => page.locator('article.card:visible button.card-expand').first().click()],
   ['sort-menu', '/', ['desktop'], ['light'], (page) => page.locator('#sort-field').click()],
+  ['map-pinned', '/commercial-task-managers/?map=use-enterprise&lic=team', ['phone', 'desktop'], MODES, (page) => page.locator('#map-dot-asana').press('Enter')],
 ];
 
 async function capture(base, out) {

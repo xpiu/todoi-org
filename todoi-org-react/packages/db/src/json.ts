@@ -14,7 +14,7 @@
  *
  * The way back is in docs/json-store.md.
  */
-import { sourceClass } from '@todoi/shared';
+import { mapKeys, sourceClass } from '@todoi/shared';
 import data from '../seed/data.json' with { type: 'json' };
 import type { FullDirectory, FullRecord } from './queries.ts';
 import { SeedData, type SeedDirectory } from './seed-schema.ts';
@@ -42,6 +42,15 @@ export function directoriesFromSeed(seeds: SeedDirectory[]): FullDirectory[] {
     unique(d.capabilities.map((c) => c.key), `${d.slug}: capability`);
     unique(d.segments.map((s) => s.key), `${d.slug}: segment`);
     unique(d.records.map((r) => r.slug), `${d.slug}: record`);
+
+    // A view of the map names two different figures the matrix can sort by.
+    const axes = mapKeys(d);
+    for (const v of d.copy.map.views) {
+      for (const key of [v.x, v.y]) {
+        if (!axes.includes(key)) throw new Error(`seed ${d.slug}: the map view "${v.label}" plots "${key}", which is not a figure here`);
+      }
+      if (v.x === v.y) throw new Error(`seed ${d.slug}: the map view "${v.label}" plots "${v.x}" against itself`);
+    }
 
     const id = ++next.directory;
     const segmentByKey = new Map(d.segments.map((s) => [s.key, s]));

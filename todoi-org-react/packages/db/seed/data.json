@@ -288,6 +288,16 @@
           },
           "changeLabel": "Licence history"
         },
+        "map": {
+          "title": "Two figures at a time",
+          "note": "Any two figures, set against each other. Size is community; ink is licence.",
+          "views": [
+            { "label": "Effort and depth", "x": "deploy", "y": "enterprise" },
+            { "label": "Run and use", "x": "deploy", "y": "use" },
+            { "label": "Stars and Score", "x": "stars", "y": "avg" },
+            { "label": "Age and community", "x": "year", "y": "community" }
+          ]
+        },
         "crosslink": {
           "href": "/commercial-task-managers/",
           "title": "Commercial task managers compared",
@@ -3902,6 +3912,16 @@
             }
           },
           "changeLabel": "Licence history"
+        },
+        "map": {
+          "title": "Two figures at a time",
+          "note": "Any two figures, set against each other. Size is market presence; filled means a free plan.",
+          "views": [
+            { "label": "Price and Score", "x": "price", "y": "avg" },
+            { "label": "Simple or powerful", "x": "use", "y": "enterprise" },
+            { "label": "Control and exit", "x": "control", "y": "portability" },
+            { "label": "Age and presence", "x": "year", "y": "community" }
+          ]
         },
         "crosslink": {
           "href": "/",

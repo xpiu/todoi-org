@@ -4,6 +4,7 @@ import { cx } from '../styles/modules.ts';
 
 const SECTIONS = [
   ['#directory', 'Task managers'],
+  ['#map', 'Map'],
   ['#start', 'Where to start'],
   ['#method', 'Method'],
   ['#faq', 'Questions'],

@@ -179,6 +179,7 @@ export function Controls() {
     Boolean(view.q.trim()) ||
     active > 0 ||
     view.open !== null ||
+    view.map !== null ||
     `${view.sortKey}-${view.sortDir}` !== 'community-desc';
 
   return (

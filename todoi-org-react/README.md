@@ -27,7 +27,7 @@ Node and pnpm are pinned for [Volta](https://volta.sh) in `package.json`. No dat
 ```sh
 pnpm install
 cp .env.example .env
-pnpm dev                 # Hono + Vite, one port: http://localhost:3000
+pnpm dev                 # Hono + Vite, one port: http://localhost:3001
 pnpm check               # typecheck, lint, unit tests
 pnpm build && pnpm e2e   # Playwright, against the production build
 ```
@@ -79,6 +79,18 @@ reader sees (FOSS, open core, source-available, mixed source, closed core, close
 record whose tag disagrees. Open core and closed core are mirror images: an open base with closed
 extras, a closed base with open parts.
 
+**The map.** Under the matrix, every record is a bubble set by two of the figures the matrix sorts
+by (`features/directory/FieldMap.tsx`). The two pages open on different pictures because their
+readers ask different questions: open source sets ease of deployment against enterprise features,
+with the licence as the bubble's ink; commercial sets the entry price against the Score, filled
+where there is a free plan. Size is the community or market band on both. Each page's ready-made
+views are copy (`copy.map.views` in `data.json`), and any other pair is two selects away; the pair
+lives in the address as `?map=x-y`, left out for the page's own. The map reads the matrix's search
+and filters (a record they leave out stays as a ghost), and its chips are the same filter. The
+arithmetic (axes, the quote-only lane, which names fit beside their bubbles, the one-sentence
+reading of the picture) is `packages/shared/src/map.ts`, so the server draws the same map the
+browser does and it is there without JavaScript.
+
 ### `packages/db/seed/data.json`: the temporary replacement for PostgreSQL
 
 Until PostgreSQL returns, this one file is the whole data store: the server reads it and nothing
@@ -127,6 +139,8 @@ a same-origin request and the session's CSRF token; sign-in is rate limited in t
 | Same text, order and filter results as the static site | `e2e/parity.spec.ts` (needs `STATIC_URL`): 21 views and every record's detail |
 | Same design at phone, tablet and desktop, light and dark | `e2e/tools/visual-compare.mjs`: full-page screenshots of both sites, pixel-diffed — 0 differing pixels |
 | Behaviour that must survive | `e2e/directory.spec.ts` |
+| The map plots every record inside its frame for every pair of figures, and names no bubble over another | `packages/shared/src/map.test.ts`, `apps/server/src/map.test.ts` (on `data.json`) |
+| The map follows the filters, keeps its view in the address, and leads from a bubble to its record | `e2e/map.spec.ts` |
 | No WCAG 2.2 AA failures; keyboard reaches everything | `e2e/a11y.spec.ts` (axe), both modes and widths |
 | Dark defines every token; text pairs reach AA | `apps/web/src/styles/tokens.test.ts` |
 | ⏸ An edit shows at once, survives a reload, rolls back on failure | `e2e/admin.spec.ts` (skipped while the editor is parked) |

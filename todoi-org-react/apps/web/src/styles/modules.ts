@@ -20,6 +20,7 @@ import tip from '../features/directory/tip.module.css';
 import detail from '../features/directory/RecordDetail.module.css';
 import cards from '../features/directory/Cards.module.css';
 import board from '../features/directory/Board.module.css';
+import fieldMap from '../features/directory/FieldMap.module.css';
 import sections from '../features/directory/Sections.module.css';
 import './late.css';
 
@@ -33,6 +34,7 @@ const scoped: Readonly<Record<string, string>> = {
   ...detail,
   ...cards,
   ...board,
+  ...fieldMap,
   ...sections,
 };
 

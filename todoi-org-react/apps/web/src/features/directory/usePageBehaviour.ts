@@ -5,7 +5,7 @@ import { useDirectory } from './state.tsx';
 
 
 /** The copy of a record that is actually on screen: its row at 900px and up, its card below. */
-function visibleHost(slug: string): HTMLElement | null {
+export function visibleHost(slug: string): HTMLElement | null {
   const hosts = document.querySelectorAll<HTMLElement>(`tr.matrix-row[data-slug="${CSS.escape(slug)}"], article.card[data-slug="${CSS.escape(slug)}"]`);
   for (const h of hosts) if (h.getClientRects().length) return h;
   return null;

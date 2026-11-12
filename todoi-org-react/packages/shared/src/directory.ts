@@ -210,6 +210,16 @@ export const DirectoryCopy = z.object({
     /** The record fact that dates a licence change: "Licence history". */
     changeLabel: z.string(),
   }),
+  /**
+   * The map under the matrix: every record as a bubble, set by two of the
+   * figures the matrix sorts by. `views` are the pairs worth a button; the
+   * first is the one the page opens on. `x` and `y` are sort keys.
+   */
+  map: z.object({
+    title: z.string(),
+    note: z.string(),
+    views: z.array(z.object({ label: z.string(), x: z.string(), y: z.string() })).min(1),
+  }),
   crosslink: z.object({ href: z.string(), title: z.string(), text: z.string() }),
   footer: z.object({ note: z.string(), otherLabel: z.string(), otherHref: z.string() }),
   /**
