@@ -2,7 +2,8 @@
 
 A directory comparing browser-based task managers — [todoi.org](https://todoi.org) — rebuilt as a
 server-rendered React application. Same URLs, same text, same behaviour, same design as the static
-site it replaces.
+site it replaced on 2026-11-12. That site is still in [`todoi-org-website/`](../todoi-org-website/),
+kept for reference and no longer in use.
 
 > ## ⚠ Temporary: no PostgreSQL. The data is JSON in this repository.
 >
