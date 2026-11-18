@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Licensing and paid features &#183; todoi.org</title>
+<meta name="description" content="How todoi.org labels FOSS, open core, source-available and mixed source, and a sequence of choices that narrows a licence from all rights reserved to the public domain.">
+<link rel="canonical" href="https://todoi.org/licensing/">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="todoi.org">
+<meta property="og:url" content="https://todoi.org/licensing/">
+<meta property="og:title" content="Licensing and paid features">
+<meta property="og:description" content="How todoi.org labels a licence, and a sequence of choices from all rights reserved to the public domain.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Licensing and paid features">
+<meta name="twitter:description" content="How todoi.org labels a licence, and a sequence of choices from all rights reserved to the public domain.">
+<meta name="theme-color" content="#eef2f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1016" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/img/favicon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+<link rel="preload" href="/fonts/dmsans-300-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/dmmono-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
+<script>/* Set the theme before first paint; app.js is deferred. */
+(function(){var r=document.documentElement,t='light',s=null;r.className+=' js';try{s=localStorage.getItem('todoi-theme');}catch(e){}if(s==='light'||s==='dark'){t=s;}else{r.setAttribute('data-theme-source','system');try{if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)t='dark';}catch(e){}}r.setAttribute('data-theme',t);}());</script>
+</head>
+<body>
+<a class="skip-link" href="#picker">Skip to the chooser</a>
+
+<header class="site-header">
+  <div class="shell site-header-inner">
+    <a class="wordmark" href="/" aria-label="todoi.org, home"><svg class="wordmark-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16.82 22.04A10.62 10.62 0 1 0 7.18 22.04"/><path d="M7.5 12.56L10.77 15.82L16.96 9.63"/></svg><span class="wordmark-name">todoi<span class="wordmark-tld">.org</span></span></a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="/#directory">Task managers</a>
+      <a href="/#start">Where to start</a>
+      <a href="/method/">Method</a>
+      <a href="/#faq">Questions</a>
+      <a href="/#contribute">Contribute</a>
+    </nav>
+    <div class="theme-switch" id="theme-switch" role="radiogroup" aria-label="Colour theme">
+      <span class="theme-switch-thumb" aria-hidden="true"></span>
+      <button type="button" class="theme-switch-opt" role="radio" aria-checked="true" tabindex="0" data-theme-value="light" title="Light">
+        <svg class="theme-switch-icon" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="3.1" fill="currentColor"/><path d="M8 1.5v1.4M8 13.1v1.4M1.5 8h1.4M13.1 8h1.4M3.4 3.4l1 1M11.6 11.6l1 1M12.6 3.4l-1 1M4.4 11.6l-1 1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="sr-only">Light</span>
+      </button>
+      <button type="button" class="theme-switch-opt" role="radio" aria-checked="false" tabindex="-1" data-theme-value="dark" title="Dark">
+        <svg class="theme-switch-icon" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.04 1.91A6.4 6.4 0 1 0 14.09 9.96 6 6 0 0 1 6.04 1.91Z"/></svg>
+        <span class="sr-only">Dark</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="shell picker-inner">
+      <div class="hero-copy">
+        <h1 class="hero-title">Licensing and paid features</h1>
+        <p class="hero-lede">How this directory names a licence, and a sequence of choices that ends at one, from all rights reserved to the public domain.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="picker" id="picker" aria-labelledby="picker-title">
+    <div class="shell picker-inner">
+      <div class="section-head">
+        <h2 class="section-title" id="picker-title">Choose a licence</h2>
+        <p class="section-note">Answer until one is left. It picks a licence for one body of code, and it is a guide to the common instruments, not legal advice. Mixed source is not a choice here: that is what the directory records when the app and the server are under different terms. <a href="#labels">The four labels</a> are below.</p>
+      </div>
+
+      <div class="pick-app" id="pick-app">
+        <p class="pick-count" id="pick-count" aria-live="polite"></p>
+        <div class="pick-bands" id="pick-bands" role="group" aria-label="Licences from private to public domain"></div>
+        <p class="pick-aside" id="pick-aside" hidden></p>
+        <div class="pick-asked" id="pick-asked" aria-label="Answers so far"></div>
+        <div class="pick-stage" id="pick-stage"></div>
+        <div class="pick-result" id="pick-result" hidden>
+          <div id="pick-slot"></div>
+          <div class="pick-paid" id="pick-paid" hidden>
+            <p class="pick-paid-q" id="pick-paid-q">Are paid features a second, closed body of code?</p>
+            <div class="pick-options" role="radiogroup" aria-labelledby="pick-paid-q">
+              <button type="button" class="pick-option" role="radio" data-paid-value="same" aria-checked="true">
+                <span class="pick-option-label">No. One licence covers the code</span>
+                <span class="pick-option-detail">Paid hosting, support, or a key that unlocks code already in the repository, does not need another licence.</span>
+              </button>
+              <button type="button" class="pick-option" role="radio" data-paid-value="closed" aria-checked="false" tabindex="-1">
+                <span class="pick-option-label">Yes. The extras are closed</span>
+                <span class="pick-option-detail">The licence above is only the open part. The extras need their own proprietary terms.</span>
+              </button>
+            </div>
+            <p class="pick-paid-note" data-note="same">OpenProject’s Enterprise add-ons and Vikunja’s Pro features are in the open repository, switched on by a paid key. The directory still calls those projects FOSS. Money changing hands does not change the licence.</p>
+            <p class="pick-paid-note" data-note="closed" hidden>The directory calls that open core. The open part keeps the licence above. The closed extras are all rights reserved, or their own contract, and they are what the label is about.</p>
+          </div>
+          <p class="pick-legal">This is a reading of the common instruments, not legal advice. The licence text is the terms. If the project already has contributors, changing the licence needs their permission.</p>
+          <div class="pick-actions">
+            <button type="button" class="btn btn-ghost" id="pick-reset">Start again</button>
+            <button type="button" class="btn btn-ghost" id="pick-copy">Copy link to this result</button>
+          </div>
+        </div>
+      </div>
+
+      <noscript>
+        <p class="method-note">The questions that narrow this list need JavaScript. Every licence the chooser can end on is below, from private to public domain.</p>
+      </noscript>
+
+      <div class="pick-catalogue" id="pick-catalogue">
+        <p class="pick-catalogue-lead">Fifteen licences, in the order the chooser walks them.</p>
+
+        <article class="pick-card" id="lic-proprietary" data-id="proprietary" data-group="Private" data-short="Private">
+          <h3 class="pick-name">All rights reserved</h3>
+          <p class="pick-id">No SPDX identifier. There is no grant.</p>
+          <p class="pick-summary">Nobody receives a right to use, copy, modify or distribute the code. That is ordinary copyright, and it is the correct instrument when the software is yours to sell and you do not want a second publisher.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Nothing, unless you sign something that says otherwise.</dd></div>
+            <div><dt>You must</dt><dd>Not put a public repository out in a way that sounds like permission. “All rights reserved” says it. Silence means the same thing.</dd></div>
+            <div><dt>This does not</dt><dd>Publishing the source does not license it. People who can see the files still cannot legally use them.</dd></div>
+          </dl>
+          <p class="pick-rel">A contract, an evaluation licence or a paid customer agreement is how you grant one party rights without granting them to everyone.</p>
+        </article>
+
+        <article class="pick-card" id="lic-polyform" data-id="polyform" data-group="Source-available" data-short="PolyForm" data-spdx="PolyForm-Noncommercial-1.0.0">
+          <h3 class="pick-name">PolyForm Noncommercial 1.0.0</h3>
+          <p class="pick-id">PolyForm-Noncommercial-1.0.0</p>
+          <p class="pick-summary">Anyone may use, change and share the software for a noncommercial purpose. Commercial use stays with you, under a separate agreement. It is a source-available licence, not an open-source one.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Use, modify and distribute it where the use is not commercial, and they keep the licence notices.</dd></div>
+            <div><dt>You must</dt><dd>Sell or sign commercial permission yourself, if you want a company to be able to ship it. The public text will not do that.</dd></div>
+            <div><dt>This does not</dt><dd>It is not an OSI-approved licence, and it will not satisfy a policy that requires one. A patent grant is included; a trademark grant is not.</dd></div>
+          </dl>
+          <p class="pick-rel">If the line you care about is “not as a competing service” rather than “not commercial at all”, Elastic License 2.0 draws the smaller line. <a href="https://polyformproject.org/licenses/noncommercial/1.0.0/" rel="noopener">Read PolyForm Noncommercial 1.0.0</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-busl" data-id="busl" data-group="Source-available" data-short="BUSL" data-spdx="BUSL-1.1">
+          <h3 class="pick-name">Business Source License 1.1</h3>
+          <p class="pick-id">BUSL-1.1</p>
+          <p class="pick-summary">You publish the source now, and you name the open licence it becomes. Until the change date, production use is allowed only to the extent of the Additional Use Grant you write. Non-production use is included.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Copy, modify and use it outside production. After the change, they receive whatever the Change License allows.</dd></div>
+            <div><dt>You must</dt><dd>Name the Change License. Name a Change Date, or accept the licence’s fallback: four years after you first publish that version, whichever is sooner. Write an Additional Use Grant if any production use should be free before then. Left blank, production use is not granted.</dd></div>
+            <div><dt>This does not</dt><dd>It does not become open on its own if you never name the licence it converts to. It is not OSI-approved while the Business Source terms are the ones in force.</dd></div>
+          </dl>
+          <p class="pick-rel">Functional Source License 1.1, used by Sentry, is the same shape with the conversion licence already filled in. <a href="https://mariadb.com/bsl11/" rel="noopener">Read the Business Source License 1.1</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-elastic" data-id="elastic" data-group="Source-available" data-short="Elastic" data-spdx="Elastic-2.0">
+          <h3 class="pick-name">Elastic License 2.0</h3>
+          <p class="pick-id">Elastic-2.0</p>
+          <p class="pick-summary">Anyone may use, modify and distribute the software, including in their own production. They may not offer it to others as a managed service. The source is public. The licence is not an open-source one.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Run it, change it, and ship those changes, including inside a product they operate themselves. Contributors grant a patent licence.</dd></div>
+            <div><dt>You must</dt><dd>Keep the notices. You may not provide the software to third parties as a hosted or managed service, and you may not move or disable licensing-key functionality in order to get around that.</dd></div>
+            <div><dt>This does not</dt><dd>It does not stop someone writing a competitor from scratch. It is not OSI-approved. It does not make a cloud provider open their own management stack.</dd></div>
+          </dl>
+          <p class="pick-rel">The Server Side Public License is a harsher instrument people confuse with this one: it tries to reach the provider’s management software. This chooser does not recommend it. <a href="https://www.elastic.co/licensing/elastic-license" rel="noopener">Read the Elastic License 2.0</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-agpl" data-id="agpl" data-group="Copyleft" data-short="AGPL" data-spdx="AGPL-3.0-or-later" data-paid="yes">
+          <h3 class="pick-name">GNU Affero General Public License v3.0 or later</h3>
+          <p class="pick-id">AGPL-3.0-or-later</p>
+          <p class="pick-summary">Anyone may use, change and share the software, including in a commercial product. A modified version that people use over a network has to offer those people the corresponding source. This is the copyleft to use when the software is a server and a private fork on someone else’s host is the outcome you want to prevent.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Run, modify and distribute it, and sell services around it, under the AGPL. It includes a patent grant from contributors.</dd></div>
+            <div><dt>You must</dt><dd>Provide source when you distribute a binary. If you modify the program and users interact with your version over a network, offer them the source of that version. Keep the notices and state your changes.</dd></div>
+            <div><dt>This does not</dt><dd>Running the unmodified upstream as a service does not, by itself, create a new source obligation. It does not stop a separate program from merely talking to yours over the network.</dd></div>
+          </dl>
+          <p class="pick-rel">GPL-3.0-or-later is the same licence without the network clause. EUPL-1.2 is the European instrument with a comparable network effect, if you need the text written for EU law. <a href="https://www.gnu.org/licenses/agpl-3.0.html" rel="noopener">Read the GNU AGPL-3.0</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-gpl3" data-id="gpl3" data-group="Copyleft" data-short="GPL-3.0" data-spdx="GPL-3.0-or-later" data-paid="yes">
+          <h3 class="pick-name">GNU General Public License v3.0 or later</h3>
+          <p class="pick-id">GPL-3.0-or-later</p>
+          <p class="pick-summary">Anyone who receives a copy, including a binary, must be able to get the source of the whole combined work and pass the same rights on. Using it inside an organisation, without giving copies out, does not by itself require you to publish anything.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Use, modify and distribute it, including commercially, under GPL-3.0 or a later version. Apache-2.0 code can be included in that work.</dd></div>
+            <div><dt>You must</dt><dd>License the combined work under the GPL when you distribute it, and provide the source with the binary. Contributors grant patents. The licence rejects a locked-down device that will not run a modified version.</dd></div>
+            <div><dt>This does not</dt><dd>It does not require a company to publish changes it only runs internally. It does not apply the copyleft to a program that merely talks to yours. Offering a modified version only as a network service does not, by itself, trigger it: that is what the AGPL adds.</dd></div>
+          </dl>
+          <p class="pick-rel">Take GPL-2.0-only instead when you have to combine with code that is itself GPL-2.0 only. <a href="https://www.gnu.org/licenses/gpl-3.0.html" rel="noopener">Read the GNU GPL-3.0</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-gpl2" data-id="gpl2" data-group="Copyleft" data-short="GPL-2.0" data-spdx="GPL-2.0-only" data-paid="yes">
+          <h3 class="pick-name">GNU General Public License v2.0 only</h3>
+          <p class="pick-id">GPL-2.0-only</p>
+          <p class="pick-summary">The same distribution copyleft, frozen at version 2. Choose it when you have to combine with code that is GPL-2.0 only, such as the Linux kernel. Not otherwise.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Use, modify and distribute the combined work under GPL-2.0 only.</dd></div>
+            <div><dt>You must</dt><dd>Ship the source with a distributed binary, and keep the work under GPL-2.0.</dd></div>
+            <div><dt>This does not</dt><dd>There is no patent grant. It cannot take in Apache-2.0 code. It has no network clause. “GPL-2.0 or later” is a different and more flexible grant; this result is the “only” form, because that is what a version-2-only dependency forces.</dd></div>
+          </dl>
+          <p class="pick-rel">If you do not have a version-2-only dependency, go back and take GPL-3.0 or later. <a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" rel="noopener">Read the GNU GPL-2.0</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-lgpl" data-id="lgpl" data-group="Copyleft" data-short="LGPL" data-spdx="LGPL-3.0-or-later" data-paid="yes">
+          <h3 class="pick-name">GNU Lesser General Public License v3.0 or later</h3>
+          <p class="pick-id">LGPL-3.0-or-later</p>
+          <p class="pick-summary">The library stays copyleft, and a proprietary program may use it as a library. Someone who modifies the library and ships it must release those modifications under the LGPL, and users of the program must be able to use a modified library in its place.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Use the library in a closed application, including one they sell, provided the library can be replaced with a modified version.</dd></div>
+            <div><dt>You must</dt><dd>Publish modifications to the library under LGPL-3.0 or later, with what a user needs in order to run the program against that modified library. Keep the notices.</dd></div>
+            <div><dt>This does not</dt><dd>It does not let someone copy your source into a closed program and ship those files as their own. It is a poor fit for a template, a header that gets compiled in, or an application that is not a library.</dd></div>
+          </dl>
+          <p class="pick-rel">MPL-2.0 is the file-level version of the same idea, and it is usually the clearer choice when what you have is files rather than a library you expect people to link. <a href="https://www.gnu.org/licenses/lgpl-3.0.html" rel="noopener">Read the GNU LGPL-3.0</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-mpl" data-id="mpl" data-group="Copyleft" data-short="MPL" data-spdx="MPL-2.0" data-paid="yes">
+          <h3 class="pick-name">Mozilla Public License 2.0</h3>
+          <p class="pick-id">MPL-2.0</p>
+          <p class="pick-summary">Each file under the MPL stays under the MPL, including modifications to that file. A larger program that includes those files may be under a different licence, including a proprietary one. The copyleft stops at the file boundary.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Use the files in a closed product, sell it, and add their own files under other terms. The licence includes a patent grant, and it can be combined with the GPL.</dd></div>
+            <div><dt>You must</dt><dd>Keep the MPL on the covered files, including your changes to them, and make the source of those files available when you distribute a binary that contains them.</dd></div>
+            <div><dt>This does not</dt><dd>It does not stop someone rewriting the idea in a new file and licensing that file however they like. It does not copyleft an entire application.</dd></div>
+          </dl>
+          <p class="pick-rel">If you want the copyleft to cover a whole library that proprietary programs link against, use LGPL-3.0 or later. <a href="https://www.mozilla.org/MPL/2.0/" rel="noopener">Read the Mozilla Public License 2.0</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-apache" data-id="apache" data-group="Permissive" data-short="Apache" data-spdx="Apache-2.0" data-paid="yes">
+          <h3 class="pick-name">Apache License 2.0</h3>
+          <p class="pick-id">Apache-2.0</p>
+          <p class="pick-summary">Anyone may use, modify and ship the code, including in a closed product. They keep the notices, and contributors grant a patent licence covering their contribution. Trademarks are not included.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Do almost anything, including selling a closed fork and licensing their own additions under other terms.</dd></div>
+            <div><dt>You must</dt><dd>Keep the copyright, patent and attribution notices, state the changes you made, and include the NOTICE file if there is one.</dd></div>
+            <div><dt>This does not</dt><dd>It does not grant the right to use the project’s names and logos. It cannot be folded into a GPL-2.0-only work. It does not require anyone to share their changes.</dd></div>
+          </dl>
+          <p class="pick-rel">MIT is the short form of the same permission, without the patent grant. Take Apache when companies will contribute, or when the patent grant is the point. <a href="https://www.apache.org/licenses/LICENSE-2.0" rel="noopener">Read the Apache License 2.0</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-bsd3" data-id="bsd3" data-group="Permissive" data-short="BSD-3" data-spdx="BSD-3-Clause" data-paid="yes">
+          <h3 class="pick-name">BSD 3-Clause License</h3>
+          <p class="pick-id">BSD-3-Clause</p>
+          <p class="pick-summary">A short permissive licence. Closed forks are allowed. The third clause says they may not use your name, or the names of the contributors, to endorse or promote their version without written permission.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Use, modify, distribute and sell the software, including as closed source, provided the notice travels with it.</dd></div>
+            <div><dt>You must</dt><dd>Keep the copyright notice, the conditions and the disclaimer in the source and in the documentation that goes with a binary.</dd></div>
+            <div><dt>This does not</dt><dd>It does not include a patent grant. The endorsement clause is not a trademark licence. It is a ban on using your name as a recommendation.</dd></div>
+          </dl>
+          <p class="pick-rel">MIT is shorter and has no endorsement clause. Apache-2.0 adds the patent grant and withholds trademarks. <a href="https://opensource.org/license/bsd-3-clause" rel="noopener">Read the BSD 3-Clause License</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-mit" data-id="mit" data-group="Permissive" data-short="MIT" data-spdx="MIT" data-paid="yes">
+          <h3 class="pick-name">MIT License</h3>
+          <p class="pick-id">MIT</p>
+          <p class="pick-summary">The short permissive licence. Anyone may do anything with the code, including ship it closed, provided the copyright notice and the licence text travel with the copy.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Use, modify, merge, publish, sublicense and sell copies of the software.</dd></div>
+            <div><dt>You must</dt><dd>Include the copyright notice and the permission notice in all copies or substantial portions.</dd></div>
+            <div><dt>This does not</dt><dd>It does not include a patent grant. It does not stop someone using your name. It does not require shared changes.</dd></div>
+          </dl>
+          <p class="pick-rel">If a patent grant matters, use Apache-2.0. If you want a no-endorsement clause, use the BSD 3-Clause. If you do not even want attribution, use 0BSD. <a href="https://opensource.org/license/mit" rel="noopener">Read the MIT License</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-bsd0" data-id="bsd0" data-group="No conditions" data-short="0BSD" data-spdx="0BSD" data-paid="yes">
+          <h3 class="pick-name">BSD Zero Clause License</h3>
+          <p class="pick-id">0BSD</p>
+          <p class="pick-summary">A real licence with no conditions. Anyone may use, modify and ship the code, with or without attribution, including in a closed product. It is approved by the Open Source Initiative. It is the closest thing to the public domain that still reads as a licence where a court will not let you abandon copyright.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Anything a copyright holder could otherwise forbid.</dd></div>
+            <div><dt>You must</dt><dd>Nothing. No notice and no attribution.</dd></div>
+            <div><dt>This does not</dt><dd>It does not include a patent grant. It is not a waiver: you still own the copyright, and the licence is the permission.</dd></div>
+          </dl>
+          <p class="pick-rel">The Unlicense and CC0 try to place the work in the public domain instead. Choose 0BSD when what you want is “no conditions” and what you need a lawyer to accept is a licence. <a href="https://opensource.org/license/0bsd" rel="noopener">Read the BSD Zero Clause License</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-unlicense" data-id="unlicense" data-group="No conditions" data-short="Unlicense" data-spdx="Unlicense" data-paid="yes">
+          <h3 class="pick-name">The Unlicense</h3>
+          <p class="pick-id">Unlicense</p>
+          <p class="pick-summary">A public-domain dedication with a fallback licence, for when you want the words “public domain” and an OSI-approved text. Anyone may do anything, with no conditions.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Anything. The dedication says the work is released to the public domain.</dd></div>
+            <div><dt>You must</dt><dd>Nothing.</dd></div>
+            <div><dt>This does not</dt><dd>Some lawyers dislike the drafting. A court that does not recognise a public-domain dedication falls through to the fallback licence. There is no patent grant. It is a poor way to relicense a project that already has contributors under another licence.</dd></div>
+          </dl>
+          <p class="pick-rel">0BSD is the tidier “no conditions” licence. CC0 is the waiver most data projects use, and it is not OSI-approved. <a href="https://unlicense.org/" rel="noopener">Read the Unlicense</a>.</p>
+        </article>
+
+        <article class="pick-card" id="lic-cc0" data-id="cc0" data-group="No conditions" data-short="CC0" data-spdx="CC0-1.0" data-paid="yes">
+          <h3 class="pick-name">CC0 1.0 Universal</h3>
+          <p class="pick-id">CC0-1.0</p>
+          <p class="pick-summary">A waiver of copyright and related rights, with a public licence as fallback if the waiver fails. No attribution. It is the usual instrument for data, and a common one for code. It is not an OSI-approved licence, because it says it does not grant patent rights.</p>
+          <dl class="pick-terms">
+            <div><dt>Others may</dt><dd>Anything copyright would otherwise have reserved, including commercial use, with no notice.</dd></div>
+            <div><dt>You must</dt><dd>Nothing about copyright. You do not, by this instrument, grant patents or trademarks.</dd></div>
+            <div><dt>This does not</dt><dd>It does not license patents. Where a waiver of copyright is not allowed, the fallback licence applies. A downstream policy that requires an OSI-approved licence will not accept it.</dd></div>
+          </dl>
+          <p class="pick-rel">For software where OSI approval matters, use 0BSD or the Unlicense. For a dataset, CC0 is the one other people expect. <a href="https://creativecommons.org/publicdomain/zero/1.0/" rel="noopener">Read CC0 1.0</a>.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="labels" id="labels" aria-labelledby="models-title">
+    <div class="shell labels-inner">
+      <div class="section-head">
+        <h2 class="section-title" id="models-title">The four labels</h2>
+        <p class="section-note">Labels are derived from each record’s <strong>Source</strong> map, not from the marketing site, so a label cannot outlive a licence change. Paid hosting never changes one, and open code that needs a paid key is still open code: OpenProject’s Enterprise add-ons and Vikunja’s Pro features are in the open repository. These names describe a product. The chooser above picks a licence for one body of code.</p>
+      </div>
+      <dl class="model-defs" aria-labelledby="models-title">
+        <div class="model-def">
+          <dt class="model-name"><span class="tag tag-foss"><svg class="tag-ico" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.5 7.9V5.2a2.5 2.5 0 0 1 5 0"/><rect x="2.9" y="7.7" width="10.2" height="6.1" rx="1.4" fill="currentColor"/></svg>FOSS</span></dt>
+          <dd class="model-text">A recognised free and open-source licence. Paid hosting or GPL-licensed add-ons do not change that; FOSS does not mean every feature is in the free edition.</dd>
+        </div>
+        <div class="model-def">
+          <dt class="model-name"><span class="tag tag-open-core"><svg class="tag-ico" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.5 7.9V5.2a2.5 2.5 0 0 1 5 0"/><rect x="2.9" y="7.7" width="10.2" height="6.1" rx="1.4"/><path d="M8 8.5H4.6a.7.7 0 0 0-.7.7v2.7a.7.7 0 0 0 .7.7H8z" fill="currentColor" stroke="none"/></svg>Open core</span></dt>
+          <dd class="model-text">An open-source core plus extensions or editions under non-open-source terms. The licence of those additions is the distinction, not how complete the free edition feels.</dd>
+        </div>
+        <div class="model-def">
+          <dt class="model-name"><span class="tag tag-source-available"><svg class="tag-ico" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.5 7.9V5.9a2.5 2.5 0 0 1 5 0v2"/><rect x="2.9" y="7.7" width="10.2" height="6.1" rx="1.4"/></svg>Source-available</span></dt>
+          <dd class="model-text">Source you can read under terms that restrict open-source freedoms. Visible source and permission to self-host are not enough on their own.</dd>
+        </div>
+        <div class="model-def">
+          <dt class="model-name"><span class="tag tag-mixed-source"><svg class="tag-ico" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.5 7.9V5.9a2.5 2.5 0 0 1 5 0v2"/><rect x="2.9" y="7.7" width="10.2" height="6.1" rx="1.4"/><path d="M8 8.5H4.6a.7.7 0 0 0-.7.7v2.7a.7.7 0 0 0 .7.7H8z" fill="currentColor" stroke="none"/></svg>Mixed source</span></dt>
+          <dd class="model-text">The product’s own code is split: one of app and server is open source, the other restricted or closed. The record’s Source row says which.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <aside class="crosslink" aria-label="The directory">
+    <div class="shell crosslink-inner">
+      <a class="crosslink-link" href="/">
+        <span>
+          <span class="crosslink-kicker">Also on todoi.org</span>
+          <span class="crosslink-title">Open-source task managers compared</span>
+          <span class="crosslink-text">Twenty-five browser-based task managers whose source you can read, scored with the labels above.</span>
+        </span>
+        <svg class="crosslink-arrow" viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
+      </a>
+    </div>
+  </aside>
+
+</main>
+
+<footer class="site-footer">
+  <div class="shell site-footer-inner">
+    <div class="footer-brand">
+      <span class="wordmark wordmark-sm"><span class="wordmark-name">todoi<span class="wordmark-tld">.org</span></span></span>
+      <p class="footer-note">A volunteer-run directory of open-source and source-available task managers. Not affiliated with, endorsed by or funded by any project listed here.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="/#directory">Task managers</a>
+      <a href="/#start">Where to start</a>
+      <a href="/method/">Method</a>
+      <a href="/#faq">Questions</a>
+      <a href="/#contribute">Contribute</a>
+      <a href="/licensing/" aria-current="page">Licensing</a>
+      <a href="/todoi-dataset-2026-09-17.csv">Dataset (CSV)</a>
+      <a href="/commercial-task-managers/">Commercial task managers</a>
+    </nav>
+    <p class="footer-meta">A guide to the common instruments. It is not legal advice, and it is not one of the scored directories.</p>
+    <p class="footer-contact">
+      <a href="https://flo.tokyo">Contact</a>
+      <a class="footer-x" href="https://x.com/flozuallaert" rel="me noopener" aria-label="X">
+        <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.9 1.2h3.7l-8.1 9.3L24 23.1h-7.5l-5.9-7.7-6.7 7.7H.2l8.6-9.9L-.4 1.2h7.7l5.3 7 6.3-7Zm-1.3 19.7h2L6.2 3.3h-2.2Z"/></svg>
+      </a>
+    </p>
+  </div>
+</footer>
+
+<script src="/app.js" defer></script>
+<script src="/licensing/picker.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+{"@type":"WebPage","@id":"https://todoi.org/licensing/#webpage","url":"https://todoi.org/licensing/","name":"Licensing and paid features · todoi.org","description":"How todoi.org labels FOSS, open core, source-available and mixed source, and a sequence of choices that narrows a licence from all rights reserved to the public domain.","isPartOf":{"@id":"https://todoi.org/#website"},"publisher":{"@id":"https://todoi.org/#org"},"inLanguage":"en","datePublished":"2026-11-18","dateModified":"2026-11-18","breadcrumb":{"@id":"https://todoi.org/licensing/#breadcrumb"}},
+{"@type":"WebSite","@id":"https://todoi.org/#website","name":"todoi.org","url":"https://todoi.org/"},
+{"@type":"BreadcrumbList","@id":"https://todoi.org/licensing/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Directory","item":"https://todoi.org/"},{"@type":"ListItem","position":2,"name":"Licensing","item":"https://todoi.org/licensing/"}]}
+]}</script>
+</body>
+</html>

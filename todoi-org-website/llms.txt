@@ -21,6 +21,8 @@ Corrections reach the directory at info@todoi.org. Send the source along with th
 ## Site
 
 - [Home](https://todoi.org/): Directory and comparison matrix of browser-based open-source task managers. The whole directory is this one page.
+- [Licensing](https://todoi.org/licensing/): The four licensing labels used in the directory (FOSS, open core, source-available, mixed source), and a question sequence that narrows a licence from all rights reserved to the public domain.
+- [How the scores work](https://todoi.org/method/): The six open-source criteria, the six commercial criteria, how the Score is the unweighted mean of seven, and what the confidence labels mean on each directory.
 - [Dataset (CSV)](https://todoi.org/todoi-dataset-2026-09-17.csv): Every field for all twenty-five projects across 43 columns, including the six scores and their written justifications. Generated from the page during publication.
 - [Commercial task managers](https://todoi.org/commercial-task-managers/): Companion directory of 58 commercial, closed-source task managers, scored with the same method. Dataset: https://todoi.org/todoi-commercial-dataset-2026-11-10.csv
 - [Sitemap](https://todoi.org/sitemap.xml): URL list for search engines.
@@ -30,7 +32,7 @@ Corrections reach the directory at info@todoi.org. Send the source along with th
 
 - [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-five projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.
 - [Where to start](https://todoi.org/#start): Eleven concrete situations mapped to the projects the research supports for each.
-- [How the scores work](https://todoi.org/#method): The six criteria, what each one measures, and the three licensing models kept apart.
+- [How the scores work](https://todoi.org/method/): The criteria and the mean. The homepage keeps a short pointer; the full text is on that page.
 - [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, how deep the assessments go, listing rules, and how current the data is.
 - [Corrections and additions](https://todoi.org/#contribute): The two listing rules, research confidence, how to send a correction, and the revision log.
 
@@ -66,7 +68,7 @@ Ordered by community size, largest first, with alphabetical ties, matching the p
 
 ## Commercial task managers
 
-A companion page, [Commercial task managers compared](https://todoi.org/commercial-task-managers/), applies the same method to 58 closed-source task managers offered as a service and usable in a browser. One of them, Todoi, is built by this directory’s maintainer, and its record says so. Two criteria differ: value for money replaces ease of deployment, and data control replaces data sovereignty. Prices are the cheapest paid plan per user per month, billed annually, in US dollars as published around 10 November 2026. The dataset is at https://todoi.org/todoi-commercial-dataset-2026-11-10.csv.
+A companion page, [Commercial task managers compared](https://todoi.org/commercial-task-managers/), applies the same method to 58 closed-source task managers offered as a service and usable in a browser. One of them, Todoi, is built by this directory’s maintainer, and its record says so. Two criteria differ: value for money replaces ease of deployment, and data control replaces data sovereignty. Both sets of criteria are at https://todoi.org/method/. Prices are the cheapest paid plan per user per month, billed annually, in US dollars as published around 10 November 2026. The dataset is at https://todoi.org/todoi-commercial-dataset-2026-11-10.csv.
 
 Ordered by market presence, largest first, with alphabetical ties, matching the page.
 

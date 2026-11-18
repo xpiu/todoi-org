@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the scores work &#183; todoi.org</title>
+<meta name="description" content="Six criteria from 1 to 5 plus one band, averaged with nothing weighted. How todoi.org scores its task managers, and what each confidence label means.">
+<link rel="canonical" href="https://todoi.org/method/">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="todoi.org">
+<meta property="og:url" content="https://todoi.org/method/">
+<meta property="og:title" content="How the scores work">
+<meta property="og:description" content="Six criteria from 1 to 5 plus one band, averaged with nothing weighted. How todoi.org scores its task managers, and what each confidence label means.">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How the scores work">
+<meta name="twitter:description" content="Six criteria from 1 to 5 plus one band, averaged with nothing weighted. How todoi.org scores its task managers, and what each confidence label means.">
+<meta name="theme-color" content="#eef2f9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d1016" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/img/favicon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png">
+<link rel="preload" href="/fonts/dmsans-300-800-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/dmmono-400-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/style.css">
+<script>/* Set the theme before first paint; app.js is deferred. */
+(function(){var r=document.documentElement,t='light',s=null;r.className+=' js';try{s=localStorage.getItem('todoi-theme');}catch(e){}if(s==='light'||s==='dark'){t=s;}else{r.setAttribute('data-theme-source','system');try{if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)t='dark';}catch(e){}}r.setAttribute('data-theme',t);}());</script>
+</head>
+<body>
+<a class="skip-link" href="#score">Skip to the score</a>
+
+<header class="site-header">
+  <div class="shell site-header-inner">
+    <a class="wordmark" href="/" aria-label="todoi.org, home"><svg class="wordmark-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16.82 22.04A10.62 10.62 0 1 0 7.18 22.04"/><path d="M7.5 12.56L10.77 15.82L16.96 9.63"/></svg><span class="wordmark-name">todoi<span class="wordmark-tld">.org</span></span></a>
+    <nav class="site-nav" aria-label="Sections">
+      <a href="/#directory">Task managers</a>
+      <a href="/#start">Where to start</a>
+      <a href="/method/" aria-current="page">Method</a>
+      <a href="/#faq">Questions</a>
+      <a href="/#contribute">Contribute</a>
+    </nav>
+    <div class="theme-switch" id="theme-switch" role="radiogroup" aria-label="Colour theme">
+      <span class="theme-switch-thumb" aria-hidden="true"></span>
+      <button type="button" class="theme-switch-opt" role="radio" aria-checked="true" tabindex="0" data-theme-value="light" title="Light">
+        <svg class="theme-switch-icon" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="3.1" fill="currentColor"/><path d="M8 1.5v1.4M8 13.1v1.4M1.5 8h1.4M13.1 8h1.4M3.4 3.4l1 1M11.6 11.6l1 1M12.6 3.4l-1 1M4.4 11.6l-1 1" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="sr-only">Light</span>
+      </button>
+      <button type="button" class="theme-switch-opt" role="radio" aria-checked="false" tabindex="-1" data-theme-value="dark" title="Dark">
+        <svg class="theme-switch-icon" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.04 1.91A6.4 6.4 0 1 0 14.09 9.96 6 6 0 0 1 6.04 1.91Z"/></svg>
+        <span class="sr-only">Dark</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="method-doc">
+
+  <section class="hero">
+    <div class="shell method-inner">
+      <div class="hero-copy">
+        <h1 class="hero-title">How the scores work</h1>
+        <p class="hero-lede">Six criteria and one band, each from 1 to 5. The Score is the unweighted mean of those seven. Two of the six criteria differ between the directories.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="method" id="score" aria-labelledby="score-title">
+    <div class="shell method-inner">
+      <div class="section-head">
+        <h2 class="section-title" id="score-title">The score</h2>
+        <p class="section-note">The number is an editorial summary. The reasoning, written on each record, is the point.</p>
+      </div>
+      <p class="method-note">The <strong>Score</strong> column is the unweighted mean of all seven, so the band carries one seventh of it. Scores are editorial judgements on a 1-5 scale.</p>
+      <p class="method-note">Confidence is marked on every record. Each directory defines High, Medium-high and Medium in its own words, under its own criteria.</p>
+    </div>
+  </section>
+
+  <section class="method" id="open-source" aria-labelledby="open-source-title">
+    <div class="shell method-inner">
+      <div class="section-head">
+        <h2 class="section-title" id="open-source-title">Open-source directory</h2>
+        <p class="section-note">Six criteria and the community band, each 1 to 5, each with a written justification, on the <a href="/">open&#8209;source directory</a>.</p>
+      </div>
+      <dl class="criteria">
+          <div class="criterion" id="open-ease-of-deployment">
+            <dt class="criterion-name">Ease of deployment</dt>
+            <dd class="criterion-text">Containers and packages, dependency count, operational complexity, upgrade burden and the state of the documentation.</dd>
+          </div>
+          <div class="criterion" id="open-ease-of-use">
+            <dt class="criterion-name">Ease of use</dt>
+            <dd class="criterion-text">Interface clarity, learning curve, conceptual overhead and whether non-specialists can live in it.</dd>
+          </div>
+          <div class="criterion" id="open-enterprise-features">
+            <dt class="criterion-name">Enterprise features</dt>
+            <dd class="criterion-text">Permissions, identity, audit and governance, portfolio reporting, scalability and administration.</dd>
+          </div>
+          <div class="criterion" id="open-interface-flexibility">
+            <dt class="criterion-name">Interface flexibility</dt>
+            <dd class="criterion-text">How many genuinely useful views exist, plus workflow and custom-field options, dashboards, filters and extension points.</dd>
+          </div>
+          <div class="criterion" id="open-data-sovereignty">
+            <dt class="criterion-name">Data sovereignty</dt>
+            <dd class="criterion-text">Whether you can run it independently, read its source, and keep control of the application and its data infrastructure.</dd>
+          </div>
+          <div class="criterion" id="open-portability">
+            <dt class="criterion-name">Portability</dt>
+            <dd class="criterion-text">APIs and exports, conventional storage and database choices, licensing constraints, and how realistically you could leave.</dd>
+          </div>
+          <div class="criterion criterion-band" id="open-community-size">
+            <dt class="criterion-name">Community size</dt>
+            <dd class="criterion-text">The community band read as a score, from Small at 1 to Very large at 5. A project more people run, extend and answer questions about is easier to get help with and safer to depend on.</dd>
+          </div>
+      </dl>
+      <p class="method-note">The open-source directory opens by community size, largest first. Each record also carries a <strong>Confidence</strong> value: <em>High</em> is stronger evidence and a second reading; <em>Medium-high</em> flags a remaining qualification; <em>Medium</em> is usually a first pass. Read the caveat and sources with the label.</p>
+      <p class="method-note">Every record carries a <strong>Source</strong> map: the app, the server, the paid extras and the parts published separately, each marked open, partly open or closed, with the licence named. <em>FOSS</em> means app and server are open and no closed code is held back; <em>open core</em> means the paid extras are closed; <em>source-available</em> means the code can be read under restrictions; <em>mixed source</em> means app and server differ. The four labels, how a paid feature sits beside each of them, and a way to choose a licence from all rights reserved to the public domain, are on the <a href="/licensing/">licensing page</a>.</p>
+    </div>
+  </section>
+
+  <section class="method" id="commercial" aria-labelledby="commercial-title">
+    <div class="shell method-inner">
+      <div class="section-head">
+        <h2 class="section-title" id="commercial-title">Commercial directory</h2>
+        <p class="section-note">Six criteria and the market band, each 1 to 5, each with a written justification, on the <a href="/commercial-task-managers/">commercial directory</a>. Four criteria are shared with the open-source directory; two change, because a service someone else runs raises different questions.</p>
+      </div>
+      <dl class="criteria">
+          <div class="criterion" id="commercial-value-for-money">
+            <dt class="criterion-name">Value for money</dt>
+            <dd class="criterion-text">What the free plan gives, what the tier most teams actually need costs per seat, seat minimums, and what is held back for the top tiers or sold as an add-on.</dd>
+          </div>
+          <div class="criterion" id="commercial-ease-of-use">
+            <dt class="criterion-name">Ease of use</dt>
+            <dd class="criterion-text">Interface clarity, learning curve, conceptual overhead and whether non-specialists can live in it.</dd>
+          </div>
+          <div class="criterion" id="commercial-enterprise-features">
+            <dt class="criterion-name">Enterprise features</dt>
+            <dd class="criterion-text">SSO and SCIM, permissions, audit logs, admin controls, compliance certifications, portfolio reporting and scale.</dd>
+          </div>
+          <div class="criterion" id="commercial-interface-flexibility">
+            <dt class="criterion-name">Interface flexibility</dt>
+            <dd class="criterion-text">How many genuinely useful views exist, plus custom fields, automation, dashboards, filters and extension points.</dd>
+          </div>
+          <div class="criterion" id="commercial-data-control">
+            <dt class="criterion-name">Data control</dt>
+            <dd class="criterion-text">Where the data lives and who decides: region choice, certifications, encryption key management, a self-managed edition, and what AI features do with your content.</dd>
+          </div>
+          <div class="criterion" id="commercial-portability">
+            <dt class="criterion-name">Portability</dt>
+            <dd class="criterion-text">Export formats and how complete they are, the public API, importers, and how realistically you could leave.</dd>
+          </div>
+          <div class="criterion criterion-band" id="commercial-market-presence">
+            <dt class="criterion-name">Market presence</dt>
+            <dd class="criterion-text">The market band read as a score, from Small at 1 to Very large at 5. A product more organisations pay for is likelier to stay supported, keep its integrations current and still be sold in five years.</dd>
+          </div>
+      </dl>
+      <p class="method-note">The commercial directory opens by market presence, largest first. Each record also carries a <strong>Confidence</strong> value: <em>High</em> means pricing, features and data handling were verified on the vendor&#8217;s own current pages; <em>Medium-high</em> flags one remaining qualification; <em>Medium</em> means part of the record rests on secondary sources. Read the caveat and sources with the label.</p>
+      <p class="method-note">A product sold only by quote scores low on value for money by design: a price a reader cannot see cannot be judged good value. That pulls the mean of enterprise suites down, so read their other five criteria on their own.</p>
+      <p class="method-note">The two directories share a scale but not two of their criteria, so a commercial product and an open-source one are best compared on the four criteria they share, not on the mean.</p>
+      <p class="method-note">Every record also carries a <strong>Source</strong> map: the app, the server, the paid extras and the parts the owner publishes separately, each marked open, partly open or closed. Everything in the commercial directory has a closed app and server. <em>Closed core</em> marks the products whose owner publishes a working part of the product as open source, such as an editor or a UI kit, and has updated it in the last twelve months; API clients and other tooling alone do not count. It is the mirror image of open core.</p>
+
+      <div class="models" id="built-for">
+        <h3 class="sub-title" id="built-for-title">Who each product is built for</h3>
+        <p class="method-note">The label follows the market the vendor sells to, not every use the product can be put to. Plenty of software teams run on a general team tool, and plenty of individuals live in one built for teams.</p>
+        <dl class="model-defs" aria-labelledby="built-for-title">
+          <div class="model-def" id="built-for-personal">
+            <dt class="model-name"><span class="tag tag-seg"><svg class="tag-ico" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="8" cy="5.2" r="2.6"/><path d="M3 14.2a5 5 0 0 1 10 0"/></svg>Personal</span></dt>
+            <dd class="model-text">Sold to individuals first: one person&#8217;s tasks, priorities and days. Some allow sharing, but there is little or no team administration, which is why the enterprise score is low by design.</dd>
+          </div>
+          <div class="model-def" id="built-for-teams">
+            <dt class="model-name"><span class="tag tag-seg"><svg class="tag-ico" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="5.6" cy="5.6" r="2.2"/><circle cx="11" cy="6.4" r="1.8"/><path d="M1.6 13.8a4 4 0 0 1 8 0M10.2 10.1a3.4 3.4 0 0 1 4.4 3.3"/></svg>Teams</span></dt>
+            <dd class="model-text">General work management for any team: projects, assignments and shared views, sold per seat to small companies and departments as much as to large organisations.</dd>
+          </div>
+          <div class="model-def" id="built-for-software">
+            <dt class="model-name"><span class="tag tag-seg"><svg class="tag-ico" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5.4 4.4 1.8 8l3.6 3.6M10.6 4.4 14.2 8l-3.6 3.6M9.1 2.9 6.9 13.1"/></svg>Software</span></dt>
+            <dd class="model-text">Issue tracking and delivery for software teams: backlogs, sprints, releases and links to code. Other teams can use it, but it is built around engineering&#8217;s vocabulary.</dd>
+          </div>
+          <div class="model-def" id="built-for-enterprise">
+            <dt class="model-name"><span class="tag tag-seg"><svg class="tag-ico" viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.6" y="2" width="7" height="12.2" rx="0.8"/><path d="M9.6 6.4h3a.8.8 0 0 1 .8.8v7M1.4 14.2h13.2M4.8 4.8h2.6M4.8 7.6h2.6M4.8 10.4h2.6"/></svg>Enterprise</span></dt>
+            <dd class="model-text">Portfolio, resource and professional-services management sold mainly to large organisations, often through a sales conversation rather than a self-serve plan.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <aside class="crosslink" aria-label="The directories">
+    <div class="shell crosslink-inner">
+      <a class="crosslink-link" href="/">
+        <span>
+          <span class="crosslink-kicker">Also on todoi.org</span>
+          <span class="crosslink-title">Open-source task managers compared</span>
+          <span class="crosslink-text">Twenty-five browser-based task managers whose source you can read, scored on the criteria above.</span>
+        </span>
+        <svg class="crosslink-arrow" viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
+      </a>
+      <a class="crosslink-link" href="/commercial-task-managers/">
+        <span>
+          <span class="crosslink-kicker">Also on todoi.org</span>
+          <span class="crosslink-title">Commercial task managers compared</span>
+          <span class="crosslink-text">Fifty-eight closed-source services, scored on value for money, data control and the four criteria both directories share.</span>
+        </span>
+        <svg class="crosslink-arrow" viewBox="0 0 16 16" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5"/></svg>
+      </a>
+    </div>
+  </aside>
+
+</main>
+
+<footer class="site-footer">
+  <div class="shell site-footer-inner">
+    <div class="footer-brand">
+      <span class="wordmark wordmark-sm"><span class="wordmark-name">todoi<span class="wordmark-tld">.org</span></span></span>
+      <p class="footer-note">A volunteer-run directory of open-source and source-available task managers. Not affiliated with, endorsed by or funded by any project listed here.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="/#directory">Task managers</a>
+      <a href="/#start">Where to start</a>
+      <a href="/method/" aria-current="page">Method</a>
+      <a href="/#faq">Questions</a>
+      <a href="/#contribute">Contribute</a>
+      <a href="/licensing/">Licensing</a>
+      <a href="/commercial-task-managers/">Commercial task managers</a>
+    </nav>
+    <p class="footer-meta">Criteria first published with the directory on <time datetime="2026-09-17">17 September 2026</time>. This page split out on <time datetime="2026-11-18">18 November 2026</time>.</p>
+    <p class="footer-contact">
+      <a href="https://flo.tokyo">Contact</a>
+      <a class="footer-x" href="https://x.com/flozuallaert" rel="me noopener" aria-label="X">
+        <svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true" focusable="false"><path fill="currentColor" d="M18.9 1.2h3.7l-8.1 9.3L24 23.1h-7.5l-5.9-7.7-6.7 7.7H.2l8.6-9.9L-.4 1.2h7.7l5.3 7 6.3-7Zm-1.3 19.7h2L6.2 3.3h-2.2Z"/></svg>
+      </a>
+    </p>
+  </div>
+</footer>
+
+<script src="/app.js" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[
+{"@type":"Organization","@id":"https://todoi.org/#org","name":"todoi.org","url":"https://todoi.org/","email":"info@todoi.org","description":"A volunteer-run directory of open-source and source-available browser-based task and project management software."},
+{"@type":"WebSite","@id":"https://todoi.org/#website","name":"todoi.org","url":"https://todoi.org/","publisher":{"@id":"https://todoi.org/#org"},"inLanguage":"en"},
+{"@type":"WebPage","@id":"https://todoi.org/method/#webpage","url":"https://todoi.org/method/","name":"How the scores work · todoi.org","description":"Six criteria from 1 to 5 plus one band, averaged with nothing weighted. How todoi.org scores its task managers, and what each confidence label means.","isPartOf":{"@id":"https://todoi.org/#website"},"publisher":{"@id":"https://todoi.org/#org"},"mainEntity":[{"@id":"https://todoi.org/method/#open-source"},{"@id":"https://todoi.org/method/#commercial"}],"hasPart":[{"@id":"https://todoi.org/method/#built-for"}],"inLanguage":"en","datePublished":"2026-11-18","dateModified":"2026-11-18","isAccessibleForFree":true,"significantLink":["https://todoi.org/","https://todoi.org/commercial-task-managers/","https://todoi.org/licensing/"],"breadcrumb":{"@id":"https://todoi.org/method/#breadcrumb"}},
+{"@type":"BreadcrumbList","@id":"https://todoi.org/method/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Directory","item":"https://todoi.org/"},{"@type":"ListItem","position":2,"name":"How the scores work","item":"https://todoi.org/method/"}]},
+{"@type":"DefinedTermSet","@id":"https://todoi.org/method/#open-source","name":"Open-source scoring criteria","description":"Six criteria and the community band, each 1 to 5, each with a written justification, on the open-source directory .","url":"https://todoi.org/method/#open-source","inLanguage":"en","hasDefinedTerm":[{"@id":"https://todoi.org/method/#open-ease-of-deployment"},{"@id":"https://todoi.org/method/#open-ease-of-use"},{"@id":"https://todoi.org/method/#open-enterprise-features"},{"@id":"https://todoi.org/method/#open-interface-flexibility"},{"@id":"https://todoi.org/method/#open-data-sovereignty"},{"@id":"https://todoi.org/method/#open-portability"},{"@id":"https://todoi.org/method/#open-community-size"}]},
+{"@type":"DefinedTermSet","@id":"https://todoi.org/method/#commercial","name":"Commercial scoring criteria","description":"Six criteria and the market band, each 1 to 5, each with a written justification, on the commercial directory . Four criteria are shared with the open-source directory; two change, because a service someone else runs raises different questions.","url":"https://todoi.org/method/#commercial","inLanguage":"en","hasDefinedTerm":[{"@id":"https://todoi.org/method/#commercial-value-for-money"},{"@id":"https://todoi.org/method/#commercial-ease-of-use"},{"@id":"https://todoi.org/method/#commercial-enterprise-features"},{"@id":"https://todoi.org/method/#commercial-interface-flexibility"},{"@id":"https://todoi.org/method/#commercial-data-control"},{"@id":"https://todoi.org/method/#commercial-portability"},{"@id":"https://todoi.org/method/#commercial-market-presence"}]},
+{"@type":"DefinedTermSet","@id":"https://todoi.org/method/#built-for","name":"Who each product is built for","description":"The label follows the market the vendor sells to, not every use the product can be put to. Plenty of software teams run on a general team tool, and plenty of individuals live in one built for teams.","url":"https://todoi.org/method/#built-for","inLanguage":"en","hasDefinedTerm":[{"@id":"https://todoi.org/method/#built-for-personal"},{"@id":"https://todoi.org/method/#built-for-teams"},{"@id":"https://todoi.org/method/#built-for-software"},{"@id":"https://todoi.org/method/#built-for-enterprise"}]},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#open-ease-of-deployment","name":"Ease of deployment","description":"Containers and packages, dependency count, operational complexity, upgrade burden and the state of the documentation.","url":"https://todoi.org/method/#open-ease-of-deployment","inDefinedTermSet":{"@id":"https://todoi.org/method/#open-source"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#open-ease-of-use","name":"Ease of use","description":"Interface clarity, learning curve, conceptual overhead and whether non-specialists can live in it.","url":"https://todoi.org/method/#open-ease-of-use","inDefinedTermSet":{"@id":"https://todoi.org/method/#open-source"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#open-enterprise-features","name":"Enterprise features","description":"Permissions, identity, audit and governance, portfolio reporting, scalability and administration.","url":"https://todoi.org/method/#open-enterprise-features","inDefinedTermSet":{"@id":"https://todoi.org/method/#open-source"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#open-interface-flexibility","name":"Interface flexibility","description":"How many genuinely useful views exist, plus workflow and custom-field options, dashboards, filters and extension points.","url":"https://todoi.org/method/#open-interface-flexibility","inDefinedTermSet":{"@id":"https://todoi.org/method/#open-source"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#open-data-sovereignty","name":"Data sovereignty","description":"Whether you can run it independently, read its source, and keep control of the application and its data infrastructure.","url":"https://todoi.org/method/#open-data-sovereignty","inDefinedTermSet":{"@id":"https://todoi.org/method/#open-source"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#open-portability","name":"Portability","description":"APIs and exports, conventional storage and database choices, licensing constraints, and how realistically you could leave.","url":"https://todoi.org/method/#open-portability","inDefinedTermSet":{"@id":"https://todoi.org/method/#open-source"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#open-community-size","name":"Community size","description":"The community band read as a score, from Small at 1 to Very large at 5. A project more people run, extend and answer questions about is easier to get help with and safer to depend on.","url":"https://todoi.org/method/#open-community-size","inDefinedTermSet":{"@id":"https://todoi.org/method/#open-source"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#commercial-value-for-money","name":"Value for money","description":"What the free plan gives, what the tier most teams actually need costs per seat, seat minimums, and what is held back for the top tiers or sold as an add-on.","url":"https://todoi.org/method/#commercial-value-for-money","inDefinedTermSet":{"@id":"https://todoi.org/method/#commercial"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#commercial-ease-of-use","name":"Ease of use","description":"Interface clarity, learning curve, conceptual overhead and whether non-specialists can live in it.","url":"https://todoi.org/method/#commercial-ease-of-use","inDefinedTermSet":{"@id":"https://todoi.org/method/#commercial"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#commercial-enterprise-features","name":"Enterprise features","description":"SSO and SCIM, permissions, audit logs, admin controls, compliance certifications, portfolio reporting and scale.","url":"https://todoi.org/method/#commercial-enterprise-features","inDefinedTermSet":{"@id":"https://todoi.org/method/#commercial"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#commercial-interface-flexibility","name":"Interface flexibility","description":"How many genuinely useful views exist, plus custom fields, automation, dashboards, filters and extension points.","url":"https://todoi.org/method/#commercial-interface-flexibility","inDefinedTermSet":{"@id":"https://todoi.org/method/#commercial"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#commercial-data-control","name":"Data control","description":"Where the data lives and who decides: region choice, certifications, encryption key management, a self-managed edition, and what AI features do with your content.","url":"https://todoi.org/method/#commercial-data-control","inDefinedTermSet":{"@id":"https://todoi.org/method/#commercial"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#commercial-portability","name":"Portability","description":"Export formats and how complete they are, the public API, importers, and how realistically you could leave.","url":"https://todoi.org/method/#commercial-portability","inDefinedTermSet":{"@id":"https://todoi.org/method/#commercial"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#commercial-market-presence","name":"Market presence","description":"The market band read as a score, from Small at 1 to Very large at 5. A product more organisations pay for is likelier to stay supported, keep its integrations current and still be sold in five years.","url":"https://todoi.org/method/#commercial-market-presence","inDefinedTermSet":{"@id":"https://todoi.org/method/#commercial"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#built-for-personal","name":"Personal","description":"Sold to individuals first: one person’s tasks, priorities and days. Some allow sharing, but there is little or no team administration, which is why the enterprise score is low by design.","url":"https://todoi.org/method/#built-for-personal","inDefinedTermSet":{"@id":"https://todoi.org/method/#built-for"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#built-for-teams","name":"Teams","description":"General work management for any team: projects, assignments and shared views, sold per seat to small companies and departments as much as to large organisations.","url":"https://todoi.org/method/#built-for-teams","inDefinedTermSet":{"@id":"https://todoi.org/method/#built-for"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#built-for-software","name":"Software","description":"Issue tracking and delivery for software teams: backlogs, sprints, releases and links to code. Other teams can use it, but it is built around engineering’s vocabulary.","url":"https://todoi.org/method/#built-for-software","inDefinedTermSet":{"@id":"https://todoi.org/method/#built-for"}},
+{"@type":"DefinedTerm","@id":"https://todoi.org/method/#built-for-enterprise","name":"Enterprise","description":"Portfolio, resource and professional-services management sold mainly to large organisations, often through a sales conversation rather than a self-serve plan.","url":"https://todoi.org/method/#built-for-enterprise","inDefinedTermSet":{"@id":"https://todoi.org/method/#built-for"}}
+]}</script>
+</body>
+</html>

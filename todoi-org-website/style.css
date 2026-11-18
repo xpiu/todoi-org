@@ -648,6 +648,31 @@ a:hover {
   border-top: var(--border);
 }
 
+/* The criteria live on /method/. What stays on a directory is a pointer, so
+   it does not take a section's air or a section title's size. */
+.method-brief {
+  padding-block: var(--sp-4);
+}
+
+.method-brief .section-head {
+  gap: var(--sp-1);
+  margin-bottom: 0;
+}
+
+.method-brief .section-title {
+  font-size: var(--fs-lg);
+}
+
+.method-brief .section-note {
+  font-size: var(--fs-sm);
+}
+
+/* Same as the licensing page: the hero and the first block are one opening. */
+.method-doc > .method:first-of-type {
+  border-top-color: transparent;
+  padding-top: var(--sp-4);
+}
+
 /* The hero and the board are two halves of the same opening, so the rule
    between them would read as a divider where none is meant. It stays in place
    for the spacing it holds but is drawn in nothing, and the gap after it
@@ -666,7 +691,9 @@ a:hover {
 .routes-inner,
 .method-inner,
 .faq-inner,
-.contribute-inner {
+.contribute-inner,
+.picker-inner,
+.labels-inner {
   max-width: var(--shell-prose);
   /* .shell centres itself; a narrower .shell would centre too, and the page
      would gain a second left edge. This reproduces the offset the full shell
@@ -3360,7 +3387,7 @@ a.wordmark:hover .wordmark-logo {
   align-self: start;
 }
 
-/* Maintainer line: a text link and a small mark, kept at meta weight so the
+/* Maintainer line: a text link and small marks, kept at meta weight so the
    footer nav above it stays the loudest thing down here. */
 .footer-contact {
   /* Column 2 explicitly: auto-placement would drop it back under the brand,
@@ -3372,7 +3399,8 @@ a.wordmark:hover .wordmark-logo {
   margin-top: var(--sp-2);
 }
 
-.footer-x {
+.footer-x,
+.footer-github {
   display: inline-flex;
   align-items: center;
   /* The mark is the link; an underline under a glyph reads as a stray rule. */
@@ -4357,6 +4385,11 @@ html:not(.js) .th-sort::after {
   margin-inline: max(0px, (100% - var(--shell)) / 2) auto;
 }
 
+.crosslink-inner:has(> .crosslink-link + .crosslink-link) {
+  display: grid;
+  gap: var(--sp-3);
+}
+
 .crosslink-link {
   display: flex;
   align-items: center;
@@ -4489,4 +4522,332 @@ html:not(.js) .th-sort::after {
 
 html:not(.js) .card-blurb {
   -webkit-line-clamp: unset;
+}
+
+/* ==========================================================================
+   26  LICENSING PAGE — chooser and the four labels
+   The rail is the spectrum. Questions sit under it and remove stops.
+   One sheet holds the licence that remains.
+   ========================================================================== */
+
+.picker,
+.labels {
+  padding-block: var(--section-pad);
+  border-top: var(--border);
+}
+
+/* Same treatment as the directory: the hero and the tool are one opening. */
+.picker {
+  border-top-color: transparent;
+  padding-top: var(--sp-4);
+}
+
+.pick-count {
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
+}
+
+.pick-bands {
+  display: grid;
+  gap: var(--sp-4);
+  margin-top: var(--sp-4);
+}
+
+.pick-band-name {
+  margin-bottom: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.pick-band-stops {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.pick-stop {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-h);
+  padding: 0.375rem 0.75rem;
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: var(--fs-3xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+  text-align: start;
+}
+
+.pick-stop:hover {
+  border-color: var(--line-heavy);
+  color: var(--text);
+}
+
+.pick-stop[data-fit='out'] {
+  background-color: transparent;
+  border-style: dashed;
+  border-color: var(--line);
+  color: var(--text-faint);
+}
+
+.pick-stop[aria-current='true'] {
+  background-color: var(--accent-soft);
+  border-style: solid;
+  border-color: var(--accent);
+  color: var(--accent-strong);
+  font-weight: 500;
+}
+
+.pick-aside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+  margin-top: var(--sp-4);
+  max-width: var(--measure);
+  font-size: var(--fs-sm);
+  color: var(--text-2);
+}
+
+.pick-asked {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-5);
+}
+
+.pick-asked:empty {
+  display: none;
+}
+
+.pick-chip {
+  min-height: var(--control-h);
+  padding: 0.375rem 0.75rem;
+  border: var(--border-strong);
+  border-radius: var(--radius-2);
+  background-color: var(--bg-raised);
+  color: var(--text);
+  font-size: var(--fs-sm);
+}
+
+.pick-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.pick-stage,
+.pick-result {
+  margin-top: var(--sp-6);
+}
+
+.pick-fieldset {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.pick-q {
+  padding: 0;
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  letter-spacing: var(--tracking-title);
+  line-height: var(--lh-snug);
+}
+
+.pick-help,
+.pick-summary,
+.pick-rel,
+.pick-paid-note,
+.pick-legal,
+.pick-catalogue-lead {
+  max-width: var(--measure);
+  color: var(--text-2);
+}
+
+.pick-help,
+.pick-catalogue-lead {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+}
+
+.pick-options {
+  margin-top: var(--sp-4);
+  border: var(--border);
+  border-radius: var(--radius-3);
+  background-color: var(--bg-raised);
+}
+
+.pick-option {
+  display: grid;
+  gap: var(--sp-1);
+  width: 100%;
+  padding: var(--sp-4) var(--sp-5);
+  border-top: var(--border);
+  text-align: start;
+  color: var(--text);
+}
+
+.pick-option:first-child {
+  border-top: 0;
+}
+
+.pick-option:hover {
+  background-color: var(--bg-sunken);
+}
+
+.pick-option:hover .pick-option-label {
+  color: var(--accent);
+}
+
+.pick-option-label {
+  font-size: var(--fs-md);
+  font-weight: 500;
+}
+
+.pick-option-detail {
+  max-width: 68ch;
+  font-size: var(--fs-sm);
+  line-height: var(--lh-normal);
+  color: var(--text-2);
+}
+
+.pick-paid .pick-option[aria-checked='true'] {
+  background-color: var(--accent-soft);
+}
+
+.pick-paid .pick-option[aria-checked='true'] .pick-option-label {
+  color: var(--accent-strong);
+}
+
+.pick-card {
+  margin-top: var(--sp-5);
+  padding: var(--sp-5);
+  background-color: var(--bg-raised);
+  border: var(--border);
+  border-radius: var(--radius-3);
+}
+
+.pick-catalogue .pick-card + .pick-card {
+  margin-top: var(--sp-4);
+}
+
+.pick-name {
+  margin: 0;
+  text-wrap: balance;
+}
+
+.pick-id {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+  margin-top: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  color: var(--text-2);
+}
+
+.pick-summary {
+  margin-top: var(--sp-4);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+}
+
+.pick-terms {
+  margin: var(--sp-5) 0 0;
+}
+
+.pick-terms div {
+  display: grid;
+  gap: var(--sp-1);
+  margin-top: var(--sp-4);
+}
+
+.pick-terms div:first-child {
+  margin-top: 0;
+}
+
+.pick-terms dt {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.pick-terms dd {
+  margin: 0;
+  max-width: var(--measure);
+  color: var(--text-2);
+}
+
+.pick-rel,
+.pick-paid-note,
+.pick-legal {
+  margin-top: var(--sp-5);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+}
+
+.pick-paid-q {
+  font-size: var(--fs-md);
+  font-weight: 500;
+}
+
+.pick-legal {
+  padding-top: var(--sp-4);
+  border-top: var(--border);
+  font-size: var(--fs-sm);
+}
+
+.pick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-5);
+}
+
+html.js .pick-catalogue {
+  display: none;
+}
+
+html:not(.js) .pick-app {
+  display: none;
+}
+
+@media (min-width: 48rem) {
+  .pick-terms div {
+    grid-template-columns: 8.75rem minmax(0, 1fr);
+    column-gap: var(--sp-5);
+    align-items: baseline;
+  }
+}
+
+@media (min-width: 64rem) {
+  .pick-bands {
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.15fr) minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1.1fr);
+    column-gap: var(--sp-5);
+  }
+
+  .pick-band-stops {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .pick-stop {
+    width: 100%;
+  }
+}
+
+@media print {
+  html.js .pick-catalogue {
+    display: block;
+  }
 }
