@@ -7,7 +7,7 @@
 # The PostgreSQL parts are commented out below, not removed: docs/json-store.md
 # is the way back.
 
-ARG NODE_VERSION=26.13.0
+ARG NODE_VERSION=26.13.1
 
 # --- build: install, typecheck-free production build ---------------------------
 FROM node:${NODE_VERSION}-slim AS build
