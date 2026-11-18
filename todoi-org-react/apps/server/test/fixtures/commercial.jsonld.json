@@ -35,8 +35,8 @@
    },
    "inLanguage": "en",
    "datePublished": "2026-11-11",
-   "dateModified": "2026-11-11",
-   "lastReviewed": "2026-11-11",
+   "dateModified": "2026-11-18",
+   "lastReviewed": "2026-11-18",
    "reviewedBy": {
     "@id": "https://todoi.org/#org"
    },
@@ -6042,7 +6042,7 @@
    "creator": {
     "@id": "https://todoi.org/#org"
    },
-   "dateModified": "2026-11-11",
+   "dateModified": "2026-11-18",
    "license": "https://creativecommons.org/licenses/by/4.0/",
    "isAccessibleForFree": true,
    "distribution": [

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { startPath } from '../../components/SiteChrome.tsx';
 import { scrollBehavior } from '../../lib/motion.ts';
 import { useDirectory } from './state.tsx';
 
@@ -12,7 +13,7 @@ export function visibleHost(slug: string): HTMLElement | null {
 }
 
 export function usePageBehaviour(): void {
-  const { records, toggle, view } = useDirectory();
+  const { config, records, toggle, view } = useDirectory();
   const navigate = useNavigate();
   const state = useRef({ toggle, view });
   state.current = { toggle, view };
@@ -60,6 +61,12 @@ export function usePageBehaviour(): void {
     map.forEach((m) => io.observe(m.target));
     return () => io.disconnect();
   }, []);
+
+  // "Where to start" used to be the #start section of this page. Old links to it
+  // land on the page that replaced it.
+  useEffect(() => {
+    if (window.location.hash === '#start') window.location.replace(startPath(config.path));
+  }, [config.path]);
 
   // On arrival: a bare #slug (the record's JSON-LD @id) opens that record, and
   // whichever record the address names is brought into view.

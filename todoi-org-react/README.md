@@ -70,6 +70,12 @@ order. No utility framework.
 build scripts did not) and wrote `packages/db/seed/data.json`. The Score is never stored: the mean of
 the six criteria and the band, rounded half up, defined once in `packages/shared`.
 
+**Where to start.** Each directory has its own page for it, `/where-to-start/` and
+`/commercial-task-managers/where-to-start/` (`features/directory/StartPage.tsx`). Its copy is
+`copy.routes` (lede, three questions, trial steps, the closing paragraphs) and `routes` (situation
+and pick, each pick linking to `/?open=<record>`) in `packages/db/seed/data.json`. It was the `#start`
+section of each directory until 2026-11-18; the old `#start` links redirect to the page.
+
 **Source map.** Every record says what is open and what is closed in four layers: `source.app`,
 `source.server`, `source.extras` (paid editions and plugins) and `source.parts` (what the owner
 publishes separately), each `{ level, label, note }` on the capability scale (2 open-source licence,

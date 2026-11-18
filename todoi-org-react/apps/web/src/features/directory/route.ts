@@ -24,6 +24,20 @@ export async function loadDirectory(context: RouterContext, slug: string): Promi
   return { slug: d.slug, siteUrl: context.siteUrl, path: d.path, csvFile: d.csvFile, head: d.copy.head };
 }
 
+/** The directory's "Where to start" page: its own address, title and description, the directory's image and data file. */
+export async function loadStart(context: RouterContext, slug: string): Promise<DirectoryHeadData> {
+  const data = await context.queryClient.ensureQueryData(directoryQuery(context.api, slug));
+  const d = data.directory;
+  const { head, routes } = d.copy;
+  return {
+    slug: d.slug,
+    siteUrl: context.siteUrl,
+    path: `${d.path}where-to-start/`,
+    csvFile: d.csvFile,
+    head: { ...head, title: routes.head.title, description: routes.head.description, ogTitle: routes.head.title.replace(/ · todoi\.org$/, '') },
+  };
+}
+
 /** Title, description, canonical, Open Graph and Twitter tags: rendered on the server. */
 export function directoryHead(data: DirectoryHeadData | undefined) {
   if (!data) return {};

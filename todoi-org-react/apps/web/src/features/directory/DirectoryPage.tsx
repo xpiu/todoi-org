@@ -9,7 +9,7 @@ import { Empty } from './Empty.tsx';
 import { FieldMap } from './FieldMap.tsx';
 import { Matrix } from './Matrix.tsx';
 import { directoryQuery } from './queries.ts';
-import { Contribute, Crosslink, Faq, Hero, Method, Routes } from './Sections.tsx';
+import { Contribute, Crosslink, Faq, Hero, Method } from './Sections.tsx';
 import { DirectoryProvider, useDirectory } from './state.tsx';
 import { usePageBehaviour } from './usePageBehaviour.ts';
 import { useTokenTips } from './useTokenTips.ts';
@@ -40,7 +40,7 @@ function Page() {
       <a className={cx('skip-link')} href="#directory">
         Skip to the matrix
       </a>
-      <SiteHeader />
+      <SiteHeader path={config.path} />
       <main id="main">
         <Hero />
         <section className={cx('board')} id="directory" aria-labelledby="directory-title">
@@ -59,13 +59,13 @@ function Page() {
           </div>
         </section>
         <FieldMap />
-        <Routes />
         <Method />
         <Faq />
         <Contribute />
         <Crosslink />
       </main>
       <SiteFooter
+        path={config.path}
         note={copy.footer.note}
         csvFile={config.csvFile}
         otherLabel={copy.footer.otherLabel}
