@@ -20,8 +20,8 @@ test('open source opens on effort against depth, a bubble a project, inked by li
   await expect(page.locator('#map .map-dot .map-dot-mark[data-look="part"]')).toHaveCount(5);
   await expect(page.locator('#map .map-dot .map-dot-mark[data-look="split"]')).toHaveCount(2);
   await expect(page.locator('#map .map-dot .map-dot-mark[data-look="shut"]')).toHaveCount(2);
-  await expect(page.locator('#map .map-key-item')).toHaveText('Mixed source');
-  await expect(page.locator('#map .map-key-item .map-dot-mark[data-look="split"]')).toHaveCount(1);
+  await expect(page.locator('#map .map-key-item')).toHaveCount(0);
+  await expect(page.locator('#map .map-chip[data-seg="mixed-source"] .map-dot-mark[data-look="split"]')).toHaveCount(1);
   await expect(page.locator('#map .map-chip')).toHaveText(['FOSS', 'Open core', 'Source-available', 'Mixed source']);
   await expect(page.locator('#map-finding')).toHaveText('Ease of deployment and enterprise features do not move together.');
   await expect(page.locator('#map-dot-plane')).toHaveAccessibleName(
