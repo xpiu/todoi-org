@@ -58,22 +58,17 @@
 
 <main id="main">
 
-  <section class="hero">
+  <section class="hero hero-tight">
     <div class="shell picker-inner">
       <div class="hero-copy">
         <h1 class="hero-title">Licensing and paid features</h1>
-        <p class="hero-lede">How this directory names a licence, and a sequence of choices that ends at one, from all rights reserved to the public domain.</p>
+        <p class="hero-lede">How this directory names a licence, and a sequence of choices that ends at one, from all rights reserved to the public domain. Not legal advice. <a href="#labels">The four labels</a> are below.</p>
       </div>
     </div>
   </section>
 
-  <section class="picker" id="picker" aria-labelledby="picker-title">
+  <section class="picker" id="picker" aria-label="Choose a licence">
     <div class="shell picker-inner">
-      <div class="section-head">
-        <h2 class="section-title" id="picker-title">Choose a licence</h2>
-        <p class="section-note">Answer until one is left. It picks a licence for one body of code, and it is a guide to the common instruments, not legal advice. Mixed source is not a choice here: that is what the directory records when the app and the server are under different terms. <a href="#labels">The four labels</a> are below.</p>
-      </div>
-
       <div class="pick-app" id="pick-app">
         <p class="pick-count" id="pick-count" aria-live="polite"></p>
         <div class="pick-bands" id="pick-bands" role="group" aria-label="Licences from private to public domain"></div>
@@ -113,7 +108,7 @@
         <p class="pick-catalogue-lead">Fifteen licences, in the order the chooser walks them.</p>
 
         <article class="pick-card" id="lic-proprietary" data-id="proprietary" data-group="Private" data-short="Private">
-          <h3 class="pick-name">All rights reserved</h3>
+          <h2 class="pick-name">All rights reserved</h2>
           <p class="pick-id">No SPDX identifier. There is no grant.</p>
           <p class="pick-summary">Nobody receives a right to use, copy, modify or distribute the code. That is ordinary copyright, and it is the correct instrument when the software is yours to sell and you do not want a second publisher.</p>
           <dl class="pick-terms">
@@ -125,7 +120,7 @@
         </article>
 
         <article class="pick-card" id="lic-polyform" data-id="polyform" data-group="Source-available" data-short="PolyForm" data-spdx="PolyForm-Noncommercial-1.0.0">
-          <h3 class="pick-name">PolyForm Noncommercial 1.0.0</h3>
+          <h2 class="pick-name">PolyForm Noncommercial 1.0.0</h2>
           <p class="pick-id">PolyForm-Noncommercial-1.0.0</p>
           <p class="pick-summary">Anyone may use, change and share the software for a noncommercial purpose. Commercial use stays with you, under a separate agreement. It is a source-available licence, not an open-source one.</p>
           <dl class="pick-terms">
@@ -137,7 +132,7 @@
         </article>
 
         <article class="pick-card" id="lic-busl" data-id="busl" data-group="Source-available" data-short="BUSL" data-spdx="BUSL-1.1">
-          <h3 class="pick-name">Business Source License 1.1</h3>
+          <h2 class="pick-name">Business Source License 1.1</h2>
           <p class="pick-id">BUSL-1.1</p>
           <p class="pick-summary">You publish the source now, and you name the open licence it becomes. Until the change date, production use is allowed only to the extent of the Additional Use Grant you write. Non-production use is included.</p>
           <dl class="pick-terms">
@@ -149,7 +144,7 @@
         </article>
 
         <article class="pick-card" id="lic-elastic" data-id="elastic" data-group="Source-available" data-short="Elastic" data-spdx="Elastic-2.0">
-          <h3 class="pick-name">Elastic License 2.0</h3>
+          <h2 class="pick-name">Elastic License 2.0</h2>
           <p class="pick-id">Elastic-2.0</p>
           <p class="pick-summary">Anyone may use, modify and distribute the software, including in their own production. They may not offer it to others as a managed service. The source is public. The licence is not an open-source one.</p>
           <dl class="pick-terms">
@@ -161,7 +156,7 @@
         </article>
 
         <article class="pick-card" id="lic-agpl" data-id="agpl" data-group="Copyleft" data-short="AGPL" data-spdx="AGPL-3.0-or-later" data-paid="yes">
-          <h3 class="pick-name">GNU Affero General Public License v3.0 or later</h3>
+          <h2 class="pick-name">GNU Affero General Public License v3.0 or later</h2>
           <p class="pick-id">AGPL-3.0-or-later</p>
           <p class="pick-summary">Anyone may use, change and share the software, including in a commercial product. A modified version that people use over a network has to offer those people the corresponding source. This is the copyleft to use when the software is a server and a private fork on someone else’s host is the outcome you want to prevent.</p>
           <dl class="pick-terms">
@@ -173,7 +168,7 @@
         </article>
 
         <article class="pick-card" id="lic-gpl3" data-id="gpl3" data-group="Copyleft" data-short="GPL-3.0" data-spdx="GPL-3.0-or-later" data-paid="yes">
-          <h3 class="pick-name">GNU General Public License v3.0 or later</h3>
+          <h2 class="pick-name">GNU General Public License v3.0 or later</h2>
           <p class="pick-id">GPL-3.0-or-later</p>
           <p class="pick-summary">Anyone who receives a copy, including a binary, must be able to get the source of the whole combined work and pass the same rights on. Using it inside an organisation, without giving copies out, does not by itself require you to publish anything.</p>
           <dl class="pick-terms">
@@ -185,7 +180,7 @@
         </article>
 
         <article class="pick-card" id="lic-gpl2" data-id="gpl2" data-group="Copyleft" data-short="GPL-2.0" data-spdx="GPL-2.0-only" data-paid="yes">
-          <h3 class="pick-name">GNU General Public License v2.0 only</h3>
+          <h2 class="pick-name">GNU General Public License v2.0 only</h2>
           <p class="pick-id">GPL-2.0-only</p>
           <p class="pick-summary">The same distribution copyleft, frozen at version 2. Choose it when you have to combine with code that is GPL-2.0 only, such as the Linux kernel. Not otherwise.</p>
           <dl class="pick-terms">
@@ -197,7 +192,7 @@
         </article>
 
         <article class="pick-card" id="lic-lgpl" data-id="lgpl" data-group="Copyleft" data-short="LGPL" data-spdx="LGPL-3.0-or-later" data-paid="yes">
-          <h3 class="pick-name">GNU Lesser General Public License v3.0 or later</h3>
+          <h2 class="pick-name">GNU Lesser General Public License v3.0 or later</h2>
           <p class="pick-id">LGPL-3.0-or-later</p>
           <p class="pick-summary">The library stays copyleft, and a proprietary program may use it as a library. Someone who modifies the library and ships it must release those modifications under the LGPL, and users of the program must be able to use a modified library in its place.</p>
           <dl class="pick-terms">
@@ -209,7 +204,7 @@
         </article>
 
         <article class="pick-card" id="lic-mpl" data-id="mpl" data-group="Copyleft" data-short="MPL" data-spdx="MPL-2.0" data-paid="yes">
-          <h3 class="pick-name">Mozilla Public License 2.0</h3>
+          <h2 class="pick-name">Mozilla Public License 2.0</h2>
           <p class="pick-id">MPL-2.0</p>
           <p class="pick-summary">Each file under the MPL stays under the MPL, including modifications to that file. A larger program that includes those files may be under a different licence, including a proprietary one. The copyleft stops at the file boundary.</p>
           <dl class="pick-terms">
@@ -221,7 +216,7 @@
         </article>
 
         <article class="pick-card" id="lic-apache" data-id="apache" data-group="Permissive" data-short="Apache" data-spdx="Apache-2.0" data-paid="yes">
-          <h3 class="pick-name">Apache License 2.0</h3>
+          <h2 class="pick-name">Apache License 2.0</h2>
           <p class="pick-id">Apache-2.0</p>
           <p class="pick-summary">Anyone may use, modify and ship the code, including in a closed product. They keep the notices, and contributors grant a patent licence covering their contribution. Trademarks are not included.</p>
           <dl class="pick-terms">
@@ -233,7 +228,7 @@
         </article>
 
         <article class="pick-card" id="lic-bsd3" data-id="bsd3" data-group="Permissive" data-short="BSD-3" data-spdx="BSD-3-Clause" data-paid="yes">
-          <h3 class="pick-name">BSD 3-Clause License</h3>
+          <h2 class="pick-name">BSD 3-Clause License</h2>
           <p class="pick-id">BSD-3-Clause</p>
           <p class="pick-summary">A short permissive licence. Closed forks are allowed. The third clause says they may not use your name, or the names of the contributors, to endorse or promote their version without written permission.</p>
           <dl class="pick-terms">
@@ -245,7 +240,7 @@
         </article>
 
         <article class="pick-card" id="lic-mit" data-id="mit" data-group="Permissive" data-short="MIT" data-spdx="MIT" data-paid="yes">
-          <h3 class="pick-name">MIT License</h3>
+          <h2 class="pick-name">MIT License</h2>
           <p class="pick-id">MIT</p>
           <p class="pick-summary">The short permissive licence. Anyone may do anything with the code, including ship it closed, provided the copyright notice and the licence text travel with the copy.</p>
           <dl class="pick-terms">
@@ -257,7 +252,7 @@
         </article>
 
         <article class="pick-card" id="lic-bsd0" data-id="bsd0" data-group="No conditions" data-short="0BSD" data-spdx="0BSD" data-paid="yes">
-          <h3 class="pick-name">BSD Zero Clause License</h3>
+          <h2 class="pick-name">BSD Zero Clause License</h2>
           <p class="pick-id">0BSD</p>
           <p class="pick-summary">A real licence with no conditions. Anyone may use, modify and ship the code, with or without attribution, including in a closed product. It is approved by the Open Source Initiative. It is the closest thing to the public domain that still reads as a licence where a court will not let you abandon copyright.</p>
           <dl class="pick-terms">
@@ -269,7 +264,7 @@
         </article>
 
         <article class="pick-card" id="lic-unlicense" data-id="unlicense" data-group="No conditions" data-short="Unlicense" data-spdx="Unlicense" data-paid="yes">
-          <h3 class="pick-name">The Unlicense</h3>
+          <h2 class="pick-name">The Unlicense</h2>
           <p class="pick-id">Unlicense</p>
           <p class="pick-summary">A public-domain dedication with a fallback licence, for when you want the words “public domain” and an OSI-approved text. Anyone may do anything, with no conditions.</p>
           <dl class="pick-terms">
@@ -281,7 +276,7 @@
         </article>
 
         <article class="pick-card" id="lic-cc0" data-id="cc0" data-group="No conditions" data-short="CC0" data-spdx="CC0-1.0" data-paid="yes">
-          <h3 class="pick-name">CC0 1.0 Universal</h3>
+          <h2 class="pick-name">CC0 1.0 Universal</h2>
           <p class="pick-id">CC0-1.0</p>
           <p class="pick-summary">A waiver of copyright and related rights, with a public licence as fallback if the waiver fails. No attribution. It is the usual instrument for data, and a common one for code. It is not an OSI-approved licence, because it says it does not grant patent rights.</p>
           <dl class="pick-terms">
@@ -326,7 +321,6 @@
     <div class="shell crosslink-inner">
       <a class="crosslink-link" href="/">
         <span>
-          <span class="crosslink-kicker">Also on todoi.org</span>
           <span class="crosslink-title">Open-source task managers compared</span>
           <span class="crosslink-text">Twenty-five browser-based task managers whose source you can read, scored with the labels above.</span>
         </span>

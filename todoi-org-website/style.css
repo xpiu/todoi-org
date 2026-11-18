@@ -4537,9 +4537,13 @@ html:not(.js) .card-blurb {
 }
 
 /* Same treatment as the directory: the hero and the tool are one opening. */
+.hero-tight {
+  padding-bottom: var(--sp-3);
+}
+
 .picker {
   border-top-color: transparent;
-  padding-top: var(--sp-4);
+  padding-top: 0;
 }
 
 .pick-count {
@@ -4551,8 +4555,32 @@ html:not(.js) .card-blurb {
 
 .pick-bands {
   display: grid;
-  gap: var(--sp-4);
-  margin-top: var(--sp-4);
+  grid-template-columns: 1fr;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+}
+
+/* On a phone the band name sits beside its stops, so five groups do not
+   each take a line of their own before the question. */
+@media (max-width: 47.99rem) {
+  .pick-band {
+    display: grid;
+    grid-template-columns: 6.5rem minmax(0, 1fr);
+    column-gap: var(--sp-2);
+    align-items: start;
+  }
+
+  .pick-band-name {
+    margin-bottom: 0;
+    padding-top: 0.7rem;
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .pick-bands {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-4);
+  }
 }
 
 .pick-band-name {
@@ -4743,6 +4771,10 @@ html:not(.js) .card-blurb {
 
 .pick-name {
   margin: 0;
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: var(--tracking-title);
+  line-height: var(--lh-snug);
   text-wrap: balance;
 }
 
@@ -4832,7 +4864,7 @@ html:not(.js) .pick-app {
 
 @media (min-width: 64rem) {
   .pick-bands {
-    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.15fr) minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.05fr) minmax(0, 1.7fr) minmax(0, 1fr) minmax(0, 1.05fr);
     column-gap: var(--sp-5);
   }
 
@@ -4843,6 +4875,14 @@ html:not(.js) .pick-app {
 
   .pick-stop {
     width: 100%;
+  }
+
+  /* Five copyleft names would otherwise make a tower and push the question
+     below the first screen. Two columns keep that band as tall as the others. */
+  .pick-band:nth-child(3) .pick-band-stops {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-2);
   }
 }
 
