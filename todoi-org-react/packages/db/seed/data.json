@@ -9,7 +9,7 @@
         "projects"
       ],
       "compiledOn": "2026-09-17",
-      "modifiedOn": "2026-11-11",
+      "modifiedOn": "2026-11-18",
       "csvFile": "todoi-dataset-2026-09-17.csv",
       "toggles": [
         {
@@ -209,7 +209,56 @@
         "ascKeys": [],
         "routes": {
           "title": "Where to start",
-          "note": "The matrix says what each project does. These are the routes the research supports."
+          "note": "The matrix says what each project does. These are the routes the research supports.",
+          "head": {
+            "title": "Where to start: choosing an open-source task manager · todoi.org",
+            "description": "Three questions and fourteen situations that narrow twenty-five open-source task managers to a shortlist, with a four-step trial before you commit."
+          },
+          "lede": "Twenty-five projects is too many to read. Answer three questions, find the situation closest to yours, and test the shortlist before committing anyone&#8217;s work to it.",
+          "questionsTitle": "Three questions first",
+          "questionsNote": "Most shortlists are decided by these before any score is read.",
+          "questions": [
+            {
+              "q": "Who is going to run it?",
+              "a": "Nobody: use a project that sells its own hosted service. Fourteen here do, among them <a href=\"/?open=openproject\"><strong>OpenProject</strong></a>, <a href=\"/?open=plane\"><strong>Plane</strong></a>, <a href=\"/?open=leantime\"><strong>Leantime</strong></a> and <a href=\"/?open=vikunja\"><strong>Vikunja</strong></a>; <a href=\"/?open=kanboard\"><strong>Kanboard</strong></a>, <a href=\"/?open=planka\"><strong>PLANKA</strong></a> and <a href=\"/?open=redmine\"><strong>Redmine</strong></a> do not. An evening: <a href=\"/?open=kanboard\"><strong>Kanboard</strong></a>, <a href=\"/?open=vikunja\"><strong>Vikunja</strong></a> and <a href=\"/?open=planka\"><strong>PLANKA</strong></a> are one or two containers. An operations team: <a href=\"/?open=plane\"><strong>Plane</strong></a>, <a href=\"/?open=taiga\"><strong>Taiga</strong></a> and <a href=\"/?open=huly\"><strong>Huly</strong></a> are the heavier stacks."
+            },
+            {
+              "q": "What would end the evaluation if it were missing?",
+              "a": "Name the capability you cannot do without before you read a score: time tracking, boards, Gantt, a calendar, calendar sync. No project has all five natively. Only OpenProject, Leantime, Kanboard and Restyaboard mark time tracking, boards, Gantt and a calendar as native, and Restyaboard has been effectively frozen since 2022. <a href=\"/?f=tt,agile,gantt,calendar\">Ask the matrix</a> for what you need and see who is left."
+            },
+            {
+              "q": "How much lock-in can you accept?",
+              "a": "The licence: FOSS is open throughout; open core keeps some features in a paid, closed edition; source-available lets you read the code but limits what you may do with it; mixed source combines these. Each record&#8217;s source map shows which layer is open. The exit: portability and the data-out line say whether your tasks leave in a format something else can read."
+            }
+          ],
+          "situationsTitle": "Situations",
+          "situationsNote": "Find the one closest to yours. Each pick is where a shortlist begins, with the reasoning on the record it links to. Picks are the maintainer&#8217;s reading of the records, chosen by fit: no project pays to be listed or picked.",
+          "trialTitle": "Before you commit: an afternoon test",
+          "trialNote": "Whatever you shortlist, these four steps catch most of what a comparison cannot.",
+          "trial": [
+            {
+              "title": "Run the default install",
+              "text": "Use the project&#8217;s own documented deployment, not a tuned one. If that takes more than you budgeted, the ease-of-deployment score was right."
+            },
+            {
+              "title": "Test the deal-breaker first",
+              "text": "Check the capability that would end your evaluation on the edition you would actually deploy: open-core and source-available projects keep some features in paid tiers."
+            },
+            {
+              "title": "Load real work",
+              "text": "Bring ten real tasks, or import a real project, not demo data. Whether the tool still makes sense with your own mess is the test."
+            },
+            {
+              "title": "Take it back out",
+              "text": "Export everything and open it somewhere else. The data-out line on the record says what to expect; this checks it."
+            }
+          ],
+          "fallbackTitle": "If nothing fits",
+          "fallback": [
+            "Start from the <a href=\"/#directory\">matrix</a>: tick the capabilities you cannot do without, choose a licensing model, and what remains is your shortlist.",
+            "Eleven projects were researched and read twice; fourteen were read once, and their records are marked Medium-high or Medium. A pick that rests on one of those is a first-pass reading, and no firmer than the confidence on its record.",
+            "If you would rather pay a vendor to run it, or hosting and licence terms matter less than features, the <a href=\"/commercial-task-managers/\">commercial directory</a> has its own Where to start and scores fifty-eight closed products on the same 1 to 5 scale. If your situation is missing, or a pick is out of date, write to <a href=\"mailto:info@todoi.org?subject=Where%20to%20start\">info@todoi.org</a> with a source; it is checked against the same criteria as everything else."
+          ]
         },
         "method": {
           "title": "How the scores work",
@@ -309,7 +358,7 @@
           "otherHref": "/commercial-task-managers/"
         },
         "llms": {
-          "before": "# Todoi.org\n\n> A volunteer-run directory comparing twenty-five open-source and source-available browser-based task managers, each scored on six criteria with the reasoning published.\n\nTodoi.org compares task and project management systems. Two rules decide what is listed: the system must be usable in a browser, and the source of its app or server must be public. Self-hosting is common among the entries but is not itself a requirement.\n\nEvery project carries licensing model, community-size proxy, a repository star count, estimated integration surface, five capability checks (time tracking, agile boards, Gantt, calendar, open calendar sync) and six editorial criteria scored 1-5 (ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability), plus deployment, calendar sync, data-out routes, stack, hosted option and a repository link.\n\nDepth of research is not uniform, and the Research_Confidence field on every record states it. Eleven projects were researched first and read twice. Fourteen were added later the same day with checked facts and a considered first-pass score read once; most are marked Medium. Cite the confidence alongside the score.\n\nEvery score carries a written justification, and each project record keeps a four-paragraph summary, its own caveat and its source list. The summary is on the page only: the CSV and the JSON-LD carry the comparison fields rather than the prose. Scores are editorial judgements, not benchmarks. Community size is a proxy drawn from repository signals and release cadence, not a deployment count. Star counts were read from the repository APIs on 17 September 2026 and are a visibility signal only; six of them carry a caveat on the page because the repository does not map onto the product. Integration figures are estimates of meaningful packaged connections; API and webhook extensibility is recorded separately.\n\nLicensing labels follow code terms: FOSS uses open-source licences; open core combines an open-source core with non-open-source additions; source-available uses restrictive source terms. Paid availability is recorded separately in capability marks and edition notes. OpenProject remains FOSS because its Enterprise add-ons are GPLv3 too. Cost is treated as operational burden and portability, not seat licences.\n\nCompiled 2026-09-17. Twake Workplace was researched and excluded: its named repository carries two commits and no task-management module.\n\nCrawlers and AI agents are welcome. Access rules live in `/robots.txt`. This file is a curated overview, not an access-control list.\n\nCorrections reach the directory at info@todoi.org. Send the source along with the correction; it is checked against the same criteria as everything else.\n\n## Site\n\n- [Home](https://todoi.org/): Directory and comparison matrix of browser-based open-source task managers. The whole directory is this one page.\n- [Dataset (CSV)](https://todoi.org/todoi-dataset-2026-09-17.csv): Every field for all twenty-five projects across 43 columns, including the six scores and their written justifications. Generated from the page during publication.\n- [Commercial task managers](https://todoi.org/commercial-task-managers/): Companion directory of 58 commercial, closed-source task managers, scored with the same method. Dataset: https://todoi.org/todoi-commercial-dataset-2026-11-10.csv\n- [Sitemap](https://todoi.org/sitemap.xml): URL list for search engines.\n- [llms.txt](https://todoi.org/llms.txt): This machine-readable index.\n\n## Sections of the page\n\n- [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-five projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.\n- [Where to start](https://todoi.org/#start): Eleven concrete situations mapped to the projects the research supports for each.\n- [How the scores work](https://todoi.org/#method): The six criteria, what each one measures, and the three licensing models kept apart.\n- [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, how deep the assessments go, listing rules, and how current the data is.\n- [Corrections and additions](https://todoi.org/#contribute): The two listing rules, research confidence, how to send a correction, and the revision log.\n\n## Projects assessed\n\nOrdered by community size, largest first, with alphabetical ties, matching the page. Scores are unweighted means of seven inputs, the six editorial criteria and community size read as 1 (small) to 5 (very large), not an overall recommendation.\n",
+          "before": "# Todoi.org\n\n> A volunteer-run directory comparing twenty-five open-source and source-available browser-based task managers, each scored on six criteria with the reasoning published.\n\nTodoi.org compares task and project management systems. Two rules decide what is listed: the system must be usable in a browser, and the source of its app or server must be public. Self-hosting is common among the entries but is not itself a requirement.\n\nEvery project carries licensing model, community-size proxy, a repository star count, estimated integration surface, five capability checks (time tracking, agile boards, Gantt, calendar, open calendar sync) and six editorial criteria scored 1-5 (ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability), plus deployment, calendar sync, data-out routes, stack, hosted option and a repository link.\n\nDepth of research is not uniform, and the Research_Confidence field on every record states it. Eleven projects were researched first and read twice. Fourteen were added later the same day with checked facts and a considered first-pass score read once; most are marked Medium. Cite the confidence alongside the score.\n\nEvery score carries a written justification, and each project record keeps a four-paragraph summary, its own caveat and its source list. The summary is on the page only: the CSV and the JSON-LD carry the comparison fields rather than the prose. Scores are editorial judgements, not benchmarks. Community size is a proxy drawn from repository signals and release cadence, not a deployment count. Star counts were read from the repository APIs on 17 September 2026 and are a visibility signal only; six of them carry a caveat on the page because the repository does not map onto the product. Integration figures are estimates of meaningful packaged connections; API and webhook extensibility is recorded separately.\n\nLicensing labels follow code terms: FOSS uses open-source licences; open core combines an open-source core with non-open-source additions; source-available uses restrictive source terms. Paid availability is recorded separately in capability marks and edition notes. OpenProject remains FOSS because its Enterprise add-ons are GPLv3 too. Cost is treated as operational burden and portability, not seat licences.\n\nCompiled 2026-09-17. Twake Workplace was researched and excluded: its named repository carries two commits and no task-management module.\n\nCrawlers and AI agents are welcome. Access rules live in `/robots.txt`. This file is a curated overview, not an access-control list.\n\nCorrections reach the directory at info@todoi.org. Send the source along with the correction; it is checked against the same criteria as everything else.\n\n## Site\n\n- [Home](https://todoi.org/): Directory and comparison matrix of browser-based open-source task managers. The whole directory is this one page.\n- [Dataset (CSV)](https://todoi.org/todoi-dataset-2026-09-17.csv): Every field for all twenty-five projects across 43 columns, including the six scores and their written justifications. Generated from the page during publication.\n- [Where to start](https://todoi.org/where-to-start/): Three questions, fourteen concrete situations mapped to the projects the research supports for each, and a four-step trial before committing.\n- [Commercial task managers](https://todoi.org/commercial-task-managers/): Companion directory of 58 commercial, closed-source task managers, scored with the same method. Dataset: https://todoi.org/todoi-commercial-dataset-2026-11-10.csv\n- [Sitemap](https://todoi.org/sitemap.xml): URL list for search engines.\n- [llms.txt](https://todoi.org/llms.txt): This machine-readable index.\n\n## Sections of the page\n\n- [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-five projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.\n- [How the scores work](https://todoi.org/#method): The six criteria, what each one measures, and the three licensing models kept apart.\n- [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, how deep the assessments go, listing rules, and how current the data is.\n- [Corrections and additions](https://todoi.org/#contribute): The two listing rules, research confidence, how to send a correction, and the revision log.\n\n## Projects assessed\n\nOrdered by community size, largest first, with alphabetical ties, matching the page. Scores are unweighted means of seven inputs, the six editorial criteria and community size read as 1 (small) to 5 (very large), not an overall recommendation.\n",
           "after": ""
         },
         "ld": {
@@ -552,48 +601,60 @@
       ],
       "routes": [
         {
-          "case": "A 50-5,000 person organisation replacing Jira or Microsoft Project",
-          "pick": "Start with <strong>OpenProject</strong> and <strong>Plane</strong>. OpenProject for classic portfolio, cost and Helm; Plane for a contemporary product workspace, with GitHub, Slack and Figma connections, webhooks, OAuth apps and an MCP server."
+          "case": "An organisation of 50 to 5,000 replacing Jira or Microsoft Project",
+          "pick": "Start with <a href=\"/?open=openproject\"><strong>OpenProject</strong></a>: classic portfolio, cost reporting and an official Helm chart, with Gantt, boards, time tracking and a calendar all native. Single sign-on and some reporting are Enterprise-only, so check the edition table. <a href=\"/?open=plane\"><strong>Plane</strong></a> if the organisation is product-led, as in the next situation. Both sell a hosted service if nobody wants to run them."
+        },
+        {
+          "case": "A product or engineering team that wants its issues beside the code",
+          "pick": "<a href=\"/?open=plane\"><strong>Plane</strong></a> is the contemporary product workspace: cycles, modules, GitHub, Slack and Figma connections, webhooks, OAuth apps and an MCP server (a way for AI assistants to work in it), with an AGPL Community Edition and paid tiers above it. <a href=\"/?open=huly\"><strong>Huly</strong></a> puts chat, documents and a team calendar in the same workspace, with the most services to run of anything here; its hosted service closed in July 2026, so your own server is now the only way to run it."
         },
         {
           "case": "A small or mid-size mixed team where usability outweighs governance",
-          "pick": "<strong>Leantime</strong>. Tasks, Kanban, timelines and native timesheets, without feeling like an issue tracker."
+          "pick": "<a href=\"/?open=leantime\"><strong>Leantime</strong></a>. Tasks, Kanban, timelines and native timesheets without feeling like an issue tracker, from a Compose file with PHP, a web server and MySQL: one database, no queue or object store."
+        },
+        {
+          "case": "A team that wants something running tonight, with almost nothing to operate",
+          "pick": "<a href=\"/?open=kanboard\"><strong>Kanboard</strong></a> is one PHP container over embedded SQLite. <a href=\"/?open=planka\"><strong>PLANKA</strong></a> is two containers, the application and PostgreSQL. <a href=\"/?open=vikunja\"><strong>Vikunja</strong></a> is a single Go binary. All three score 4.7 or higher on ease of deployment."
         },
         {
           "case": "A homelab, a personal setup, or anyone minimising lock-in",
-          "pick": "<strong>Vikunja</strong>, if you can do without time tracking: it moved to a separate Pro tier in 2026, in private beta when researched. Docker or a single binary, two-way CalDAV, documented import and export."
+          "pick": "<a href=\"/?open=vikunja\"><strong>Vikunja</strong></a>: Docker or a single binary, two-way CalDAV so a phone&#8217;s calendar and reminders can sync with it, documented import and export. Time tracking moved to a separate Pro tier in 2026, in private beta when researched, so choose it if you can do without. <a href=\"/?open=nextcloud-deck\"><strong>Nextcloud Deck</strong></a> also syncs both ways over CalDAV, if you already run Nextcloud."
+        },
+        {
+          "case": "Data that must stay on your own servers, with a proven way out",
+          "pick": "Read data sovereignty and portability together. <a href=\"/?open=openproject\"><strong>OpenProject</strong></a>, <a href=\"/?open=redmine\"><strong>Redmine</strong></a>, <a href=\"/?open=leantime\"><strong>Leantime</strong></a>, <a href=\"/?open=taiga\"><strong>Taiga</strong></a>, <a href=\"/?open=kanboard\"><strong>Kanboard</strong></a> and <a href=\"/?open=vikunja\"><strong>Vikunja</strong></a> are among the projects that score 5 on sovereignty; <a href=\"/?open=redmine\"><strong>Redmine</strong></a>, <a href=\"/?open=kanboard\"><strong>Kanboard</strong></a> and <a href=\"/?open=vikunja\"><strong>Vikunja</strong></a> also score 4.8 or higher on portability. Read each record&#8217;s data-out route before you promise anyone an exit."
         },
         {
           "case": "A team that genuinely runs Scrum or Kanban rather than generic task lists",
-          "pick": "<strong>Taiga</strong>. Backlogs, sprints, burndowns and WIP limits. No native Gantt, calendar or time tracking, which ends the evaluation if you need them."
+          "pick": "<a href=\"/?open=taiga\"><strong>Taiga</strong></a>. Backlogs, sprints, burndowns and WIP limits, on a multi-container stack with RabbitMQ to run. No native Gantt, calendar or time tracking, which ends the evaluation if you need them."
         },
         {
-          "case": "A Trello replacement",
-          "pick": "<strong>PLANKA</strong> for the more polished board, under fair-code terms rather than an open-source licence; <strong>Kanboard</strong> for MIT, SQLite and almost nothing to run."
+          "case": "A team replacing Trello",
+          "pick": "<a href=\"/?open=planka\"><strong>PLANKA</strong></a> for the more polished board, under fair-code terms rather than an open-source licence; <a href=\"/?open=kanboard\"><strong>Kanboard</strong></a> for MIT, SQLite and almost nothing to run; <a href=\"/?open=wekan\"><strong>Wekan</strong></a> for a deeper Trello-style board, with swimlanes and rule-based automation, on MongoDB."
         },
         {
           "case": "An organisation already committed to Nextcloud",
-          "pick": "Test <strong>Nextcloud Deck</strong> before deploying a second platform. A Gantt view was announced in June 2026. Do not deploy Nextcloud just to get a board."
+          "pick": "Test <a href=\"/?open=nextcloud-deck\"><strong>Nextcloud Deck</strong></a> before deploying a second platform. A Gantt view was announced in June 2026; check that it has shipped in the version you would run. Do not deploy Nextcloud just to get a board."
         },
         {
           "case": "One person, no server, and no intention of running one",
-          "pick": "<strong>Super Productivity</strong> if the work already lives in Jira, GitHub or GitLab. <strong>Logseq</strong> if tasks are notes you want as Markdown. <strong>Taskwarrior</strong> if you live in a terminal; browser access is third-party."
+          "pick": "<a href=\"/?open=super-productivity\"><strong>Super Productivity</strong></a> if the work already lives in Jira, GitHub or GitLab. <a href=\"/?open=logseq\"><strong>Logseq</strong></a> if tasks are notes you want as Markdown (a local graph opens in Chromium browsers only). <a href=\"/?open=taskwarrior\"><strong>Taskwarrior</strong></a> if you live in a terminal; browser access is third-party."
         },
         {
           "case": "An agency or studio billing client hours",
-          "pick": "<strong>Kimai</strong> for rates, budgets and invoices. <strong>Titra</strong> if you only need time against projects. <strong>Worklenz</strong> if tasks and billing should be one tool."
+          "pick": "<a href=\"/?open=kimai\"><strong>Kimai</strong></a> for rates, budgets and invoices. <a href=\"/?open=titra\"><strong>Titra</strong></a> if you only need time against projects. <a href=\"/?open=worklenz\"><strong>Worklenz</strong></a> if tasks and billable time should be one tool. All three sell a hosted version, so a studio need not run a server."
         },
         {
           "case": "A team already running the work out of a spreadsheet",
-          "pick": "<strong>Grist</strong> keeps a SQLite document with cell-level rules; <strong>NocoDB</strong> sits on a database you already run. NocoDB has a board view built in; in Grist a board is a kanban widget you configure. Neither gives a sprint unless you build one."
+          "pick": "<a href=\"/?open=grist\"><strong>Grist</strong></a> keeps a SQLite document with cell-level rules; <a href=\"/?open=nocodb\"><strong>NocoDB</strong></a> sits on a database you already run. NocoDB has a board view built in; in Grist a board is a kanban widget you configure. Neither gives a sprint unless you build one."
         },
         {
           "case": "Documents and tasks that need to sit in the same place",
-          "pick": "<strong>AppFlowy</strong> is the closest to Notion, with AGPL clients on a server that is now closed - check that what you need is not in an AI or vault tier. <strong>AFFiNE</strong> has the better whiteboard, but its self-hosted backend is under an Enterprise Edition licence, not an open one. <strong>Nextcloud Deck</strong> if documents already mean Nextcloud."
+          "pick": "<a href=\"/?open=appflowy\"><strong>AppFlowy</strong></a> is the closest to Notion, with AGPL clients on a closed-source server; check that what you need is not in an AI or vault tier. <a href=\"/?open=affine\"><strong>AFFiNE</strong></a> has the better whiteboard, but its self-hosted backend is under an Enterprise Edition licence, not an open one. <a href=\"/?open=nextcloud-deck\"><strong>Nextcloud Deck</strong></a> if documents already mean Nextcloud."
         },
         {
-          "case": "Large existing custom workflows and a strong internal IT team",
-          "pick": "<strong>Redmine</strong>. The weakest interface among the mature options, and the strongest survivability: workflows, custom fields, plugins, two decades. Three supported-version updates in August 2026."
+          "case": "An organisation with large custom workflows and its own IT team",
+          "pick": "<a href=\"/?open=redmine\"><strong>Redmine</strong></a>. The weakest interface among the mature options, and the strongest survivability: workflows, custom fields, plugins, two decades, and still maintained: three supported-version updates in August 2026."
         }
       ],
       "revisions": [
@@ -604,6 +665,10 @@
         {
           "date": "2026-11-11",
           "text": "A <strong>Source</strong> map joined every record: app, server, paid extras and published parts, each marked open, partly open or closed, with the licensing label now derived from it. Five labels changed. NocoDB is source-available since it left AGPL-3.0 in January 2026; AppFlowy and AFFiNE are mixed source, with open clients on a closed or restricted server; Vikunja and Worklenz are FOSS; Restyaboard is open core. Focalboard&#8217;s licence was corrected to AGPL-3.0 source with MIT binaries."
+        },
+        {
+          "date": "2026-11-18",
+          "text": "<strong>Where to start</strong> moved from the home page to its own page, rewritten: three questions to ask first, fourteen situations with each pick linked to its record, a four-step trial and what to do when nothing fits."
         }
       ],
       "records": [
@@ -3609,7 +3674,7 @@
         "products"
       ],
       "compiledOn": "2026-11-11",
-      "modifiedOn": "2026-11-11",
+      "modifiedOn": "2026-11-18",
       "csvFile": "todoi-commercial-dataset-2026-11-10.csv",
       "toggles": [
         {
@@ -3832,7 +3897,56 @@
         ],
         "routes": {
           "title": "Where to start",
-          "note": "The matrix says what each product does and costs. These are the routes the research supports."
+          "note": "The matrix says what each product does and costs. These are the routes the research supports.",
+          "head": {
+            "title": "Where to start: choosing a commercial task manager · todoi.org",
+            "description": "Three questions and twelve situations that narrow fifty-eight commercial task managers to a shortlist, with a four-step trial before you pay."
+          },
+          "lede": "Fifty-eight products is too many to read. Answer three questions, find the situation closest to yours, and trial the shortlist on real work before you pay.",
+          "questionsTitle": "Three questions first",
+          "questionsNote": "Most shortlists are decided by these before any score is read.",
+          "questions": [
+            {
+              "q": "Who is it for: you, a team, an engineering group or the whole organisation?",
+              "a": "The matrix sorts products by the market the vendor sells to: personal, teams, software and enterprise. A team tool bought for one person is slower to use; a personal one bought for a team runs out of sharing and permissions. Choose the segment first with the <em>Built for</em> filter, then compare inside it."
+            },
+            {
+              "q": "Where must the data live, and how would you leave?",
+              "a": "Read data control and portability on each record before price. If the answer has to be your own servers or a named region, the short list is short: see the route below on EU and on-premise data, or the <a href=\"/\">open-source directory</a>, where control is the point."
+            },
+            {
+              "q": "What will it cost at your seat count?",
+              "a": "<em>Paid from</em> is the cheapest paid plan, per user per month, billed annually. The feature you need may sit on a higher plan, and seat minimums and caps are common, so read the record for the plan that holds it. A flat team price is shown with a &#8776; as what each of ten people would pay, and euro prices are converted: for those, do not multiply by your head count."
+            }
+          ],
+          "situationsTitle": "Situations",
+          "situationsNote": "Find the one closest to yours. Each pick is where a shortlist begins, with the reasoning on the record it links to. Prices are the cheapest paid plan, per user per month, billed annually, as published around 10 November 2026. Picks are the maintainer&#8217;s reading of the records, chosen by fit: no vendor pays to be listed or picked, there are no affiliate links, and Todoi, which the maintainer builds, is not picked for any situation.",
+          "trialTitle": "Before you pay: trial it on real work",
+          "trialNote": "Whatever you shortlist, these four steps catch most of what a comparison cannot.",
+          "trial": [
+            {
+              "title": "Trial the plan you would buy, at your size",
+              "text": "Free plans and entry plans hide different features. Start the trial on the plan that holds the capability you need, and price it for your real head count, with any seat minimum."
+            },
+            {
+              "title": "Load real work",
+              "text": "Bring a real project and the people who will use it, not a template. Whether it still feels fast with your own mess and your own colleagues is the test."
+            },
+            {
+              "title": "Take it back out",
+              "text": "Export a project before you rely on it, and open the file somewhere else. The record&#8217;s portability reasoning says what to expect; this checks it."
+            },
+            {
+              "title": "Check how it ends",
+              "text": "Find out what happens to your data if you stop paying, and whether the plan renews by itself. Some trials ask for a card; the record says which."
+            }
+          ],
+          "fallbackTitle": "If nothing fits",
+          "fallback": [
+            "Start from the <a href=\"/commercial-task-managers/#directory\">matrix</a>: filter by the capabilities you cannot do without, then by who it is built for or by free plan, and sort by price or by control.",
+            "Confidence is on every record: Medium means part of it rests on secondary sources, and the caveat beside it says which part.",
+            "If you would rather run the software yourself, the <a href=\"/\">open-source directory</a> compares twenty-five projects on the same 1 to 5 scale, and has its own Where to start. If your situation is missing, or a pick is out of date, write to <a href=\"mailto:info@todoi.org?subject=Where%20to%20start\">info@todoi.org</a> with a source; it is checked against the same criteria as everything else."
+          ]
         },
         "method": {
           "title": "How the scores work",
@@ -4134,51 +4248,51 @@
       "routes": [
         {
           "case": "A 50-5,000 person organisation that needs SSO, audit logs and a say over where the data lives",
-          "pick": "Start with <strong>Asana</strong>, <strong>monday work management</strong> and <strong>Smartsheet</strong>. All three sell SAML, provisioning and audit logging on their enterprise tiers, Smartsheet partly as add-ons. Residency is where they differ: Asana sells it on Enterprise+, monday fixes the region from the first user&#8217;s location, and Smartsheet keeps separate EU and Australian regions."
+          "pick": "Start with <a href=\"/commercial-task-managers/?open=asana\"><strong>Asana</strong></a>, <a href=\"/commercial-task-managers/?open=monday\"><strong>monday work management</strong></a> and <a href=\"/commercial-task-managers/?open=smartsheet\"><strong>Smartsheet</strong></a>. All three sell SAML, provisioning and audit logging on their enterprise tiers, Smartsheet partly as add-ons. Residency is where they differ: Asana sells it on Enterprise+, monday sets the region from the first user&#8217;s location and cannot change it later, so create the account from the right place, and Smartsheet keeps separate EU and Australian regions."
         },
         {
           "case": "An organisation already paying for Microsoft 365",
-          "pick": "Try <strong>Microsoft Planner</strong> before buying anything else. Basic Planner comes with the suites; Planner Plan 1 at $10 adds Gantt timelines, sprints and goals. <strong>Microsoft To Do</strong> keeps each person&#8217;s own list beside it."
+          "pick": "Try <a href=\"/commercial-task-managers/?open=microsoft-planner\"><strong>Microsoft Planner</strong></a> before buying anything else. Basic Planner comes with the suites; Planner Plan 1 at $10 adds Gantt timelines, sprints and goals. <a href=\"/commercial-task-managers/?open=microsoft-to-do\"><strong>Microsoft To Do</strong></a> keeps each person&#8217;s own list beside it, though Microsoft is steering tasks into Planner; read its record&#8217;s caveat."
         },
         {
           "case": "A software team running sprints, backlogs and releases",
-          "pick": "<strong>Jira</strong> for configurable workflows and the largest marketplace; <strong>Linear</strong> for speed and an EU region on every plan. <strong>YouTrack</strong> is the cheapest here at $4.50, free up to ten users, and still sold as a server you run yourself. <strong>Azure Boards</strong> if the code already lives in Azure DevOps."
+          "pick": "<a href=\"/commercial-task-managers/?open=jira\"><strong>Jira</strong></a> for configurable workflows and the largest marketplace; <a href=\"/commercial-task-managers/?open=linear\"><strong>Linear</strong></a> for speed and an EU region for workspace data on every plan. <a href=\"/commercial-task-managers/?open=youtrack\"><strong>YouTrack</strong></a> is the cheapest here at $4.50, free up to ten users, and still sold as a server you run yourself. <a href=\"/commercial-task-managers/?open=azure-boards\"><strong>Azure Boards</strong></a> if the code already lives in Azure DevOps."
         },
         {
           "case": "Data that must stay in the EU, or on your own servers",
-          "pick": "<strong>YouTrack</strong>, <strong>Azure Boards</strong>, <strong>Celoxis</strong> and <strong>Teamhood</strong> all offer an edition you can run on-premise; <strong>Bitrix24</strong> does too, but read its record on jurisdiction first. For EU cloud hosting by default, <strong>MeisterTask</strong> runs in Frankfurt. If control is the deciding requirement, start with the <a href=\"/\">open-source directory</a> instead."
+          "pick": "<a href=\"/commercial-task-managers/?open=youtrack\"><strong>YouTrack</strong></a>, <a href=\"/commercial-task-managers/?open=azure-boards\"><strong>Azure Boards</strong></a>, <a href=\"/commercial-task-managers/?open=celoxis\"><strong>Celoxis</strong></a> and <a href=\"/commercial-task-managers/?open=teamhood\"><strong>Teamhood</strong></a> all offer an edition you can run on-premise; <a href=\"/commercial-task-managers/?open=bitrix24\"><strong>Bitrix24</strong></a> does too, but read its record on jurisdiction first. For EU cloud hosting by default, <a href=\"/commercial-task-managers/?open=meistertask\"><strong>MeisterTask</strong></a> runs in Frankfurt, and <a href=\"/commercial-task-managers/?open=favro\"><strong>Favro</strong></a>, <a href=\"/commercial-task-managers/?open=productive\"><strong>Productive</strong></a> and <a href=\"/commercial-task-managers/?open=fibery\"><strong>Fibery</strong></a> are among several others. If control is the deciding requirement, start with the <a href=\"/\">open-source directory</a> instead."
         },
         {
           "case": "A small team on a tight budget",
-          "pick": "<strong>Zoho Projects</strong> at $4 a seat brings Gantt, timesheets and issue tracking. <strong>Freedcamp</strong> at $1.49 and <strong>Plaky</strong> at $3.99 are cheaper still. <strong>Trello</strong>&#8217;s free plan works until the eleventh collaborator."
+          "pick": "<a href=\"/commercial-task-managers/?open=zoho-projects\"><strong>Zoho Projects</strong></a> at $4 a seat brings Gantt, timesheets and issue tracking. <a href=\"/commercial-task-managers/?open=freedcamp\"><strong>Freedcamp</strong></a> at $1.49 and <a href=\"/commercial-task-managers/?open=plaky\"><strong>Plaky</strong></a> at $3.99 are cheaper, but Freedcamp&#8217;s Gantt needs its $7.49 Business plan and Plaky&#8217;s time tracking works through Clockify. <a href=\"/commercial-task-managers/?open=trello\"><strong>Trello</strong></a>&#8217;s free plan works until the eleventh collaborator."
         },
         {
           "case": "A team that thinks in boards",
-          "pick": "<strong>Trello</strong> is still the reference board. <strong>MeisterTask</strong> adds native time tracking and German hosting; <strong>Favro</strong> lets the same cards sit on boards, sheets and roadmaps across teams. <strong>Businessmap</strong> for Kanban with WIP limits at department scale, from fifteen seats."
+          "pick": "<a href=\"/commercial-task-managers/?open=trello\"><strong>Trello</strong></a> is still the reference board. <a href=\"/commercial-task-managers/?open=meistertask\"><strong>MeisterTask</strong></a> adds native time tracking and German hosting; <a href=\"/commercial-task-managers/?open=favro\"><strong>Favro</strong></a> lets the same cards sit on boards, sheets and roadmaps across teams. <a href=\"/commercial-task-managers/?open=businessmap\"><strong>Businessmap</strong></a> for Kanban with WIP limits at department scale, from fifteen seats."
         },
         {
           "case": "One person, a to-do list and several devices",
-          "pick": "<strong>Todoist</strong> for fast capture and dependable sync. <strong>TickTick</strong> if a calendar, habits and a focus timer belong in the same app. <strong>Microsoft To Do</strong> or <strong>Google Tasks</strong> if free matters more than features and the account already exists."
+          "pick": "<a href=\"/commercial-task-managers/?open=todoist\"><strong>Todoist</strong></a> for fast capture and dependable sync. <a href=\"/commercial-task-managers/?open=ticktick\"><strong>TickTick</strong></a> if a calendar, habits and a focus timer belong in the same app. <a href=\"/commercial-task-managers/?open=microsoft-to-do\"><strong>Microsoft To Do</strong></a> or <a href=\"/commercial-task-managers/?open=google-tasks\"><strong>Google Tasks</strong></a> if free matters more than features and the account already exists."
         },
         {
           "case": "Planning each day against a calendar",
-          "pick": "<strong>Sunsama</strong> for a deliberate daily plan; <strong>Akiflow</strong> to pull tasks from many tools into one inbox first; <strong>Motion</strong> to let software place the tasks in the calendar for you. <strong>Tweek</strong> if a paper-like week is all you want."
+          "pick": "<a href=\"/commercial-task-managers/?open=sunsama\"><strong>Sunsama</strong></a> for a deliberate daily plan; <a href=\"/commercial-task-managers/?open=akiflow\"><strong>Akiflow</strong></a> to pull tasks from many tools into one inbox first; <a href=\"/commercial-task-managers/?open=motion\"><strong>Motion</strong></a> to let software place the tasks in the calendar for you. <a href=\"/commercial-task-managers/?open=tweek\"><strong>Tweek</strong></a> if a paper-like week is all you want."
         },
         {
           "case": "Documents, databases and tasks in the same place",
-          "pick": "<strong>Notion</strong> is the default and the broadest. <strong>Coda (Superhuman Docs)</strong> if the documents should compute. <strong>Airtable</strong> for relational data that outgrew a spreadsheet, now owned by Bending Spoons. <strong>Fibery</strong> for product teams who want to model their own objects."
+          "pick": "<a href=\"/commercial-task-managers/?open=notion\"><strong>Notion</strong></a> is the default, and the widest in scope: wiki, documents and tasks. <a href=\"/commercial-task-managers/?open=coda\"><strong>Coda (Superhuman Docs)</strong></a> if the documents should compute. <a href=\"/commercial-task-managers/?open=airtable\"><strong>Airtable</strong></a> for relational data that outgrew a spreadsheet, now owned by Bending Spoons. <a href=\"/commercial-task-managers/?open=fibery\"><strong>Fibery</strong></a> for product teams who want to model their own objects."
         },
         {
           "case": "An agency or studio billing client hours",
-          "pick": "<strong>Productive</strong> ties tasks to budgets, resourcing and invoices; <strong>Teamwork.com</strong> is project management built around client work. <strong>Paymo</strong> for freelancers and small studios, from $5.90 for one person."
+          "pick": "<a href=\"/commercial-task-managers/?open=productive\"><strong>Productive</strong></a> ties tasks to budgets, resourcing and invoices; <a href=\"/commercial-task-managers/?open=teamwork\"><strong>Teamwork.com</strong></a> is project management built around client work. <a href=\"/commercial-task-managers/?open=paymo\"><strong>Paymo</strong></a> for freelancers and small studios, from $5.90 for one person."
         },
         {
           "case": "A project manager who lives in Gantt charts",
-          "pick": "<strong>GanttPRO</strong> for critical path and baselines from $8; <strong>TeamGantt</strong> for a flat account price and a gentler learning curve. <strong>Celoxis</strong> when the Gantt has to roll up into a portfolio with resource capacity."
+          "pick": "<a href=\"/commercial-task-managers/?open=ganttpro\"><strong>GanttPRO</strong></a> for critical path and baselines from $8; <a href=\"/commercial-task-managers/?open=teamgantt\"><strong>TeamGantt</strong></a> for a flat account price and a gentler learning curve. <a href=\"/commercial-task-managers/?open=celoxis\"><strong>Celoxis</strong></a> when the Gantt has to roll up into a portfolio with resource capacity."
         },
         {
           "case": "Client work on a flat bill, without counting seats",
-          "pick": "<strong>Basecamp</strong> for to-dos, message boards and chat per project, with clients inside. <strong>ProofHub</strong> at $45 a month for unlimited users, if Gantt and proofing matter more than polish."
+          "pick": "<a href=\"/commercial-task-managers/?open=basecamp\"><strong>Basecamp</strong></a> for to-dos, message boards and chat per project, with clients inside, on a flat monthly bill; the user cap lifts entirely only on Pro Unlimited at $199 a month. <a href=\"/commercial-task-managers/?open=proofhub\"><strong>ProofHub</strong></a> at $45 a month for unlimited users, if Gantt and proofing matter more than polish."
         }
       ],
       "revisions": [
@@ -4193,6 +4307,10 @@
         {
           "date": "2026-11-11",
           "text": "A <strong>Source</strong> map joined every record. All fifty-eight have a closed app and server; nine are marked closed core because the owner publishes a working part of the product as open source. Open parts joined the filters, and the listing rule now reads offered as a service, paid or free."
+        },
+        {
+          "date": "2026-11-18",
+          "text": "<strong>Where to start</strong> moved from the page to its own page, rewritten: three questions to ask first, twelve situations with each pick linked to its record, a four-step trial and what to do when nothing fits."
         }
       ],
       "records": [

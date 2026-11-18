@@ -187,8 +187,10 @@ export function createApp(deps: AppDeps) {
     return new Response(page.body, { status: forceStatus ?? page.status, headers });
   }
 
-  // The commercial directory's address keeps its trailing slash.
-  app.get('/commercial-task-managers', (c) => c.redirect(`/commercial-task-managers/${new URL(c.req.url).search}`, 301));
+  // The commercial directory's address keeps its trailing slash, and so do both Where to start pages.
+  for (const base of ['/commercial-task-managers', '/where-to-start', '/commercial-task-managers/where-to-start']) {
+    app.get(base, (c) => c.redirect(`${base}/${new URL(c.req.url).search}`, 301));
+  }
 
   if (deps.staticRoot) {
     const root = deps.staticRoot;

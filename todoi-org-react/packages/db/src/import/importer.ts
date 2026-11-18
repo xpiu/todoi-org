@@ -355,7 +355,25 @@ export function importDirectory(input: ImportInput): SeedDirectory {
     },
     dirWords: cfg.dirWords ?? {},
     ascKeys: Object.keys(cfg.ascKeys ?? {}),
-    routes: { title: text(one(doc, '#start-title')), note: prose(one(doc, '.routes .section-note')) },
+    // The static pages kept Where to start as a section; its own page (head, lede,
+    // questions, trial, fallback) was written afterwards, in data.json. An import
+    // from the static pages leaves those fields empty for the editor to fill.
+    routes: {
+      title: text(one(doc, '#start-title')),
+      note: prose(one(doc, '.routes .section-note')),
+      head: { title: '', description: '' },
+      lede: '' as DirectoryCopy['routes']['lede'],
+      questionsTitle: '',
+      questionsNote: '',
+      questions: [],
+      situationsTitle: '',
+      situationsNote: '' as DirectoryCopy['routes']['situationsNote'],
+      trialTitle: '',
+      trialNote: '',
+      trial: [],
+      fallbackTitle: '',
+      fallback: [],
+    },
     method: {
       title: text(one(doc, '#method-title')),
       note: prose(one(doc, '.method .section-note')),

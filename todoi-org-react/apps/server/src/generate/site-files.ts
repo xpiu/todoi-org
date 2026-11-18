@@ -2,11 +2,11 @@ import type { FullDirectory, FullRecord } from '@todoi/db';
 import { computeScore, formatScore } from '@todoi/shared';
 import { defaultOrder } from './csv.ts';
 
-/** Every directory page, with the date it last changed. */
+/** Every directory page and its Where to start page, with the date it last changed. */
 export function sitemapXml(dirs: FullDirectory[], siteUrl: string): string {
   const site = siteUrl.replace(/\/+$/, '');
   const urls = dirs
-    .map((d) => `  <url>\n    <loc>${site}${d.config.path}</loc>\n    <lastmod>${d.config.modifiedOn}</lastmod>\n  </url>`)
+    .flatMap((d) => [d.config.path, `${d.config.path}where-to-start/`].map((path) => `  <url>\n    <loc>${site}${path}</loc>\n    <lastmod>${d.config.modifiedOn}</lastmod>\n  </url>`))
     .join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated from the database; lastmod is the date each page last changed. -->

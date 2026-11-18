@@ -2,16 +2,42 @@ import { ThemeSwitch } from './ThemeSwitch.tsx';
 import { WordmarkLogo, XLogo } from './icons.tsx';
 import { cx } from '../styles/modules.ts';
 
+/** The page's sections, in order; null is "Where to start", which is a page of its own. */
 const SECTIONS = [
   ['#directory', 'Task managers'],
   ['#map', 'Map'],
-  ['#start', 'Where to start'],
+  [null, 'Where to start'],
   ['#method', 'Method'],
   ['#faq', 'Questions'],
   ['#contribute', 'Contribute'],
 ] as const;
 
-export function SiteHeader() {
+/** Where the "Where to start" page of a directory lives. */
+export const startPath = (path: string) => `${path}where-to-start/`;
+
+/**
+ * On the directory itself the sections are in-page anchors; from the start page
+ * they are the directory's address plus the anchor. Where to start is always
+ * the page, and is marked as the current page when it is the one showing.
+ */
+function SectionLinks({ path, onStart }: { path: string; onStart: boolean }) {
+  return SECTIONS.map(([hash, label]) => {
+    if (hash === null) {
+      return (
+        <a key="start" href={startPath(path)} aria-current={onStart ? 'page' : undefined}>
+          {label}
+        </a>
+      );
+    }
+    return (
+      <a key={hash} href={onStart ? `${path}${hash}` : hash}>
+        {label}
+      </a>
+    );
+  });
+}
+
+export function SiteHeader({ path, onStart = false }: { path: string; onStart?: boolean }) {
   return (
     <header className={cx('site-header')}>
       <div className={cx('shell site-header-inner')}>
@@ -22,11 +48,7 @@ export function SiteHeader() {
           </span>
         </a>
         <nav className={cx('site-nav')} aria-label="Sections">
-          {SECTIONS.map(([href, label]) => (
-            <a key={href} href={href}>
-              {label}
-            </a>
-          ))}
+          <SectionLinks path={path} onStart={onStart} />
         </nav>
         <ThemeSwitch />
       </div>
@@ -35,6 +57,8 @@ export function SiteHeader() {
 }
 
 export function SiteFooter(props: {
+  path: string;
+  onStart?: boolean;
   note: string;
   csvFile: string;
   otherLabel: string;
@@ -54,11 +78,7 @@ export function SiteFooter(props: {
           <p className={cx('footer-note')}>{props.note}</p>
         </div>
         <nav className={cx('footer-nav')} aria-label="Footer">
-          {SECTIONS.map(([href, label]) => (
-            <a key={href} href={href}>
-              {label}
-            </a>
-          ))}
+          <SectionLinks path={props.path} onStart={props.onStart ?? false} />
           <a href={`/${props.csvFile}`}>Dataset (CSV)</a>
           <a href={props.otherHref}>{props.otherLabel}</a>
         </nav>

@@ -575,3 +575,136 @@ html:not(:global(.js)) .acc-a[hidden] {
   }
 
 }
+
+/* The page "Where to start" gives each directory. It reuses the editorial
+   sections' bones: the method's section rhythm, the criterion tile, the route
+   list. What is its own is below. */
+.start-hero {
+  padding-block: var(--sp-8) var(--sp-4);
+}
+
+.start-back {
+  margin-bottom: var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  letter-spacing: var(--tracking-badge);
+  text-transform: uppercase;
+}
+
+.start-back a {
+  color: var(--text-2);
+}
+
+.start-back a::before {
+  content: '\2190\00a0';
+}
+
+/* Questions, stacked: each is a sentence to answer, not a tile of a set. */
+.start-questions-list {
+  display: grid;
+  gap: var(--sp-4);
+  margin: 0;
+}
+
+.start-question .criterion-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-lg);
+  line-height: 1.35;
+  letter-spacing: var(--tracking-title);
+}
+
+.start-question {
+  max-width: calc(var(--measure) + 2 * var(--sp-5));
+}
+
+.start-question .criterion-text {
+  max-width: var(--measure);
+  line-height: 1.55;
+}
+
+/* Names in the answers read as text; the link underline is what marks them,
+   as it does in the situations below. */
+.start-question .criterion-text strong {
+  color: var(--text);
+}
+
+.start-trial,
+.start-fallback {
+  border-top: var(--border);
+}
+
+/* The four steps run in order, so they are numbered; two by two where they fit. */
+.trial-list {
+  counter-reset: trial;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 48rem) {
+  .trial-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.trial-step {
+  counter-increment: trial;
+  padding: var(--sp-4) var(--sp-5) var(--sp-5);
+  background-color: var(--bg-raised);
+  border: var(--border);
+  border-radius: var(--radius-3);
+}
+
+.trial-step::before {
+  content: counter(trial, decimal-leading-zero);
+  display: block;
+  margin-bottom: var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-2xs);
+  color: var(--text-faint);
+}
+
+.trial-step-title {
+  font-size: var(--fs-md);
+  font-weight: 500;
+  letter-spacing: var(--tracking-ui);
+  color: var(--text);
+}
+
+.trial-step-text {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-md);
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+/* The pointer under the home page's masthead. */
+.hero-start {
+  margin-top: var(--sp-4);
+}
+
+.hero-start a {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-md);
+  color: var(--text-2);
+}
+
+.hero-start a span {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.hero-start a:hover span {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.hero-start a:hover svg {
+  transform: translateX(3px);
+}

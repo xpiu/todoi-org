@@ -2,6 +2,7 @@ import { Accordion } from '@base-ui/react/accordion';
 import { longDate } from '@todoi/shared';
 import { Html } from '../../components/Html.tsx';
 import { ArrowIcon, TagIcon } from '../../components/icons.tsx';
+import { startPath } from '../../components/SiteChrome.tsx';
 import { HeroMark } from './HeroMark.tsx';
 import { useDirectory } from './state.tsx';
 import { cx } from '../../styles/modules.ts';
@@ -15,32 +16,14 @@ export function Hero() {
         <div className={cx('hero-copy')}>
           <h1 className={cx('hero-title')}>{hero.title}</h1>
           <p className={cx('hero-lede')}>{hero.lede}</p>
+          <p className={cx('hero-start')}>
+            <a href={startPath(config.path)}>
+              Not sure which to open? <span>Where to start</span>
+              <ArrowIcon />
+            </a>
+          </p>
         </div>
         {hero.mark ? <HeroMark /> : null}
-      </div>
-    </section>
-  );
-}
-
-export function Routes() {
-  const { config } = useDirectory();
-  return (
-    <section className={cx('routes')} id="start" aria-labelledby="start-title">
-      <div className={cx('shell routes-inner')}>
-        <div className={cx('section-head')}>
-          <h2 className={cx('section-title')} id="start-title">
-            {config.copy.routes.title}
-          </h2>
-          <p className={cx('section-note')}>{config.copy.routes.note}</p>
-        </div>
-        <dl className={cx('route-list')}>
-          {config.routes.map((r) => (
-            <div className={cx('route')} key={r.id}>
-              <dt className={cx('route-case')}>{r.case}</dt>
-              <Html as="dd" className={cx('route-pick')} html={r.pick} />
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   );

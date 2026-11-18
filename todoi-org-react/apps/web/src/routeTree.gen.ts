@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as CommercialTaskManagersIndexRouteImport } from './routes/commercial-task-managers/index'
+import { Route as WhereToStartIndexRouteImport } from './routes/where-to-start/index'
+import { Route as CommercialTaskManagersWhereToStartIndexRouteImport } from './routes/commercial-task-managers/where-to-start/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,35 +31,70 @@ const CommercialTaskManagersIndexRoute =
     path: '/commercial-task-managers/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const WhereToStartIndexRoute = WhereToStartIndexRouteImport.update({
+  id: '/where-to-start/',
+  path: '/where-to-start/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommercialTaskManagersWhereToStartIndexRoute =
+  CommercialTaskManagersWhereToStartIndexRouteImport.update({
+    id: '/commercial-task-managers/where-to-start/',
+    path: '/commercial-task-managers/where-to-start/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/commercial-task-managers/': typeof CommercialTaskManagersIndexRoute
+  '/where-to-start/': typeof WhereToStartIndexRoute
+  '/commercial-task-managers/where-to-start/': typeof CommercialTaskManagersWhereToStartIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/commercial-task-managers': typeof CommercialTaskManagersIndexRoute
+  '/where-to-start': typeof WhereToStartIndexRoute
+  '/commercial-task-managers/where-to-start': typeof CommercialTaskManagersWhereToStartIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
   '/commercial-task-managers/': typeof CommercialTaskManagersIndexRoute
+  '/where-to-start/': typeof WhereToStartIndexRoute
+  '/commercial-task-managers/where-to-start/': typeof CommercialTaskManagersWhereToStartIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/commercial-task-managers/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/commercial-task-managers/'
+    | '/where-to-start/'
+    | '/commercial-task-managers/where-to-start/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/commercial-task-managers'
-  id: '__root__' | '/' | '/admin' | '/commercial-task-managers/'
+  to:
+    | '/'
+    | '/admin'
+    | '/commercial-task-managers'
+    | '/where-to-start'
+    | '/commercial-task-managers/where-to-start'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/commercial-task-managers/'
+    | '/where-to-start/'
+    | '/commercial-task-managers/where-to-start/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
   CommercialTaskManagersIndexRoute: typeof CommercialTaskManagersIndexRoute
+  WhereToStartIndexRoute: typeof WhereToStartIndexRoute
+  CommercialTaskManagersWhereToStartIndexRoute: typeof CommercialTaskManagersWhereToStartIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -83,6 +120,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CommercialTaskManagersIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/where-to-start/': {
+      id: '/where-to-start/'
+      path: '/where-to-start'
+      fullPath: '/where-to-start/'
+      preLoaderRoute: typeof WhereToStartIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/commercial-task-managers/where-to-start/': {
+      id: '/commercial-task-managers/where-to-start/'
+      path: '/commercial-task-managers/where-to-start'
+      fullPath: '/commercial-task-managers/where-to-start/'
+      preLoaderRoute: typeof CommercialTaskManagersWhereToStartIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -90,6 +141,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
   CommercialTaskManagersIndexRoute: CommercialTaskManagersIndexRoute,
+  WhereToStartIndexRoute: WhereToStartIndexRoute,
+  CommercialTaskManagersWhereToStartIndexRoute:
+    CommercialTaskManagersWhereToStartIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
