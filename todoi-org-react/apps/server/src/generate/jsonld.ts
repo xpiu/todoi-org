@@ -1,5 +1,5 @@
 import type { FullDirectory, FullRecord } from '@todoi/db';
-import { bandLabel, computeScore, sourceClass } from '@todoi/shared';
+import { bandLabel, computeScore, publishesCsv, sourceClass } from '@todoi/shared';
 import { htmlToText } from '../html.ts';
 import { defaultOrder } from './csv.ts';
 
@@ -176,14 +176,18 @@ function ossGraph(dir: FullDirectory, site: string): Node[] {
         ...config.criteria.map((c) => ({ '@type': 'PropertyValue', name: c.name, description: c.text, minValue: 1, maxValue: 5 })),
         ...(ld.dataset.variables ?? []),
       ],
-      distribution: [
-        {
-          '@type': 'DataDownload',
-          encodingFormat: 'text/csv',
-          contentUrl: `${site}/${config.csvFile}`,
-          name: copy.head.csvTitle,
-        },
-      ],
+      ...(publishesCsv(config.slug)
+        ? {
+            distribution: [
+              {
+                '@type': 'DataDownload',
+                encodingFormat: 'text/csv',
+                contentUrl: `${site}/${config.csvFile}`,
+                name: copy.head.csvTitle,
+              },
+            ],
+          }
+        : {}),
       hasPart: [ref(id('projects'))],
     },
     {

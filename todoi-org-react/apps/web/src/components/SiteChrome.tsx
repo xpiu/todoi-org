@@ -60,7 +60,8 @@ export function SiteFooter(props: {
   path: string;
   onStart?: boolean;
   note: string;
-  csvFile: string;
+  /** Set when this directory still publishes a CSV. */
+  csvFile?: string;
   otherLabel: string;
   otherHref: string;
   compiledOn: string;
@@ -79,7 +80,7 @@ export function SiteFooter(props: {
         </div>
         <nav className={cx('footer-nav')} aria-label="Footer">
           <SectionLinks path={props.path} onStart={props.onStart ?? false} />
-          <a href={`/${props.csvFile}`}>Dataset (CSV)</a>
+          {props.csvFile ? <a href={`/${props.csvFile}`}>Dataset (CSV)</a> : null}
           <a href={props.otherHref}>{props.otherLabel}</a>
         </nav>
         <p className={cx('footer-meta')}>

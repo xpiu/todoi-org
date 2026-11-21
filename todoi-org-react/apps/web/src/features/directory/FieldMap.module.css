@@ -110,14 +110,28 @@
   padding: var(--sp-4) var(--sp-4) var(--sp-3);
 }
 
-/* The picture in one sentence, set as the plot's own title. */
+/* The picture in one sentence, set as the plot's own title, with a quiet interaction prompt beside it. */
+.map-plot-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-4);
+  margin-bottom: var(--sp-3);
+}
+
 .map-finding {
   max-width: var(--measure);
-  margin-bottom: var(--sp-3);
   font-size: var(--fs-md);
   font-weight: 500;
   line-height: var(--lh-ui);
   color: var(--text);
+}
+
+.map-hint {
+  font-size: var(--fs-xs);
+  line-height: var(--lh-ui);
+  color: var(--text-faint);
 }
 
 .map-canvas {
@@ -449,37 +463,9 @@
   color: var(--accent-strong);
 }
 
-/* --- The side sheet ------------------------------------------------------- */
+/* --- Pinned scorecard below the plot -------------------------------------- */
 .map-side {
   padding: var(--sp-5);
-}
-
-.map-read-title {
-  font-size: var(--fs-md);
-  letter-spacing: var(--tracking-ui);
-}
-
-.map-read-list {
-  display: grid;
-  margin-top: var(--sp-3);
-}
-
-.map-read-item {
-  padding-block: var(--sp-3);
-  border-top: var(--border);
-}
-
-.map-read-item dt {
-  font-size: var(--fs-sm);
-  font-weight: 500;
-  color: var(--text);
-}
-
-.map-read-item dd {
-  margin-top: var(--sp-1);
-  font-size: var(--fs-xs);
-  line-height: var(--lh-normal);
-  color: var(--text-2);
 }
 
 /* The arrow that ties a figure to its axis. */
@@ -490,18 +476,24 @@
   color: var(--accent);
 }
 
-.map-read-hint {
-  padding-top: var(--sp-3);
-  border-top: var(--border);
-  font-size: var(--fs-xs);
-  line-height: var(--lh-normal);
-  color: var(--text-faint);
+.map-pin-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-3) var(--sp-5);
+}
+
+.map-pin-main {
+  flex: 1 1 20rem;
+  min-width: 0;
 }
 
 .map-pin-head {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--sp-3);
+  gap: var(--sp-2) var(--sp-3);
 }
 
 .map-pin-icon {
@@ -511,7 +503,6 @@
 }
 
 .map-pin-name {
-  flex: 1 1 auto;
   min-width: 0;
   font-size: var(--fs-lg);
   letter-spacing: var(--tracking-ui);
@@ -527,10 +518,10 @@
   flex: none;
   align-items: center;
   justify-content: center;
-  width: 1.875rem;
-  height: 1.875rem;
+  width: 2rem;
+  height: 2rem;
   border: var(--border-strong);
-  border-radius: var(--radius-1);
+  border-radius: var(--radius-2);
   background-color: var(--bg-raised);
   color: var(--text-2);
   font-family: var(--font-mono);
@@ -546,18 +537,18 @@
 }
 
 .map-pin-blurb {
-  margin-top: var(--sp-3);
-  font-size: var(--fs-xs);
+  max-width: var(--measure);
+  margin-top: var(--sp-2);
+  font-size: var(--fs-sm);
   line-height: var(--lh-normal);
   color: var(--text-2);
 }
 
 .map-pin-model {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--sp-2);
-  margin-top: var(--sp-3);
 }
 
 .map-pin-sub {
@@ -568,7 +559,10 @@
 
 .map-figs {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(14.5rem, 1fr));
+  column-gap: var(--sp-6);
   margin-top: var(--sp-4);
+  padding-top: var(--sp-2);
   border-top: var(--border);
 }
 
@@ -577,8 +571,8 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-3);
-  min-height: 2rem;
-  padding-block: var(--sp-1);
+  min-height: 2.25rem;
+  padding-block: var(--sp-2);
   border-bottom: var(--border);
   font-size: var(--fs-xs);
 }
@@ -633,17 +627,9 @@
 }
 
 .map-pin-actions {
-  margin-top: var(--sp-4);
-}
-
-/* Side by side only once the plot keeps room for its names: under 64rem the
-   sheet for the picked-out record goes below it. */
-@media (min-width: 64rem) {
-  .map-body {
-    grid-template-columns: minmax(0, 1fr) 21rem;
-    align-items: stretch;
-  }
-
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
 }
 
 @media (max-width: 39.9375rem) {

@@ -1,18 +1,18 @@
 # Todoi.org
 
-> A volunteer-run directory comparing twenty-five open-source and source-available browser-based task managers, each scored on six criteria with the reasoning published.
+> A volunteer-run directory comparing twenty-six open-source and source-available browser-based task managers, each scored on six criteria with the reasoning published.
 
 Todoi.org compares task and project management systems. Two rules decide what is listed: the system must be usable in a browser, and the source of its app or server must be public. Self-hosting is common among the entries but is not itself a requirement.
 
 Every project carries licensing model, community-size proxy, a repository star count, estimated integration surface, five capability checks (time tracking, agile boards, Gantt, calendar, open calendar sync) and six editorial criteria scored 1-5 (ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability), plus deployment, calendar sync, data-out routes, stack, hosted option and a repository link.
 
-Depth of research is not uniform, and the Research_Confidence field on every record states it. Eleven projects were researched first and read twice. Fourteen were added later the same day with checked facts and a considered first-pass score read once; most are marked Medium. Cite the confidence alongside the score.
+Depth of research is not uniform, and the Research_Confidence field on every record states it. Eleven projects were researched first and read twice. Fourteen were added later the same day with checked facts and a considered first-pass score read once; most are marked Medium. Nullboard, added on 20 November 2026, was read once and is marked Medium. Cite the confidence alongside the score.
 
-Every score carries a written justification, and each project record keeps a four-paragraph summary, its own caveat and its source list. The summary is on the page only: the CSV and the JSON-LD carry the comparison fields rather than the prose. Scores are editorial judgements, not benchmarks. Community size is a proxy drawn from repository signals and release cadence, not a deployment count. Star counts were read from the repository APIs on 17 September 2026 and are a visibility signal only; six of them carry a caveat on the page because the repository does not map onto the product. Integration figures are estimates of meaningful packaged connections; API and webhook extensibility is recorded separately.
+Every score carries a written justification, and each project record keeps a four-paragraph summary, its own caveat and its source list. The summary is on the page only: the JSON-LD carries the comparison fields rather than the prose. Scores are editorial judgements, not benchmarks. Community size is a proxy drawn from repository signals and release cadence, not a deployment count. Star counts were read from the repository APIs on 17 September 2026, except Nullboard’s on 20 November 2026, and are a visibility signal only; six of them carry a caveat because the repository does not map onto the product, and Nullboard’s caveat is the later reading. Integration figures are estimates of meaningful packaged connections; API and webhook extensibility is recorded separately.
 
 Licensing labels follow code terms: FOSS uses open-source licences; open core combines an open-source core with non-open-source additions; source-available uses restrictive source terms. Paid availability is recorded separately in capability marks and edition notes. OpenProject remains FOSS because its Enterprise add-ons are GPLv3 too. Cost is treated as operational burden and portability, not seat licences.
 
-Compiled 2026-09-17. Twake Workplace was researched and excluded: its named repository carries two commits and no task-management module.
+Compiled 2026-09-17. Nullboard was added on 20 November 2026. Twake Workplace was researched and excluded: its named repository carries two commits and no task-management module.
 
 Crawlers and AI agents are welcome. Access rules live in `/robots.txt`. This file is a curated overview, not an access-control list.
 
@@ -21,7 +21,6 @@ Corrections reach the directory at info@todoi.org. Send the source along with th
 ## Site
 
 - [Home](https://todoi.org/): Directory and comparison matrix of browser-based open-source task managers. The whole directory is this one page.
-- [Dataset (CSV)](https://todoi.org/todoi-dataset-2026-09-17.csv): Every field for all twenty-five projects across 43 columns, including the six scores and their written justifications. Generated from the page during publication.
 - [Where to start](https://todoi.org/where-to-start/): Three questions, fourteen concrete situations mapped to the projects the research supports for each, and a four-step trial before committing.
 - [Commercial task managers](https://todoi.org/commercial-task-managers/): Companion directory of 58 commercial, closed-source task managers, scored with the same method. Dataset: https://todoi.org/todoi-commercial-dataset-2026-11-10.csv
 - [Sitemap](https://todoi.org/sitemap.xml): URL list for search engines.
@@ -29,7 +28,7 @@ Corrections reach the directory at info@todoi.org. Send the source along with th
 
 ## Sections of the page
 
-- [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-five projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.
+- [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-six projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.
 - [How the scores work](https://todoi.org/#method): The six criteria, what each one measures, and the three licensing models kept apart.
 - [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, how deep the assessments go, listing rules, and how current the data is.
 - [Corrections and additions](https://todoi.org/#contribute): The two listing rules, research confidence, how to send a correction, and the revision log.
@@ -60,6 +59,7 @@ Ordered by community size, largest first, with alphabetical ties, matching the p
 - [Trilium Notes](https://triliumnotes.org/): A scriptable hierarchical note tree. A first-party task list is in development; today a to-do is a note carrying a label. FOSS, AGPL-3.0. Score 3.5/5, confidence Medium. Source: https://github.com/TriliumNext/Trilium
 - [Vikunja](https://vikunja.io/): Lightweight, sovereignty-first task management with list, Kanban, Gantt and table views, CalDAV, and importers from the major SaaS tools. FOSS, AGPL-3.0. Score 4.2/5, confidence High. Source: https://github.com/go-vikunja/vikunja
 - [Wekan](https://wekan.github.io/): A ten-year-old open-source Trello with swimlanes, checklists, subtasks, colour tags and rule-based automation. FOSS, MIT. Score 3.8/5, confidence Medium-high. Source: https://github.com/wekan/wekan
+- [Nullboard](https://nullboard.io/preview): A single HTML file: a compact personal kanban kept in the browser, with JSON export and nothing to install. Source-available, BSD-2-Clause with the Commons Clause. Score 3.3/5, confidence Medium. Source: https://github.com/apankrat/nullboard
 - [Restyaboard](https://restya.com/board): A Trello-shaped board with offline caching, card-level messaging and email-to-card, effectively frozen since 2022. Open core, OSL-3.0 or commercial. Score 3.1/5, confidence Medium. Source: https://github.com/RestyaPlatform/board
 - [Titra](https://titra.io/): Time and task tracking for studios and agencies: assignments, budgets and burn rates against client projects. FOSS, AGPL-3.0. Score 3.5/5, confidence Medium. Source: https://github.com/kromitgmbh/titra
 - [Worklenz](https://worklenz.com/): Agency and services-firm workflow: client projects, billable time, task management and reporting. FOSS, AGPL-3.0. Score 3.9/5, confidence Medium-high. Source: https://github.com/Worklenz/worklenz

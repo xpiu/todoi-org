@@ -10,6 +10,14 @@ import { z } from 'zod';
 export const DirectoryKind = z.enum(['oss', 'commercial']);
 export type DirectoryKind = z.infer<typeof DirectoryKind>;
 
+/**
+ * The open-source directory no longer publishes a CSV. The commercial
+ * directory still does, at the filename stored on the directory.
+ */
+export function publishesCsv(slug: string): boolean {
+  return slug !== 'open-source';
+}
+
 /** Inline HTML from the editorial copy: <strong>, <em>, <a href>, <time>. Sanitised on write. */
 export const Html = z.string().brand<'Html'>();
 export type Html = z.infer<typeof Html>;

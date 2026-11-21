@@ -1,3 +1,4 @@
+import { publishesCsv } from '@todoi/shared';
 import type { RouterContext } from '../../router.tsx';
 import { directoryQuery } from './queries.ts';
 
@@ -41,7 +42,7 @@ export async function loadStart(context: RouterContext, slug: string): Promise<D
 /** Title, description, canonical, Open Graph and Twitter tags: rendered on the server. */
 export function directoryHead(data: DirectoryHeadData | undefined) {
   if (!data) return {};
-  const { head, siteUrl, path, csvFile } = data;
+  const { head, siteUrl, path, csvFile, slug } = data;
   const url = `${siteUrl}${path}`;
   return {
     meta: [
@@ -65,7 +66,9 @@ export function directoryHead(data: DirectoryHeadData | undefined) {
     ],
     links: [
       { rel: 'canonical', href: url },
-      { rel: 'alternate', type: 'text/csv', href: `/${csvFile}`, title: head.csvTitle },
+      ...(publishesCsv(slug)
+        ? [{ rel: 'alternate' as const, type: 'text/csv', href: `/${csvFile}`, title: head.csvTitle }]
+        : []),
       { rel: 'sitemap', type: 'application/xml', href: '/sitemap.xml' },
     ],
   };

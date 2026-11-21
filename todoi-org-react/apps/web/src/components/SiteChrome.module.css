@@ -198,17 +198,35 @@ a.wordmark:hover .wordmark-logo {
 }
 
 /* Column one is sized to the note it holds, not to a share of the shell.
-   Split 2fr/1fr the brand column carried 400 points of trailing air and the
-   nav sat alone against the far edge, reading as two unrelated footers. */
+   Steps through the exact same 60rem / 72rem rails as .editorial-inner so every
+   right-hand column below the map shares one vertical plumb line into the footer. */
 .site-footer-inner {
   display: grid;
-  grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
-  gap: var(--sp-5) var(--sp-9);
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sp-4);
   align-items: start;
 }
 
-.footer-brand {
-  grid-row: span 2;
+@media (min-width: 60rem) {
+  .site-footer-inner {
+    grid-template-columns: minmax(0, 21.5rem) minmax(0, 1fr);
+    gap: var(--sp-5) var(--sp-7);
+  }
+
+  .footer-brand {
+    grid-row: span 2;
+  }
+
+  .footer-contact {
+    grid-column: 2;
+  }
+}
+
+@media (min-width: 72rem) {
+  .site-footer-inner {
+    grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+    gap: var(--sp-5) var(--sp-9);
+  }
 }
 
 .footer-note {
@@ -233,9 +251,6 @@ a.wordmark:hover .wordmark-logo {
 /* Maintainer line: a text link and a small mark, kept at meta weight so the
    footer nav above it stays the loudest thing down here. */
 .footer-contact {
-  /* Column 2 explicitly: auto-placement would drop it back under the brand,
-  away from the meta line it belongs with. */
-  grid-column: 2;
   display: flex;
   align-items: center;
   gap: var(--sp-3);
@@ -290,18 +305,6 @@ a.wordmark:hover .wordmark-logo {
     flex: none;
     min-height: 2.25rem;
     font-size: var(--fs-xs);
-  }
-
-  .site-footer-inner {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .footer-brand {
-    grid-row: auto;
-  }
-
-  .footer-contact {
-    grid-column: 1;
   }
 
 }

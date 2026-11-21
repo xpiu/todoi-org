@@ -387,8 +387,7 @@
 }
 
 :global(.cap):has(.mark-none) {
-  background-color: transparent;
-  border-style: dashed;
+  border-top-style: dashed;
 }
 
 :global(.cap) .mark {

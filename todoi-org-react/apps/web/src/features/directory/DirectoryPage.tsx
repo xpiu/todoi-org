@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouteContext } from '@tanstack/react-router';
-import { longDate } from '@todoi/shared';
+import { longDate, publishesCsv } from '@todoi/shared';
 import { Html } from '../../components/Html.tsx';
 import { SiteFooter, SiteHeader } from '../../components/SiteChrome.tsx';
 import { Cards } from './Cards.tsx';
@@ -38,7 +38,7 @@ function Page() {
   return (
     <>
       <a className={cx('skip-link')} href="#directory">
-        Skip to the matrix
+        Skip to directory
       </a>
       <SiteHeader path={config.path} />
       <main id="main">
@@ -46,16 +46,13 @@ function Page() {
         <section className={cx('board')} id="directory" aria-labelledby="directory-title">
           <div className={cx('shell')}>
             <h2 className={cx('sr-only')} id="directory-title">
-              The matrix
+              Comparison table
             </h2>
             <Controls />
             <Matrix />
             <Cards />
             <Html as="p" className={cx('matrix-updated')} html={copy.matrix.updated} />
             <Empty />
-            <div className={cx('matrix-foot')}>
-              <Html as="p" className={cx('provenance')} html={copy.matrix.provenance} />
-            </div>
           </div>
         </section>
         <FieldMap />
@@ -67,7 +64,7 @@ function Page() {
       <SiteFooter
         path={config.path}
         note={copy.footer.note}
-        csvFile={config.csvFile}
+        csvFile={publishesCsv(config.slug) ? config.csvFile : undefined}
         otherLabel={copy.footer.otherLabel}
         otherHref={copy.footer.otherHref}
         compiledOn={config.compiledOn}

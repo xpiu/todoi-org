@@ -338,6 +338,7 @@ html {
   text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: var(--sp-4);
+  scrollbar-color: var(--line-strong) transparent;
 }
 
 body {
@@ -364,6 +365,7 @@ textarea {
   font: inherit;
   color: inherit;
   letter-spacing: inherit;
+  caret-color: var(--accent);
 }
 
 button {
@@ -417,7 +419,9 @@ h3 {
 
 h1 {
   font-size: var(--fs-display);
+  font-weight: 600;
   line-height: var(--lh-tight);
+  letter-spacing: -0.025em;
 }
 
 h2 {

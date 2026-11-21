@@ -17,6 +17,7 @@ export const Route = createRootRouteWithContext<RouterContext>()({
       { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/img/favicon-16.png' },
       { rel: 'icon', type: 'image/png', sizes: '512x512', href: '/img/favicon-512.png' },
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/img/apple-touch-icon.png' },
+      { rel: 'alternate', type: 'text/plain', href: '/llms.txt', title: 'llms.txt' },
       {
         rel: 'preload',
         href: '/fonts/dmsans-300-800-normal-latin.woff2',

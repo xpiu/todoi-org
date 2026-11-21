@@ -24,7 +24,7 @@ test('opens by community size, largest first, ties alphabetical', async ({ page 
   const slugs = await visibleSlugs(page);
   expect(slugs.slice(0, 4)).toEqual(['huly', 'openproject', 'plane', 'redmine']);
   await expect(page.locator('th[aria-sort="descending"]')).toHaveText(/Community/);
-  await expect(page.locator('#result-count')).toHaveText('25 projects');
+  await expect(page.locator('#result-count')).toHaveText('26 projects');
 });
 
 test('a header sorts, a second click reverses, and the URL keeps the view', async ({ page }) => {
@@ -47,9 +47,9 @@ test('the lead column follows a criterion sort, and the select names it', async 
   await expect(page).toHaveURL(/sort=deploy-desc/);
   await expect(page.locator('.th-lead-l')).toHaveText('Deploy');
   await expect(page.locator('#sort-field')).toHaveText('Ease of deployment');
-  // Super Productivity deploys at 5.0: first, and its lead cell shows the criterion.
+  // Nullboard and Super Productivity both deploy at 5.0. Ties break A to Z, so Nullboard is first.
   const first = page.locator('tr.matrix-row:visible').first();
-  await expect(first).toHaveAttribute('data-slug', 'super-productivity');
+  await expect(first).toHaveAttribute('data-slug', 'nullboard');
   await expect(first.locator('.score-num')).toHaveText('5.0');
   await expect(first.locator('[data-score-sr]')).toHaveText('Ease of deployment: 5.0 out of 5');
   await page.locator('#sort-dir').click();
@@ -70,10 +70,10 @@ test('search narrows the list and announces the count', async ({ page }) => {
   await ready(page, '/');
   await page.locator('#q').fill('kanban');
   await expect(page).toHaveURL(/\?q=kanban/);
-  await expect(page.locator('#result-count')).toHaveText('5 of 25 projects');
+  await expect(page.locator('#result-count')).toHaveText('6 of 26 projects');
   await expect(page.locator('#copy-link')).toBeVisible();
   await page.locator('#q').fill('');
-  await expect(page.locator('#result-count')).toHaveText('25 projects');
+  await expect(page.locator('#result-count')).toHaveText('26 projects');
   await expect(page).toHaveURL(/\/$/);
 });
 
@@ -168,7 +168,7 @@ test('a filtered-out record does not stay open behind the filter', async ({ page
   await ready(page, '/?open=huly');
   await expect(page.locator('#detail-huly')).toBeVisible();
   await page.locator('#q').fill('vikunja');
-  await expect(page.locator('#result-count')).toHaveText('1 of 25 projects');
+  await expect(page.locator('#result-count')).toHaveText('1 of 26 projects');
   await page.locator('#q').fill('');
   await expect(page.locator('tr.matrix-row[data-slug="huly"]')).toBeVisible();
   await expect(page.locator('#detail-huly')).toBeHidden();
@@ -243,7 +243,7 @@ test.describe('without JavaScript', () => {
 
   test('every record’s detail is in the page and readable', async ({ page }) => {
     for (const [path, count] of [
-      ['/', 25],
+      ['/', 26],
       ['/commercial-task-managers/', 58],
     ] as const) {
       await page.goto(path);

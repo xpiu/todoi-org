@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useRouteContext } from '@tanstack/react-router';
-import { longDate } from '@todoi/shared';
+import { longDate, publishesCsv } from '@todoi/shared';
 import { Html } from '../../components/Html.tsx';
 import { SiteFooter, SiteHeader } from '../../components/SiteChrome.tsx';
 import { directoryQuery } from './queries.ts';
@@ -30,7 +30,7 @@ function Page() {
   return (
     <>
       <a className={cx('skip-link')} href="#start">
-        Skip to the situations
+        Skip to recommendations
       </a>
       <SiteHeader path={path} onStart />
       <main id="main">
@@ -38,7 +38,7 @@ function Page() {
           <div className={cx('shell hero-inner')}>
             <div className={cx('hero-copy')}>
               <p className={cx('start-back')}>
-                <a href={path}>Back to the matrix</a>
+                <a href={path}>{config.kind === 'oss' ? 'Open-source task managers' : 'Commercial task managers'}</a>
               </p>
               <h1 className={cx('hero-title')}>{r.title}</h1>
               <Html as="p" className={cx('hero-lede')} html={r.lede} />
@@ -54,14 +54,16 @@ function Page() {
               </h2>
               <p className={cx('section-note')}>{r.questionsNote}</p>
             </div>
-            <dl className={cx('start-questions-list')}>
-              {r.questions.map((q) => (
-                <div className={cx('criterion start-question')} key={q.q}>
-                  <dt className={cx('criterion-name')}>{q.q}</dt>
-                  <Html as="dd" className={cx('criterion-text')} html={q.a} />
-                </div>
-              ))}
-            </dl>
+            <div className={cx('section-body')}>
+              <dl className={cx('start-questions-list')}>
+                {r.questions.map((q) => (
+                  <div className={cx('start-question')} key={q.q}>
+                    <dt className={cx('criterion-name')}>{q.q}</dt>
+                    <Html as="dd" className={cx('criterion-text')} html={q.a} />
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
         </section>
 
@@ -73,14 +75,16 @@ function Page() {
               </h2>
               <Html as="p" className={cx('section-note')} html={r.situationsNote} />
             </div>
-            <dl className={cx('route-list')}>
-              {routes.map((x) => (
-                <div className={cx('route')} key={x.id}>
-                  <dt className={cx('route-case')}>{x.case}</dt>
-                  <Html as="dd" className={cx('route-pick')} html={x.pick} />
-                </div>
-              ))}
-            </dl>
+            <div className={cx('section-body')}>
+              <dl className={cx('route-list')}>
+                {routes.map((x) => (
+                  <div className={cx('route')} key={x.id}>
+                    <dt className={cx('route-case')}>{x.case}</dt>
+                    <Html as="dd" className={cx('route-pick')} html={x.pick} />
+                  </div>
+                ))}
+              </dl>
+            </div>
           </div>
         </section>
 
@@ -92,36 +96,40 @@ function Page() {
               </h2>
               <p className={cx('section-note')}>{r.trialNote}</p>
             </div>
-            <ol className={cx('trial-list')}>
-              {r.trial.map((t) => (
-                <li className={cx('trial-step')} key={t.title}>
-                  <h3 className={cx('trial-step-title')}>{t.title}</h3>
-                  <Html as="p" className={cx('trial-step-text')} html={t.text} />
-                </li>
-              ))}
-            </ol>
+            <div className={cx('section-body')}>
+              <ol className={cx('trial-list')}>
+                {r.trial.map((t) => (
+                  <li className={cx('trial-step')} key={t.title}>
+                    <h3 className={cx('trial-step-title')}>{t.title}</h3>
+                    <Html as="p" className={cx('trial-step-text')} html={t.text} />
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </section>
 
-        <section className={cx('contribute start-fallback')} id="fallback" aria-labelledby="fallback-title">
+        <section className={cx('method start-fallback')} id="fallback" aria-labelledby="fallback-title">
           <div className={cx('shell method-inner')}>
             <div className={cx('section-head')}>
               <h2 className={cx('section-title')} id="fallback-title">
                 {r.fallbackTitle}
               </h2>
             </div>
-            {r.fallback.map((p, i) => (
-              <Html as="p" key={i} className={cx('method-note')} html={p} />
-            ))}
+            <div className={cx('section-body')}>
+              {r.fallback.map((p, i) => (
+                <Html as="p" key={i} className={cx('method-note')} html={p} />
+              ))}
+            </div>
           </div>
         </section>
-        <Crosslink />
+        <Crosslink onStart />
       </main>
       <SiteFooter
         path={path}
         onStart
         note={copy.footer.note}
-        csvFile={config.csvFile}
+        csvFile={publishesCsv(config.slug) ? config.csvFile : undefined}
         otherLabel={copy.footer.otherLabel}
         otherHref={copy.footer.otherHref}
         compiledOn={config.compiledOn}

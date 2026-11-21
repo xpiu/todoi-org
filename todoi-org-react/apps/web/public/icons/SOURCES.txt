@@ -61,3 +61,10 @@ wekan.webp            https://raw.githubusercontent.com/wekan/wekan/main/public/
 Adjusted in CSS, not in the file:
 super-productivity.webp  a pure-black tick on transparency, inverted on the dark
                          theme for the same reason huly.webp is.
+
+Added 2026-11-20 with Nullboard. Same rule: the project's own published mark,
+resized to 48x48, saved as lossless WebP. The source is 16x16, so it was
+scaled with a nearest-neighbour filter and stays pixelated.
+
+nullboard.webp        https://raw.githubusercontent.com/apankrat/nullboard/master/extras/favicon-16.png
+                        (nullboard.io/ serves no favicon; taken from the project repo)

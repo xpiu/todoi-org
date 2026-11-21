@@ -4,7 +4,10 @@ import { describe, expect, it } from 'vitest';
 import { loadSeedDirectories } from '@todoi/db/json';
 import { directoryCsv } from './csv.ts';
 
-/** The published datasets, committed as fixtures: the proof the store holds them whole. */
+/**
+ * Regenerated from the store and compared with the committed files.
+ * The open-source file is no longer served; the commercial one still is.
+ */
 const fixture = (file: string) => readFile(fileURLToPath(new URL(`../../test/fixtures/${file}`, import.meta.url)), 'utf8');
 
 // TEMP(json-store): these read the directories from data.json, as the site

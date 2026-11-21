@@ -9,7 +9,7 @@
         "projects"
       ],
       "compiledOn": "2026-09-17",
-      "modifiedOn": "2026-11-18",
+      "modifiedOn": "2026-11-20",
       "csvFile": "todoi-dataset-2026-09-17.csv",
       "toggles": [
         {
@@ -55,16 +55,16 @@
       ],
       "copy": {
         "head": {
-          "title": "25 open-source task managers compared (2026) · todoi.org",
+          "title": "26 open-source task managers compared (2026) · todoi.org",
           "description": "Licence, features and six scored criteria for open-source and source-available task managers, each with the reasoning attached.",
-          "ogTitle": "25 open-source task managers compared (2026)",
+          "ogTitle": "26 open-source task managers compared (2026)",
           "ogImage": "https://todoi.org/img/og-home.png",
-          "ogImageAlt": "todoi.org: 25 open-source task managers compared, each with a Score from 1 to 5.",
+          "ogImageAlt": "todoi.org: 26 open-source task managers compared, each with a Score from 1 to 5.",
           "csvTitle": "todoi.org dataset (CSV)"
         },
         "hero": {
           "title": "Open-source task managers compared",
-          "lede": "Licence, features and six scored criteria, with the reasoning attached.",
+          "lede": "26 browser-based task managers compared on licence terms, native features, and six scored criteria.",
           "mark": true
         },
         "controls": {
@@ -142,7 +142,7 @@
           "chipToken": "Licence"
         },
         "matrix": {
-          "caption": "Twenty-five browser-based open-source task managers compared by licensing model, the year each first appeared, community size, repository stars, estimated integrations and an overall score. Expand a row for the five capability checks, the six criterion scores from 1 to 5 and the reasoning behind each one.",
+          "caption": "Twenty-six browser-based open-source task managers compared by licensing model, the year each first appeared, community size, repository stars, estimated integrations and an overall score. Expand a row for the five capability checks, the six criterion scores from 1 to 5 and the reasoning behind each one.",
           "project": {
             "label": "Project",
             "tip": "Name, mark and one-line description as the project publishes them. Sorts alphabetically, and is the one column with nothing judged in it."
@@ -157,7 +157,7 @@
           },
           "metric": {
             "label": "Stars",
-            "tip": "Repository stars, read from the GitHub API on 17 September 2026 and rounded. A visibility signal, not an install count and not a ranking: a mirror, a split codebase or an app inside a larger platform all undercount, and a † marks the figures that need that qualification."
+            "tip": "Repository stars, read from the GitHub API and rounded. Most were read on 17 September 2026; Nullboard’s was read on 20 November 2026 and is marked †. A visibility signal, not an install count and not a ranking: a mirror, a split codebase or an app inside a larger platform all undercount, and a † marks the figures that need that qualification."
           },
           "integrations": {
             "label": "Integr.",
@@ -169,8 +169,8 @@
           },
           "capsTip": "Five capability checks, read from documentation and release notes, each three-state: native, partial, or not native. What partial means is column-specific, and every check states it in its own screen-reader text.",
           "eagerIcons": 11,
-          "updated": "Twenty-five projects, compiled <time datetime=\"2026-09-17\">17 September 2026</time>. Expand a row for capabilities, scores and sources. Scores are editorial judgements on a 1-5 scale.",
-          "provenance": "Community size is a proxy from repository signals, cadence and ecosystem, not a deployment count. Star counts were read from repository APIs on 17 September 2026; a &#8224; marks a repository that does not map cleanly onto the product. Integration figures estimate packaged connectors, importers and plugins; APIs and webhooks are in each record."
+          "updated": "Compiled <time datetime=\"2026-09-17\">17 September 2026</time> (Nullboard added <time datetime=\"2026-11-20\">20 November 2026</time>). &#8224; marks a qualified star count; hover column headers for definitions.",
+          "provenance": "Community size is a proxy from repository signals, cadence and ecosystem, not a deployment count. Star counts were read from repository APIs on 17 September 2026, except Nullboard’s on 20 November 2026; a &#8224; marks a figure that needs a qualification, including a repository that does not map cleanly onto the product. Integration figures estimate packaged connectors, importers and plugins; APIs and webhooks are in each record."
         },
         "cards": {
           "blurb": false,
@@ -212,29 +212,29 @@
           "note": "The matrix says what each project does. These are the routes the research supports.",
           "head": {
             "title": "Where to start: choosing an open-source task manager · todoi.org",
-            "description": "Three questions and fourteen situations that narrow twenty-five open-source task managers to a shortlist, with a four-step trial before you commit."
+            "description": "Three questions and fourteen situations that narrow twenty-six open-source task managers to a shortlist, with a four-step trial before you commit."
           },
-          "lede": "Twenty-five projects is too many to read. Answer three questions, find the situation closest to yours, and test the shortlist before committing anyone&#8217;s work to it.",
+          "lede": "Narrow 26 projects down to two or three worth testing: start with hosting, must-have features, and licence terms, then match your team&#8217;s setup below.",
           "questionsTitle": "Three questions first",
-          "questionsNote": "Most shortlists are decided by these before any score is read.",
+          "questionsNote": "Hosting, deal-breaker features, and licensing rule out most options immediately.",
           "questions": [
             {
               "q": "Who is going to run it?",
-              "a": "Nobody: use a project that sells its own hosted service. Fourteen here do, among them <a href=\"/?open=openproject\"><strong>OpenProject</strong></a>, <a href=\"/?open=plane\"><strong>Plane</strong></a>, <a href=\"/?open=leantime\"><strong>Leantime</strong></a> and <a href=\"/?open=vikunja\"><strong>Vikunja</strong></a>; <a href=\"/?open=kanboard\"><strong>Kanboard</strong></a>, <a href=\"/?open=planka\"><strong>PLANKA</strong></a> and <a href=\"/?open=redmine\"><strong>Redmine</strong></a> do not. An evening: <a href=\"/?open=kanboard\"><strong>Kanboard</strong></a>, <a href=\"/?open=vikunja\"><strong>Vikunja</strong></a> and <a href=\"/?open=planka\"><strong>PLANKA</strong></a> are one or two containers. An operations team: <a href=\"/?open=plane\"><strong>Plane</strong></a>, <a href=\"/?open=taiga\"><strong>Taiga</strong></a> and <a href=\"/?open=huly\"><strong>Huly</strong></a> are the heavier stacks."
+              "a": "<strong>Managed hosting:</strong> fourteen projects here sell their own cloud service, including <a href=\"/?open=openproject\"><strong>OpenProject</strong></a>, <a href=\"/?open=plane\"><strong>Plane</strong></a>, <a href=\"/?open=leantime\"><strong>Leantime</strong></a> and <a href=\"/?open=vikunja\"><strong>Vikunja</strong></a>; <a href=\"/?open=kanboard\"><strong>Kanboard</strong></a>, <a href=\"/?open=planka\"><strong>PLANKA</strong></a> and <a href=\"/?open=redmine\"><strong>Redmine</strong></a> are self-hosted only. <strong>One-evening setup:</strong> <a href=\"/?open=kanboard\"><strong>Kanboard</strong></a>, <a href=\"/?open=vikunja\"><strong>Vikunja</strong></a> and <a href=\"/?open=planka\"><strong>PLANKA</strong></a> run as a single binary or one to two containers. <strong>Dedicated ops team:</strong> <a href=\"/?open=plane\"><strong>Plane</strong></a>, <a href=\"/?open=taiga\"><strong>Taiga</strong></a> and <a href=\"/?open=huly\"><strong>Huly</strong></a> require multi-service stacks."
             },
             {
-              "q": "What would end the evaluation if it were missing?",
-              "a": "Name the capability you cannot do without before you read a score: time tracking, boards, Gantt, a calendar, calendar sync. No project has all five natively. Only OpenProject, Leantime, Kanboard and Restyaboard mark time tracking, boards, Gantt and a calendar as native, and Restyaboard has been effectively frozen since 2022. <a href=\"/?f=tt,agile,gantt,calendar\">Ask the matrix</a> for what you need and see who is left."
+              "q": "Which features are non-negotiable?",
+              "a": "Filter by must-have capabilities first: time tracking, boards, Gantt, calendar, or CalDAV sync. No project has all five natively. Only OpenProject, Leantime, Kanboard and Restyaboard include native time tracking, boards, Gantt and a calendar, and Restyaboard has been largely inactive since 2022. <a href=\"/?f=tt,agile,gantt,calendar\">Filter the directory</a> by your required features to see what remains."
             },
             {
               "q": "How much lock-in can you accept?",
-              "a": "The licence: FOSS is open throughout; open core keeps some features in a paid, closed edition; source-available lets you read the code but limits what you may do with it; mixed source combines these. Each record&#8217;s source map shows which layer is open. The exit: portability and the data-out line say whether your tasks leave in a format something else can read."
+              "a": "<strong>Licence:</strong> FOSS is open throughout; open core keeps extras in a closed paid edition; source-available restricts hosting or modification; mixed source splits client and server. Each record&#8217;s source breakdown shows which layer is open. <strong>Exit path:</strong> check portability and data-out formats to confirm your tasks export cleanly."
             }
           ],
           "situationsTitle": "Situations",
-          "situationsNote": "Find the one closest to yours. Each pick is where a shortlist begins, with the reasoning on the record it links to. Picks are the maintainer&#8217;s reading of the records, chosen by fit: no project pays to be listed or picked.",
-          "trialTitle": "Before you commit: an afternoon test",
-          "trialNote": "Whatever you shortlist, these four steps catch most of what a comparison cannot.",
+          "situationsNote": "Starting shortlists by team and use case, linking to each project&#8217;s full record. Editorial picks&#8212;no paid placements.",
+          "trialTitle": "Test your shortlist in an afternoon",
+          "trialNote": "Four checks to run before migrating a team.",
           "trial": [
             {
               "title": "Run the default install",
@@ -255,25 +255,23 @@
           ],
           "fallbackTitle": "If nothing fits",
           "fallback": [
-            "Start from the <a href=\"/#directory\">matrix</a>: tick the capabilities you cannot do without, choose a licensing model, and what remains is your shortlist.",
-            "Eleven projects were researched and read twice; fourteen were read once, and their records are marked Medium-high or Medium. A pick that rests on one of those is a first-pass reading, and no firmer than the confidence on its record.",
-            "If you would rather pay a vendor to run it, or hosting and licence terms matter less than features, the <a href=\"/commercial-task-managers/\">commercial directory</a> has its own Where to start and scores fifty-eight closed products on the same 1 to 5 scale. If your situation is missing, or a pick is out of date, write to <a href=\"mailto:info@todoi.org?subject=Where%20to%20start\">info@todoi.org</a> with a source; it is checked against the same criteria as everything else."
+            "None of these match? <a href=\"/#directory\">Filter the directory</a> directly by required features and licence. Note each record&#8217;s <strong>Confidence</strong> rating&#8212;fourteen projects from the initial pass and Nullboard are single-pass assessments marked Medium or Medium-high.",
+            "If self-hosting and source access matter less than turnkey features, see the <a href=\"/commercial-task-managers/\">commercial directory</a> (58 hosted products). To suggest a missing scenario or update, email <a href=\"mailto:info@todoi.org?subject=Where%20to%20start\">info@todoi.org</a> with a source."
           ]
         },
         "method": {
           "title": "How the scores work",
-          "note": "Six criteria and the community band, each 1 to 5, each with a written justification. The number is an editorial summary; the reasoning is the point.",
+          "note": "Score is the unweighted 1–5 mean of six criteria plus community size. Every expanded row includes written reasoning, sources, and a confidence rating.",
           "notes": [
-            "The <strong>Score</strong> column is the unweighted mean of all seven, so the band carries one seventh of it. The directory opens by community size, largest first. Each record also carries a <strong>Confidence</strong> value: <em>High</em> is stronger evidence and a second reading; <em>Medium-high</em> flags a remaining qualification; <em>Medium</em> is usually a first pass. Read the caveat and sources with the label.",
-            "Every record carries a <strong>Source</strong> map: the app, the server, the paid extras and the parts published separately, each marked open, partly open or closed, with the licence named. <em>FOSS</em> means app and server are open and no closed code is held back; <em>open core</em> means the paid extras are closed; <em>source-available</em> means the code can be read under restrictions; <em>mixed source</em> means app and server differ."
+            "The directory opens sorted by community size rather than Score. Each record carries a <strong>Confidence</strong> rating: <em>High</em> (verified across docs and repository, read twice), <em>Medium-high</em> (verified with one open question), or <em>Medium</em> (single-pass assessment)."
           ],
-          "modelsTitle": "Licensing and paid features",
-          "modelsNote": "Labels are derived from each record&#8217;s <strong>Source</strong> map, not from the marketing site, so a label cannot outlive a licence change. Paid hosting never changes one, and open code that needs a paid key is still open code: OpenProject&#8217;s Enterprise add-ons and Vikunja&#8217;s Pro features are in the open repository."
+          "modelsTitle": "Licensing labels",
+          "modelsNote": "Derived from each project&#8217;s four-layer <strong>Source</strong> breakdown (app, server, paid extras, separate packages) rather than vendor marketing. Paid hosting or licence keys on open code do not change a FOSS label."
         },
         "contribute": {
-          "text": "If a record is wrong, send the correction with a source. Licences change, features leave the core, hosted services shut down; each correction is checked against the same criteria as everything else.",
+          "text": "Spot an outdated licence, tier change, or shut-down service? Email a correction with a source link. No paid listings.",
           "listingTitle": "What gets listed",
-          "listing": "Two rules: usable in a browser, and the source of the app or its server is public. A closed product that only publishes parts around itself belongs on the <a href=\"/commercial-task-managers/\">commercial page</a>. Small, new or awkward to install is not a reason to leave it out; unverifiable is. A new entry gets the same six criteria, with lower <strong>Confidence</strong> until a second reader has been through it. Nobody pays to be listed.",
+          "listing": "Projects must run in a web browser and publish the source of their app or server. Closed products with open-source side packages belong in the <a href=\"/commercial-task-managers/\">commercial directory</a>.",
           "mailSubject": "todoi.org correction"
         },
         "source": {
@@ -338,8 +336,8 @@
           "changeLabel": "Licence history"
         },
         "map": {
-          "title": "Two figures at a time",
-          "note": "Any two figures, set against each other. Size is community; ink is licence.",
+          "title": "Compare two metrics",
+          "note": "Plot any two columns against each other. Bubble size shows community size; colour shows licensing.",
           "views": [
             { "label": "Effort and depth", "x": "deploy", "y": "enterprise" },
             { "label": "Run and use", "x": "deploy", "y": "use" },
@@ -350,7 +348,7 @@
         "crosslink": {
           "href": "/commercial-task-managers/",
           "title": "Commercial task managers compared",
-          "text": "Fifty-eight closed-source services, from Asana to Todoist, scored on the same scale: what they cost, where your data lives, and how hard they are to leave."
+          "text": "58 hosted task managers—from Asana to Todoist—compared on pricing, data control, and portability."
         },
         "footer": {
           "note": "A volunteer-run directory of open-source and source-available task managers. Not affiliated with, endorsed by or funded by any project listed here.",
@@ -358,7 +356,7 @@
           "otherHref": "/commercial-task-managers/"
         },
         "llms": {
-          "before": "# Todoi.org\n\n> A volunteer-run directory comparing twenty-five open-source and source-available browser-based task managers, each scored on six criteria with the reasoning published.\n\nTodoi.org compares task and project management systems. Two rules decide what is listed: the system must be usable in a browser, and the source of its app or server must be public. Self-hosting is common among the entries but is not itself a requirement.\n\nEvery project carries licensing model, community-size proxy, a repository star count, estimated integration surface, five capability checks (time tracking, agile boards, Gantt, calendar, open calendar sync) and six editorial criteria scored 1-5 (ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability), plus deployment, calendar sync, data-out routes, stack, hosted option and a repository link.\n\nDepth of research is not uniform, and the Research_Confidence field on every record states it. Eleven projects were researched first and read twice. Fourteen were added later the same day with checked facts and a considered first-pass score read once; most are marked Medium. Cite the confidence alongside the score.\n\nEvery score carries a written justification, and each project record keeps a four-paragraph summary, its own caveat and its source list. The summary is on the page only: the CSV and the JSON-LD carry the comparison fields rather than the prose. Scores are editorial judgements, not benchmarks. Community size is a proxy drawn from repository signals and release cadence, not a deployment count. Star counts were read from the repository APIs on 17 September 2026 and are a visibility signal only; six of them carry a caveat on the page because the repository does not map onto the product. Integration figures are estimates of meaningful packaged connections; API and webhook extensibility is recorded separately.\n\nLicensing labels follow code terms: FOSS uses open-source licences; open core combines an open-source core with non-open-source additions; source-available uses restrictive source terms. Paid availability is recorded separately in capability marks and edition notes. OpenProject remains FOSS because its Enterprise add-ons are GPLv3 too. Cost is treated as operational burden and portability, not seat licences.\n\nCompiled 2026-09-17. Twake Workplace was researched and excluded: its named repository carries two commits and no task-management module.\n\nCrawlers and AI agents are welcome. Access rules live in `/robots.txt`. This file is a curated overview, not an access-control list.\n\nCorrections reach the directory at info@todoi.org. Send the source along with the correction; it is checked against the same criteria as everything else.\n\n## Site\n\n- [Home](https://todoi.org/): Directory and comparison matrix of browser-based open-source task managers. The whole directory is this one page.\n- [Dataset (CSV)](https://todoi.org/todoi-dataset-2026-09-17.csv): Every field for all twenty-five projects across 43 columns, including the six scores and their written justifications. Generated from the page during publication.\n- [Where to start](https://todoi.org/where-to-start/): Three questions, fourteen concrete situations mapped to the projects the research supports for each, and a four-step trial before committing.\n- [Commercial task managers](https://todoi.org/commercial-task-managers/): Companion directory of 58 commercial, closed-source task managers, scored with the same method. Dataset: https://todoi.org/todoi-commercial-dataset-2026-11-10.csv\n- [Sitemap](https://todoi.org/sitemap.xml): URL list for search engines.\n- [llms.txt](https://todoi.org/llms.txt): This machine-readable index.\n\n## Sections of the page\n\n- [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-five projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.\n- [How the scores work](https://todoi.org/#method): The six criteria, what each one measures, and the three licensing models kept apart.\n- [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, how deep the assessments go, listing rules, and how current the data is.\n- [Corrections and additions](https://todoi.org/#contribute): The two listing rules, research confidence, how to send a correction, and the revision log.\n\n## Projects assessed\n\nOrdered by community size, largest first, with alphabetical ties, matching the page. Scores are unweighted means of seven inputs, the six editorial criteria and community size read as 1 (small) to 5 (very large), not an overall recommendation.\n",
+          "before": "# Todoi.org\n\n> A volunteer-run directory comparing twenty-six open-source and source-available browser-based task managers, each scored on six criteria with the reasoning published.\n\nTodoi.org compares task and project management systems. Two rules decide what is listed: the system must be usable in a browser, and the source of its app or server must be public. Self-hosting is common among the entries but is not itself a requirement.\n\nEvery project carries licensing model, community-size proxy, a repository star count, estimated integration surface, five capability checks (time tracking, agile boards, Gantt, calendar, open calendar sync) and six editorial criteria scored 1-5 (ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability), plus deployment, calendar sync, data-out routes, stack, hosted option and a repository link.\n\nDepth of research is not uniform, and the Research_Confidence field on every record states it. Eleven projects were researched first and read twice. Fourteen were added later the same day with checked facts and a considered first-pass score read once; most are marked Medium. Nullboard, added on 20 November 2026, was read once and is marked Medium. Cite the confidence alongside the score.\n\nEvery score carries a written justification, and each project record keeps a four-paragraph summary, its own caveat and its source list. The summary is on the page only: the JSON-LD carries the comparison fields rather than the prose. Scores are editorial judgements, not benchmarks. Community size is a proxy drawn from repository signals and release cadence, not a deployment count. Star counts were read from the repository APIs on 17 September 2026, except Nullboard’s on 20 November 2026, and are a visibility signal only; six of them carry a caveat because the repository does not map onto the product, and Nullboard’s caveat is the later reading. Integration figures are estimates of meaningful packaged connections; API and webhook extensibility is recorded separately.\n\nLicensing labels follow code terms: FOSS uses open-source licences; open core combines an open-source core with non-open-source additions; source-available uses restrictive source terms. Paid availability is recorded separately in capability marks and edition notes. OpenProject remains FOSS because its Enterprise add-ons are GPLv3 too. Cost is treated as operational burden and portability, not seat licences.\n\nCompiled 2026-09-17. Nullboard was added on 20 November 2026. Twake Workplace was researched and excluded: its named repository carries two commits and no task-management module.\n\nCrawlers and AI agents are welcome. Access rules live in `/robots.txt`. This file is a curated overview, not an access-control list.\n\nCorrections reach the directory at info@todoi.org. Send the source along with the correction; it is checked against the same criteria as everything else.\n\n## Site\n\n- [Home](https://todoi.org/): Directory and comparison matrix of browser-based open-source task managers. The whole directory is this one page.\n- [Where to start](https://todoi.org/where-to-start/): Three questions, fourteen concrete situations mapped to the projects the research supports for each, and a four-step trial before committing.\n- [Commercial task managers](https://todoi.org/commercial-task-managers/): Companion directory of 58 commercial, closed-source task managers, scored with the same method. Dataset: https://todoi.org/todoi-commercial-dataset-2026-11-10.csv\n- [Sitemap](https://todoi.org/sitemap.xml): URL list for search engines.\n- [llms.txt](https://todoi.org/llms.txt): This machine-readable index.\n\n## Sections of the page\n\n- [The matrix](https://todoi.org/#directory): Sortable, filterable comparison of all twenty-six projects. Expanding a row reveals a four-paragraph written summary of the project, the six criterion scores with a written justification for each, the project's own caveat and its source list.\n- [How the scores work](https://todoi.org/#method): The six criteria, what each one measures, and the three licensing models kept apart.\n- [Questions](https://todoi.org/#faq): What the directory is, why community size is a category rather than a number, why integration counts are estimates, how deep the assessments go, listing rules, and how current the data is.\n- [Corrections and additions](https://todoi.org/#contribute): The two listing rules, research confidence, how to send a correction, and the revision log.\n\n## Projects assessed\n\nOrdered by community size, largest first, with alphabetical ties, matching the page. Scores are unweighted means of seven inputs, the six editorial criteria and community size read as 1 (small) to 5 (very large), not an overall recommendation.\n",
           "after": ""
         },
         "ld": {
@@ -374,10 +372,10 @@
               "Software portability"
             ]
           },
-          "websiteDescription": "Twenty-five open-source and source-available browser-based task managers, compared across 43 fields.",
+          "websiteDescription": "Twenty-six open-source and source-available browser-based task managers, compared across 43 fields.",
           "dataset": {
             "name": "Open-source and source-available browser-based task managers, 2026",
-            "description": "Twenty-five browser-based open-source and source-available task and project management projects, each assessed across 43 fields: licensing model, community proxy, repository stars, estimated integrations, five capability checks, deployment, calendar sync, data-out routes, stack and hosted option, plus six editorial 1-5 criteria, each carrying a written justification and a source list.",
+            "description": "Twenty-six browser-based open-source and source-available task and project management projects, each assessed across 43 fields: licensing model, community proxy, repository stars, estimated integrations, five capability checks, deployment, calendar sync, data-out routes, stack and hosted option, plus six editorial 1-5 criteria, each carrying a written justification and a source list.",
             "measurementTechnique": "Editorial assessment of project documentation, source repositories and release histories against six published criteria.",
             "keywords": [
               "self-hosted task manager",
@@ -409,7 +407,7 @@
           },
           "itemList": {
             "name": "Compared projects",
-            "description": "All twenty-five projects, in the order the page opens in: by community size, largest first, ties alphabetical. Community size is an editorial proxy, not a deployment count."
+            "description": "All twenty-six projects, in the order the page opens in: by community size, largest first, ties alphabetical. Community size is an editorial proxy, not a deployment count."
           }
         }
       },
@@ -576,7 +574,7 @@
       "faqs": [
         {
           "question": "What is todoi.org?",
-          "answer": "<p>A volunteer-run directory of twenty-five browser-based task managers whose source you can read. Every score includes its reasoning. Nothing to sign up for, and no project pays to be listed.</p>"
+          "answer": "<p>A volunteer-run directory of twenty-six browser-based task managers whose source you can read. Every score includes its reasoning. Nothing to sign up for, and no project pays to be listed.</p>"
         },
         {
           "question": "Why is community size a category rather than a number?",
@@ -587,16 +585,16 @@
           "answer": "<p>They count documented connectors, importers and plugins. API and webhook access is listed separately, because that describes what you could build rather than a ready-made connection.</p>"
         },
         {
-          "question": "Are all twenty-five assessed to the same depth?",
-          "answer": "<p>No. The <strong>Confidence</strong> value on every record says which. The original eleven were read twice. The fourteen added on 17 September 2026 are a first pass - most of them Medium. If you find an error, send a correction with a source.</p>"
+          "question": "Are all twenty-six assessed to the same depth?",
+          "answer": "<p>No. The <strong>Confidence</strong> value on every record says which. The original eleven were read twice. The fourteen added on 17 September 2026 are a first pass - most of them Medium. Nullboard, added on 20 November 2026, is a first pass marked Medium. If you find an error, send a correction with a source.</p>"
         },
         {
           "question": "Does a project have to be self-hostable to be listed?",
-          "answer": "<p>No. The rules are a browser interface and open, or partly open, source. Most entries are servers you run yourself. Logseq, Super Productivity and Taskwarrior are here because local files are another way to keep control.</p>"
+          "answer": "<p>No. The rules are a browser interface and open, or partly open, source. Most entries are servers you run yourself. Logseq, Super Productivity, Taskwarrior and Nullboard are here because the work can stay on your own machine.</p>"
         },
         {
           "question": "How current is this?",
-          "answer": "<p>Compiled on 17 September 2026; each record notes what was changing. Nextcloud announced Gantt for Deck in June 2026. The hosted Huly service shut down around 20 July 2026; self-hosting continued.</p>"
+          "answer": "<p>Compiled on 17 September 2026, with Nullboard added on 20 November 2026; each record notes what was changing. Nextcloud announced Gantt for Deck in June 2026. The hosted Huly service shut down around 20 July 2026; self-hosting continued.</p>"
         }
       ],
       "routes": [
@@ -638,7 +636,7 @@
         },
         {
           "case": "One person, no server, and no intention of running one",
-          "pick": "<a href=\"/?open=super-productivity\"><strong>Super Productivity</strong></a> if the work already lives in Jira, GitHub or GitLab. <a href=\"/?open=logseq\"><strong>Logseq</strong></a> if tasks are notes you want as Markdown (a local graph opens in Chromium browsers only). <a href=\"/?open=taskwarrior\"><strong>Taskwarrior</strong></a> if you live in a terminal; browser access is third-party."
+          "pick": "<a href=\"/?open=nullboard\"><strong>Nullboard</strong></a> for a kanban and nothing else: one HTML file, with the boards kept in the browser. <a href=\"/?open=super-productivity\"><strong>Super Productivity</strong></a> if the work already lives in Jira, GitHub or GitLab. <a href=\"/?open=logseq\"><strong>Logseq</strong></a> if tasks are notes you want as Markdown (a local graph opens in Chromium browsers only). <a href=\"/?open=taskwarrior\"><strong>Taskwarrior</strong></a> if you live in a terminal; browser access is third-party."
         },
         {
           "case": "An agency or studio billing client hours",
@@ -660,15 +658,19 @@
       "revisions": [
         {
           "date": "2026-09-17",
-          "text": "First publication, then a same-day pass from eleven projects to twenty-five. Open calendar sync joined the matrix. Twake Workplace was researched and dropped: the named repository has two commits and no task-management module."
+          "text": "Initial release (11 projects, expanded to 25 the same day). Added open calendar sync; excluded Twake Workplace (no task-management module in repository)."
         },
         {
           "date": "2026-11-11",
-          "text": "A <strong>Source</strong> map joined every record: app, server, paid extras and published parts, each marked open, partly open or closed, with the licensing label now derived from it. Five labels changed. NocoDB is source-available since it left AGPL-3.0 in January 2026; AppFlowy and AFFiNE are mixed source, with open clients on a closed or restricted server; Vikunja and Worklenz are FOSS; Restyaboard is open core. Focalboard&#8217;s licence was corrected to AGPL-3.0 source with MIT binaries."
+          "text": "Added four-layer <strong>Source</strong> breakdown to every record and derived licensing labels from it. Reclassified NocoDB (source-available), AppFlowy and AFFiNE (mixed source), Vikunja and Worklenz (FOSS), and Restyaboard (open core); corrected Focalboard&#8217;s licence note."
         },
         {
           "date": "2026-11-18",
-          "text": "<strong>Where to start</strong> moved from the home page to its own page, rewritten: three questions to ask first, fourteen situations with each pick linked to its record, a four-step trial and what to do when nothing fits."
+          "text": "Moved <a href=\"/where-to-start/\">Where to start</a> to a dedicated page with 14 scenario shortlists and a four-step evaluation guide."
+        },
+        {
+          "date": "2026-11-20",
+          "text": "Added <strong>Nullboard</strong> (single-file browser kanban, BSD-2-Clause with Commons Clause; Medium confidence)."
         }
       ],
       "records": [
@@ -2496,7 +2498,7 @@
           "summary": [
             "Kanboard is a minimal Kanban board with an unusually small operational footprint: one PHP application over SQLite, no build step, no JavaScript framework, MIT licensed with nothing held back. It suits teams who want the board to be dependable more than they want it to be handsome.",
             "Behind the sparse interface is more machinery than it advertises. Swimlanes, WIP limits per column, automatic actions that fire on card events, subtasks with their own timers, a Gantt chart and a calendar are all in core. Plugins add the rest, and a plugin is PHP dropped into a directory rather than a build step.",
-            "It runs on SQLite by default, with PostgreSQL and MySQL optional, in a single container or on any PHP host. There is almost nothing to operate - no queue, no cache, no object store - and a backup is a file copy. That is why it takes 4.9 for deployment, behind only the entry with no server at all.",
+            "It runs on SQLite by default, with PostgreSQL and MySQL optional, in a single container or on any PHP host. There is almost nothing to operate - no queue, no cache, no object store - and a backup is a file copy. That is why it takes 4.9 for deployment, behind only Super Productivity and Nullboard, which have no server at all.",
             "Calendars leave as read-only iCalendar feeds, one per project and one per user; a JSON-RPC API and webhooks cover automation. The licence is MIT, the codebase is small enough to read, and and the project has been maintained since 2014 by a contributor list in the hundreds. Very little of it would be hard to leave behind, which is the point of it."
           ],
           "summaryDate": "2026-09-18",
@@ -2738,7 +2740,7 @@
           "summary": [
             "Super Productivity is a personal task list with a pomodoro timer and a day schedule, which pulls its work items out of the trackers a team already runs. It is single-user by design, it has no server, and it takes 5.0 for deployment because there is nothing to deploy.",
             "The loop is the product: pick a task, start the timer, and the time log writes itself; at the end of the day the schedule shows where the hours went. Tasks arrive from a dozen named issue providers - Jira, GitHub, GitLab, OpenProject, Linear and Azure DevOps among them - and each one is called straight from your own device, with no middleware holding a copy in the middle.",
-            "There is no multi-user model at all: no roles, no shared instance, nothing to administer. That is the lowest enterprise score in the table and a description rather than a complaint. Data lives in the browser’s IndexedDB, with optional sync to WebDAV, Dropbox or a local file, so the sovereignty question resolves before it is asked.",
+            "There is no multi-user model at all: no roles, no shared instance, nothing to administer. That is the lowest enterprise score in the table, shared with Nullboard, and a description rather than a complaint. Data lives in the browser’s IndexedDB, with optional sync to WebDAV, Dropbox or a local file, so the sovereignty question resolves before it is asked.",
             "It reads a CalDAV server as one more issue source but is not itself a CalDAV server, and the schedule timeboxes today rather than charting dependencies. Exports are JSON and CSV, plus whatever the sync target already holds as plain files. MIT, no hosted tier, 22.1k stars, and frequent releases from one maintainer with a steady contributor stream behind them."
           ],
           "summaryDate": "2026-09-18",
@@ -3323,6 +3325,121 @@
           }
         },
         {
+          "slug": "nullboard",
+          "name": "Nullboard",
+          "url": "https://nullboard.io/preview",
+          "icon": "/icons/nullboard.webp",
+          "blurb": "A single HTML file: a compact personal kanban kept in the browser, with JSON export and nothing to install.",
+          "model": "source-available",
+          "modelSub": "BSD-2 + Commons Clause",
+          "summary": [
+            "Nullboard is a personal kanban that is one HTML file, written to be used offline and kept entirely in the browser. It suits one person who wants lists of notes and nothing around them, and it takes 5.0 for deployment because opening the file is the whole installation.",
+            "A board is columns of notes. Everything is edited in place, notes drag between lists, a long note can collapse to its first line, and a raw note is set in a different style so it can stand as a heading. The last fifty revisions of a board can be undone. There is no due date, assignee, checklist or timer: a task is a line of text, and a link in it can be opened.",
+            "There is no server and no second user. Boards live in localStorage, which goes away if the browser’s site data is cleared, so the durable copy is the export: one board or all of them, as JSON in the project’s .nbx file. An optional backup can post that file to a small program on the same machine. The author’s Windows agent is a closed binary, and other people have ported it. The code also accepts a remote backup address, and the server for that has not been shipped.",
+            "The licence is the 2-clause BSD licence with the Commons Clause: the source can be read, changed and shared, and it may not be sold, including paid hosting or support whose value comes from the software. That is why it is recorded as source-available rather than FOSS. The last commit is 5 November 2023, the author still calls it a beta, and 4.1k stars sit on a repository one person maintains. A file this small keeps working on its own; a fix would have to come from that repository, and it has been still."
+          ],
+          "summaryDate": "2026-11-20",
+          "year": 2019,
+          "band": 2,
+          "bandEvidence": "4.1k GitHub stars on a repository one person maintains. The last commit is 5 November 2023, and the changelog has been still since.",
+          "integrationsLabel": "none",
+          "integrations": 0,
+          "integrationNotes": "No connectors and no importers from other tools. Optional backups post a board to a local agent or a remote address; the Windows agent is a closed program, third parties have ported it, and the author’s remote server was never shipped.",
+          "calendarSync": "None. Neither CalDAV nor an iCalendar feed.",
+          "dataOut": "JSON export of one board or every board, in the project’s .nbx format, and import of the same file. No API.",
+          "caveat": "Single-user, and quiet since 5 November 2023. Clearing the browser’s site data deletes the boards unless they have been exported. The Commons Clause forbids selling it, including paid hosting or support. On 20 November 2026 the site root answered with a one-line stub; the board is at /preview.",
+          "confidence": "Medium",
+          "scores": {
+            "deploy": {
+              "score": 5,
+              "review": "Open one HTML file. There is no server, no build and nothing to keep running."
+            },
+            "use": {
+              "score": 4.4,
+              "review": "In-place editing, with the controls hidden until you ask for them. Written for a desktop and a keyboard; the author says mobile is untested."
+            },
+            "enterprise": {
+              "score": 1,
+              "review": "One person and one browser. No accounts, no roles and no shared board."
+            },
+            "flex": {
+              "score": 2.2,
+              "review": "One board, and that is the whole interface. Lists, notes, a raw style for headings, and no fields, filters or second view."
+            },
+            "sovereignty": {
+              "score": 4.6,
+              "review": "The file and the boards stay on your machine. The Commons Clause withholds the right to sell it, including paid hosting or support."
+            },
+            "portability": {
+              "score": 4,
+              "review": "Boards leave as plain JSON, one or all of them. There is no API, and the file is Nullboard’s own shape."
+            }
+          },
+          "caps": {
+            "tt": {
+              "level": 0,
+              "note": null
+            },
+            "agile": {
+              "level": 2,
+              "note": "Kanban lists of notes. No sprint, backlog or WIP limit."
+            },
+            "gantt": {
+              "level": 0,
+              "note": null
+            },
+            "calendar": {
+              "level": 0,
+              "note": null
+            },
+            "caldav": {
+              "level": 0,
+              "note": null
+            }
+          },
+          "sources": [
+            {
+              "url": "https://github.com/apankrat/nullboard",
+              "label": "github.com/apankrat/nullboard"
+            },
+            {
+              "url": "https://nullboard.io/changes",
+              "label": "nullboard.io/changes"
+            },
+            {
+              "url": "https://github.com/apankrat/nullboard/blob/master/LICENSE",
+              "label": "github.com/apankrat/nullboard/blob/master/LICENSE"
+            },
+            {
+              "url": "https://nullboard.io/backups",
+              "label": "nullboard.io/backups"
+            }
+          ],
+          "source": {
+            "app": {
+              "level": 1,
+              "label": "BSD-2-Clause + Commons Clause",
+              "note": "Readable, changeable and redistributable. The Commons Clause forbids selling it, including paid hosting or support."
+            },
+            "server": null,
+            "extras": null,
+            "parts": null
+          },
+          "sourceChange": null,
+          "oss": {
+            "licence": "BSD-2-Clause with the Commons Clause",
+            "modelNote": "Source-available. BSD-2-Clause plus the Commons Clause, which forbids selling it.",
+            "repository": "github.com/apankrat/nullboard",
+            "repositoryUrl": "https://github.com/apankrat/nullboard",
+            "stars": 4146,
+            "starsNote": "Read from the GitHub API on 20 November 2026. The other counts on this page were read on 17 September 2026.",
+            "deployment": "No server. Open the single HTML file, locally or at nullboard.io/preview.",
+            "stack": "One HTML file with jQuery 3.6.0, storing to localStorage.",
+            "hostedOption": "None. nullboard.io/preview serves the same file; nothing is stored for you.",
+            "capabilityNotes": "<strong>Agile boards, Kanban or Scrum</strong> - Kanban lists of notes. No sprint, backlog or WIP limit."
+          }
+        },
+        {
           "slug": "restyaboard",
           "name": "Restyaboard",
           "url": "https://restya.com/board",
@@ -3674,7 +3791,7 @@
         "products"
       ],
       "compiledOn": "2026-11-11",
-      "modifiedOn": "2026-11-18",
+      "modifiedOn": "2026-11-20",
       "csvFile": "todoi-commercial-dataset-2026-11-10.csv",
       "toggles": [
         {
@@ -3745,7 +3862,7 @@
         },
         "hero": {
           "title": "Commercial task managers compared",
-          "lede": "Pricing, features and six scored criteria for closed-source software offered as a service, with the reasoning attached.",
+          "lede": "58 cloud task managers compared on entry price, features, data control, and portability.",
           "mark": false
         },
         "controls": {
@@ -3850,7 +3967,7 @@
           },
           "capsTip": "Five capability checks, read from the vendor’s documentation and plan pages, each three-state: native, partial, or not native. What partial means is column-specific, and every check states it in its own screen-reader text.",
           "eagerIcons": 8,
-          "updated": "Fifty-eight products, compiled <time datetime=\"2026-11-11\">11 November 2026</time>. Expand a row for capabilities, scores and sources. Scores are editorial judgements on a 1-5 scale.",
+          "updated": "Prices checked <time datetime=\"2026-11-11\">11 November 2026</time> in USD per user/month, billed annually. &#8776; converted or flat team price; &#8224; see qualification.",
           "provenance": "Market presence is an editorial band read from users, customers, revenue and headcount, not a market-share figure. Prices were read from vendor pricing pages around 10 November 2026, per user per month billed annually, in US dollars; &#8776; marks a flat team price shown per person for ten people, or a converted currency; a &#8224; marks a price with a further qualification. Integration figures estimate packaged connectors and marketplace apps; APIs and webhooks are in each record."
         },
         "cards": {
@@ -3902,17 +4019,17 @@
             "title": "Where to start: choosing a commercial task manager · todoi.org",
             "description": "Three questions and twelve situations that narrow fifty-eight commercial task managers to a shortlist, with a four-step trial before you pay."
           },
-          "lede": "Fifty-eight products is too many to read. Answer three questions, find the situation closest to yours, and trial the shortlist on real work before you pay.",
+          "lede": "Narrow 58 commercial tools down to a shortlist: start with team type, data residency, and real seat cost, then match your use case below.",
           "questionsTitle": "Three questions first",
-          "questionsNote": "Most shortlists are decided by these before any score is read.",
+          "questionsNote": "Audience, data residency, and tier pricing rule out most options before comparing scores.",
           "questions": [
             {
               "q": "Who is it for: you, a team, an engineering group or the whole organisation?",
-              "a": "The matrix sorts products by the market the vendor sells to: personal, teams, software and enterprise. A team tool bought for one person is slower to use; a personal one bought for a team runs out of sharing and permissions. Choose the segment first with the <em>Built for</em> filter, then compare inside it."
+              "a": "Products are grouped by the market the vendor sells to: personal, teams, software and enterprise. A team tool bought for one person is slower to use; a personal one bought for a team runs out of sharing and permissions. Choose the segment first with the <em>Built for</em> filter, then compare inside it."
             },
             {
               "q": "Where must the data live, and how would you leave?",
-              "a": "Read data control and portability on each record before price. If the answer has to be your own servers or a named region, the short list is short: see the route below on EU and on-premise data, or the <a href=\"/\">open-source directory</a>, where control is the point."
+              "a": "Read data control and portability on each record before price. If the answer has to be your own servers or a named region, the shortlist is short: see the route below on EU and on-premise data, or the <a href=\"/\">open-source directory</a>."
             },
             {
               "q": "What will it cost at your seat count?",
@@ -3920,9 +4037,9 @@
             }
           ],
           "situationsTitle": "Situations",
-          "situationsNote": "Find the one closest to yours. Each pick is where a shortlist begins, with the reasoning on the record it links to. Prices are the cheapest paid plan, per user per month, billed annually, as published around 10 November 2026. Picks are the maintainer&#8217;s reading of the records, chosen by fit: no vendor pays to be listed or picked, there are no affiliate links, and Todoi, which the maintainer builds, is not picked for any situation.",
-          "trialTitle": "Before you pay: trial it on real work",
-          "trialNote": "Whatever you shortlist, these four steps catch most of what a comparison cannot.",
+          "situationsNote": "Starting shortlists by use case, with annual per-user entry prices as of November 2026. Editorial picks&#8212;no paid placements or affiliate links, and Todoi (built by this site&#8217;s maintainer) is excluded from picks.",
+          "trialTitle": "Before paying: four checks",
+          "trialNote": "Run these on a real project before moving your team.",
           "trial": [
             {
               "title": "Trial the plan you would buy, at your size",
@@ -3943,27 +4060,24 @@
           ],
           "fallbackTitle": "If nothing fits",
           "fallback": [
-            "Start from the <a href=\"/commercial-task-managers/#directory\">matrix</a>: filter by the capabilities you cannot do without, then by who it is built for or by free plan, and sort by price or by control.",
-            "Confidence is on every record: Medium means part of it rests on secondary sources, and the caveat beside it says which part.",
-            "If you would rather run the software yourself, the <a href=\"/\">open-source directory</a> compares twenty-five projects on the same 1 to 5 scale, and has its own Where to start. If your situation is missing, or a pick is out of date, write to <a href=\"mailto:info@todoi.org?subject=Where%20to%20start\">info@todoi.org</a> with a source; it is checked against the same criteria as everything else."
+            "None of these match? <a href=\"/commercial-task-managers/#directory\">Filter the directory</a> by required capabilities, audience, or free plan, then sort by price or data control. Check each record&#8217;s confidence rating and caveat.",
+            "Prefer software you can inspect or self-host? See the <a href=\"/\">open-source directory</a> (26 projects). To suggest a missing scenario or correction, email <a href=\"mailto:info@todoi.org?subject=Where%20to%20start\">info@todoi.org</a> with a source."
           ]
         },
         "method": {
           "title": "How the scores work",
-          "note": "Six criteria and the market band, each 1 to 5, each with a written justification. Four criteria are shared with the open-source directory; two change, because a service someone else runs raises different questions.",
+          "note": "Score is the unweighted 1–5 mean of six criteria plus market presence, with value for money and data control replacing deployment and sovereignty.",
           "notes": [
-            "The <strong>Score</strong> column is the unweighted mean of all seven, so the band carries one seventh of it. The directory opens by market presence, largest first. Each record also carries a <strong>Confidence</strong> value: <em>High</em> means pricing, features and data handling were verified on the vendor&#8217;s own current pages; <em>Medium-high</em> flags one remaining qualification; <em>Medium</em> means part of the record rests on secondary sources. Read the caveat and sources with the label.",
-            "A product sold only by quote scores low on value for money by design: a price a reader cannot see cannot be judged good value. That pulls the mean of enterprise suites down, so read their other five criteria on their own.",
-            "The two directories share a scale but not two of their criteria, so a commercial product and an open-source one are best compared on the four criteria they share, not on the mean.",
-            "Every record also carries a <strong>Source</strong> map: the app, the server, the paid extras and the parts the owner publishes separately, each marked open, partly open or closed. Everything on this page has a closed app and server. <em>Closed core</em> marks the products whose owner publishes a working part of the product as open source, such as an editor or a UI kit, and has updated it in the last twelve months; API clients and other tooling alone do not count. It is the mirror image of open core."
+            "The directory opens sorted by market presence. Quote-only products score low on value for money because unpublished pricing cannot be verified, pulling down enterprise suites&#8217; overall Score&#8212;check their individual criteria directly. Confidence is marked <em>High</em> (verified on current vendor pages), <em>Medium-high</em>, or <em>Medium</em> (partly secondary sources).",
+            "Each record&#8217;s <strong>Source</strong> row notes whether the vendor maintains open-source product components (marked <em>Closed core</em>); SDKs and API wrappers alone do not count."
           ],
-          "modelsTitle": "Who each product is built for",
-          "modelsNote": "The label follows the market the vendor sells to, not every use the product can be put to. Plenty of software teams run on a general team tool, and plenty of individuals live in one built for teams."
+          "modelsTitle": "Audience tags",
+          "modelsNote": "Grouped by primary target buyer, though many teams use personal tools and vice versa."
         },
         "contribute": {
-          "text": "If a record is wrong, send the correction with a source. Prices rise, features move between tiers, products are acquired or shut down; each correction is checked against the same criteria as everything else.",
+          "text": "Spot a price change, moved feature, or discontinued plan? Email a correction with a source link. No paid listings.",
           "listingTitle": "What gets listed",
-          "listing": "Three rules: the app and its server are closed source, whatever the owner publishes around them; it is offered as a service, paid or free; and it is usable in a web browser. A desktop-only app does not qualify, however good it is; neither does a product that is no longer offered. Nobody pays to be listed.",
+          "listing": "Products must be closed-source software offered as a hosted service and usable in a web browser. Desktop-only and discontinued apps are excluded.",
           "mailSubject": "todoi.org commercial correction"
         },
         "source": {
@@ -4028,8 +4142,8 @@
           "changeLabel": "Licence history"
         },
         "map": {
-          "title": "Two figures at a time",
-          "note": "Any two figures, set against each other. Size is market presence; filled means a free plan.",
+          "title": "Compare two metrics",
+          "note": "Plot any two columns against each other. Bubble size shows market presence; solid fill means a free plan.",
           "views": [
             { "label": "Price and Score", "x": "price", "y": "avg" },
             { "label": "Simple or powerful", "x": "use", "y": "enterprise" },
@@ -4040,7 +4154,7 @@
         "crosslink": {
           "href": "/",
           "title": "Open-source task managers compared",
-          "text": "Twenty-five browser-based task managers whose source you can read, most of which you can run on your own server."
+          "text": "26 self-hosted and browser-based open-source task managers compared on licensing, deployment, and portability."
         },
         "footer": {
           "note": "A volunteer-run directory of task managers, open and commercial. Not affiliated with, endorsed by or funded by any vendor or project listed here, with one exception: Todoi is built by the directory’s maintainer.",
@@ -4298,19 +4412,19 @@
       "revisions": [
         {
           "date": "2026-11-10",
-          "text": "First publication: fifty-seven products, each researched from the vendor&#8217;s own pricing, documentation and trust pages, then checked against the live pages by a second reader. Upbase was researched and dropped: its pricing page is live, but its own feedback board holds months of unanswered reports of failed sign-ins and missing support replies, so continued sale could not be confirmed."
+          "text": "Initial release: 57 products researched and second-checked against vendor pricing, docs, and trust pages. Excluded Upbase due to unconfirmed active support."
         },
         {
           "date": "2026-11-11",
-          "text": "Todoi added, which makes fifty-eight products. It is built by this directory&#8217;s maintainer and scored against the same criteria as the rest; its record states the connection."
+          "text": "Added <strong>Todoi</strong> (58 products total), disclosed as built by this directory&#8217;s maintainer and scored on the same criteria."
         },
         {
           "date": "2026-11-11",
-          "text": "A <strong>Source</strong> map joined every record. All fifty-eight have a closed app and server; nine are marked closed core because the owner publishes a working part of the product as open source. Open parts joined the filters, and the listing rule now reads offered as a service, paid or free."
+          "text": "Added four-layer <strong>Source</strong> breakdown (9 products marked closed core for maintained open-source components) and an Open parts filter."
         },
         {
           "date": "2026-11-18",
-          "text": "<strong>Where to start</strong> moved from the page to its own page, rewritten: three questions to ask first, twelve situations with each pick linked to its record, a four-step trial and what to do when nothing fits."
+          "text": "Moved <a href=\"/commercial-task-managers/where-to-start/\">Where to start</a> to a dedicated page with 12 scenario shortlists and a four-step trial guide."
         }
       ],
       "records": [

@@ -2,17 +2,13 @@
    Moved from the original stylesheet unchanged; classes owned elsewhere are named
    as :global(.hook) and every element carries its hook beside its module class. */
 
-/* Variable weights the page sets between the named stops. */
 .hero-title {
-  font-weight: 500;
+  font-weight: 600;
+  max-width: 24ch;
 }
 
 .hero {
-  padding-block: var(--section-pad);
-}
-
-.hero {
-  padding-block: var(--sp-8) var(--sp-6);
+  padding-block: var(--sp-8) var(--sp-5);
 }
 
 .hero-inner {
@@ -20,13 +16,9 @@
   gap: var(--sp-3);
 }
 
-.hero-title {
-  max-width: 22ch;
-}
-
 .hero-lede {
   max-width: 60ch;
-  margin-top: var(--sp-4);
+  margin-top: var(--sp-3);
   font-size: var(--fs-lg);
   line-height: var(--lh-normal);
   color: var(--text-2);

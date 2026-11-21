@@ -14,12 +14,12 @@ test('open source opens on effort against depth, a bubble a project, inked by li
   await expect(page.locator('#map .map-view[aria-pressed="true"]')).toHaveText('Effort and depth');
   await expect(page.locator('#map-x')).toHaveText('Ease of deployment');
   await expect(page.locator('#map-y')).toHaveText('Enterprise features');
-  await expect(dots(page)).toHaveCount(25);
+  await expect(dots(page)).toHaveCount(26);
   await expect(ghosts(page)).toHaveCount(0);
   // The four licensing models are four inks, and the chips under the plot are their key.
   await expect(page.locator('#map .map-dot .map-dot-mark[data-look="part"]')).toHaveCount(5);
   await expect(page.locator('#map .map-dot .map-dot-mark[data-look="split"]')).toHaveCount(2);
-  await expect(page.locator('#map .map-dot .map-dot-mark[data-look="shut"]')).toHaveCount(2);
+  await expect(page.locator('#map .map-dot .map-dot-mark[data-look="shut"]')).toHaveCount(3);
   await expect(page.locator('#map .map-key-item')).toHaveCount(0);
   await expect(page.locator('#map .map-chip[data-seg="mixed-source"] .map-dot-mark[data-look="split"]')).toHaveCount(1);
   await expect(page.locator('#map .map-chip')).toHaveText(['FOSS', 'Open core', 'Source-available', 'Mixed source']);
@@ -71,22 +71,25 @@ test('the map follows the matrix’s search and filters, and its chips are the s
   await page.locator('label.toggle', { hasText: 'Time' }).click();
   const count = Number((await page.locator('#result-count').innerText()).split(' ')[0]);
   await expect(dots(page)).toHaveCount(count);
-  await expect(ghosts(page)).toHaveCount(25 - count);
-  await expect(page.locator('#map-count')).toHaveText(`${count} of 25 projects shown`);
+  await expect(ghosts(page)).toHaveCount(26 - count);
+  await expect(page.locator('#map-count')).toHaveText(`${count} of 26 projects shown`);
+  // The sentence says it is about the bubbles still in colour; cleared, it is about them all.
+  await expect(page.locator('#map-finding')).toContainText(`(${count} of 26 shown)`);
 
   await page.locator('#map .map-clear').click();
-  await expect(dots(page)).toHaveCount(25);
+  await expect(dots(page)).toHaveCount(26);
+  await expect(page.locator('#map-finding')).not.toContainText('of 26 shown');
 
   await page.locator('#map .map-chip[data-seg="open-core"]').click();
   await expect(page).toHaveURL(/lic=open-core/);
   await expect(page.locator('button.chip[data-model="open-core"]')).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.locator('#result-count')).toHaveText('5 of 25 projects');
+  await expect(page.locator('#result-count')).toHaveText('5 of 26 projects');
   await expect(dots(page)).toHaveCount(5);
 
   // Nothing left: the field stays on the sheet as ghosts, and the plot says so.
   await page.goto('/?q=zzzz');
   await expect(dots(page)).toHaveCount(0);
-  await expect(ghosts(page)).toHaveCount(25);
+  await expect(ghosts(page)).toHaveCount(26);
   await expect(page.locator('#map-finding')).toHaveText(/^No project matches/);
 });
 

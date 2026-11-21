@@ -33,13 +33,13 @@
     "@id": "https://todoi.org/#org"
    },
    "inLanguage": "en",
-   "description": "Twenty-five open-source and source-available browser-based task managers, compared across 43 fields."
+   "description": "Twenty-six open-source and source-available browser-based task managers, compared across 43 fields."
   },
   {
    "@type": "WebPage",
    "@id": "https://todoi.org/#webpage",
    "url": "https://todoi.org/",
-   "name": "25 open-source task managers compared (2026) · todoi.org",
+   "name": "26 open-source task managers compared (2026) · todoi.org",
    "description": "Licence, features and six scored criteria for open-source and source-available task managers, each with the reasoning attached.",
    "isPartOf": {
     "@id": "https://todoi.org/#website"
@@ -52,8 +52,8 @@
    },
    "inLanguage": "en",
    "datePublished": "2026-09-17",
-   "dateModified": "2026-11-18",
-   "lastReviewed": "2026-11-18",
+   "dateModified": "2026-11-20",
+   "lastReviewed": "2026-11-20",
    "reviewedBy": {
     "@id": "https://todoi.org/#org"
    },
@@ -80,6 +80,7 @@
     "https://triliumnotes.org/",
     "https://vikunja.io/",
     "https://wekan.github.io/",
+    "https://nullboard.io/preview",
     "https://restya.com/board",
     "https://titra.io/",
     "https://worklenz.com/"
@@ -119,7 +120,7 @@
      "name": "What is todoi.org?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "A volunteer-run directory of twenty-five browser-based task managers whose source you can read. Every score includes its reasoning. Nothing to sign up for, and no project pays to be listed."
+      "text": "A volunteer-run directory of twenty-six browser-based task managers whose source you can read. Every score includes its reasoning. Nothing to sign up for, and no project pays to be listed."
      }
     },
     {
@@ -140,10 +141,10 @@
     },
     {
      "@type": "Question",
-     "name": "Are all twenty-five assessed to the same depth?",
+     "name": "Are all twenty-six assessed to the same depth?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "No. The Confidence value on every record says which. The original eleven were read twice. The fourteen added on 17 September 2026 are a first pass - most of them Medium. If you find an error, send a correction with a source."
+      "text": "No. The Confidence value on every record says which. The original eleven were read twice. The fourteen added on 17 September 2026 are a first pass - most of them Medium. Nullboard, added on 20 November 2026, is a first pass marked Medium. If you find an error, send a correction with a source."
      }
     },
     {
@@ -151,7 +152,7 @@
      "name": "Does a project have to be self-hostable to be listed?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "No. The rules are a browser interface and open, or partly open, source. Most entries are servers you run yourself. Logseq, Super Productivity and Taskwarrior are here because local files are another way to keep control."
+      "text": "No. The rules are a browser interface and open, or partly open, source. Most entries are servers you run yourself. Logseq, Super Productivity, Taskwarrior and Nullboard are here because the work can stay on your own machine."
      }
     },
     {
@@ -159,7 +160,7 @@
      "name": "How current is this?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Compiled on 17 September 2026; each record notes what was changing. Nextcloud announced Gantt for Deck in June 2026. The hosted Huly service shut down around 20 July 2026; self-hosting continued."
+      "text": "Compiled on 17 September 2026, with Nullboard added on 20 November 2026; each record notes what was changing. Nextcloud announced Gantt for Deck in June 2026. The hosted Huly service shut down around 20 July 2026; self-hosting continued."
      }
     }
    ]
@@ -169,7 +170,7 @@
    "@id": "https://todoi.org/#dataset",
    "name": "Open-source and source-available browser-based task managers, 2026",
    "url": "https://todoi.org/",
-   "description": "Twenty-five browser-based open-source and source-available task and project management projects, each assessed across 43 fields: licensing model, community proxy, repository stars, estimated integrations, five capability checks, deployment, calendar sync, data-out routes, stack and hosted option, plus six editorial 1-5 criteria, each carrying a written justification and a source list.",
+   "description": "Twenty-six browser-based open-source and source-available task and project management projects, each assessed across 43 fields: licensing model, community proxy, repository stars, estimated integrations, five capability checks, deployment, calendar sync, data-out routes, stack and hosted option, plus six editorial 1-5 criteria, each carrying a written justification and a source list.",
    "creator": {
     "@id": "https://todoi.org/#org"
    },
@@ -178,7 +179,7 @@
    },
    "dateCreated": "2026-09-17",
    "datePublished": "2026-09-17",
-   "dateModified": "2026-11-18",
+   "dateModified": "2026-11-20",
    "isAccessibleForFree": true,
    "inLanguage": "en",
    "temporalCoverage": "2026-09-17",
@@ -251,14 +252,6 @@
     "Stack",
     "Hosted option"
    ],
-   "distribution": [
-    {
-     "@type": "DataDownload",
-     "encodingFormat": "text/csv",
-     "contentUrl": "https://todoi.org/todoi-dataset-2026-09-17.csv",
-     "name": "todoi.org dataset (CSV)"
-    }
-   ],
    "hasPart": [
     {
      "@id": "https://todoi.org/#projects"
@@ -269,8 +262,8 @@
    "@type": "ItemList",
    "@id": "https://todoi.org/#projects",
    "name": "Compared projects",
-   "description": "All twenty-five projects, in the order the page opens in: by community size, largest first, ties alphabetical. Community size is an editorial proxy, not a deployment count.",
-   "numberOfItems": 25,
+   "description": "All twenty-six projects, in the order the page opens in: by community size, largest first, ties alphabetical. Community size is an editorial proxy, not a deployment count.",
+   "numberOfItems": 26,
    "itemListOrder": "https://schema.org/ItemListOrderDescending",
    "itemListElement": [
     {
@@ -431,19 +424,26 @@
      "@type": "ListItem",
      "position": 23,
      "item": {
-      "@id": "https://todoi.org/#restyaboard"
+      "@id": "https://todoi.org/#nullboard"
      }
     },
     {
      "@type": "ListItem",
      "position": 24,
      "item": {
-      "@id": "https://todoi.org/#titra"
+      "@id": "https://todoi.org/#restyaboard"
      }
     },
     {
      "@type": "ListItem",
      "position": 25,
+     "item": {
+      "@id": "https://todoi.org/#titra"
+     }
+    },
+    {
+     "@type": "ListItem",
+     "position": 26,
      "item": {
       "@id": "https://todoi.org/#worklenz"
      }
@@ -471,7 +471,7 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of deployment",
-     "value": 3.0,
+     "value": 3,
      "minValue": 1,
      "maxValue": 5
     },
@@ -499,7 +499,7 @@
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -600,14 +600,14 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of deployment",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
     {
      "@type": "PropertyValue",
      "name": "Ease of use",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -628,7 +628,7 @@
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -884,7 +884,7 @@
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1003,7 +1003,7 @@
     {
      "@type": "PropertyValue",
      "name": "Interface flexibility",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1118,7 +1118,7 @@
     {
      "@type": "PropertyValue",
      "name": "Enterprise features",
-     "value": 3.0,
+     "value": 3,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1230,7 +1230,7 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of use",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1251,7 +1251,7 @@
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1375,7 +1375,7 @@
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1471,7 +1471,7 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of deployment",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1492,21 +1492,21 @@
     {
      "@type": "PropertyValue",
      "name": "Interface flexibility",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
     {
      "@type": "PropertyValue",
      "name": "Portability",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1620,14 +1620,14 @@
     {
      "@type": "PropertyValue",
      "name": "Interface flexibility",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1733,7 +1733,7 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of use",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1754,7 +1754,7 @@
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -1869,7 +1869,7 @@
     {
      "@type": "PropertyValue",
      "name": "Interface flexibility",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -2002,7 +2002,7 @@
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -2313,7 +2313,7 @@
     "datePublished": "2026-09-17",
     "reviewRating": {
      "@type": "Rating",
-     "ratingValue": 4.0,
+     "ratingValue": 4,
      "bestRating": 5,
      "worstRating": 1
     },
@@ -2351,7 +2351,7 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of use",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -2365,14 +2365,14 @@
     {
      "@type": "PropertyValue",
      "name": "Interface flexibility",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -2478,14 +2478,14 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of use",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
     {
      "@type": "PropertyValue",
      "name": "Enterprise features",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -2597,7 +2597,7 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of deployment",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -2611,21 +2611,21 @@
     {
      "@type": "PropertyValue",
      "name": "Enterprise features",
-     "value": 1.0,
+     "value": 1,
      "minValue": 1,
      "maxValue": 5
     },
     {
      "@type": "PropertyValue",
      "name": "Interface flexibility",
-     "value": 3.0,
+     "value": 3,
      "minValue": 1,
      "maxValue": 5
     },
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -3004,7 +3004,7 @@
     {
      "@type": "PropertyValue",
      "name": "Data sovereignty",
-     "value": 5.0,
+     "value": 5,
      "minValue": 1,
      "maxValue": 5
     },
@@ -3110,7 +3110,7 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of use",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
@@ -3211,6 +3211,127 @@
   },
   {
    "@type": "SoftwareApplication",
+   "@id": "https://todoi.org/#nullboard",
+   "name": "Nullboard",
+   "url": "https://nullboard.io/preview",
+   "applicationCategory": "BusinessApplication",
+   "applicationSubCategory": "Project and task management",
+   "operatingSystem": "Browser interface; see deployment requirements in the project record",
+   "description": "A single HTML file: a compact personal kanban kept in the browser, with JSON export and nothing to install.",
+   "license": "BSD-2-Clause with the Commons Clause",
+   "sameAs": [
+    "https://github.com/apankrat/nullboard"
+   ],
+   "featureList": [
+    "Agile boards"
+   ],
+   "additionalProperty": [
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of deployment",
+     "value": 5,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Ease of use",
+     "value": 4.4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Enterprise features",
+     "value": 1,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Interface flexibility",
+     "value": 2.2,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data sovereignty",
+     "value": 4.6,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Portability",
+     "value": 4,
+     "minValue": 1,
+     "maxValue": 5
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Licensing model",
+     "value": "Source-available. BSD-2-Clause plus the Commons Clause, which forbids selling it."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Source model",
+     "value": "Source-available"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Community size proxy",
+     "value": "Medium"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Estimated external integrations",
+     "value": "none"
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Deployment",
+     "value": "No server. Open the single HTML file, locally or at nullboard.io/preview."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Calendar sync",
+     "value": "None. Neither CalDAV nor an iCalendar feed."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Data out",
+     "value": "JSON export of one board or every board, in the project’s .nbx format, and import of the same file. No API."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Stack",
+     "value": "One HTML file with jQuery 3.6.0, storing to localStorage."
+    },
+    {
+     "@type": "PropertyValue",
+     "name": "Hosted option",
+     "value": "None. nullboard.io/preview serves the same file; nothing is stored for you."
+    }
+   ],
+   "review": {
+    "@type": "Review",
+    "author": {
+     "@id": "https://todoi.org/#org"
+    },
+    "datePublished": "2026-09-17",
+    "reviewRating": {
+     "@type": "Rating",
+     "ratingValue": 3.3,
+     "bestRating": 5,
+     "worstRating": 1
+    },
+    "reviewBody": "Single-user, and quiet since 5 November 2023. Clearing the browser’s site data deletes the boards unless they have been exported. The Commons Clause forbids selling it, including paid hosting or support. On 20 November 2026 the site root answered with a one-line stub; the board is at /preview.",
+    "reviewAspect": "Ease of deployment, ease of use, enterprise features, interface flexibility, data sovereignty, portability, community size"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
    "@id": "https://todoi.org/#restyaboard",
    "name": "Restyaboard",
    "url": "https://restya.com/board",
@@ -3232,7 +3353,7 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of deployment",
-     "value": 3.0,
+     "value": 3,
      "minValue": 1,
      "maxValue": 5
     },
@@ -3365,14 +3486,14 @@
     {
      "@type": "PropertyValue",
      "name": "Ease of use",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },
     {
      "@type": "PropertyValue",
      "name": "Enterprise features",
-     "value": 3.0,
+     "value": 3,
      "minValue": 1,
      "maxValue": 5
     },
@@ -3393,7 +3514,7 @@
     {
      "@type": "PropertyValue",
      "name": "Portability",
-     "value": 4.0,
+     "value": 4,
      "minValue": 1,
      "maxValue": 5
     },

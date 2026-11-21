@@ -3,22 +3,7 @@
    as :global(.hook) and every element carries its hook beside its module class. */
 
 .board {
-  padding-block: var(--section-pad);
-}
-
-/* Section boundaries are hairlines, like every other edge on the page: the
-   sections are told apart by their air and their titles, not by weight. */
-.board {
-  border-top: var(--border);
-}
-
-/* The hero and the board are two halves of the same opening, so the rule
-   between them would read as a divider where none is meant. It stays in place
-   for the spacing it holds but is drawn in nothing, and the gap after it
-   closes up a little so the table sits nearer the masthead. */
-.board {
-  border-top-color: transparent;
-  padding-top: var(--sp-4);
+  padding-block: var(--sp-3) var(--section-pad);
 }
 
 /* Currency line immediately below the directory: quiet, but visually tied to
@@ -124,54 +109,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-2);
-}
-
-/* Fine print, but still a paragraph somebody has to read to check a figure:
-   13px with normal leading rather than 12px set as a caption. */
-.provenance {
-  max-width: var(--measure);
-  margin-top: var(--sp-7);
-  padding-top: var(--sp-4);
-  border-top: var(--border);
-  font-size: var(--fs-xs);
-  line-height: var(--lh-normal);
-  color: var(--text-2);
-}
-
-/* The matrix names and explains itself after the fact. The controls and the grid
-   hold the top of the section; the title, the how-to-read note and the record of
-   what was compiled collect underneath as a closing block. The visible title is
-   a paragraph, not a heading: the real h2#directory-title is .sr-only at the top
-   of the section, where it keeps heading order and the section's label intact. */
-.matrix-foot {
-  display: grid;
-  gap: var(--sp-2);
-  margin-top: var(--sp-5);
-  padding-top: var(--sp-3);
-  border-top: var(--border);
-}
-
-/* Read as a footer, not a masthead: a step down from the section heads above. */
-.matrix-foot :global(.section-title) {
-  font-size: var(--fs-xl);
-}
-
-.matrix-foot :global(.section-note) {
-  max-width: none;
-}
-
-/* The rule and the spacing are the block's own; its paragraphs just stack.
-   The block spans the table it annotates, and the note keeps a readable line
-   by setting in two columns once each can hold ~60 characters, rather than
-   by stopping at a measure and leaving half the table's width empty. */
-.matrix-foot .provenance {
-  max-width: none;
-  margin-top: 0;
-  padding-top: 0;
-  border-top: 0;
-  column-width: 24rem;
-  column-count: 2;
-  column-gap: var(--sp-8);
 }
 
 @media print {

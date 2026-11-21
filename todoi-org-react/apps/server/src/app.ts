@@ -3,6 +3,7 @@ import { Hono } from 'hono';
 import { serveStatic } from '@hono/node-server/serve-static';
 import { compress } from 'hono/compress';
 import { etag } from 'hono/etag';
+import { publishesCsv } from '@todoi/shared';
 import type { Env } from './env.ts';
 import { HttpProblem } from './errors.ts';
 import { directoryCsv } from './generate/csv.ts';
@@ -129,10 +130,11 @@ export function createApp(deps: AppDeps) {
   // with the editor parked, that is all of /api/v1/auth and /api/v1/admin.
   app.all('/api/*', (c) => c.notFound());
 
-  // The datasets, at the URLs they have always had.
+  // The commercial dataset, at the URL it has always had. The open-source
+  // directory no longer publishes a CSV, so that filename answers 404.
   app.get('/:file{todoi-[a-z-]*dataset-\\d{4}-\\d{2}-\\d{2}\\.csv}', etag({ weak: true }), async (c) => {
     const dir = await deps.store.byCsv(c.req.param('file'));
-    if (!dir) return c.notFound();
+    if (!dir || !publishesCsv(dir.config.slug)) return c.notFound();
     c.header('Content-Type', 'text/csv; charset=utf-8');
     c.header('Cache-Control', 'no-cache');
     return c.body(directoryCsv(dir));

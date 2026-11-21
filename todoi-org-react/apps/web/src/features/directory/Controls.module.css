@@ -5,6 +5,7 @@
 .controls {
   display: grid;
   gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
   padding: var(--sp-4);
   background-color: var(--bg-sunken);
   border: var(--border);
@@ -80,11 +81,12 @@
   margin-bottom: var(--sp-1);
 }
 
-/* fieldset + legend, de-chromed. */
+/* fieldset + legend, de-chromed: label consistently sits above its filter pills. */
 .control-group {
   display: flex;
-  align-items: center;
-  gap: var(--sp-2);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
   min-inline-size: 0;
   margin: 0;
   padding: 0;
@@ -94,11 +96,12 @@
 /* The abbreviated visible labels keep the five native capabilities scannable
    while their full names remain on the inputs and hover titles. */
 .control-group-wide {
-  flex: 1 1 30rem;
+  flex: 1 1 28rem;
 }
 
 .control-group-end {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--sp-3);
@@ -107,14 +110,8 @@
 
 .control-group > .control-label {
   flex: none;
-  margin-bottom: 0;
+  margin-bottom: var(--sp-1);
   white-space: nowrap;
-}
-
-/* The two option sets share one label-over-controls rhythm. Keeping the label
-   out of the horizontal run is what leaves room for actions on the same rail. */
-.control-row-secondary > .control-group:not(.control-group-wide):not(.control-group-end) {
-  display: block;
 }
 
 /* Mobile-only disclosure: desktop keeps every option in view. */
@@ -290,12 +287,12 @@
   display: inline-flex;
   align-items: center;
   gap: var(--sp-2);
-  min-height: var(--control-h);
+  min-height: 2.25rem;
   padding-inline: var(--sp-2);
   border: var(--border-strong);
   border-radius: var(--radius-2);
   background-color: var(--bg-raised);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-xs);
   color: var(--text-2);
   cursor: pointer;
   user-select: none;
@@ -376,7 +373,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  min-height: var(--control-h);
+  min-height: 2.25rem;
   padding-inline: var(--sp-2);
   border: var(--border-strong);
   border-radius: var(--radius-2);
@@ -450,15 +447,16 @@
     flex-basis: 100%;
   }
 
-  .control-row-secondary > .control-group:not(.control-group-wide):not(.control-group-end) {
-    display: flex;
-  }
-
 }
 
 @media (max-width: 640px) {
   .controls {
     padding: var(--sp-4);
+  }
+
+  .toggle,
+  .chip {
+    min-height: var(--control-h);
   }
 
   .sort-dir {

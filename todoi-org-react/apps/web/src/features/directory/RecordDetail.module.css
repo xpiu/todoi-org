@@ -11,10 +11,10 @@
   position: sticky;
   left: 0;
   inline-size: min(100%, calc(100vw - 2 * var(--gutter)));
-  padding: var(--sp-4) var(--cell-pad-edge) var(--sp-5)
-  calc(var(--cell-pad-edge) - 3px);
+  padding: var(--sp-5) var(--cell-pad-edge);
   background-color: var(--bg-raised);
-  border-left: 3px solid var(--accent);
+  border-top: var(--border);
+  border-bottom: var(--border-strong);
 }
 
 .detail {
@@ -108,21 +108,18 @@
 }
 
 .caps {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-2);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--sp-3) var(--sp-5);
 }
 
 .cap {
   display: flex;
   align-items: flex-start;
   gap: var(--sp-2);
-  min-inline-size: 7.5rem;
-  max-inline-size: 17rem;
-  padding: var(--sp-2) var(--sp-3) var(--sp-2) var(--sp-2);
-  background-color: var(--bg-sunken);
-  border: var(--border);
-  border-radius: var(--radius-2);
+  min-inline-size: 0;
+  padding-top: var(--sp-2);
+  border-top: var(--border);
 }
 
 .cap:has(:global(.mark-none)) .cap-l {
@@ -190,8 +187,7 @@
 }
 
 .cap-src:has(:global(.mark-na)) {
-  background-color: transparent;
-  border-style: dotted;
+  border-top-style: dotted;
 }
 
 .cap-src:has(:global(.mark-na)) .cap-l {

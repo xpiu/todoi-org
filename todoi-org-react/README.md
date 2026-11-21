@@ -105,7 +105,7 @@ else, and `pnpm db:seed` will be what loads it into the database on the way back
 ```jsonc
 {
   "directories": [
-    { "slug": "open-source", "path": "/", "criteria": [...], "segments": [...], "records": [...] },  // 25 records
+    { "slug": "open-source", "path": "/", "criteria": [...], "segments": [...], "records": [...] },  // 26 records
     { "slug": "commercial", "path": "/commercial-task-managers/", ...,           "records": [...] }   // 58 records
   ]
 }

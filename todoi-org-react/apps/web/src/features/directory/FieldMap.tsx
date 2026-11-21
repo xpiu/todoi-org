@@ -174,7 +174,7 @@ function Figure({ label, axis, gauge, children }: { label: string; axis?: 'x' | 
           </span>
         ) : null}
         {label}
-        {axis ? <span className={cx('sr-only')}>{axis === 'x' ? ' (across)' : ' (up)'}</span> : null}
+        {axis ? <span className={cx('sr-only')}>{axis === 'x' ? ' (X axis)' : ' (Y axis)'}</span> : null}
       </dt>
       <dd className={cx('map-fig-val')}>
         {gauge === undefined ? null : (
@@ -205,22 +205,31 @@ function Pinned({
   const score = scoreOf(record);
   return (
     <div className={cx('map-pin')} data-slug={record.slug}>
-      <div className={cx('map-pin-head')}>
-        <img className={cx('project-icon map-pin-icon')} src={record.icon} alt="" width={48} height={48} decoding="async" />
-        <h3 className={cx('map-pin-name')}>
-          <a className={cx('project-name')} href={record.url} rel="noopener external">
-            {record.name}
-          </a>
-        </h3>
-        <button type="button" className={cx('map-pin-close')} aria-label={`Unpin ${record.name}`} onClick={onClose}>
-          <span aria-hidden="true">×</span>
-        </button>
+      <div className={cx('map-pin-top')}>
+        <div className={cx('map-pin-main')}>
+          <div className={cx('map-pin-head')}>
+            <img className={cx('project-icon map-pin-icon')} src={record.icon} alt="" width={48} height={48} decoding="async" />
+            <h3 className={cx('map-pin-name')}>
+              <a className={cx('project-name')} href={record.url} rel="noopener external">
+                {record.name}
+              </a>
+            </h3>
+            <p className={cx('map-pin-model')}>
+              <ModelTag config={config} record={record} />
+              <span className={cx('map-pin-sub')}>{record.kind === 'oss' ? record.licence : record.modelSub}</span>
+            </p>
+          </div>
+          <p className={cx('map-pin-blurb')}>{record.blurb}</p>
+        </div>
+        <div className={cx('map-pin-actions')}>
+          <button type="button" className={cx('btn btn-primary btn-sm map-pin-open')} onClick={onOpen}>
+            Full record
+          </button>
+          <button type="button" className={cx('map-pin-close')} aria-label={`Unpin ${record.name}`} onClick={onClose}>
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
       </div>
-      <p className={cx('map-pin-blurb')}>{record.blurb}</p>
-      <p className={cx('map-pin-model')}>
-        <ModelTag config={config} record={record} />
-        <span className={cx('map-pin-sub')}>{record.kind === 'oss' ? record.licence : record.modelSub}</span>
-      </p>
       <dl className={cx('map-figs')}>
         <Figure label="Score" axis={axisOf('avg')} gauge={score}>
           <span className={cx('num')}>{formatScore(score)}</span>
@@ -245,52 +254,6 @@ function Pinned({
           <span className={cx('num')}>{record.year}</span>
         </Figure>
       </dl>
-      <p className={cx('map-pin-actions')}>
-        <button type="button" className={cx('btn btn-primary btn-sm map-pin-open')} onClick={onOpen}>
-          Full record
-        </button>
-      </p>
-    </div>
-  );
-}
-
-/** What the picture plots, while no record is picked out. */
-function Reading({ x, y, config }: { x: MapAxis; y: MapAxis; config: DirectoryConfig }) {
-  return (
-    <div className={cx('map-read')}>
-      <h3 className={cx('map-read-title')}>Reading it</h3>
-      <dl className={cx('map-read-list')}>
-        {(
-          [
-            ['→', 'Across', x],
-            ['↑', 'Up', y],
-          ] as const
-        ).map(([arrow, way, axis]) => (
-          <div className={cx('map-read-item')} key={way}>
-            <dt>
-              <span className={cx('map-fig-axis')} aria-hidden="true">
-                {arrow}
-              </span>
-              <span className={cx('sr-only')}>{`${way}: `}</span>
-              {axis.label}
-            </dt>
-            {axis.note ? <dd>{axis.note}</dd> : null}
-          </div>
-        ))}
-        <div className={cx('map-read-item')}>
-          <dt>
-            <span className={cx('map-fig-axis')} aria-hidden="true">
-              ○
-            </span>
-            <span className={cx('sr-only')}>Size: </span>
-            {config.copy.band.name}
-          </dt>
-          <dd>{`An editorial band, ${BAND_LABELS[0]} to ${BAND_LABELS[BAND_LABELS.length - 1]}; not a count.`}</dd>
-        </div>
-      </dl>
-      <p className={cx('map-read-hint')}>
-        Select a bubble to pin its figures here.
-      </p>
     </div>
   );
 }
@@ -395,10 +358,16 @@ export function FieldMap() {
 
   const r = relation(shown, x, y);
   const count = resultText(visible.size, records.length, config.nouns);
+  // A filtered field says so: the sentence is about the bubbles still in colour, not all of them.
+  const sentence = relationText(r, x, y);
   const finding =
     visible.size === 0
       ? `No ${config.nouns[0]} matches, so every bubble is greyed out.`
-      : relationText(r, x, y) || `${count} shown.`;
+      : !sentence
+        ? `${count} shown.`
+        : visible.size < records.length
+          ? `${sentence} (${visible.size} of ${records.length} shown)`
+          : sentence;
 
   const local = (e: { clientX: number; clientY: number }) => {
     const box = canvas.current!.getBoundingClientRect();
@@ -505,22 +474,25 @@ export function FieldMap() {
           </div>
           <div className={cx('map-axes')}>
             {/* Picking the figure the other axis already shows swaps the two. */}
-            <AxisSelect id="map-x" label="Across" value={xKey} onChange={(k) => setAxes(k, k === yKey ? xKey : yKey)} />
+            <AxisSelect id="map-x" label="X axis" value={xKey} onChange={(k) => setAxes(k, k === yKey ? xKey : yKey)} />
             <button type="button" className={cx('map-swap')} aria-label="Swap axes" title="Swap axes" onClick={() => setAxes(yKey, xKey)}>
               <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
                 <path d="M2.5 5.5h11M10.5 2.5l3 3-3 3M13.5 10.5h-11M5.5 7.5l-3 3 3 3" />
               </svg>
             </button>
-            <AxisSelect id="map-y" label="Up" value={yKey} onChange={(k) => setAxes(k === xKey ? yKey : xKey, k)} />
+            <AxisSelect id="map-y" label="Y axis" value={yKey} onChange={(k) => setAxes(k === xKey ? yKey : xKey, k)} />
           </div>
         </div>
 
         <div className={cx('map-body')}>
           <figure className={cx('map-plot')}>
-            {/* Not a live region: the result count above already speaks for every filter change. */}
-            <figcaption className={cx('map-finding')} id="map-finding">
-              {finding}
-            </figcaption>
+            <div className={cx('map-plot-head')}>
+              {/* Not a live region: the result count above already speaks for every filter change. */}
+              <figcaption className={cx('map-finding')} id="map-finding">
+                {finding}
+              </figcaption>
+              {!pinned ? <p className={cx('map-hint')}>Select a bubble to pin its scorecard</p> : null}
+            </div>
             <div className={cx('map-canvas')} ref={canvas} data-live={live ? '' : undefined}>
               <svg
                 className={cx('map-svg')}
@@ -709,8 +681,8 @@ export function FieldMap() {
             </p>
           </figure>
 
-          <aside className={cx('map-side')} aria-label={pinned ? `${pinned.name}, pinned` : 'Reading the map'}>
-            {pinned ? (
+          {pinned ? (
+            <aside className={cx('map-side')} aria-label={`${pinned.name}, pinned`}>
               <Pinned
                 config={config}
                 record={pinned}
@@ -722,10 +694,8 @@ export function FieldMap() {
                 }}
                 onOpen={() => openRecord(pinned.slug)}
               />
-            ) : (
-              <Reading x={x} y={y} config={config} />
-            )}
-          </aside>
+            </aside>
+          ) : null}
         </div>
       </div>
     </section>

@@ -44,13 +44,17 @@ for (const s of SEEDS) {
     expect(new Set(rows)).toEqual(new Set(s.records.map((r) => r.slug)));
   });
 
-  test(`${s.slug}: one record's detail and the dataset are served`, async ({ request }) => {
+  test(`${s.slug}: one record's detail is served, and a CSV only when the directory publishes one`, async ({ request }) => {
     const first = s.records[0]!;
     const detail = await request.get(`/api/v1/directories/${s.slug}/records/${first.slug}`);
     expect(detail.status()).toBe(200);
     expect(((await detail.json()) as { slug: string }).slug).toBe(first.slug);
 
     const csv = await request.get(`/${s.csvFile}`);
+    if (s.slug === 'open-source') {
+      expect(csv.status()).toBe(404);
+      return;
+    }
     expect(csv.status()).toBe(200);
     expect(csv.headers()['content-type']).toContain('text/csv');
     // A header row and one row per record (fields are quoted; none spans lines).
